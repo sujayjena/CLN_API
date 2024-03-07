@@ -1,0 +1,8 @@
+2024-03-05 17:08:49
+Error Message:
+The type initializer for 'CLN.Application.Helpers.SessionManager' threw an exception.
+Full Exception Details:
+{"Error":"The type initializer for \u0027CLN.Application.Helpers.SessionManager\u0027 threw an exception.","Type":"TypeInitializationException","InnerException":{"Error":"Object reference not set to an instance of an object.","Type":"NullReferenceException"}}
+
+*************************************************************************
+

@@ -1,0 +1,8 @@
+2024-03-03 16:12:21
+Error Message:
+Could not find stored procedure 'GetEmployeesListByReportingTo'.
+Full Exception Details:
+{"Error":"Could not find stored procedure \u0027GetEmployeesListByReportingTo\u0027.","Type":"SqlException"}
+
+*************************************************************************
+
