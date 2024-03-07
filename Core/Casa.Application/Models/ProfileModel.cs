@@ -9,9 +9,6 @@ namespace CLN.Application.Models
     public class RoleRequest
     {
         public long RoleId { get; set; }
-        [Required(ErrorMessage = ValidationConstants.RoleNameRequied_Msg)]
-        [RegularExpression(ValidationConstants.RoleNameRegExp, ErrorMessage = ValidationConstants.RoleNameRegExp_Msg)]
-        [MaxLength(ValidationConstants.RoleName_MaxLength, ErrorMessage = ValidationConstants.RoleName_MaxLength_Msg)]
         public string RoleName { get; set; }
         public bool IsActive { get; set; }
     }
@@ -46,9 +43,9 @@ namespace CLN.Application.Models
     public class ReportingToRequest
     {
         public long Id { get; set; }
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.RoleRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "RoleId is requied")]
         public long RoleId { get; set; }
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.ReportingToRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "ReportingTo is requied")]
         public long ReportingTo { get; set; }
         public bool IsActive { get; set; }
     }
@@ -101,9 +98,7 @@ namespace CLN.Application.Models
         [MaxLength(ValidationConstants.UserName_MaxLength, ErrorMessage = ValidationConstants.UserName_MaxLength_Msg)]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = ValidationConstants.EmpCodeRequired_Msg)]
-        [RegularExpression(ValidationConstants.EmpCodeRegExp, ErrorMessage = ValidationConstants.EmpCodeRegExp_Msg)]
-        [MaxLength(ValidationConstants.EmpCode_MaxLength, ErrorMessage = ValidationConstants.EmpCode_MaxLength_Msg)]
+        [Required(ErrorMessage = "UserCode is required")]
         public string UserCode { get; set; }
 
         //[Required(ErrorMessage = ValidationConstants.EmailIdRequied_Msg)]
@@ -167,7 +162,6 @@ namespace CLN.Application.Models
         public bool IsToDeletePanCard { get; set; }
 
         //[Required(ErrorMessage = ValidationConstants.AddressRequied_Msg)]
-        [MaxLength(ValidationConstants.Address_MaxLength, ErrorMessage = ValidationConstants.Address_MaxLength_Msg)]
         public string Address { get; set; }
 
         //[Range(1, long.MaxValue, ErrorMessage = ValidationConstants.StateRequied_Dropdown_Msg)]
@@ -256,7 +250,7 @@ namespace CLN.Application.Models
 
     public class UpdateEmployeeDetailsRequest
     {
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.EmpIdRequired_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "EmployeeId is required")]
         public long EmployeeId { get; set; }
 
         [Required(ErrorMessage = ValidationConstants.UserNameRequied_Msg)]
@@ -264,9 +258,7 @@ namespace CLN.Application.Models
         [MaxLength(ValidationConstants.UserName_MaxLength, ErrorMessage = ValidationConstants.UserName_MaxLength_Msg)]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = ValidationConstants.EmpCodeRequired_Msg)]
-        [RegularExpression(ValidationConstants.EmpCodeRegExp, ErrorMessage = ValidationConstants.EmpCodeRegExp_Msg)]
-        [MaxLength(ValidationConstants.EmpCode_MaxLength, ErrorMessage = ValidationConstants.EmpCode_MaxLength_Msg)]
+        [Required(ErrorMessage = "UserCode is required")]
         public string UserCode { get; set; }
 
         [Required(ErrorMessage = ValidationConstants.EmailIdRequied_Msg)]
@@ -279,10 +271,10 @@ namespace CLN.Application.Models
         [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
         public string MobileNumber { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.RoleRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "RoleId is required")]
         public long RoleId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.ReportingToRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "ReportingTo is required")]
         public long ReportingTo { get; set; }
 
         [Required(ErrorMessage = ValidationConstants.MobileNumberRequied_Msg)]
@@ -290,23 +282,22 @@ namespace CLN.Application.Models
         [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
         public string ManagerMobileNumber { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.AddressIdRequired_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "AddressId is required")]
         public long AddressId { get; set; }
 
-        [Required(ErrorMessage = ValidationConstants.AddressRequied_Msg)]
-        [MaxLength(ValidationConstants.Address_MaxLength, ErrorMessage = ValidationConstants.Address_MaxLength_Msg)]
+        [Required(ErrorMessage = "Address is required")]
         public string Address { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.StateRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "StateId is required")]
         public long StateId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.ReportingToRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "RegionId is required")]
         public long RegionId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.DistrictRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "DistrictId is required")]
         public long DistrictId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationConstants.AreaRequied_Dropdown_Msg)]
+        [Range(1, long.MaxValue, ErrorMessage = "AreaId is required")]
         public long AreaId { get; set; }
 
         [Required(ErrorMessage = ValidationConstants.PincodeRequied_Msg)]

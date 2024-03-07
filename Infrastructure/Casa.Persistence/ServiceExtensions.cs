@@ -16,13 +16,9 @@ namespace CLN.Persistence
             //var connectionString = configuration.GetConnectionString("DefaultConnection");
             //services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
 
-            //services.AddScoped<IGenericRepository, GenericRepository>();
-            services.AddScoped(typeof(IGenericRepository), typeof(GenericRepository));
-            //services.AddScoped<ICommonRepository, CommonRepository>();
-            //services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IJwtUtilsRepository, JwtUtilsRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
-            //services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
         }
     }
 }
