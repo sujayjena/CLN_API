@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace CLN.Application.Models
 {
-    public class LoginByMobileNoRequestModel
+    public class LoginByMobileNumberRequestModel
     {
         [Required(ErrorMessage = ValidationConstants.MobileNumberRequied_Msg)]
         [RegularExpression(ValidationConstants.MobileNumberRegExp, ErrorMessage = ValidationConstants.MobileNumberRegExp_Msg)]
         [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
-        public string MobileNo { get; set; }
+        public string MobileNumber { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
@@ -29,7 +29,7 @@ namespace CLN.Application.Models
         [Required(ErrorMessage = ValidationConstants.MobileNumberRequied_Msg)]
         [RegularExpression(ValidationConstants.MobileNumberRegExp, ErrorMessage = ValidationConstants.MobileNumberRegExp_Msg)]
         [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
-        public string MobileNo { get; set; }
+        public string MobileNumber { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
@@ -48,7 +48,7 @@ namespace CLN.Application.Models
         [Required(ErrorMessage = ValidationConstants.MobileNumberRequied_Msg)]
         [RegularExpression(ValidationConstants.MobileNumberRegExp, ErrorMessage = ValidationConstants.MobileNumberRegExp_Msg)]
         [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
-        public string MobileNo { get; set; }
+        public string MobileNumber { get; set; }
     }
 
     public class LoginByOTPRequestModel : LoginOTPRequestModel
@@ -58,5 +58,57 @@ namespace CLN.Application.Models
         [MinLength(ValidationConstants.OTP_MinLength, ErrorMessage = ValidationConstants.OTP_Range_Msg)]
         [MaxLength(ValidationConstants.OTP_MaxLength, ErrorMessage = ValidationConstants.OTP_Range_Msg)]
         public string OTP { get; set; }
+    }
+
+
+    // Login Response
+    public class UsersLoginSessionData
+    {
+        public long? UserId { get; set; }
+        public string UserCode { get; set; }
+        public string UserName { get; set; }
+        public string MobileNumber { get; set; }
+        public string EmailId { get; set; }
+        public string UserType { get; set; }
+        public int? RoleId { get; set; }
+        public string RoleName { get; set; }
+        public bool IsWebUser { get; set; }
+        public bool IsMobileUser { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class SessionDataCustomer
+    {
+        public string UserName { get; set; }
+        public string MobileNumber { get; set; }
+        public string EmailId { get; set; }
+        public string UserType { get; set; }
+        public string Token { get; set; }
+    }
+
+    public class SessionDataEmployee
+    {
+        public long? UserId { get; set; }
+        public string UserCode { get; set; }
+        public string UserName { get; set; }
+        public string MobileNumber { get; set; }
+        public string EmailId { get; set; }
+        public string UserType { get; set; }
+        public int? RoleId { get; set; }
+        public string RoleName { get; set; }
+        public bool IsWebUser { get; set; }
+        public bool IsMobileUser { get; set; }
+        public bool IsActive { get; set; }
+        public string Token { get; set; }
+        public List<RoleMasterEmployeePermissionList> UserRoleList { get; set; }
+    }
+    public class RoleMasterEmployeePermissionList
+    {
+        public string AppType { get; set; }
+        public long ModuleId { get; set; }
+        public string ModuleName { get; set; }
+        public bool View { get; set; }
+        public bool Add { get; set; }
+        public bool Edit { get; set; }
     }
 }

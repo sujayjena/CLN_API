@@ -1,460 +1,82 @@
-﻿using CLN.Application.Constants;
-using CLN.Domain.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using CLN.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CLN.Application.Models
 {
-    public class RoleRequest
+    public class ProfileModel
     {
-        public long RoleId { get; set; }
-        public string RoleName { get; set; }
-        public bool IsActive { get; set; }
     }
 
+    #region Department
 
-    public class SearchRoleRequest
+    public class Department_Request : BaseEntity
     {
-        public PaginationParameters pagination { get; set; }
-        public string RoleName { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    }
-    public class RoleResponse : CreationDetails
-    {
-        public long RoleId { get; set; }
-        public string RoleName { get; set; }
-        public bool IsActive { get; set; }
+        public string DepartmentName { get; set; }
+
+        public bool? IsActive { get; set; }
     }
 
-    public class ImportedRoleDetails
+    public class Department_Response : BaseResponseEntity
     {
-        public string RoleName { get; set; }
-        public string IsActive { get; set; }
+        public string DepartmentName { get; set; }
+
+        public bool? IsActive { get; set; }
     }
 
-    public class RoleDataValidationErrors
+    #endregion
+
+    #region Role
+
+    public class Role_Request : BaseEntity
     {
         public string RoleName { get; set; }
-        public string IsActive { get; set; }
-        public string ValidationMessage { get; set; }
+
+        public int? DepartmentId { get; set; }
+
+        public bool? IsActive { get; set; }
     }
 
-    public class ReportingToRequest
+    public class Role_Response : BaseResponseEntity
     {
-        public long Id { get; set; }
-        [Range(1, long.MaxValue, ErrorMessage = "RoleId is requied")]
-        public long RoleId { get; set; }
-        [Range(1, long.MaxValue, ErrorMessage = "ReportingTo is requied")]
-        public long ReportingTo { get; set; }
-        public bool IsActive { get; set; }
-    }
-    public class ReportingToResponse
-    {
-        public long Id { get; set; }
-        public long RoleId { get; set; }
         public string RoleName { get; set; }
-        public long ReportingTo { get; set; }
-        public bool IsActive { get; set; }
-        public string CreatorName { get; set; }
-        public long CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+
+        public string DepartmentName { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region RoleHierarchy
+
+    public class RoleHierarchy_Request : BaseEntity
+    {
+        [Required]
+        public int RoleId { get; set; }
+
+        public int? ReportingTo { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class RoleHierarchy_Response : BaseResponseEntity
+    {
+        public int RoleId { get; set; }
+
+        public string RoleName { get; set; }
+
+        public int ReportingTo { get; set; }
+
         public string ReportingToName { get; set; }
+
+        public bool? IsActive { get; set; }
     }
 
-    public class SearchReportingToRequest
-    {
-        public PaginationParameters pagination { get; set; }
-        public long ReportingTo { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    }
-    public class ImportedReportingToDetails
-    {
-        public string RoleName { get; set; }
-        public string ReportingToName { get; set; }
-        public string IsActive { get; set; }
-    }
-
-    public class ReportingToDataValidationErrors
-    {
-        public string RoleName { get; set; }
-        public string ReportingToName { get; set; }
-        public string IsActive { get; set; }
-        public string ValidationMessage { get; set; }
-    }
-    public class SearchEmployeeRequest
-    {
-        public PaginationParameters pagination { get; set; }
-        public string UserName { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    }
-
-    public class EmployeeRequest
-    {
-        public long EmployeeId { get; set; }
-
-        [Required(ErrorMessage = ValidationConstants.UserNameRequied_Msg)]
-        [RegularExpression(ValidationConstants.UserNameRegExp, ErrorMessage = ValidationConstants.UserNameRegExp_Msg)]
-        [MaxLength(ValidationConstants.UserName_MaxLength, ErrorMessage = ValidationConstants.UserName_MaxLength_Msg)]
-        public string UserName { get; set; }
-
-        [Required(ErrorMessage = "UserCode is required")]
-        public string UserCode { get; set; }
-
-        //[Required(ErrorMessage = ValidationConstants.EmailIdRequied_Msg)]
-        //[RegularExpression(ValidationConstants.EmailRegExp, ErrorMessage = ValidationConstants.EmailRegExp_Msg)]
-        [MaxLength(ValidationConstants.Email_MaxLength, ErrorMessage = ValidationConstants.Email_MaxLength_Msg)]
-        public string EmailId { get; set; }
-
-        [Required(ErrorMessage = ValidationConstants.MobileNumberRequied_Msg)]
-        [RegularExpression(ValidationConstants.MobileNumberRegExp, ErrorMessage = ValidationConstants.MobileNumberRegExp_Msg)]
-        [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
-        public string MobileNumber { get; set; }
-
-        //[Range(1, long.MaxValue, ErrorMessage = ValidationConstants.RoleRequied_Dropdown_Msg)]
-        public long RoleId { get; set; }
-
-        //[Range(1, long.MaxValue, ErrorMessage = ValidationConstants.ReportingToRequied_Dropdown_Msg)]
-        public long? ReportingTo { get; set; }
-
-        //[Required(ErrorMessage = ValidationConstants.DateOfBirthRequied_Msg)]
-        public DateTime? DateOfBirth { get; set; }
-
-        //[Required(ErrorMessage = ValidationConstants.DateOfJoiningRequied_Msg)]
-        public DateTime? DateOfJoining { get; set; }
-        public string EmergencyContactNumber { get; set; }
-        public int? BloodGroupId { get; set; }
-        public bool IsWebUser { get; set; }
-        public bool IsMobileUser { get; set; }
-        public bool IsActive { get; set; }
-
-        //[Required(ErrorMessage = "Initial Password value is required")]
-        //[MaxLength(20, ErrorMessage = "More than 20 characters are not allowed for Initial Password")]
-        public string InitialPassword { get; set; }
-
-        [MaxLength(ValidationConstants.MobileUniqueId_MaxLength, ErrorMessage = ValidationConstants.MobileUniqueId_MaxLength_Msg)]
-        public string MobileUniqueId { get; set; }
-
-        public IFormFile ProfilePicture { get; set; }
-
-        [JsonIgnore]
-        public string FileOriginalName { get; set; }
-
-        [JsonIgnore]
-        public string ImageUpload { get; set; }
-
-        public IFormFile AdharCard { get; set; }
-
-        [JsonIgnore]
-        public string AdharCardFileName { get; set; }
-        [JsonIgnore]
-        public string AdharCardSavedFileName { get; set; }
-
-        public IFormFile PanCard { get; set; }
-
-        [JsonIgnore]
-        public string PanCardFileName { get; set; }
-        [JsonIgnore]
-        public string PanCardSavedFileName { get; set; }
-
-        public bool IsToDeleteProfilePic { get; set; }
-        public bool IsToDeleteAdharCard { get; set; }
-        public bool IsToDeletePanCard { get; set; }
-
-        //[Required(ErrorMessage = ValidationConstants.AddressRequied_Msg)]
-        public string Address { get; set; }
-
-        //[Range(1, long.MaxValue, ErrorMessage = ValidationConstants.StateRequied_Dropdown_Msg)]
-        public long StateId { get; set; }
-
-        //[Range(1, long.MaxValue, ErrorMessage = ValidationConstants.ReportingToRequied_Dropdown_Msg)]
-        public long RegionId { get; set; }
-
-        //[Range(1, long.MaxValue, ErrorMessage = ValidationConstants.DistrictRequied_Dropdown_Msg)]
-        public long DistrictId { get; set; }
-
-        //[Range(1, long.MaxValue, ErrorMessage = ValidationConstants.AreaRequied_Dropdown_Msg)]
-        public long AreaId { get; set; }
-
-        //[Required(ErrorMessage = ValidationConstants.PincodeRequied_Msg)]
-        //[RegularExpression(ValidationConstants.PincodeExp, ErrorMessage = ValidationConstants.Pincode_Validation_Msg)]
-        //[MaxLength(ValidationConstants.Pincode_MaxLength, ErrorMessage = ValidationConstants.Pincode_MaxLength_Msg)]
-        //[MinLength(ValidationConstants.Pincode_MinLength, ErrorMessage = ValidationConstants.Pincode_MinLength_Msg)]
-        public string Pincode { get; set; }
-    }
-
-    public class EmployeeResponse : CreationDetails
-    {
-        public long EmployeeId { get; set; }
-        public string UserName { get; set; }
-        public string UserCode { get; set; }
-        public string EmailId { get; set; }
-        public string MobileNumber { get; set; }
-        public string Passwords { get; set; }
-        public long RoleId { get; set; }
-        public string RoleName { get; set; }
-        public long ReportingTo { get; set; }
-        public string ReportingToName { get; set; }
-        public string ManagerMobileNo { get; set; }
-        public long AddressId { get; set; }
-        public string Address { get; set; }
-        public long StateId { get; set; }
-        public string StateName { get; set; }
-        public long RegionId { get; set; }
-        public string RegionName { get; set; }
-        public long DistrictId { get; set; }
-        public string DistrictName { get; set; }
-        public long AreaId { get; set; }
-        public string AreaName { get; set; }
-        public string Pincode { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public DateTime DateOfJoining { get; set; }
-        public string EmergencyContactNumber { get; set; }
-        public int? BloodGroupId { get; set; }
-        public string BloodGroup { get; set; }
-        public bool IsWebUser { get; set; }
-        public bool IsMobileUser { get; set; }
-        public bool IsActive { get; set; }
-        public string MobileUniqueId { get; set; }
-        //public IFormFile FileOriginalName { get; set; }
-
-        [JsonIgnore]
-        public string ImageUpload { get; set; }
-        public string FileOriginalName { get; set; }
-
-        public string AdharCardFileName { get; set; }
-        public string AdharCardSavedFileName { get; set; }
-
-        public string PanCardFileName { get; set; }
-        public string PanCardSavedFileName { get; set; }
-
-        public byte[] ProfilePicture { get; set; }
-        public byte[] AdharCardPicture { get; set; }
-        public byte[] PanCardPicture { get; set; }
-
-        public string ProfilePictureUrl { get; set; }
-        public string AdharCardPictureUrl { get; set; }
-        public string PanCardPictureUrl { get; set; }
-    }
-    public class EmployeeReportingToResponse
-    {
-        public long EmployeeId { get; set; }
-        public string UserName { get; set; }
-    }
-
-        public class ProfilePictureRequest
-    {
-        //[RegularExpression(ValidationConstants.ImageFileRegExp, ErrorMessage = ValidationConstants.ImageFileRegExp_Msg)]
-        public IFormFile ProfilePicture { get; set; }
-    }
-
-    public class UpdateEmployeeDetailsRequest
-    {
-        [Range(1, long.MaxValue, ErrorMessage = "EmployeeId is required")]
-        public long EmployeeId { get; set; }
-
-        [Required(ErrorMessage = ValidationConstants.UserNameRequied_Msg)]
-        [RegularExpression(ValidationConstants.UserNameRegExp, ErrorMessage = ValidationConstants.UserNameRegExp_Msg)]
-        [MaxLength(ValidationConstants.UserName_MaxLength, ErrorMessage = ValidationConstants.UserName_MaxLength_Msg)]
-        public string UserName { get; set; }
-
-        [Required(ErrorMessage = "UserCode is required")]
-        public string UserCode { get; set; }
-
-        [Required(ErrorMessage = ValidationConstants.EmailIdRequied_Msg)]
-        [RegularExpression(ValidationConstants.EmailRegExp, ErrorMessage = ValidationConstants.EmailRegExp_Msg)]
-        [MaxLength(ValidationConstants.Email_MaxLength, ErrorMessage = ValidationConstants.Email_MaxLength_Msg)]
-        public string EmailId { get; set; }
-
-        [Required(ErrorMessage = ValidationConstants.MobileNumberRequied_Msg)]
-        [RegularExpression(ValidationConstants.MobileNumberRegExp, ErrorMessage = ValidationConstants.MobileNumberRegExp_Msg)]
-        [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
-        public string MobileNumber { get; set; }
-
-        [Range(1, long.MaxValue, ErrorMessage = "RoleId is required")]
-        public long RoleId { get; set; }
-
-        [Range(1, long.MaxValue, ErrorMessage = "ReportingTo is required")]
-        public long ReportingTo { get; set; }
-
-        [Required(ErrorMessage = ValidationConstants.MobileNumberRequied_Msg)]
-        [RegularExpression(ValidationConstants.MobileNumberRegExp, ErrorMessage = ValidationConstants.MobileNumberRegExp_Msg)]
-        [MaxLength(ValidationConstants.MobileNumber_MaxLength, ErrorMessage = ValidationConstants.MobileNumber_MaxLength_Msg)]
-        public string ManagerMobileNumber { get; set; }
-
-        [Range(1, long.MaxValue, ErrorMessage = "AddressId is required")]
-        public long AddressId { get; set; }
-
-        [Required(ErrorMessage = "Address is required")]
-        public string Address { get; set; }
-
-        [Range(1, long.MaxValue, ErrorMessage = "StateId is required")]
-        public long StateId { get; set; }
-
-        [Range(1, long.MaxValue, ErrorMessage = "RegionId is required")]
-        public long RegionId { get; set; }
-
-        [Range(1, long.MaxValue, ErrorMessage = "DistrictId is required")]
-        public long DistrictId { get; set; }
-
-        [Range(1, long.MaxValue, ErrorMessage = "AreaId is required")]
-        public long AreaId { get; set; }
-
-        [Required(ErrorMessage = ValidationConstants.PincodeRequied_Msg)]
-        [RegularExpression(ValidationConstants.PincodeExp, ErrorMessage = ValidationConstants.Pincode_Validation_Msg)]
-        [MaxLength(ValidationConstants.Pincode_MaxLength, ErrorMessage = ValidationConstants.Pincode_MaxLength_Msg)]
-        [MinLength(ValidationConstants.Pincode_MinLength, ErrorMessage = ValidationConstants.Pincode_MinLength_Msg)]
-        public string Pincode { get; set; }
-    }
-
-    public class ImportedEmployeeDetails
-    {
-        public string UserName { get; set; }
-        public string UserCode { get; set; }
-        public string EmailId { get; set; }
-        public string MobileNumber { get; set; }
-        public string RoleName { get; set; }
-        public string ReportingToName { get; set; }
-        public string Address { get; set; }
-        public string StateName { get; set; }
-        public string RegionName { get; set; }
-        public string DistrictName { get; set; }
-        public string AreaName { get; set; }
-        public string Pincode { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public DateTime DateOfJoining { get; set; }
-        public string EmergencyContactNumber { get; set; }
-        public string BloodGroup { get; set; }
-        public string IsWebUser { get; set; }
-        public string IsMobileUser { get; set; }
-        public string IsActive { get; set; }
-    }
-
-    public class EmployeeDataValidationErrors
-    {
-        public string UserName { get; set; }
-        public string UserCode { get; set; }
-        public string EmailId { get; set; }
-        public string MobileNumber { get; set; }
-        public string RoleName { get; set; }
-        public string ReportingToName { get; set; }
-        public string Address { get; set; }
-        public string StateName { get; set; }
-        public string RegionName { get; set; }
-        public string DistrictName { get; set; }
-        public string AreaName { get; set; }
-        public string Pincode { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public DateTime DateOfJoining { get; set; }
-        public string EmergencyContactNumber { get; set; }
-        public string BloodGroup { get; set; }
-        public string IsWebUser { get; set; }
-        public string IsMobileUser { get; set; }
-        public string ValidationMessage { get; set; }
-        public string IsActive { get; set; }
-    }
-
-    public class SearchModuleMasterRequest
-    {
-        public PaginationParameters pagination { get; set; }
-        public string ModuleName { get; set; }
-        public string AppType { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    }
-
-    public class ModuleMaster_Request
-    {
-        public long ModuleId { get; set; }
-        public long ModuleName { get; set; }
-        public long AppType { get; set; }
-        public long IsActive { get; set; }
-
-        public long CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public long ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
-    }
-
-    public class ModuleMaster_Response
-    {
-        public long ModuleId { get; set; }
-        public string ModuleName { get; set; }
-        public string AppType { get; set; }
-        public bool IsActive { get; set; }
-
-        public long CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public long ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
-    }
-
-    public class ModuleList
-    {
-        public long ModuleId { get; set; }
-        public bool View { get; set; }
-        public bool Add { get; set; }
-        public bool Edit { get; set; }
-    }
-
-    public class SearchRoleMaster_PermissionRequest
-    {
-        public PaginationParameters pagination { get; set; }
-        public long RoleId { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    }
-
-    public class RoleMaster_Permission_Request
-    {
-        public long RolePermissionId { get; set; }
-        public long RoleId { get; set; }
-        public string AppType { get; set; }
-        public bool IsActive { get; set; }
-
-        public List<ModuleList> ModuleList { get; set; }
-    }
-
-    public class RoleMaster_Permission_Response
-    {
-        public string AppType { get; set; }
-        //public long RolePermissionId { get; set; }
-        //public long RoleId { get; set; }
-        //public string RoleName { get; set; }
-        public long ModuleId { get; set; }
-        public string ModuleName { get; set; }
-        public bool View { get; set; }
-        public bool Add { get; set; }
-        public bool Edit { get; set; }
-    }
-
-    public class SearchRoleMaster_Employee_PermissionRequest
-    {
-        public PaginationParameters pagination { get; set; }
-        public long EmployeeId { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    }
-
-    public class RoleMaster_Employee_Permission_Request
-    {
-        public long RolePermissionId { get; set; }
-        public long RoleId { get; set; }
-        public string AppType { get; set; }
-        public long EmployeeId { get; set; }
-        public bool IsActive { get; set; }
-
-        public List<ModuleList> ModuleList { get; set; }
-    }
-
-    public class RoleMaster_Employee_Permission_Response
-    {
-        public string AppType { get; set; }
-        //public long EmployeePermissionId { get; set; }
-        //public long EmployeeId { get; set; }
-        //public long RoleId { get; set; }
-        //public string RoleName { get; set; }
-        public long ModuleId { get; set; }
-        public string ModuleName { get; set; }
-        public bool View { get; set; }
-        public bool Add { get; set; }
-        public bool Edit { get; set; }
-    }
+    #endregion
 }

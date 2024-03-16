@@ -17,12 +17,12 @@ namespace CLN.Persistence.Repositories
     public class JwtUtilsRepository : IJwtUtilsRepository
     {
         private readonly AppSettings _appSettings;
-        private readonly IProfileRepository _profileRepository;
+        private readonly ILoginRepository _loginRepository;
 
-        public JwtUtilsRepository(IOptions<AppSettings> appSettings, IProfileRepository profileRepository)
+        public JwtUtilsRepository(IOptions<AppSettings> appSettings, ILoginRepository loginRepository)
         {
             _appSettings = appSettings.Value;
-            _profileRepository = profileRepository;
+            _loginRepository = loginRepository;
         }
 
         public (string, DateTime) GenerateJwtToken(UsersLoginSessionData parameters)
@@ -33,14 +33,14 @@ namespace CLN.Persistence.Repositories
             List<Claim> claims = new List<Claim>();
             DateTime tokenExpiryDateTime;
 
-            claims.Add(new Claim("Id", EncryptDecryptHelper.EncryptString(parameters.UserId.ToString())));
+            claims.Add(new Claim("UserId", EncryptDecryptHelper.EncryptString(parameters.UserId.ToString())));
+            claims.Add(new Claim("MobileNumber", parameters.MobileNumber));
             claims.Add(new Claim("EmailId", parameters.EmailId));
-            claims.Add(new Claim("MobileNo", parameters.MobileNo));
 
             if (parameters.UserId != null)
             {
                 claims.Add(new Claim("UserCode", parameters.UserCode));
-                claims.Add(new Claim("Name", parameters.FirstName + " " + parameters.LastName));
+                claims.Add(new Claim("UserName", parameters.UserName));
                 claims.Add(new Claim("RoleName", parameters.RoleName));
             }
             //else if (parameters.CustomerId != null)
@@ -93,9 +93,7 @@ namespace CLN.Persistence.Repositories
 
                 jwtToken = (JwtSecurityToken)validatedToken;
 
-
-
-                response = await _profileRepository.GetProfileDetailsByToken(token);
+                response = await _loginRepository.GetProfileDetailsByToken(token);
 
                 //Update LastAccessOn in UsersLoginHistory table
 

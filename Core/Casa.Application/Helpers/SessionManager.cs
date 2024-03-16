@@ -11,7 +11,7 @@ namespace CLN.Application.Helpers
         static SessionManager()
         {
             UsersLoginSessionData? sessionData = (UsersLoginSessionData?)new HttpContextAccessor().HttpContext.Items["SessionData"]!;
-            LoggedInUserId = sessionData.UserId??0;
+            LoggedInUserId = sessionData.UserId ?? 0;
         }
 
         //public static void InitializesSessionData()

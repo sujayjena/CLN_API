@@ -18,7 +18,11 @@ namespace CLN.Persistence
 
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IJwtUtilsRepository, JwtUtilsRepository>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<ITerritoryRepository, TerritoryRepository>();
+            services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
         }
     }
 }

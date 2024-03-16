@@ -16,58 +16,135 @@ namespace CLN.Persistence.Repositories
         {
             _configuration = configuration;
         }
-        public async Task<IEnumerable<RoleResponse>> GetRolesList(SearchRoleRequest parameters)
+
+        #region Department
+
+        public async Task<int> SaveDepartment(Department_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@PageNo", parameters.pagination.PageNo);
-            queryParameters.Add("@PageSize", parameters.pagination.PageSize);
-            queryParameters.Add("@Total", parameters.pagination.Total, null, System.Data.ParameterDirection.Output);
-            queryParameters.Add("@SortBy", parameters.pagination.SortBy.SanitizeValue());
-            queryParameters.Add("@OrderBy", parameters.pagination.OrderBy.SanitizeValue());
-            queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
+            queryParameters.Add("@DepartmentName", parameters.DepartmentName.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<RoleResponse>("GetRoles", queryParameters);
-            parameters.pagination.Total = queryParameters.Get<int>("Total");
+            return await SaveByStoredProcedure<int>("SaveDepartment", queryParameters);
+        }
+
+        public async Task<IEnumerable<Department_Response>> GetDepartmentList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<Department_Response>("GetDepartmentList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
-    
 
-        public async Task<UsersLoginSessionData?> ValidateUserLoginByEmail(LoginByMobileNoRequestModel parameters)
-        {
-            IEnumerable<UsersLoginSessionData> lstResponse;
-            DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@Username", parameters.MobileNo.SanitizeValue());
-            queryParameters.Add("@Password", parameters.Password.SanitizeValue());
-            queryParameters.Add("@MobileUniqueId", parameters.MobileUniqueId.SanitizeValue());
-
-            lstResponse = await ListByStoredProcedure<UsersLoginSessionData>("ValidateUserLoginByUsername", queryParameters);
-            return lstResponse.FirstOrDefault();
-        }
-
-        public async Task SaveUserLoginHistory(UserLoginHistorySaveParameters parameters)
+        public async Task<Department_Response?> GetDepartmentById(long Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@UserId", parameters.UserId);
-            queryParameters.Add("@UserToken", parameters.UserToken.SanitizeValue());
-            queryParameters.Add("@TokenExpireOn", parameters.TokenExpireOn);
-            queryParameters.Add("@DeviceName", parameters.DeviceName.SanitizeValue());
-            queryParameters.Add("@IPAddress", parameters.IPAddress.SanitizeValue());
-            queryParameters.Add("@RememberMe", parameters.RememberMe);
-            queryParameters.Add("@IsLoggedIn", parameters.IsLoggedIn);
-
-            await ExecuteNonQuery("SaveUserLoginHistory", queryParameters);
+            queryParameters.Add("@Id", Id);
+            return (await ListByStoredProcedure<Department_Response>("GetDepartmentById", queryParameters)).FirstOrDefault();
         }
 
-        public async Task<UsersLoginSessionData?> GetProfileDetailsByToken(string token)
+        #endregion
+
+        #region Role 
+
+        public async Task<int> SaveRole(Role_Request parameters)
         {
-            IEnumerable<UsersLoginSessionData> lstResponse;
             DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@Token", token);
-            lstResponse = await ListByStoredProcedure<UsersLoginSessionData>("GetProfileDetailsByToken", queryParameters);
+            queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
+            queryParameters.Add("@DepartmentId", parameters.DepartmentId.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return lstResponse.FirstOrDefault();
+            return await SaveByStoredProcedure<int>("SaveRole", queryParameters);
         }
+
+        public async Task<IEnumerable<Role_Response>> GetRoleList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<Role_Response>("GetRoleList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<Role_Response?> GetRoleById(long Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+            return (await ListByStoredProcedure<Role_Response>("GetRoleById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region RoleHierarchy 
+
+        public async Task<int> SaveRoleHierarchy(RoleHierarchy_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@RoleId", parameters.RoleId);
+            queryParameters.Add("@ReportingTo", parameters.ReportingTo);
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveRoleHierarchy", queryParameters);
+        }
+
+        public async Task<IEnumerable<RoleHierarchy_Response>> GetRoleHierarchyList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<RoleHierarchy_Response>("GetRoleHierarchyList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<RoleHierarchy_Response?> GetRoleHierarchyById(long Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+            return (await ListByStoredProcedure<RoleHierarchy_Response>("GetRoleHierarchyById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
+
+        //public async Task<IEnumerable<RoleResponse>> GetRolesList(SearchRoleRequest parameters)
+        //{
+        //    DynamicParameters queryParameters = new DynamicParameters();
+        //    queryParameters.Add("@PageNo", parameters.pagination.PageNo);
+        //    queryParameters.Add("@PageSize", parameters.pagination.PageSize);
+        //    queryParameters.Add("@Total", parameters.pagination.Total, null, System.Data.ParameterDirection.Output);
+        //    queryParameters.Add("@SortBy", parameters.pagination.SortBy.SanitizeValue());
+        //    queryParameters.Add("@OrderBy", parameters.pagination.OrderBy.SanitizeValue());
+        //    queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
+        //    queryParameters.Add("@IsActive", parameters.IsActive);
+
+        //    var result = await ListByStoredProcedure<RoleResponse>("GetRoles", queryParameters);
+        //    parameters.pagination.Total = queryParameters.Get<int>("Total");
+
+        //    return result;
+        //}
     }
 }

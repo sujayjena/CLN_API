@@ -12,12 +12,12 @@ namespace CLN.API.Controllers
     public class LoginController : ControllerBase
     {
         private ResponseModel _response;
-        private IProfileRepository _profileRepository;
+        private ILoginRepository _loginRepository;
         private IJwtUtilsRepository _jwt;
 
-        public LoginController(IProfileRepository profileRepository, IJwtUtilsRepository jwt)
+        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt)
         {
-            _profileRepository = profileRepository;
+            _loginRepository = loginRepository;
             _jwt = jwt;
 
             _response = new ResponseModel();
@@ -28,8 +28,8 @@ namespace CLN.API.Controllers
         [Route("[action]")]
         public async Task<ResponseModel> MobileAppLogin(MobileAppLoginRequestModel parameters)
         {
-            LoginByMobileNoRequestModel loginParameters = new LoginByMobileNoRequestModel();
-            loginParameters.MobileNo = parameters.MobileNo;
+            LoginByMobileNumberRequestModel loginParameters = new LoginByMobileNumberRequestModel();
+            loginParameters.MobileNumber = parameters.MobileNumber;
             loginParameters.Password = parameters.Password;
             loginParameters.MobileUniqueId = parameters.MobileUniqueId;
             loginParameters.Remember = parameters.Remember;
@@ -45,7 +45,7 @@ namespace CLN.API.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ResponseModel> Login(LoginByMobileNoRequestModel parameters)
+        public async Task<ResponseModel> Login(LoginByMobileNumberRequestModel parameters)
         {
             (string, DateTime) tokenResponse;
             SessionDataEmployee employeeSessionData;
@@ -54,7 +54,7 @@ namespace CLN.API.Controllers
 
             parameters.Password = EncryptDecryptHelper.EncryptString(parameters.Password);
 
-            loginResponse = await _profileRepository.ValidateUserLoginByEmail(parameters);
+            loginResponse = await _loginRepository.ValidateUserLoginByEmail(parameters);
 
             if (loginResponse != null)
             {
@@ -64,21 +64,25 @@ namespace CLN.API.Controllers
 
                     if (loginResponse.UserId != null)
                     {
-                        //var vRoleList = await _profileRepository.GetRoleMaster_Employee_PermissionById(Convert.ToInt64(loginResponse.EmployeeId));
+                        //var vRoleList = await _loginRepository.GetRoleMaster_Employee_PermissionById(Convert.ToInt64(loginResponse.EmployeeId));
                         //var vUserNotificationList = await _notificationService.GetNotificationListById(Convert.ToInt64(loginResponse.EmployeeId));
 
                         employeeSessionData = new SessionDataEmployee
                         {
                             UserId = loginResponse.UserId,
                             UserCode = loginResponse.UserCode,
-                            Name = loginResponse.FirstName + " " + loginResponse.LastName,
-                            RoleId = loginResponse.RoleId,
+                            UserName = loginResponse.UserName,
+                            MobileNumber = loginResponse.MobileNumber,
                             EmailId = loginResponse.EmailId,
-                            MobileNo = loginResponse.MobileNo,
+                            UserType = loginResponse.UserType,
+                            RoleId = loginResponse.RoleId,
                             RoleName = loginResponse.RoleName,
+                            IsMobileUser = loginResponse.IsMobileUser,
+                            IsWebUser = loginResponse.IsWebUser,
+                            IsActive = loginResponse.IsActive,
                             Token = tokenResponse.Item1,
                             //UserRoleList = vRoleList.ToList(),
-                           //UserNotificationList = vUserNotificationList.ToList()
+                            //UserNotificationList = vUserNotificationList.ToList()
                         };
 
                         _response.Data = employeeSessionData;
@@ -96,7 +100,7 @@ namespace CLN.API.Controllers
                         RememberMe = parameters.Remember
                     };
 
-                    await _profileRepository.SaveUserLoginHistory(loginHistoryParameters);
+                    await _loginRepository.SaveUserLoginHistory(loginHistoryParameters);
 
                     _response.Message = MessageConstants.LoginSuccessful;
                 }
@@ -134,7 +138,7 @@ namespace CLN.API.Controllers
                 RememberMe = false
             };
 
-            await _profileRepository.SaveUserLoginHistory(logoutParameters);
+            await _loginRepository.SaveUserLoginHistory(logoutParameters);
 
             _response.Message = MessageConstants.LogoutSuccessful;
 

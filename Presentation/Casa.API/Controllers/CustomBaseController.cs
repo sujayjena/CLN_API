@@ -7,7 +7,7 @@ namespace CLN.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [CustomAuthorize]
-    public class CommonController : ControllerBase
+    public class CustomBaseController : ControllerBase
     {
         //private readonly ICommonRepository _ICommonRepository;
 
