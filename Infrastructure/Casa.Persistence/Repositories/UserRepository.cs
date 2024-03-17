@@ -26,11 +26,11 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@UserCode", parameters.UserCode);
+            //queryParameters.Add("@UserCode", parameters.UserCode);
             queryParameters.Add("@UserName", parameters.UserName);
-            queryParameters.Add("@PersonalNumber", parameters.PersonalNumber);
+            queryParameters.Add("@MobileNumber", parameters.MobileNumber);
             queryParameters.Add("@EmailId", parameters.EmailId);
-            queryParameters.Add("@Passwords", parameters.Passwords);
+            queryParameters.Add("@Password", !string.IsNullOrWhiteSpace(parameters.Password) ? EncryptDecryptHelper.EncryptString(parameters.Password) : string.Empty);
             queryParameters.Add("@UserType", parameters.UserType);
             queryParameters.Add("@RoleId", parameters.RoleId);
             queryParameters.Add("@ReportingTo", parameters.ReportingTo);
@@ -48,11 +48,11 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DateOfJoining", parameters.DateOfJoining);
             queryParameters.Add("@EmergencyContactNumber", parameters.EmergencyContactNumber);
             queryParameters.Add("@BloodGroup", parameters.BloodGroup);
-            queryParameters.Add("@MobileUniqId", parameters.MobileUniqId);
+            queryParameters.Add("@MobileUniqueId", parameters.MobileUniqId);
             queryParameters.Add("@AadharNumber", parameters.AadharNumber);
-            queryParameters.Add("@AadharImage", parameters.AadharImage);
+            queryParameters.Add("@AadharImage", parameters.AadharImageFileNaame);
             queryParameters.Add("@PanNumber", parameters.PanNumber);
-            queryParameters.Add("@PanCardImage", parameters.PanCardImage);
+            queryParameters.Add("@PanCardImage", parameters.PanCardImageFileNaame);
             queryParameters.Add("@IsMobileUser", parameters.IsMobileUser);
             queryParameters.Add("@IsWebUser", parameters.IsWebUser);
             queryParameters.Add("@IsActive", parameters.IsActive);

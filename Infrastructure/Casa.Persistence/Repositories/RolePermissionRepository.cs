@@ -154,11 +154,20 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
-        public async Task<RoleMaster_Employee_Permission_Response?> GetRoleMasterEmployeePermissionById(long Id)
+        public async Task<IEnumerable<RoleMaster_Employee_Permission_Response>> GetRoleMasterEmployeePermissionById(long EmployeeId)
         {
             DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@Id", Id);
-            return (await ListByStoredProcedure<RoleMaster_Employee_Permission_Response>("GetRegionById", queryParameters)).FirstOrDefault();
+            queryParameters.Add("@RoleId", 0);
+            queryParameters.Add("@EmployeeId", EmployeeId);
+            queryParameters.Add("@IsActive", true);
+            queryParameters.Add("@PageNo", 0);
+            queryParameters.Add("@PageSize", 0);
+            queryParameters.Add("@Total", 0, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", 0);
+
+            var result = await ListByStoredProcedure<RoleMaster_Employee_Permission_Response>("GetRoleMaster_PermissionList", queryParameters);
+
+            return result;
         }
 
         #endregion

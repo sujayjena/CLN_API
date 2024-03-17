@@ -3,6 +3,7 @@ using CLN.Application.Constants;
 using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
+using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLN.API.Controllers
@@ -14,14 +15,16 @@ namespace CLN.API.Controllers
         private ResponseModel _response;
         private ILoginRepository _loginRepository;
         private IJwtUtilsRepository _jwt;
+        private readonly IRolePermissionRepository _rolePermissionRepository;
 
-        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt)
+        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository)
         {
             _loginRepository = loginRepository;
             _jwt = jwt;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
+            _rolePermissionRepository = rolePermissionRepository;
         }
 
         [HttpPost]
@@ -64,7 +67,7 @@ namespace CLN.API.Controllers
 
                     if (loginResponse.UserId != null)
                     {
-                        //var vRoleList = await _loginRepository.GetRoleMaster_Employee_PermissionById(Convert.ToInt64(loginResponse.EmployeeId));
+                        var vRoleList = await _rolePermissionRepository.GetRoleMasterEmployeePermissionById(Convert.ToInt64(loginResponse.UserId));
                         //var vUserNotificationList = await _notificationService.GetNotificationListById(Convert.ToInt64(loginResponse.EmployeeId));
 
                         employeeSessionData = new SessionDataEmployee
@@ -81,7 +84,7 @@ namespace CLN.API.Controllers
                             IsWebUser = loginResponse.IsWebUser,
                             IsActive = loginResponse.IsActive,
                             Token = tokenResponse.Item1,
-                            //UserRoleList = vRoleList.ToList(),
+                            UserRoleList = vRoleList.ToList(),
                             //UserNotificationList = vUserNotificationList.ToList()
                         };
 

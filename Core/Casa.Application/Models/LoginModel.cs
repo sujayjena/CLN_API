@@ -100,15 +100,6 @@ namespace CLN.Application.Models
         public bool IsMobileUser { get; set; }
         public bool IsActive { get; set; }
         public string Token { get; set; }
-        public List<RoleMasterEmployeePermissionList> UserRoleList { get; set; }
-    }
-    public class RoleMasterEmployeePermissionList
-    {
-        public string AppType { get; set; }
-        public long ModuleId { get; set; }
-        public string ModuleName { get; set; }
-        public bool View { get; set; }
-        public bool Add { get; set; }
-        public bool Edit { get; set; }
+        public List<RoleMaster_Employee_Permission_Response> UserRoleList { get; set; }
     }
 }

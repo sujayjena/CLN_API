@@ -24,15 +24,15 @@ namespace CLN.Application.Models
         [DefaultValue(1)]
         public int? DepartmentId { get; set; }
 
-        public string UserCode { get; set; }
+        //public string UserCode { get; set; }
 
         public string UserName { get; set; }
 
-        public string PersonalNumber { get; set; }
+        public string MobileNumber { get; set; }
 
         public string EmailId { get; set; }
 
-        public string Passwords { get; set; }
+        public string Password { get; set; }
 
         public string UserType { get; set; }
 
@@ -66,11 +66,15 @@ namespace CLN.Application.Models
 
         public string AadharNumber { get; set; }
 
-        public string AadharImage { get; set; }
+        public string AadharImageFileNaame { get; set; }
+
+        public string AadharImage_Base64 { get; set; }
 
         public string PanNumber { get; set; }
 
-        public string PanCardImage { get; set; }
+        public string PanCardImageFileNaame { get; set; }
+
+        public string PanCardImage_Base64 { get; set; }
 
         public bool? IsMobileUser { get; set; }
 
@@ -81,7 +85,7 @@ namespace CLN.Application.Models
 
     public class User_Response : BaseResponseEntity
     {
-        public string UserCode { get; set; }
+        //public string UserCode { get; set; }
 
         public string UserName { get; set; }
 
@@ -149,9 +153,13 @@ namespace CLN.Application.Models
 
         public string AadharImage { get; set; }
 
+        public string AadharImageURL { get; set; }
+
         public string PanNumber { get; set; }
 
         public string PanCardImage { get; set; }
+
+        public string PanCardImageURL { get; set; }
 
         public bool? IsMobileUser { get; set; }
 

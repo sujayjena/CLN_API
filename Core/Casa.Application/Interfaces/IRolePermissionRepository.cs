@@ -34,7 +34,7 @@ namespace CLN.Application.Interfaces
 
         Task<IEnumerable<RoleMaster_Employee_Permission_Response>> GetRoleMasterEmployeePermissionList(RoleMaster_Employee_Search_Request parameters);
 
-        Task<RoleMaster_Employee_Permission_Response?> GetRoleMasterEmployeePermissionById(long Id);
+        Task<IEnumerable<RoleMaster_Employee_Permission_Response>> GetRoleMasterEmployeePermissionById(long EmployeeId);
 
         #endregion
     }

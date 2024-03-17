@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\Infrastructure\Casa.Persistence\CLN.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Uploads\Employee\" />
+  </ItemGroup>
+
 </Project>

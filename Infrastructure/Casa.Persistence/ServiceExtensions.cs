@@ -1,4 +1,5 @@
-﻿using CLN.Application.Interfaces;
+﻿using CLN.Application.Helpers;
+using CLN.Application.Interfaces;
 using CLN.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,8 @@ namespace CLN.Persistence
 
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IJwtUtilsRepository, JwtUtilsRepository>();
+            services.AddScoped<IFileManager, FileManager>();
+
             services.AddScoped<ILoginRepository, LoginRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();

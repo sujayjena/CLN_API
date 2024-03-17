@@ -4,6 +4,7 @@ using CLN.Application.Interfaces;
 using CLN.Application.Models;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLN.API.Controllers.Admin
@@ -14,10 +15,13 @@ namespace CLN.API.Controllers.Admin
     {
         private ResponseModel _response;
         private readonly IUserRepository _userRepository;
+        private IFileManager _fileManager;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository, IFileManager fileManager)
         {
             _userRepository = userRepository;
+            _fileManager = fileManager;
+
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
@@ -28,8 +32,27 @@ namespace CLN.API.Controllers.Admin
         [HttpPost]
         public async Task<ResponseModel> SaveUser(User_Request parameters)
         {
+            // Aadhar Card Upload
+            if (parameters !!= null && !string.IsNullOrWhiteSpace(parameters.AadharImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharImage_Base64, "\\Uploads\\Employee\\");
 
-            var fdgf = SessionManager.LoggedInUserId;
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.AadharImageFileNaame = vUploadFile;
+                }
+            }
+
+            // Pan Card Upload
+            if (parameters != null && !string.IsNullOrWhiteSpace(parameters.PanCardImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Employee\\");
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.PanCardImageFileNaame = vUploadFile;
+                }
+            }
 
             int result = await _userRepository.SaveUser(parameters);
 
