@@ -28,9 +28,6 @@ namespace CLN.API.Controllers.Admin
         [HttpPost]
         public async Task<ResponseModel> SaveDepartment(Department_Request parameters)
         {
-
-            var fdgf = SessionManager.LoggedInUserId;
-
             int result = await _profileRepository.SaveDepartment(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)

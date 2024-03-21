@@ -25,6 +25,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveRegion(Region_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RegionName", parameters.RegionName.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -62,6 +63,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveState(State_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@StateName", parameters.StateName.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -99,6 +101,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveDistrict(District_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@DistrictName", parameters.DistrictName.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -136,6 +139,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveCity(City_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CityName", parameters.CityName.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -173,6 +177,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveArea(Area_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@AreaName", parameters.AreaName.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);

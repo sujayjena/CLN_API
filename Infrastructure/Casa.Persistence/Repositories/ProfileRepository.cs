@@ -22,6 +22,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveDepartment(Department_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@DepartmentName", parameters.DepartmentName.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -59,6 +60,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveRole(Role_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
             queryParameters.Add("@DepartmentId", parameters.DepartmentId.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
@@ -97,6 +99,7 @@ namespace CLN.Persistence.Repositories
         public async Task<int> SaveRoleHierarchy(RoleHierarchy_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RoleId", parameters.RoleId);
             queryParameters.Add("@ReportingTo", parameters.ReportingTo);
             queryParameters.Add("@IsActive", parameters.IsActive);
