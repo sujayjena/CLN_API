@@ -26,6 +26,9 @@ namespace CLN.Persistence
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<ITerritoryRepository, TerritoryRepository>();
             services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
+            services.AddScoped<IContractCycleRepository, ContractCycleRepository>();
+            services.AddScoped<ICustomerTypeRepository, CustomerTypeRepository>();
+            services.AddScoped<IExpenseTypeRepository, ExpenseTypeRepository>();
         }
     }
 }

@@ -139,7 +139,7 @@ namespace CLN.Application.Models
 
         public int? AreadId { get; set; }
 
-        public string AreadName { get; set; }
+        public string AreaName { get; set; }
 
         public bool? IsActive { get; set; }
     }
