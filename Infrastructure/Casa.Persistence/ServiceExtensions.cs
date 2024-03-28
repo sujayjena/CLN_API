@@ -29,6 +29,7 @@ namespace CLN.Persistence
             services.AddScoped<IContractCycleRepository, ContractCycleRepository>();
             services.AddScoped<ICustomerTypeRepository, CustomerTypeRepository>();
             services.AddScoped<IExpenseTypeRepository, ExpenseTypeRepository>();
+            services.AddScoped<IMasterDataRepository, MasterDataRepository>();
         }
     }
 }
