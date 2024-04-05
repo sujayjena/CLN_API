@@ -11,28 +11,28 @@ using System.Threading.Tasks;
 
 namespace CLN.Persistence.Repositories
 {
-    public class CustomerTypeRepository : GenericRepository, ICustomerTypeRepository
+    public class ProblemReportedRepository : GenericRepository, IProblemReportedRepository
     {
 
         private IConfiguration _configuration;
 
-        public CustomerTypeRepository(IConfiguration configuration) : base(configuration)
+        public ProblemReportedRepository(IConfiguration configuration) : base(configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<int> SaveCustomerType(CustomerType_Request parameters)
+        public async Task<int> SaveProblemReported(ProblemReported_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@CustomerType", parameters.CustomerType.SanitizeValue());
+            queryParameters.Add("@ProblemReported", parameters.ProblemReported.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveCustomerType", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveProblemReported", queryParameters);
         }
 
-        public async Task<IEnumerable<CustomerType_Response>> GetCustomerTypeList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<ProblemReported_Response>> GetProblemReportedList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
@@ -42,17 +42,17 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<CustomerType_Response>("GetCustomerTypeList", queryParameters);
+            var result = await ListByStoredProcedure<ProblemReported_Response>("GetProblemReportedList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<CustomerType_Response?> GetCustomerTypeById(long Id)
+        public async Task<ProblemReported_Response?> GetProblemReportedById(long Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
-            return (await ListByStoredProcedure<CustomerType_Response>("GetCustomerTypeById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<ProblemReported_Response>("GetProblemReportedById", queryParameters)).FirstOrDefault();
         }
     }
 }

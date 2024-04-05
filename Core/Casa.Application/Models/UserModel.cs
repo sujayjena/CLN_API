@@ -15,11 +15,11 @@ namespace CLN.Application.Models
     public class User_Request : BaseEntity
     {
         [DefaultValue(1)]
-        public int? CompanyId { get; set; }
+        public int CompanyId { get; set; }
 
         [DefaultValue(1)]
 
-        public int? BranchId { get; set; }
+        public int BranchId { get; set; }
 
         [DefaultValue(1)]
         public int? DepartmentId { get; set; }
@@ -138,6 +138,7 @@ namespace CLN.Application.Models
         public int? AreaId { get; set; }
 
         public string AreaName { get; set; }
+        public int? Pincode { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 

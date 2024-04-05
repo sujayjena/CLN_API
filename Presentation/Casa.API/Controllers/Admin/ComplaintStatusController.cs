@@ -1,5 +1,4 @@
 ﻿using CLN.Application.Enums;
-using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
 using CLN.Persistence.Repositories;
@@ -10,36 +9,23 @@ namespace CLN.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContractCycleController : CustomBaseController
+    public class ComplaintStatusController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly IContractCycleRepository _contractCycleRepository;
-        private IFileManager _fileManager;
+        private readonly IComplaintStatusRepository _complaintStatusRepository;
 
-        public ContractCycleController(IContractCycleRepository contractCycleRepository,IFileManager fileManager)
+        public ComplaintStatusController(IComplaintStatusRepository complaintStatusRepository)
         {
-            _contractCycleRepository = contractCycleRepository;
-            _fileManager = fileManager;
+            _complaintStatusRepository = complaintStatusRepository;
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveContractCycle(ContractCycle_Request parameters)
+        public async Task<ResponseModel> SaveComplaintStatus(ComplaintStatus_Request parameters)
         {
-            // File Upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.ContractCycleFile_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.ContractCycleFile_Base64, "\\Uploads\\ContractCycle\\", parameters.ContractCycleFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.ContractCycleFileName = vUploadFile;
-                }
-            }
-
-            int result = await _contractCycleRepository.SaveContractCycle(parameters);
+            int result = await _complaintStatusRepository.SaveComplaintStatus(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -63,9 +49,9 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetContractCycleList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetComplaintStatusList(BaseSearchEntity parameters)
         {
-            IEnumerable<ContractCycle_Response> lstRoles = await _contractCycleRepository.GetContractCycleList(parameters);
+            IEnumerable<ComplaintStatus_Response> lstRoles = await _complaintStatusRepository.GetComplaintStatusList(parameters);
             _response.Data = lstRoles.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -73,7 +59,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetContractCycleById(long Id)
+        public async Task<ResponseModel> GetComplaintStatusById(long Id)
         {
             if (Id <= 0)
             {
@@ -81,7 +67,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                var vResultObj = await _contractCycleRepository.GetContractCycleById(Id);
+                var vResultObj = await _complaintStatusRepository.GetComplaintStatusById(Id);
                 _response.Data = vResultObj;
             }
             return _response;

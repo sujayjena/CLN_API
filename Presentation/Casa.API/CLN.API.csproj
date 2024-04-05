@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <Folder Include="Uploads\Employee\" />
+    <Folder Include="Uploads\Company\" />
+    <Folder Include="Uploads\ContractCycle\" />
   </ItemGroup>
 
 </Project>

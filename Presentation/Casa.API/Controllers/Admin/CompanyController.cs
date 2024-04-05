@@ -10,36 +10,39 @@ namespace CLN.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContractCycleController : CustomBaseController
+    public class CompanyController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly IContractCycleRepository _contractCycleRepository;
+        private readonly ICompanyRepository _companyRepository;
         private IFileManager _fileManager;
 
-        public ContractCycleController(IContractCycleRepository contractCycleRepository,IFileManager fileManager)
+        public CompanyController(ICompanyRepository companyRepository, IFileManager fileManager)
         {
-            _contractCycleRepository = contractCycleRepository;
+            _companyRepository = companyRepository;
             _fileManager = fileManager;
+
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
 
+        #region Company 
+
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveContractCycle(ContractCycle_Request parameters)
+        public async Task<ResponseModel> SaveCompany(Company_Request parameters)
         {
-            // File Upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.ContractCycleFile_Base64))
+            // Company Logo Upload
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CompanyLogo_Base64))
             {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.ContractCycleFile_Base64, "\\Uploads\\ContractCycle\\", parameters.ContractCycleFileName);
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CompanyLogo_Base64, "\\Uploads\\Company\\", parameters.CompanyLogoFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile))
                 {
-                    parameters.ContractCycleFileName = vUploadFile;
+                    parameters.CompanyLogoFileName = vUploadFile;
                 }
             }
 
-            int result = await _contractCycleRepository.SaveContractCycle(parameters);
+            int result = await _companyRepository.SaveCompany(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -63,17 +66,17 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetContractCycleList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetCompanyList(BaseSearchEntity parameters)
         {
-            IEnumerable<ContractCycle_Response> lstRoles = await _contractCycleRepository.GetContractCycleList(parameters);
-            _response.Data = lstRoles.ToList();
+            IEnumerable<Company_Response> lstCompanys = await _companyRepository.GetCompanyList(parameters);
+            _response.Data = lstCompanys.ToList();
             _response.Total = parameters.Total;
             return _response;
         }
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetContractCycleById(long Id)
+        public async Task<ResponseModel> GetCompanyById(int Id)
         {
             if (Id <= 0)
             {
@@ -81,10 +84,12 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                var vResultObj = await _contractCycleRepository.GetContractCycleById(Id);
+                var vResultObj = await _companyRepository.GetCompanyById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
         }
+
+        #endregion
     }
 }

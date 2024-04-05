@@ -27,9 +27,18 @@ namespace CLN.Persistence
             services.AddScoped<ITerritoryRepository, TerritoryRepository>();
             services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
             services.AddScoped<IContractCycleRepository, ContractCycleRepository>();
-            services.AddScoped<ICustomerTypeRepository, CustomerTypeRepository>();
+            services.AddScoped<ICompanyTypeRepository, CompanyTypeRepository>();
             services.AddScoped<IExpenseTypeRepository, ExpenseTypeRepository>();
             services.AddScoped<IMasterDataRepository, MasterDataRepository>();
+            services.AddScoped<IPMCycleRepository, PMCycleRepository>();
+            services.AddScoped<ITicketsRepository, TicketsRepository>();
+            services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
+            services.AddScoped<IComplaintStatusRepository, ComplaintStatusRepository>();
+            services.AddScoped<IOrderTypeRepository, OrderTypeRepository>();
+            services.AddScoped<IUOMRepository, UOMRepository>();
+            services.AddScoped<IProblemReportedRepository, ProblemReportedRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IBranchRepository, BranchRepository>();
         }
     }
 }

@@ -11,31 +11,28 @@ using System.Threading.Tasks;
 
 namespace CLN.Persistence.Repositories
 {
-    public class ContractCycleRepository : GenericRepository, IContractCycleRepository
+    public class ComplaintStatusRepository : GenericRepository, IComplaintStatusRepository
     {
 
         private IConfiguration _configuration;
 
-        public ContractCycleRepository(IConfiguration configuration) : base(configuration)
+        public ComplaintStatusRepository(IConfiguration configuration) : base(configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<int> SaveContractCycle(ContractCycle_Request parameters)
+        public async Task<int> SaveComplaintStatus(ComplaintStatus_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@ContractCycleName", parameters.ContractCycleName.SanitizeValue());
-            queryParameters.Add("@Months", parameters.Months);
-            queryParameters.Add("@Days", parameters.Days);
-            queryParameters.Add("@ContractCycleFile", parameters.ContractCycleFileName);
+            queryParameters.Add("@ComplaintStatus", parameters.ComplaintStatus.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveContractCycle", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveComplaintStatus", queryParameters);
         }
 
-        public async Task<IEnumerable<ContractCycle_Response>> GetContractCycleList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<ComplaintStatus_Response>> GetComplaintStatusList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
@@ -45,17 +42,17 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<ContractCycle_Response>("GetContractCycleList", queryParameters);
+            var result = await ListByStoredProcedure<ComplaintStatus_Response>("GetComplaintStatusList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<ContractCycle_Response?> GetContractCycleById(long Id)
+        public async Task<ComplaintStatus_Response?> GetComplaintStatusById(long Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
-            return (await ListByStoredProcedure<ContractCycle_Response>("GetContractCycleById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<ComplaintStatus_Response>("GetComplaintStatusById", queryParameters)).FirstOrDefault();
         }
     }
 }

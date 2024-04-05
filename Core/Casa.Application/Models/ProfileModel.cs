@@ -45,7 +45,7 @@ namespace CLN.Application.Models
     public class Role_Response : BaseResponseEntity
     {
         public string RoleName { get; set; }
-
+        public int? DepartmentId { get; set; }
         public string DepartmentName { get; set; }
 
         public bool? IsActive { get; set; }

@@ -11,31 +11,29 @@ using System.Threading.Tasks;
 
 namespace CLN.Persistence.Repositories
 {
-    public class ContractCycleRepository : GenericRepository, IContractCycleRepository
+    public class UOMRepository : GenericRepository, IUOMRepository
     {
 
         private IConfiguration _configuration;
 
-        public ContractCycleRepository(IConfiguration configuration) : base(configuration)
+        public UOMRepository(IConfiguration configuration) : base(configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<int> SaveContractCycle(ContractCycle_Request parameters)
+        public async Task<int> SaveUOM(UOM_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@ContractCycleName", parameters.ContractCycleName.SanitizeValue());
-            queryParameters.Add("@Months", parameters.Months);
-            queryParameters.Add("@Days", parameters.Days);
-            queryParameters.Add("@ContractCycleFile", parameters.ContractCycleFileName);
+            queryParameters.Add("@UOMName", parameters.UOMName.SanitizeValue());
+            queryParameters.Add("@UOMDesc", parameters.UOMDesc);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveContractCycle", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveUOM", queryParameters);
         }
 
-        public async Task<IEnumerable<ContractCycle_Response>> GetContractCycleList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<UOM_Response>> GetUOMList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
@@ -45,17 +43,17 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<ContractCycle_Response>("GetContractCycleList", queryParameters);
+            var result = await ListByStoredProcedure<UOM_Response>("GetUOMList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<ContractCycle_Response?> GetContractCycleById(long Id)
+        public async Task<UOM_Response?> GetUOMById(long Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
-            return (await ListByStoredProcedure<ContractCycle_Response>("GetContractCycleById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<UOM_Response>("GetUOMById", queryParameters)).FirstOrDefault();
         }
     }
 }

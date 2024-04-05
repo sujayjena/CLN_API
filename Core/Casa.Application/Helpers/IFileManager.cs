@@ -14,7 +14,7 @@ namespace CLN.Application.Helpers
         string? GetDocumentsFile(string fileName, string folderPath);
         byte[]? GetDocumentsInByte(string fileName, string folderPath);
 
-        string UploadDocumentsBase64ToFile(string base64String, string folderPath);
+        string UploadDocumentsBase64ToFile(string base64String, string folderPath, string? fileName);
     }
 
     public class FileManager : IFileManager
@@ -55,14 +55,16 @@ namespace CLN.Application.Helpers
             return result;
         }
 
-        public string UploadDocumentsBase64ToFile(string base64String, string folderPath)
+        public string UploadDocumentsBase64ToFile(string base64String, string folderPath, string? fileName)
         {
             string sFileName = string.Empty;
             try
             {
-                string fileName = $"{Guid.NewGuid()}" + ".jpg";
+                var extentioName = Path.GetExtension(fileName);
+
+                string newfileName = $"{Guid.NewGuid()}" + extentioName;
                 string fileDirectory = $"{_environment.ContentRootPath}" + folderPath;
-                string fileSavePath = $"{_environment.ContentRootPath}" + folderPath + fileName;
+                string fileSavePath = $"{_environment.ContentRootPath}" + folderPath + newfileName;
 
                 if (!Directory.Exists(fileDirectory))
                 {
@@ -72,7 +74,7 @@ namespace CLN.Application.Helpers
                 var byteData = Convert.FromBase64String(base64String);
                 File.WriteAllBytes(fileSavePath, byteData);
 
-                sFileName = fileName;
+                sFileName = newfileName;
             }
             catch (Exception ex)
             {

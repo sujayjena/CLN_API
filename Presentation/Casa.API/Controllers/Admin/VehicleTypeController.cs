@@ -9,23 +9,23 @@ namespace CLN.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerTypeController : CustomBaseController
+    public class VehicleTypeController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly ICustomerTypeRepository _customerTypeRepository;
+        private readonly IVehicleTypeRepository _vehicleTypeRepository;
 
-        public CustomerTypeController(ICustomerTypeRepository customerTypeRepository)
+        public VehicleTypeController(IVehicleTypeRepository vehicleTypeRepository)
         {
-            _customerTypeRepository = customerTypeRepository;
+            _vehicleTypeRepository = vehicleTypeRepository;
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveCustomerType(CustomerType_Request parameters)
+        public async Task<ResponseModel> SaveVehicleType(VehicleType_Request parameters)
         {
-            int result = await _customerTypeRepository.SaveCustomerType(parameters);
+            int result = await _vehicleTypeRepository.SaveVehicleType(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -49,9 +49,9 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerTypeList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetVehicleTypeList(BaseSearchEntity parameters)
         {
-            IEnumerable<CustomerType_Response> lstRoles = await _customerTypeRepository.GetCustomerTypeList(parameters);
+            IEnumerable<VehicleType_Response> lstRoles = await _vehicleTypeRepository.GetVehicleTypeList(parameters);
             _response.Data = lstRoles.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -59,7 +59,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerTypeById(long Id)
+        public async Task<ResponseModel> GetVehicleTypeById(long Id)
         {
             if (Id <= 0)
             {
@@ -67,7 +67,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                var vResultObj = await _customerTypeRepository.GetCustomerTypeById(Id);
+                var vResultObj = await _vehicleTypeRepository.GetVehicleTypeById(Id);
                 _response.Data = vResultObj;
             }
             return _response;

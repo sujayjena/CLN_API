@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CLN.Application.Models;
 using CLN.Application.Helpers;
 using CLN.Persistence;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,6 +90,13 @@ var app = builder.Build();
     });
     //}
     #endregion
+
+    //app.UseStaticFiles();
+    app.UseStaticFiles(new StaticFileOptions()
+    {
+        FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Uploads")),
+        RequestPath = new PathString("/Uploads")
+    });
 
     app.UseAuthentication();
     app.UseAuthorization();

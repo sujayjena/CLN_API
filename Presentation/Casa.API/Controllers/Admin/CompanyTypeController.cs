@@ -1,5 +1,4 @@
 ﻿using CLN.Application.Enums;
-using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
 using CLN.Persistence.Repositories;
@@ -10,36 +9,23 @@ namespace CLN.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContractCycleController : CustomBaseController
+    public class CompanyTypeController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly IContractCycleRepository _contractCycleRepository;
-        private IFileManager _fileManager;
+        private readonly ICompanyTypeRepository _companyTypeRepository;
 
-        public ContractCycleController(IContractCycleRepository contractCycleRepository,IFileManager fileManager)
+        public CompanyTypeController(ICompanyTypeRepository companyTypeRepository)
         {
-            _contractCycleRepository = contractCycleRepository;
-            _fileManager = fileManager;
+            _companyTypeRepository = companyTypeRepository;
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveContractCycle(ContractCycle_Request parameters)
+        public async Task<ResponseModel> SaveCompanyType(CompanyType_Request parameters)
         {
-            // File Upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.ContractCycleFile_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.ContractCycleFile_Base64, "\\Uploads\\ContractCycle\\", parameters.ContractCycleFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.ContractCycleFileName = vUploadFile;
-                }
-            }
-
-            int result = await _contractCycleRepository.SaveContractCycle(parameters);
+            int result = await _companyTypeRepository.SaveCompanyType(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -63,9 +49,9 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetContractCycleList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetCompanyTypeList(BaseSearchEntity parameters)
         {
-            IEnumerable<ContractCycle_Response> lstRoles = await _contractCycleRepository.GetContractCycleList(parameters);
+            IEnumerable<CompanyType_Response> lstRoles = await _companyTypeRepository.GetCompanyTypeList(parameters);
             _response.Data = lstRoles.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -73,7 +59,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetContractCycleById(long Id)
+        public async Task<ResponseModel> GetCompanyTypeById(long Id)
         {
             if (Id <= 0)
             {
@@ -81,7 +67,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                var vResultObj = await _contractCycleRepository.GetContractCycleById(Id);
+                var vResultObj = await _companyTypeRepository.GetCompanyTypeById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
