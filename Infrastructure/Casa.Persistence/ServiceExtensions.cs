@@ -39,6 +39,11 @@ namespace CLN.Persistence
             services.AddScoped<IProblemReportedRepository, ProblemReportedRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IBranchRepository, BranchRepository>();
+            services.AddScoped<ISpareDetailsRepository, SpareDetailsRepository>();
+            services.AddScoped<IReceiveModeRepository, ReceiveModeRepository>();
+            services.AddScoped<IWarrantyStatusRepository, WarrantyStatusRepository>();
+            services.AddScoped<ISourceChannelRepository, SourceChannelRepository>();
+            services.AddScoped<IProductItemRepository, ProductItemRepository>();
         }
     }
 }

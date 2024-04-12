@@ -11,29 +11,28 @@ using System.Threading.Tasks;
 
 namespace CLN.Persistence.Repositories
 {
-    public class ProblemReportedRepository : GenericRepository, IProblemReportedRepository
+    public class SourceChannelRepository : GenericRepository, ISourceChannelRepository
     {
 
         private IConfiguration _configuration;
 
-        public ProblemReportedRepository(IConfiguration configuration) : base(configuration)
+        public SourceChannelRepository(IConfiguration configuration) : base(configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<int> SaveProblemReported(ProblemReported_Request parameters)
+        public async Task<int> SaveSourceChannel(SourceChannel_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@SegmentId", parameters.SegmentId);
-            queryParameters.Add("@ProblemReported", parameters.ProblemReported);
+            queryParameters.Add("@SourceChannel", parameters.SourceChannel);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveProblemReported", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveSourceChannel", queryParameters);
         }
 
-        public async Task<IEnumerable<ProblemReported_Response>> GetProblemReportedList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<SourceChannel_Response>> GetSourceChannelList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
@@ -43,17 +42,17 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<ProblemReported_Response>("GetProblemReportedList", queryParameters);
+            var result = await ListByStoredProcedure<SourceChannel_Response>("GetSourceChannelList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<ProblemReported_Response?> GetProblemReportedById(long Id)
+        public async Task<SourceChannel_Response?> GetSourceChannelById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
-            return (await ListByStoredProcedure<ProblemReported_Response>("GetProblemReportedById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<SourceChannel_Response>("GetSourceChannelById", queryParameters)).FirstOrDefault();
         }
     }
 }

@@ -1,0 +1,153 @@
+﻿using CLN.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CLN.Application.Models
+{
+    public class ProductItemModel
+    {
+    }
+
+    #region Product Category
+
+    public class ProductCategory_Request : BaseEntity
+    {
+        public string ProductCategory { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ProductCategory_Response : BaseResponseEntity
+    {
+        public string ProductCategory { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Sub Category
+
+    public class SubCategory_Request : BaseEntity
+    {
+        public string? SubCategory { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class SubCategory_Response : BaseResponseEntity
+    {
+        public string? SubCategory { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Segment
+
+    public class Segment_Request : BaseEntity
+    {
+        public string? Segment { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class Segment_Response : BaseResponseEntity
+    {
+        public string? Segment { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Sub Segment
+
+    public class SubSegment_Request : BaseEntity
+    {
+        public string? SubSegment { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class SubSegment_Response : BaseResponseEntity
+    {
+        public string? SubSegment { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Cell Chemistry
+    public class CellChemistry_Request : BaseEntity
+    {
+        public string? CellChemistry { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class CellChemistry_Response : BaseResponseEntity
+    {
+        public string? CellChemistry { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Product Speces
+    public class ProductSpeces_Request : BaseEntity
+    {
+        public string? ProductSpeces { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ProductSpeces_Response : BaseResponseEntity
+    {
+        public string? ProductSpeces { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Item Category
+    public class ItemCategory_Request : BaseEntity
+    {
+        public string? ItemCategory { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ItemCategory_Response : BaseResponseEntity
+    {
+        public string? ItemCategory { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Item Description
+    public class ItemDescription_Request : BaseEntity
+    {
+        public string? ItemDescription { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ItemDescription_Response : BaseResponseEntity
+    {
+        public string? ItemDescription { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+}
