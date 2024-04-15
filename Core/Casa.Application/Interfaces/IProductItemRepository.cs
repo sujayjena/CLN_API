@@ -97,5 +97,29 @@ namespace CLN.Application.Interfaces
 
         Task<ProductModel_Response?> GetProductModelById(int Id);
         #endregion
+
+        #region BMS Make
+        Task<int> SaveBMSMake(BMSMake_Request parameters);
+
+        Task<IEnumerable<BMSMake_Response>> GetBMSMakeList(BaseSearchEntity parameters);
+
+        Task<BMSMake_Response?> GetBMSMakeById(int Id);
+        #endregion
+
+        #region Type of BMS
+        Task<int> SaveTypeOfBMS(TypeOfBMS_Request parameters);
+
+        Task<IEnumerable<TypeOfBMS_Response>> GetTypeOfBMSList(BaseSearchEntity parameters);
+
+        Task<TypeOfBMS_Response?> GetTypeOfBMSById(int Id);
+        #endregion
+
+        #region Battery Physical Status
+        Task<int> SaveBatteryPhysicalStatus(BatteryPhysicalStatus_Request parameters);
+
+        Task<IEnumerable<BatteryPhysicalStatus_Response>> GetBatteryPhysicalStatusList(BaseSearchEntity parameters);
+
+        Task<BatteryPhysicalStatus_Response?> GetBatteryPhysicalStatusById(int Id);
+        #endregion
     }
 }

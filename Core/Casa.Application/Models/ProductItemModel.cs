@@ -201,4 +201,55 @@ namespace CLN.Application.Models
     }
 
     #endregion
+
+    #region BMS Make
+    public class BMSMake_Request : BaseEntity
+    {
+        public string? BMSMake { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class BMSMake_Response : BaseResponseEntity
+    {
+        public string? BMSMake { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Type of BMS
+    public class TypeOfBMS_Request : BaseEntity
+    {
+        public string? TypeOfBMS { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class TypeOfBMS_Response : BaseResponseEntity
+    {
+        public string? TypeOfBMS { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Battery Physical Status
+    public class BatteryPhysicalStatus_Request : BaseEntity
+    {
+        public string? BatteryPhysicalStatus { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class BatteryPhysicalStatus_Response : BaseResponseEntity
+    {
+        public string? BatteryPhysicalStatus { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
 }

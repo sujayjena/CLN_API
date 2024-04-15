@@ -625,6 +625,167 @@ namespace CLN.API.Controllers.Admin
         }
 
         #endregion
-       
+
+        #region BMS Make
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveBMSMake(BMSMake_Request parameters)
+        {
+            int result = await _productItemRepository.SaveBMSMake(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetBMSMakeList(BaseSearchEntity parameters)
+        {
+            IEnumerable<BMSMake_Response> lstRoles = await _productItemRepository.GetBMSMakeList(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetBMSMakeById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _productItemRepository.GetBMSMakeById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
+
+        #region Type of BMS
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveTypeOfBMS(TypeOfBMS_Request parameters)
+        {
+            int result = await _productItemRepository.SaveTypeOfBMS(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetTypeOfBMSList(BaseSearchEntity parameters)
+        {
+            IEnumerable<TypeOfBMS_Response> lstRoles = await _productItemRepository.GetTypeOfBMSList(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetTypeOfBMSById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _productItemRepository.GetTypeOfBMSById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
+
+        #region Battery Physical Status
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveBatteryPhysicalStatus(BatteryPhysicalStatus_Request parameters)
+        {
+            int result = await _productItemRepository.SaveBatteryPhysicalStatus(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetBatteryPhysicalStatusList(BaseSearchEntity parameters)
+        {
+            IEnumerable<BatteryPhysicalStatus_Response> lstRoles = await _productItemRepository.GetBatteryPhysicalStatusList(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetBatteryPhysicalStatusById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _productItemRepository.GetBatteryPhysicalStatusById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
     }
 }

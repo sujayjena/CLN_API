@@ -72,6 +72,12 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             var result = await ListByStoredProcedure<User_Response>("GetUserList", queryParameters);
+
+            if(SessionManager.LoggedInUserId > 1)
+            {
+                result = result.Where(x => x.Id > 1).ToList();
+            }
+
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
