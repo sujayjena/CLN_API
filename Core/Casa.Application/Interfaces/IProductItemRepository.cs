@@ -73,5 +73,29 @@ namespace CLN.Application.Interfaces
 
         Task<ItemDescription_Response?> GetItemDescriptionById(int Id);
         #endregion
+
+        #region Product Type
+        Task<int> SaveProductType(ProductType_Request parameters);
+
+        Task<IEnumerable<ProductType_Response>> GetProductTypeList(BaseSearchEntity parameters);
+
+        Task<ProductType_Response?> GetProductTypeById(int Id);
+        #endregion
+
+        #region Product Make
+        Task<int> SaveProductMake(ProductMake_Request parameters);
+
+        Task<IEnumerable<ProductMake_Response>> GetProductMakeList(BaseSearchEntity parameters);
+
+        Task<ProductMake_Response?> GetProductMakeById(int Id);
+        #endregion
+
+        #region Product Model
+        Task<int> SaveProductModel(ProductModel_Request parameters);
+
+        Task<IEnumerable<ProductModel_Response>> GetProductModelList(BaseSearchEntity parameters);
+
+        Task<ProductModel_Response?> GetProductModelById(int Id);
+        #endregion
     }
 }

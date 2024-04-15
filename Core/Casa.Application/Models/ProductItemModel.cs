@@ -150,4 +150,55 @@ namespace CLN.Application.Models
     }
 
     #endregion
+
+    #region Product Type
+    public class ProductType_Request : BaseEntity
+    {
+        public string? ProductType { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ProductType_Response : BaseResponseEntity
+    {
+        public string? ProductType { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Product Make
+    public class ProductMake_Request : BaseEntity
+    {
+        public string? ProductMake { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ProductMake_Response : BaseResponseEntity
+    {
+        public string? ProductMake { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
+    #region Product Model
+    public class ProductModel_Request : BaseEntity
+    {
+        public string? ProductModel { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ProductModel_Response : BaseResponseEntity
+    {
+        public string? ProductModel { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
 }
