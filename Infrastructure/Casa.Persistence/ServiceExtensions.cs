@@ -45,6 +45,7 @@ namespace CLN.Persistence
             services.AddScoped<ISourceChannelRepository, SourceChannelRepository>();
             services.AddScoped<IProductItemRepository, ProductItemRepository>();
             services.AddScoped<IBloodGroupRepository, BloodGroupRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
     }
 }
