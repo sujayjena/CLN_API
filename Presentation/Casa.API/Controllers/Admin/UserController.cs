@@ -58,7 +58,7 @@ namespace CLN.API.Controllers.Admin
                     }
 
                     //get total company user
-                    totalCompanyUser = vUser.Where(x => x.CompanyId == parameters.CompanyId && (x.BranchId == 0 || x.BranchId == null)).Count();
+                    totalCompanyUser = vUser.Where(x => x.IsActive==true && x.CompanyId == parameters.CompanyId && (x.BranchId == 0 || x.BranchId == null)).Count();
                 }
                 if (parameters.BranchId > 0)
                 {
@@ -69,7 +69,7 @@ namespace CLN.API.Controllers.Admin
                     }
 
                     //get total branch user
-                    totalBranchUser = vUser.Where(x => x.CompanyId == parameters.CompanyId && x.BranchId == parameters.BranchId).Count();
+                    totalBranchUser = vUser.Where(x => x.IsActive == true && x.CompanyId == parameters.CompanyId && x.BranchId == parameters.BranchId).Count();
                 }
 
                 if (parameters.CompanyId > 0 && parameters.BranchId == 0)
