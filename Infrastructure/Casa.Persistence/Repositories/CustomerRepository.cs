@@ -82,7 +82,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
-            queryParameters.Add("@CustomerName", parameters.CustomerName);
+            queryParameters.Add("@ContactName", parameters.CustomerName);
             queryParameters.Add("@MobileNumber", parameters.MobileNumber);
             queryParameters.Add("@EmailId", parameters.EmailId);
             queryParameters.Add("@AadharCardImage", parameters.AadharCardImageFileName);
@@ -101,6 +101,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@CustomerId", parameters.CustomerId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
@@ -135,15 +136,16 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RefId", parameters.RefId);
             queryParameters.Add("@Address1", parameters.Address1);
             queryParameters.Add("@Address2", parameters.Address2);
+            queryParameters.Add("@RegionId", parameters.RegionId);
             queryParameters.Add("@StateId", parameters.StateId);
+            queryParameters.Add("@DistrictId", parameters.DistrictId);
             queryParameters.Add("@CityId", parameters.CityId);
-            queryParameters.Add("@AreaId", parameters.AreaId);
             queryParameters.Add("@PinCode", parameters.PinCode);
             queryParameters.Add("@IsDefault", parameters.IsDefault);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveCustomerAddress", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveAddress", queryParameters);
         }
 
         public async Task<IEnumerable<Address_Response>> GetCustomerAddressList(CustomerAddress_Search parameters)
@@ -152,13 +154,14 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@RefId", parameters.CustomerId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@RefId", parameters.CustomerId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<Address_Response>("GetCustomerAddressList", queryParameters);
+            var result = await ListByStoredProcedure<Address_Response>("GetAddressList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
@@ -170,7 +173,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<Address_Response>("GetCustomerAddressById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<Address_Response>("GetAddressById", queryParameters)).FirstOrDefault();
         }
 
         #endregion

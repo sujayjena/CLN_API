@@ -42,26 +42,14 @@ namespace CLN.API.Controllers
                 }
             }
 
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PanCardOriginalFileName))
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PanCardImage_Base64))
             {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.GSTImage_Base64, "\\Uploads\\Customer\\", parameters.PanCardOriginalFileName);
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Customer\\", parameters.PanCardOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile))
                 {
                     parameters.PanCardImageFileName = vUploadFile;
                 }
-            }
-
-            // Contact Detail
-            if (!string.IsNullOrWhiteSpace(parameters.ContactDetail.CustomerName))
-            {
-                SaveCustomerContactDetail(parameters.ContactDetail);
-            }
-
-            // Address Detail
-            if (!string.IsNullOrWhiteSpace(parameters.AddressDetail.Address1))
-            {
-                SaveCustomerAddressDetail(parameters.AddressDetail);
             }
 
             int result = await _customerRepository.SaveCustomer(parameters);
@@ -80,9 +68,46 @@ namespace CLN.API.Controllers
             }
             else
             {
+                parameters.ContactDetail.CustomerId = result;
+                parameters.AddressDetail.RefId = result;
+
+                // Contact Detail
+                if (!string.IsNullOrWhiteSpace(parameters.ContactDetail.CustomerName))
+                {
+                    // Image Upload
+                    if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.ContactDetail.AadharCardImage_Base64))
+                    {
+                        var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.ContactDetail.AadharCardImage_Base64, "\\Uploads\\Customer\\", parameters.ContactDetail.AadharCardOriginalFileName);
+
+                        if (!string.IsNullOrWhiteSpace(vUploadFile_AadharCardImage))
+                        {
+                            parameters.ContactDetail.AadharCardImageFileName = vUploadFile_AadharCardImage;
+                        }
+                    }
+
+                    if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.ContactDetail.PanCardImage_Base64))
+                    {
+                        var vUploadFile_PanCard = _fileManager.UploadDocumentsBase64ToFile(parameters.ContactDetail.PanCardImage_Base64, "\\Uploads\\Customer\\", parameters.ContactDetail.PanCardOriginalFileName);
+
+                        if (!string.IsNullOrWhiteSpace(vUploadFile_PanCard))
+                        {
+                            parameters.ContactDetail.PanCardImageFileName = vUploadFile_PanCard;
+                        }
+                    }
+
+                    int resultContact = await _customerRepository.SaveCustomerContactDetail(parameters.ContactDetail);
+                }
+
+                // Address Detail
+                if (!string.IsNullOrWhiteSpace(parameters.AddressDetail.Address1))
+                {
+                    int resultAddressDetail = await _customerRepository.SaveCustomerAddress(parameters.AddressDetail);
+                }
+
                 _response.Message = "Record details saved sucessfully";
             }
             return _response;
+
         }
 
         [Route("[action]")]
@@ -113,7 +138,6 @@ namespace CLN.API.Controllers
 
         #endregion
 
-
         #region Customer Contact Detail
 
         [Route("[action]")]
@@ -121,7 +145,7 @@ namespace CLN.API.Controllers
         public async Task<ResponseModel> SaveCustomerContactDetail(CustomerContactDetail_Request parameters)
         {
             // Image Upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.AadharCardOriginalFileName))
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.AadharCardImage_Base64))
             {
                 var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharCardImage_Base64, "\\Uploads\\Customer\\", parameters.AadharCardOriginalFileName);
 
@@ -131,7 +155,7 @@ namespace CLN.API.Controllers
                 }
             }
 
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PanCardOriginalFileName))
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PanCardImage_Base64))
             {
                 var vUploadFile_PanCard = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Customer\\", parameters.PanCardOriginalFileName);
 
@@ -189,7 +213,6 @@ namespace CLN.API.Controllers
         }
 
         #endregion
-
 
         #region Customer Address
 
