@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,21 @@ namespace CLN.Application.Models
     {
     }
 
+    public class ContactDetail_Search : BaseSearchEntity
+    {
+        public long CustomerId { get; set; }
+
+        [JsonIgnore]
+        public string RefType { get; set; }
+    }
+
     public class ContactDetail_Request : BaseEntity
     {
+        [JsonIgnore]
         public int RefId { get; set; }
+
+        [JsonIgnore]
+        public string? RefType { get; set; }
 
         public string ContactName { get; set; }
 

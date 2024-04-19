@@ -20,8 +20,6 @@ namespace CLN.Persistence.Repositories
             _configuration = configuration;
         }
 
-        #region Customer
-
         public async Task<int> SaveCustomer(Customer_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
@@ -39,7 +37,6 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@GSTImageOriginalFileName", parameters.GSTImageOriginalFileName);
             queryParameters.Add("@PanCardImage", parameters.PanCardImageFileName);
             queryParameters.Add("@PanCardOriginalFileName", parameters.PanCardOriginalFileName);
-            queryParameters.Add("@CompanyAddressId", parameters.PanCardOriginalFileName);
             queryParameters.Add("@ConsigneeTypeId", parameters.ConsigneeTypeId);
             queryParameters.Add("@ConsigneeName", parameters.ConsigneeName);
             queryParameters.Add("@ConsigneeMobileNumber", parameters.ConsigneeMobileNumber);
@@ -76,129 +73,15 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<Customer_Response>("GetCustomerById", queryParameters)).FirstOrDefault();
         }
 
-        public async Task<int> UpdateCustomerAddress(Customer_Request parameters)
+        public async Task<int> UpdateCustomerConsigneeAddress(Customer_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@CompanyAddressId", parameters.CompanyAddressId);
             queryParameters.Add("@ConsigneeAddressId", parameters.ConsigneeAddressId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("UpdateCustomerAddress", queryParameters);
         }
-
-        #endregion
-
-        #region Customer Contact Detail
-
-        public async Task<int> SaveCustomerContactDetail(ContactDetail_Request parameters)
-        {
-            DynamicParameters queryParameters = new DynamicParameters();
-
-            queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@RefId", parameters.RefId);
-            queryParameters.Add("@RefType", "Customer");
-            queryParameters.Add("@ContactName", parameters.ContactName);
-            queryParameters.Add("@MobileNumber", parameters.MobileNumber);
-            queryParameters.Add("@EmailId", parameters.EmailId);
-            queryParameters.Add("@AadharCardImage", parameters.AadharCardImageFileName);
-            queryParameters.Add("@AadharCardOriginalFileName", parameters.AadharCardOriginalFileName);
-            queryParameters.Add("@PanCardImage", parameters.PanCardImageFileName);
-            queryParameters.Add("@PanCardOriginalFileName", parameters.PanCardOriginalFileName);
-            queryParameters.Add("@IsDefault", parameters.IsDefault);
-            queryParameters.Add("@IsActive", parameters.IsActive);
-            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
-
-            return await SaveByStoredProcedure<int>("SaveContactDetail", queryParameters);
-        }
-
-        public async Task<IEnumerable<ContactDetail_Response>> GetCustomerContactDetailList(CustomerContactDetail_Search parameters)
-        {
-            DynamicParameters queryParameters = new DynamicParameters();
-
-            queryParameters.Add("@RefId", parameters.CustomerId);
-            queryParameters.Add("@RefType", "Customer");
-            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
-            queryParameters.Add("@IsActive", parameters.IsActive);
-            queryParameters.Add("@PageNo", parameters.PageNo);
-            queryParameters.Add("@PageSize", parameters.PageSize);
-            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
-            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
-
-            var result = await ListByStoredProcedure<ContactDetail_Response>("GetContactDetailList", queryParameters);
-            parameters.Total = queryParameters.Get<int>("Total");
-
-            return result;
-        }
-
-        public async Task<ContactDetail_Response?> GetCustomerContactDetailById(int Id)
-        {
-            DynamicParameters queryParameters = new DynamicParameters();
-
-            queryParameters.Add("@Id", Id);
-            queryParameters.Add("@RefType", "Customer");
-
-            return (await ListByStoredProcedure<ContactDetail_Response>("GetContactDetailById", queryParameters)).FirstOrDefault();
-        }
-
-        #endregion
-
-        #region Customer Address
-
-        public async Task<int> SaveCustomerAddress(Address_Request parameters)
-        {
-            DynamicParameters queryParameters = new DynamicParameters();
-
-            queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@RefId", parameters.RefId);
-            queryParameters.Add("@RefType", "Customer");
-            queryParameters.Add("@Address1", parameters.Address1);
-            queryParameters.Add("@Address2", parameters.Address2);
-            queryParameters.Add("@RegionId", parameters.RegionId);
-            queryParameters.Add("@StateId", parameters.StateId);
-            queryParameters.Add("@DistrictId", parameters.DistrictId);
-            queryParameters.Add("@CityId", parameters.CityId);
-            queryParameters.Add("@PinCode", parameters.PinCode);
-            queryParameters.Add("@IsDefault", parameters.IsDefault);
-            queryParameters.Add("@IsActive", parameters.IsActive);
-            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
-
-            return await SaveByStoredProcedure<int>("SaveAddress", queryParameters);
-        }
-
-        public async Task<IEnumerable<Address_Response>> GetCustomerAddressList(CustomerAddress_Search parameters)
-        {
-            DynamicParameters queryParameters = new DynamicParameters();
-
-            queryParameters.Add("@RefId", parameters.CustomerId);
-            queryParameters.Add("@RefType", "Customer");
-            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
-            queryParameters.Add("@RefId", parameters.CustomerId);
-            queryParameters.Add("@IsActive", parameters.IsActive);
-            queryParameters.Add("@PageNo", parameters.PageNo);
-            queryParameters.Add("@PageSize", parameters.PageSize);
-            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
-            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
-
-            var result = await ListByStoredProcedure<Address_Response>("GetAddressList", queryParameters);
-            parameters.Total = queryParameters.Get<int>("Total");
-
-            return result;
-        }
-
-        public async Task<Address_Response?> GetCustomerAddressById(int Id)
-        {
-            DynamicParameters queryParameters = new DynamicParameters();
-
-            queryParameters.Add("@Id", Id);
-            queryParameters.Add("@RefType", "Customer");
-
-            return (await ListByStoredProcedure<Address_Response>("GetAddressById", queryParameters)).FirstOrDefault();
-        }
-
-        
-
-        #endregion
     }
 }

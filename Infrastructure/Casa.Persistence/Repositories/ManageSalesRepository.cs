@@ -20,16 +20,6 @@ namespace CLN.Persistence.Repositories
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<ManageSales_Response>> GetManageSalesList(BaseSearchEntity parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ManageSales_Response?> GetManageSalesById(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<int> SaveCustomerAccessory(ManageSales_Accessory_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
@@ -43,5 +33,16 @@ namespace CLN.Persistence.Repositories
 
             return await SaveByStoredProcedure<int>("SaveCustomerAccessory", queryParameters);
         }
+
+        public async Task<IEnumerable<ManageSales_Response>> GetCustomerAccessoryList(BaseSearchEntity parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ManageSales_Response?> GetCustomerAccessoryById(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

@@ -26,7 +26,11 @@ namespace CLN.Application.Models
 
         public string ConsigneeName { get; set; }
 
-        public string MobileNumber { get; set; }
+        public string ConsigneeMobileNumber { get; set; }
+
+        public int? ConsigneeAddressId { get; set; }
+
+        public bool? IsBuyerSameAsConsignee { get; set; }
 
         public int AddressId { get; set; }
 
@@ -44,8 +48,6 @@ namespace CLN.Application.Models
         public int? CityId { get; set; }
 
         public string PinCode { get; set; }
-
-        public bool? IsBuyerSameAsConsignee { get; set; }
 
         public bool? IsActive { get; set; }
 

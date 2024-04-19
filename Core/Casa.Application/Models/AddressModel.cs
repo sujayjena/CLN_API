@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CLN.Application.Models
@@ -12,9 +13,21 @@ namespace CLN.Application.Models
     {
     }
 
+    public class Address_Search : BaseSearchEntity
+    {
+        public long CustomerId { get; set; }
+
+        [JsonIgnore]
+        public string RefType { get; set; }
+    }
+
     public class Address_Request : BaseEntity
     {
+        [JsonIgnore]
         public int RefId { get; set; }
+
+        [JsonIgnore]
+        public string? RefType { get; set; }
 
         public string Address1 { get; set; }
 

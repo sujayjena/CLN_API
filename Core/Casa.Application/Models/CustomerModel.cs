@@ -46,9 +46,6 @@ namespace CLN.Application.Models
 
         public string? PanCardOriginalFileName { get; set; }
 
-        [JsonIgnore]
-        public int? CompanyAddressId { get; set; }
-
         public int? ConsigneeTypeId { get; set; }
 
         public string ConsigneeName { get; set; }
@@ -100,72 +97,5 @@ namespace CLN.Application.Models
         public int? ConsigneeAddressId { get; set; }
         public bool? IsBuyerSameAsConsignee { get; set; }
         public bool? IsActive { get; set; }
-    }
-
-
-    public class CustomerContactDetail_Search : BaseSearchEntity
-    {
-        public long CustomerId { get; set; }
-    }
-
-    //public class CustomerContactDetail_Request : BaseEntity
-    //{
-    //    public int? CustomerId { get; set; }
-
-    //    public string CustomerName { get; set; }
-
-    //    public string MobileNumber { get; set; }
-
-    //    public string EmailId { get; set; }
-
-    //    [JsonIgnore]
-    //    public string? AadharCardImageFileName { get; set; }
-
-    //    public string? AadharCardOriginalFileName { get; set; }
-
-    //    public string? AadharCardImage_Base64 { get; set; }
-
-    //    [JsonIgnore]
-    //    public string? PanCardImageFileName { get; set; }
-
-    //    public string? PanCardOriginalFileName { get; set; }
-
-    //    public string? PanCardImage_Base64 { get; set; }
-
-    //    public bool? IsDefault { get; set; }
-
-    //    public bool? IsActive { get; set; }
-    //}
-
-    //public class CustomerContactDetail_Response : BaseResponseEntity
-    //{
-    //    public int? CustomerId { get; set; }
-
-    //    public string CustomerName { get; set; }
-
-    //    public string MobileNumber { get; set; }
-
-    //    public string EmailId { get; set; }
-
-    //    public string? AadharCardImageFileName { get; set; }
-
-    //    public string? AadharCardOriginalFileName { get; set; }
-
-    //    public string? AadharCardImageURL { get; set; }
-
-    //    public string? PanCardImageFileName { get; set; }
-
-    //    public string? PanCardOriginalFileName { get; set; }
-
-    //    public string? PanCardImageURL { get; set; }
-
-    //    public bool? IsDefault { get; set; }
-
-    //    public bool? IsActive { get; set; }
-    //}
-
-    public class CustomerAddress_Search : BaseSearchEntity
-    {
-        public long CustomerId { get; set; }
     }
 }
