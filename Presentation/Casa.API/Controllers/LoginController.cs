@@ -40,8 +40,7 @@ namespace CLN.API.Controllers
 
             //_response.Data = await Login(loginParameters);
 
-            var vLoginObj = new ResponseModel();
-            vLoginObj.Data = await Login(loginParameters);
+            var vLoginObj = await Login(loginParameters);
 
             return vLoginObj;
         }
