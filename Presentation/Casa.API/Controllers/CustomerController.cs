@@ -102,6 +102,13 @@ namespace CLN.API.Controllers
                 if (!string.IsNullOrWhiteSpace(parameters.AddressDetail.Address1))
                 {
                     int resultAddressDetail = await _customerRepository.SaveCustomerAddress(parameters.AddressDetail);
+                    if (resultAddressDetail > 0) // UpDate Customer > CompanyAddressId Address
+                    {
+                        parameters.Id = result;
+                        parameters.CompanyAddressId = resultAddressDetail;
+
+                        int resultAddress = await _customerRepository.UpdateCustomerAddress(parameters);
+                    }
                 }
 
                 _response.Message = "Record details saved sucessfully";

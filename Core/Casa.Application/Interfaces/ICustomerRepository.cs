@@ -18,6 +18,8 @@ namespace CLN.Application.Interfaces
 
         Task<Customer_Response?> GetCustomerById(int Id);
 
+        Task<int> UpdateCustomerAddress(Customer_Request parameters);
+
         #endregion
 
 

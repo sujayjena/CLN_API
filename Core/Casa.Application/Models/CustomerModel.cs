@@ -47,7 +47,17 @@ namespace CLN.Application.Models
         public string? PanCardOriginalFileName { get; set; }
 
         [JsonIgnore]
-        public int? AddressId { get; set; }
+        public int? CompanyAddressId { get; set; }
+
+        public int? ConsigneeTypeId { get; set; }
+
+        public string ConsigneeName { get; set; }
+
+        public string ConsigneeMobileNumber { get; set; }
+
+        public int? ConsigneeAddressId { get; set; }
+
+        public bool? IsBuyerSameAsConsignee { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -84,6 +94,11 @@ namespace CLN.Application.Models
         public string DistrictName { get; set; }
         public int? CityId { get; set; }
         public string CityName { get; set; }
+        public int? ConsigneeTypeId { get; set; }
+        public string ConsigneeName { get; set; }
+        public string ConsigneeMobileNumber { get; set; }
+        public int? ConsigneeAddressId { get; set; }
+        public bool? IsBuyerSameAsConsignee { get; set; }
         public bool? IsActive { get; set; }
     }
 

@@ -39,6 +39,12 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@GSTImageOriginalFileName", parameters.GSTImageOriginalFileName);
             queryParameters.Add("@PanCardImage", parameters.PanCardImageFileName);
             queryParameters.Add("@PanCardOriginalFileName", parameters.PanCardOriginalFileName);
+            queryParameters.Add("@CompanyAddressId", parameters.PanCardOriginalFileName);
+            queryParameters.Add("@ConsigneeTypeId", parameters.ConsigneeTypeId);
+            queryParameters.Add("@ConsigneeName", parameters.ConsigneeName);
+            queryParameters.Add("@ConsigneeMobileNumber", parameters.ConsigneeMobileNumber);
+            queryParameters.Add("@ConsigneeAddressId", parameters.ConsigneeAddressId);
+            queryParameters.Add("@IsBuyerSameAsConsignee", parameters.IsBuyerSameAsConsignee);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -65,10 +71,21 @@ namespace CLN.Persistence.Repositories
         public async Task<Customer_Response?> GetCustomerById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
-
             queryParameters.Add("@Id", Id);
 
             return (await ListByStoredProcedure<Customer_Response>("GetCustomerById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<int> UpdateCustomerAddress(Customer_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@CompanyAddressId", parameters.CompanyAddressId);
+            queryParameters.Add("@ConsigneeAddressId", parameters.ConsigneeAddressId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("UpdateCustomerAddress", queryParameters);
         }
 
         #endregion
@@ -175,6 +192,8 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<Address_Response>("GetAddressById", queryParameters)).FirstOrDefault();
         }
+
+        
 
         #endregion
     }

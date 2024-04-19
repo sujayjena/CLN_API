@@ -165,6 +165,36 @@ namespace CLN.Persistence.Repositories
             }
         }
 
+        public static async Task<int> ExecuteQuery(string sqlQuery)
+        {
+            try
+            {
+                using (SqlConnection conn = OpenConnection())
+                {
+                    return await conn.ExecuteAsync(sqlQuery, null, null, null, CommandType.Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public static async Task<int> ExecuteQuery(string sqlQuery, object parameters)
+        {
+            try
+            {
+                using (SqlConnection conn = OpenConnection())
+                {
+                    return await conn.ExecuteAsync(sqlQuery, parameters, null, null, CommandType.Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         #endregion
 
         public static string ConvertListToXml<T>(List<T> dataList)
