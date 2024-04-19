@@ -10,41 +10,31 @@ namespace CLN.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : CustomBaseController
+    public class VendorController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IVendorRepository _vendorRepository;
         private IFileManager _fileManager;
 
-        public CustomerController(ICustomerRepository customerRepository, IFileManager fileManager)
+        public VendorController(IVendorRepository vendorRepository, IFileManager fileManager)
         {
-            _customerRepository = customerRepository;
+            _vendorRepository = vendorRepository;
             _fileManager = fileManager;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
 
-        #region Customer 
+        #region Vendor 
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveCustomer(Customer_Request parameters)
+        public async Task<ResponseModel> SaveVendor(Vendor_Request parameters)
         {
             // Image Upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.GSTImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.GSTImage_Base64, "\\Uploads\\Customer\\", parameters.GSTImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.GSTImageFileName = vUploadFile;
-                }
-            }
-
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PanCardImage_Base64))
             {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Customer\\", parameters.PanCardOriginalFileName);
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Vendor\\", parameters.PanCardOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile))
                 {
@@ -52,7 +42,17 @@ namespace CLN.API.Controllers
                 }
             }
 
-            int result = await _customerRepository.SaveCustomer(parameters);
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.GSTImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.GSTImage_Base64, "\\Uploads\\Vendor\\", parameters.GSTImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.GSTImageFileName = vUploadFile;
+                }
+            }
+
+            int result = await _vendorRepository.SaveVendor(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -74,34 +74,13 @@ namespace CLN.API.Controllers
                 // Contact Detail
                 if (!string.IsNullOrWhiteSpace(parameters.ContactDetail.ContactName))
                 {
-                    // Image Upload
-                    if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.ContactDetail.AadharCardImage_Base64))
-                    {
-                        var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.ContactDetail.AadharCardImage_Base64, "\\Uploads\\Customer\\", parameters.ContactDetail.AadharCardOriginalFileName);
-
-                        if (!string.IsNullOrWhiteSpace(vUploadFile_AadharCardImage))
-                        {
-                            parameters.ContactDetail.AadharCardImageFileName = vUploadFile_AadharCardImage;
-                        }
-                    }
-
-                    if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.ContactDetail.PanCardImage_Base64))
-                    {
-                        var vUploadFile_PanCard = _fileManager.UploadDocumentsBase64ToFile(parameters.ContactDetail.PanCardImage_Base64, "\\Uploads\\Customer\\", parameters.ContactDetail.PanCardOriginalFileName);
-
-                        if (!string.IsNullOrWhiteSpace(vUploadFile_PanCard))
-                        {
-                            parameters.ContactDetail.PanCardImageFileName = vUploadFile_PanCard;
-                        }
-                    }
-
-                    int resultContact = await _customerRepository.SaveCustomerContactDetail(parameters.ContactDetail);
+                    int resultContact = await _vendorRepository.SaveVendorContactDetail(parameters.ContactDetail);
                 }
 
                 // Address Detail
                 if (!string.IsNullOrWhiteSpace(parameters.AddressDetail.Address1))
                 {
-                    int resultAddressDetail = await _customerRepository.SaveCustomerAddress(parameters.AddressDetail);
+                    int resultAddressDetail = await _vendorRepository.SaveVendorAddress(parameters.AddressDetail);
                 }
 
                 _response.Message = "Record details saved sucessfully";
@@ -112,9 +91,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetVendorList(BaseSearchEntity parameters)
         {
-            var objList = await _customerRepository.GetCustomerList(parameters);
+            var objList = await _vendorRepository.GetVendorList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -122,7 +101,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerById(int Id)
+        public async Task<ResponseModel> GetVendorById(int Id)
         {
             if (Id <= 0)
             {
@@ -130,7 +109,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _customerRepository.GetCustomerById(Id);
+                var vResultObj = await _vendorRepository.GetVendorById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
@@ -138,16 +117,16 @@ namespace CLN.API.Controllers
 
         #endregion
 
-        #region Customer Contact Detail
+        #region Vendor Contact Detail
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveCustomerContactDetail(ContactDetail_Request parameters)
+        public async Task<ResponseModel> SaveVendorContactDetail(ContactDetail_Request parameters)
         {
             // Image Upload
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.AadharCardImage_Base64))
             {
-                var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharCardImage_Base64, "\\Uploads\\Customer\\", parameters.AadharCardOriginalFileName);
+                var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharCardImage_Base64, "\\Uploads\\Vendor\\", parameters.AadharCardOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile_AadharCardImage))
                 {
@@ -157,7 +136,7 @@ namespace CLN.API.Controllers
 
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PanCardImage_Base64))
             {
-                var vUploadFile_PanCard = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Customer\\", parameters.PanCardOriginalFileName);
+                var vUploadFile_PanCard = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Vendor\\", parameters.PanCardOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile_PanCard))
                 {
@@ -165,7 +144,7 @@ namespace CLN.API.Controllers
                 }
             }
 
-            int result = await _customerRepository.SaveCustomerContactDetail(parameters);
+            int result = await _vendorRepository.SaveVendorContactDetail(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -188,9 +167,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerContactDetailList(CustomerContactDetail_Search parameters)
+        public async Task<ResponseModel> GetVendorContactDetailList(VendorContactDetail_Search parameters)
         {
-            var objList = await _customerRepository.GetCustomerContactDetailList(parameters);
+            var objList = await _vendorRepository.GetVendorContactDetailList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -198,7 +177,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerContactDetailById(int Id)
+        public async Task<ResponseModel> GetVendorContactDetailById(int Id)
         {
             if (Id <= 0)
             {
@@ -206,7 +185,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _customerRepository.GetCustomerContactDetailById(Id);
+                var vResultObj = await _vendorRepository.GetVendorContactDetailById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
@@ -214,13 +193,13 @@ namespace CLN.API.Controllers
 
         #endregion
 
-        #region Customer Address
+        #region Vendor Address
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveCustomerAddressDetail(Address_Request parameters)
+        public async Task<ResponseModel> SaveVendorAddressDetail(Address_Request parameters)
         {
-            int result = await _customerRepository.SaveCustomerAddress(parameters);
+            int result = await _vendorRepository.SaveVendorAddress(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -243,9 +222,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerAddressDetailList(CustomerAddress_Search parameters)
+        public async Task<ResponseModel> GetVendorAddressDetailList(VendorAddress_Search parameters)
         {
-            var objList = await _customerRepository.GetCustomerAddressList(parameters);
+            var objList = await _vendorRepository.GetVendorAddressList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -253,7 +232,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerAddressDetailById(int Id)
+        public async Task<ResponseModel> GetVendorAddressDetailById(int Id)
         {
             if (Id <= 0)
             {
@@ -261,7 +240,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _customerRepository.GetCustomerAddressById(Id);
+                var vResultObj = await _vendorRepository.GetVendorAddressById(Id);
                 _response.Data = vResultObj;
             }
             return _response;

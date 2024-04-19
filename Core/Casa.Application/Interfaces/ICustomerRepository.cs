@@ -20,14 +20,13 @@ namespace CLN.Application.Interfaces
 
         #endregion
 
-
         #region Customer Contact Detail
 
-        Task<int> SaveCustomerContactDetail(CustomerContactDetail_Request parameters);
+        Task<int> SaveCustomerContactDetail(ContactDetail_Request parameters);
 
-        Task<IEnumerable<CustomerContactDetail_Response>> GetCustomerContactDetailList(CustomerContactDetail_Search parameters);
+        Task<IEnumerable<ContactDetail_Response>> GetCustomerContactDetailList(CustomerContactDetail_Search parameters);
 
-        Task<CustomerContactDetail_Response?> GetCustomerContactDetailById(int Id);
+        Task<ContactDetail_Response?> GetCustomerContactDetailById(int Id);
 
         #endregion
 

@@ -11,41 +11,40 @@ using System.Threading.Tasks;
 
 namespace CLN.Persistence.Repositories
 {
-    public class CustomerRepository : GenericRepository, ICustomerRepository
+    public class VendorRepository : GenericRepository, IVendorRepository
     {
         private IConfiguration _configuration;
 
-        public CustomerRepository(IConfiguration configuration) : base(configuration)
+        public VendorRepository(IConfiguration configuration) : base(configuration)
         {
             _configuration = configuration;
         }
 
-        #region Customer
+        #region Vendor
 
-        public async Task<int> SaveCustomer(Customer_Request parameters)
+        public async Task<int> SaveVendor(Vendor_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@CompanyTypeId", parameters.CompanyTypeId);
-            queryParameters.Add("@CompanyName", parameters.CompanyName);
+            queryParameters.Add("@VendorName", parameters.VendorName);
             queryParameters.Add("@LandLineNumber", parameters.LandLineNumber);
             queryParameters.Add("@MobileNumber", parameters.MobileNumber);
             queryParameters.Add("@EmailId", parameters.EmailId);
-            queryParameters.Add("@Website", parameters.Website);
-            queryParameters.Add("@Remark", parameters.Remark);
-            queryParameters.Add("@RefParty", parameters.RefParty);
-            queryParameters.Add("@GSTImage", parameters.GSTImageFileName);
-            queryParameters.Add("@GSTImageOriginalFileName", parameters.GSTImageOriginalFileName);
+            queryParameters.Add("@SpecialRemark", parameters.SpecialRemark);
+            queryParameters.Add("@PanCardNo", parameters.PanCardNo);
             queryParameters.Add("@PanCardImage", parameters.PanCardImageFileName);
             queryParameters.Add("@PanCardOriginalFileName", parameters.PanCardOriginalFileName);
+            queryParameters.Add("@GSTNo", parameters.GSTNo);
+            queryParameters.Add("@GSTImage", parameters.GSTImageFileName);
+            queryParameters.Add("@GSTImageOriginalFileName", parameters.GSTImageOriginalFileName);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveCustomer", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveVendor", queryParameters);
         }
 
-        public async Task<IEnumerable<Customer_Response>> GetCustomerList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<Vendor_Response>> GetVendorList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -56,32 +55,32 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<Customer_Response>("GetCustomerList", queryParameters);
+            var result = await ListByStoredProcedure<Vendor_Response>("GetVendorList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<Customer_Response?> GetCustomerById(int Id)
+        public async Task<Vendor_Response?> GetVendorById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<Customer_Response>("GetCustomerById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<Vendor_Response>("GetVendorById", queryParameters)).FirstOrDefault();
         }
 
         #endregion
 
-        #region Customer Contact Detail
+        #region Vendor Contact Detail
 
-        public async Task<int> SaveCustomerContactDetail(ContactDetail_Request parameters)
+        public async Task<int> SaveVendorContactDetail(ContactDetail_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RefId", parameters.RefId);
-            queryParameters.Add("@RefType", "Customer");
+            queryParameters.Add("@RefType", "Vendor");
             queryParameters.Add("@ContactName", parameters.ContactName);
             queryParameters.Add("@MobileNumber", parameters.MobileNumber);
             queryParameters.Add("@EmailId", parameters.EmailId);
@@ -96,12 +95,12 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveContactDetail", queryParameters);
         }
 
-        public async Task<IEnumerable<ContactDetail_Response>> GetCustomerContactDetailList(CustomerContactDetail_Search parameters)
+        public async Task<IEnumerable<ContactDetail_Response>> GetVendorContactDetailList(VendorContactDetail_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@RefId", parameters.CustomerId);
-            queryParameters.Add("@RefType", "Customer");
+            queryParameters.Add("@RefId", parameters.VendorId);
+            queryParameters.Add("@RefType", "Vendor");
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -115,27 +114,27 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
-        public async Task<ContactDetail_Response?> GetCustomerContactDetailById(int Id)
+        public async Task<ContactDetail_Response?> GetVendorContactDetailById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", Id);
-            queryParameters.Add("@RefType", "Customer");
+            queryParameters.Add("@RefType", "Vendor");
 
             return (await ListByStoredProcedure<ContactDetail_Response>("GetContactDetailById", queryParameters)).FirstOrDefault();
         }
 
         #endregion
 
-        #region Customer Address
+        #region Vendor Address
 
-        public async Task<int> SaveCustomerAddress(Address_Request parameters)
+        public async Task<int> SaveVendorAddress(Address_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RefId", parameters.RefId);
-            queryParameters.Add("@RefType", "Customer");
+            queryParameters.Add("@RefType", "Vendor");
             queryParameters.Add("@Address1", parameters.Address1);
             queryParameters.Add("@Address2", parameters.Address2);
             queryParameters.Add("@RegionId", parameters.RegionId);
@@ -150,14 +149,13 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveAddress", queryParameters);
         }
 
-        public async Task<IEnumerable<Address_Response>> GetCustomerAddressList(CustomerAddress_Search parameters)
+        public async Task<IEnumerable<Address_Response>> GetVendorAddressList(VendorAddress_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@RefId", parameters.CustomerId);
-            queryParameters.Add("@RefType", "Customer");
+            queryParameters.Add("@RefId", parameters.VendorId);
+            queryParameters.Add("@RefType", "Vendor");
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
-            queryParameters.Add("@RefId", parameters.CustomerId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
@@ -170,12 +168,12 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
-        public async Task<Address_Response?> GetCustomerAddressById(int Id)
+        public async Task<Address_Response?> GetVendorAddressById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", Id);
-            queryParameters.Add("@RefType", "Customer");
+            queryParameters.Add("@RefType", "Vendor");
 
             return (await ListByStoredProcedure<Address_Response>("GetAddressById", queryParameters)).FirstOrDefault();
         }

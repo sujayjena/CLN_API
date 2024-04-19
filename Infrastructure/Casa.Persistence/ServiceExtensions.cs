@@ -50,6 +50,7 @@ namespace CLN.Persistence
             services.AddScoped<IRectificationActionRepository, RectificationActionRepository>();
             services.AddScoped<IDetailsOfAdjustmentRepository, DetailsOfAdjustmentRepository>();
             services.AddScoped<IProtectionsRepository, ProtectionsRepository>();
+            services.AddScoped<IVendorRepository, VendorRepository>();
         }
     }
 }
