@@ -50,9 +50,13 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@BloodGroup", parameters.BloodGroup);
             queryParameters.Add("@MobileUniqueId", parameters.MobileUniqId);
             queryParameters.Add("@AadharNumber", parameters.AadharNumber);
-            queryParameters.Add("@AadharImage", parameters.AadharImageFileNaame);
+            queryParameters.Add("@AadharOriginalFileName", parameters.AadharOriginalFileName);
+            queryParameters.Add("@AadharImage", parameters.AadharImage);
             queryParameters.Add("@PanNumber", parameters.PanNumber);
-            queryParameters.Add("@PanCardImage", parameters.PanCardImageFileNaame);
+            queryParameters.Add("@PanCardOriginalFileName", parameters.PanCardOriginalFileName);
+            queryParameters.Add("@PanCardImage", parameters.PanCardImage);
+            queryParameters.Add("@ProfileOriginalFileName", parameters.ProfileOriginalFileName);
+            queryParameters.Add("@ProfileImage", parameters.ProfileImage);
             queryParameters.Add("@IsMobileUser", parameters.IsMobileUser);
             queryParameters.Add("@IsWebUser", parameters.IsWebUser);
             queryParameters.Add("@IsActive", parameters.IsActive);

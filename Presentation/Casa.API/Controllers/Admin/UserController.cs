@@ -96,22 +96,33 @@ namespace CLN.API.Controllers.Admin
             // Aadhar Card Upload
             if (parameters !!= null && !string.IsNullOrWhiteSpace(parameters.AadharImage_Base64))
             {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharImage_Base64, "\\Uploads\\Employee\\", parameters.AadharImageFileNaame);
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharImage_Base64, "\\Uploads\\Employee\\", parameters.AadharOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile))
                 {
-                    parameters.AadharImageFileNaame = vUploadFile;
+                    parameters.AadharImage = vUploadFile;
                 }
             }
 
             // Pan Card Upload
             if (parameters != null && !string.IsNullOrWhiteSpace(parameters.PanCardImage_Base64))
             {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Employee\\", parameters.PanCardImageFileNaame);
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Employee\\", parameters.PanCardOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile))
                 {
-                    parameters.PanCardImageFileNaame = vUploadFile;
+                    parameters.PanCardImage = vUploadFile;
+                }
+            }
+
+            // Profile Upload
+            if (parameters != null && !string.IsNullOrWhiteSpace(parameters.ProfileImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.ProfileImage_Base64, "\\Uploads\\Employee\\", parameters.ProfileOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.ProfileImage = vUploadFile;
                 }
             }
 

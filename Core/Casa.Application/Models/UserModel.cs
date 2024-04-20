@@ -66,15 +66,25 @@ namespace CLN.Application.Models
 
         public string AadharNumber { get; set; }
 
-        public string AadharImageFileNaame { get; set; }
+        public string AadharImage { get; set; }
 
         public string AadharImage_Base64 { get; set; }
 
+        public string? AadharOriginalFileName { get; set; }
+
         public string PanNumber { get; set; }
 
-        public string PanCardImageFileNaame { get; set; }
+        public string PanCardImage { get; set; }
 
         public string PanCardImage_Base64 { get; set; }
+
+        public string? PanCardOriginalFileName { get; set; }
+
+        public string ProfileImage { get; set; }
+
+        public string ProfileImage_Base64 { get; set; }
+
+        public string? ProfileOriginalFileName { get; set; }
 
         public bool? IsMobileUser { get; set; }
 
@@ -103,7 +113,9 @@ namespace CLN.Application.Models
 
         public int? ReportingTo { get; set; }
 
-        public string ReportingName { get; set; }
+        public string ReportingToName { get; set; }
+
+        public string ReportingToMobileNo { get; set; }
 
         [DefaultValue(1)]
         public int? CompanyId { get; set; }
@@ -154,13 +166,23 @@ namespace CLN.Application.Models
 
         public string AadharImage { get; set; }
 
+        public string? AadharOriginalFileName { get; set; }
+
         public string AadharImageURL { get; set; }
 
         public string PanNumber { get; set; }
 
         public string PanCardImage { get; set; }
 
+        public string? PanCardOriginalFileName { get; set; }
+
         public string PanCardImageURL { get; set; }
+
+        public string ProfileImage { get; set; }
+
+        public string? ProfileOriginalFileName { get; set; }
+
+        public string ProfileImageURL { get; set; }
 
         public bool? IsMobileUser { get; set; }
 
