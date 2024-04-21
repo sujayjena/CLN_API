@@ -55,7 +55,7 @@ namespace CLN.Application.Models
         public List<ManageSales_Accessory_Request> AccessoryDetail { get; set; }
     }
 
-    public class ManageSales_Buyer_Request : BaseEntity
+    public class ManageSales_Buyer_Request
     {
         public int? BuyerTypeId { get; set; }
 
@@ -95,38 +95,114 @@ namespace CLN.Application.Models
         public bool? IsActive { get; set; }
     }
 
-
-
-
-
-    public class ManageSales_Response : BaseResponseEntity
+    public class ManageSalesList_Response : BaseResponseEntity
     {
-        public int? Id { get; set; }
-        public int? CompanyTypeId { get; set; }
-        public string CompanyType { get; set; }
-        public string CompanyName { get; set; }
-        public string LandLineNumber { get; set; }
-        public string MobileNumber { get; set; }
-        public string EmailId { get; set; }
-        public string Website { get; set; }
-        public string Remark { get; set; }
-        public string RefParty { get; set; }
-        public string GSTImage { get; set; }
-        public string GSTImageOriginalFileName { get; set; }
-        public string GSTImageURL { get; set; }
-        public string PanCardImage { get; set; }
-        public string PanCardOriginalFileName { get; set; }
-        public string PanCardImageURL { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public int? RegionId { get; set; }
-        public string RegionName { get; set; }
-        public int? StateId { get; set; }
-        public string StateName { get; set; }
-        public int? DistrictId { get; set; }
-        public string DistrictName { get; set; }
-        public int? CityId { get; set; }
-        public string CityName { get; set; }
+        public string BuyerName { get; set; }
+
+        public string BuyerMobileNumber { get; set; }
+
+        public int? AddressId { get; set; }
+
+        public string BuyerAddress1 { get; set; }
+
+        public int? BuyerRegionId { get; set; }
+
+        public string BuyerRegionName { get; set; }
+
+        public int? BuyerStateId { get; set; }
+
+        public string BuyerStateName { get; set; }
+
+        public int? BuyerDistrictId { get; set; }
+
+        public string BuyerDistrictName { get; set; }
+
+        public int? BuyerCityId { get; set; }
+
+        public string BuyerCityName { get; set; }
+
+        public string BuyerPinCode { get; set; }
+
+        public string ConsigneeName { get; set; }
+
+        public string ConsigneeMobileNumber { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ManageSalesDetail_Response : BaseResponseEntity
+    {
+        public int? BuyerTypeId { get; set; }
+
+        public string BuyerType { get; set; }
+
+        public string BuyerName { get; set; }
+
+        public string BuyerMobileNumber { get; set; }
+
+        public string BuyerAddress1 { get; set; }
+
+        public int? BuyerRegionId { get; set; }
+
+        public string BuyerRegionName { get; set; }
+
+        public int? BuyerStateId { get; set; }
+
+        public string BuyerStateName { get; set; }
+
+        public int? BuyerDistrictId { get; set; }
+
+        public string BuyerDistrictName { get; set; }
+
+        public int? BuyerCityId { get; set; }
+
+        public string BuyerCityName { get; set; }
+
+        public string BuyerPinCode { get; set; }
+
+        public bool? IsBuyerSameAsConsignee { get; set; }
+
+        public int? ConsigneeTypeId { get; set; }
+
+        public string ConsigneeName { get; set; }
+
+        public string ConsigneeMobileNumber { get; set; }
+
+        public int? ConsigneeAddressId { get; set; }
+
+        public string ConsigneeAddress1 { get; set; }
+
+        public int? ConsigneeRegionId { get; set; }
+
+        public string ConsigneeRegionName { get; set; }
+
+        public int? ConsigneeStateId { get; set; }
+
+        public string ConsigneeStateName { get; set; }
+
+        public int? ConsigneeDistrictId { get; set; }
+
+        public string ConsigneeDistrictName { get; set; }
+
+        public int? ConsigneeCityId { get; set; }
+
+        public string ConsigneeCityName { get; set; }
+
+        public string ConsigneePinCode { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class ManageSales_Accessory_Response : BaseEntity
+    {
+        public int? CustomerId { get; set; }
+
+        public int? AccessoryId { get; set; }
+
+        public string AccessoryName { get; set; }
+
+        public int? Quantity { get; set; }
+
         public bool? IsActive { get; set; }
     }
 }

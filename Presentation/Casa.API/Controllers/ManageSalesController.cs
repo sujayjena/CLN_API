@@ -190,7 +190,7 @@ namespace CLN.API.Controllers
                         Quantity = item.Quantity,
                     };
 
-                    int resultCustomerAccessory = await _manageSalesRepository.SaveCustomerAccessory(vManageSales_Accessory_Request);
+                    int resultCustomerAccessory = await _manageSalesRepository.SaveManageSalesAccessory(vManageSales_Accessory_Request);
                 }
             }
 
@@ -200,9 +200,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetManageSalesList(BaseSearchEntity parameters)
         {
-            var objList = await _customerRepository.GetCustomerList(parameters);
+            var objList = await _manageSalesRepository.GetManageSalesList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -218,7 +218,33 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _customerRepository.GetCustomerById(Id);
+                var vResultObj = await _manageSalesRepository.GetManageSalesById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetManageSalesAccessoryList(BaseSearchEntity parameters)
+        {
+            var objList = await _manageSalesRepository.GetManageSalesAccessoryList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetManageSalesAccessoryById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageSalesRepository.GetManageSalesAccessoryById(Id);
                 _response.Data = vResultObj;
             }
             return _response;

@@ -20,7 +20,32 @@ namespace CLN.Persistence.Repositories
             _configuration = configuration;
         }
 
-        public async Task<int> SaveCustomerAccessory(ManageSales_Accessory_Request parameters)
+        public async Task<IEnumerable<ManageSalesList_Response>> GetManageSalesList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<ManageSalesList_Response>("GetManageSalesList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<ManageSalesDetail_Response?> GetManageSalesById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<ManageSalesDetail_Response>("GetManageSalesById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<int> SaveManageSalesAccessory(ManageSales_Accessory_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -34,15 +59,29 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveCustomerAccessory", queryParameters);
         }
 
-        public async Task<IEnumerable<ManageSales_Response>> GetCustomerAccessoryList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<ManageSales_Accessory_Response>> GetManageSalesAccessoryList(BaseSearchEntity parameters)
         {
-            throw new NotImplementedException();
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<ManageSales_Accessory_Response>("GetAccessoryList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
         }
 
-        public async Task<ManageSales_Response?> GetCustomerAccessoryById(int Id)
+        public async Task<ManageSales_Accessory_Response?> GetManageSalesAccessoryById(int Id)
         {
-            throw new NotImplementedException();
-        }
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
 
+            return (await ListByStoredProcedure<ManageSales_Accessory_Response>("GetAccessoryById", queryParameters)).FirstOrDefault();
+        }
     }
 }

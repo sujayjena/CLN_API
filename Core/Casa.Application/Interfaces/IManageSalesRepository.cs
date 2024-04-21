@@ -10,10 +10,14 @@ namespace CLN.Application.Interfaces
 {
     public interface IManageSalesRepository
     {
-        Task<int> SaveCustomerAccessory(ManageSales_Accessory_Request parameters);
+        Task<int> SaveManageSalesAccessory(ManageSales_Accessory_Request parameters);
 
-        Task<IEnumerable<ManageSales_Response>> GetCustomerAccessoryList(BaseSearchEntity parameters);
+        Task<IEnumerable<ManageSalesList_Response>> GetManageSalesList(BaseSearchEntity parameters);
 
-        Task<ManageSales_Response?> GetCustomerAccessoryById(int Id);
+        Task<ManageSalesDetail_Response?> GetManageSalesById(int Id);
+
+        Task<IEnumerable<ManageSales_Accessory_Response>> GetManageSalesAccessoryList(BaseSearchEntity parameters);
+
+        Task<ManageSales_Accessory_Response?> GetManageSalesAccessoryById(int Id);
     }
 }
