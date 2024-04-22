@@ -15,11 +15,22 @@ namespace CLN.Application.Models
 
     public class Attendance_Request
     {
+        [DefaultValue("")]
         public string? PunchType { get; set; }
+
+        [DefaultValue("")]
         public string? Latitude { get; set; }
+
+        [DefaultValue("")]
         public string? Longitude { get; set; }
+
+        [DefaultValue("")]
         public string? BatteryStatus { get; set; }
+
+        [DefaultValue("")]
         public string? Address { get; set; }
+
+        [DefaultValue("")]
         public string? Remark { get; set; }
     }
 

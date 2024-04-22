@@ -16,4 +16,12 @@ namespace CLN.Application.Models
         public long RoleId { get; set; }
         public long? RegionId { get; set; }
     }
+    public partial class EmployeesListByReportingTo_Response
+    {
+        public int Id { get; set; }
+        public string? EmployeeName { get; set; }
+        public int CompanyId { get; set; }
+        public string? BranchId { get; set; }
+        public int UserId { get; set; }
+    }
 }

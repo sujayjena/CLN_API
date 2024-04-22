@@ -11,5 +11,6 @@ namespace CLN.Application.Interfaces
     public interface IMasterDataRepository
     {
         Task<IEnumerable<SelectListResponse>> GetReportingToEmployeeForSelectList(ReportingToEmpListParameters parameters);
+        Task<IEnumerable<EmployeesListByReportingTo_Response>> GetEmployeesListByReportingTo(int EmployeeId);
     }
 }

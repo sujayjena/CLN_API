@@ -28,5 +28,13 @@ namespace CLN.Persistence.Repositories
 
             return await ListByStoredProcedure<SelectListResponse>("GetReportingToEmployeeForSelectList", queryParameters);
         }
+
+        public async Task<IEnumerable<EmployeesListByReportingTo_Response>> GetEmployeesListByReportingTo(int EmployeeId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@EmployeeId", EmployeeId);
+
+            return await ListByStoredProcedure<EmployeesListByReportingTo_Response>("GetEmployeesListByReportingTo", queryParameters);
+        }
     }
 }

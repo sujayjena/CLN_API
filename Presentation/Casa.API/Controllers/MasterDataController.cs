@@ -28,5 +28,14 @@ namespace CLN.API.Controllers
             _response.Data = lstResponse.ToList();
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEmployeesListByReportingTo(int EmployeeId)
+        {
+            IEnumerable<EmployeesListByReportingTo_Response> lstResponse = await _masterDataRepository.GetEmployeesListByReportingTo(EmployeeId);
+            _response.Data = lstResponse.ToList();
+            return _response;
+        }
     }
 }
