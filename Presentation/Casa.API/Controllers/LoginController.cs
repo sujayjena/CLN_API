@@ -16,15 +16,18 @@ namespace CLN.API.Controllers
         private ILoginRepository _loginRepository;
         private IJwtUtilsRepository _jwt;
         private readonly IRolePermissionRepository _rolePermissionRepository;
+        private readonly IUserRepository _userRepository;
 
-        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository)
+        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository)
         {
             _loginRepository = loginRepository;
             _jwt = jwt;
+            _userRepository = userRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
             _rolePermissionRepository = rolePermissionRepository;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
@@ -68,6 +71,7 @@ namespace CLN.API.Controllers
                     {
                         var vRoleList = await _rolePermissionRepository.GetRoleMasterEmployeePermissionById(Convert.ToInt64(loginResponse.UserId));
                         //var vUserNotificationList = await _notificationService.GetNotificationListById(Convert.ToInt64(loginResponse.EmployeeId));
+                        var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(loginResponse.UserId));
 
                         employeeSessionData = new SessionDataEmployee
                         {
@@ -83,6 +87,11 @@ namespace CLN.API.Controllers
                             IsWebUser = loginResponse.IsWebUser,
                             IsActive = loginResponse.IsActive,
                             Token = tokenResponse.Item1,
+
+                            ProfileImage= vUserDetail  != null ? vUserDetail.ProfileImage : String.Empty,
+                            ProfileOriginalFileName = vUserDetail != null ? vUserDetail.ProfileOriginalFileName : String.Empty,
+                            ProfileImageURL = vUserDetail != null ? vUserDetail.ProfileImageURL : String.Empty,
+
                             UserRoleList = vRoleList.ToList(),
                             //UserNotificationList = vUserNotificationList.ToList()
                         };

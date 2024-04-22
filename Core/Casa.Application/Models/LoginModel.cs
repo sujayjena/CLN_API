@@ -100,6 +100,9 @@ namespace CLN.Application.Models
         public bool IsMobileUser { get; set; }
         public bool IsActive { get; set; }
         public string Token { get; set; }
+        public string ProfileImage { get; set; }
+        public string? ProfileOriginalFileName { get; set; }
+        public string ProfileImageURL { get; set; }
         public List<RoleMaster_Employee_Permission_Response> UserRoleList { get; set; }
     }
 }
