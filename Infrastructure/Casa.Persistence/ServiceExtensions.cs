@@ -54,8 +54,9 @@ namespace CLN.Persistence
             services.AddScoped<IVendorRepository, VendorRepository>();
             services.AddScoped<IContactDetailRepository, ContactDetailRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
-
-
+            services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+            services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+            services.AddScoped<ILeaveRepository, LeaveRepository>();
         }
     }
 }
