@@ -5,6 +5,7 @@ using CLN.Application.Models;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace CLN.API.Controllers
 {
@@ -36,7 +37,7 @@ namespace CLN.API.Controllers
             _response.IsSuccess = true;
         }
 
-        #region Customer 
+        #region Sales 
 
         [Route("[action]")]
         [HttpPost]
@@ -90,7 +91,7 @@ namespace CLN.API.Controllers
                 vCustObj.Id = parameters.Id;
                 vCustObj.CompanyTypeId = parameters.BuyerDetail.BuyerTypeId;
                 vCustObj.CompanyName = parameters.BuyerDetail.BuyerName;
-                vCustObj.MobileNumber = parameters.BuyerDetail.MobileNumber;
+                vCustObj.MobileNumber = parameters.BuyerDetail.BuyerMobileNumber;
 
                 // Consignee
                 vCustObj.ConsigneeTypeId = parameters.ConsigneeTypeId;
@@ -125,19 +126,19 @@ namespace CLN.API.Controllers
             if (iCustomerId > 0)
             {
                 // Consignee Address Detail
-                if (!string.IsNullOrWhiteSpace(parameters.Address1))
+                if (!string.IsNullOrWhiteSpace(parameters.ConsigneeAddress1))
                 {
                     var AddressDetail = new Address_Request()
                     {
-                        Id = parameters.AddressId,
+                        Id = Convert.ToInt32(parameters.ConsigneeAddressId),
                         RefId = 0,
                         RefType = "Customer",
-                        Address1 = parameters.Address1,
-                        RegionId = parameters.RegionId,
-                        StateId = parameters.StateId,
-                        DistrictId = parameters.DistrictId,
-                        CityId = parameters.CityId,
-                        PinCode = parameters.PinCode,
+                        Address1 = parameters.ConsigneeAddress1,
+                        RegionId = parameters.ConsigneeRegionId,
+                        StateId = parameters.ConsigneeStateId,
+                        DistrictId = parameters.ConsigneeDistrictId,
+                        CityId = parameters.ConsigneeCityId,
+                        PinCode = parameters.ConsigneePinCode,
                         IsDeleted = false,
                         IsDefault = false,
                         IsActive = true,
@@ -157,19 +158,19 @@ namespace CLN.API.Controllers
                 }
 
                 // Buyer Address Detail
-                if (!string.IsNullOrWhiteSpace(parameters.BuyerDetail.Address1))
+                if (!string.IsNullOrWhiteSpace(parameters.BuyerDetail.BuyerAddress1))
                 {
                     var AddressDetail = new Address_Request()
                     {
-                        Id = parameters.BuyerDetail.AddressId,
+                        Id = Convert.ToInt32(parameters.BuyerDetail.BuyerAddressId),
                         RefId = iCustomerId,
                         RefType = "Customer",
-                        Address1 = parameters.BuyerDetail.Address1,
-                        RegionId = parameters.BuyerDetail.RegionId,
-                        StateId = parameters.BuyerDetail.StateId,
-                        DistrictId = parameters.BuyerDetail.DistrictId,
-                        CityId = parameters.BuyerDetail.CityId,
-                        PinCode = parameters.BuyerDetail.PinCode,
+                        Address1 = parameters.BuyerDetail.BuyerAddress1,
+                        RegionId = parameters.BuyerDetail.BuyerRegionId,
+                        StateId = parameters.BuyerDetail.BuyerStateId,
+                        DistrictId = parameters.BuyerDetail.BuyerDistrictId,
+                        CityId = parameters.BuyerDetail.BuyerCityId,
+                        PinCode = parameters.BuyerDetail.BuyerPinCode,
                         IsDeleted = false,
                         IsDefault = true,
                         IsActive = true,
@@ -179,18 +180,18 @@ namespace CLN.API.Controllers
                 }
 
                 // Save/Update Accessory List
-                foreach (var item in parameters.AccessoryDetail)
+                foreach (var item in parameters.AccessoryList)
                 {
-                    var vManageSales_Accessory_Request = new ManageSales_Accessory_Request()
+                    var vCustomerAccessory_Request = new CustomerAccessory_Request()
                     {
                         Id = item.Id,
                         CustomerId = iCustomerId,
-                        AccessoryId = item.AccessoryId,
+                        AccessoryName = item.AccessoryName,
                         IsActive = item.IsActive,
                         Quantity = item.Quantity,
                     };
 
-                    int resultCustomerAccessory = await _manageSalesRepository.SaveManageSalesAccessory(vManageSales_Accessory_Request);
+                    int resultCustomerAccessory = await _manageSalesRepository.SaveManageSalesAccessory(vCustomerAccessory_Request);
                 }
             }
 
@@ -210,8 +211,11 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetCustomerById(int Id)
+        public async Task<ResponseModel> GettManageSalesById(int Id)
         {
+            var vManageSales_Consignee_Request = new ManageSales_Consignee_Request();
+
+
             if (Id <= 0)
             {
                 _response.Message = "Id is required";
@@ -219,14 +223,105 @@ namespace CLN.API.Controllers
             else
             {
                 var vResultObj = await _manageSalesRepository.GetManageSalesById(Id);
-                _response.Data = vResultObj;
+                if (vResultObj != null)
+                {
+                    vManageSales_Consignee_Request.Id = vResultObj.Id;
+                    vManageSales_Consignee_Request.ConsigneeTypeId = vResultObj.ConsigneeTypeId;
+                    vManageSales_Consignee_Request.ConsigneeName = vResultObj.ConsigneeName;
+                    vManageSales_Consignee_Request.ConsigneeMobileNumber = vResultObj.ConsigneeMobileNumber;
+                    vManageSales_Consignee_Request.IsBuyerSameAsConsignee = vResultObj.IsBuyerSameAsConsignee;
+                    vManageSales_Consignee_Request.ConsigneeAddressId = vResultObj.ConsigneeAddressId;
+                    vManageSales_Consignee_Request.ConsigneeAddress1 = vResultObj.ConsigneeAddress1;
+                    vManageSales_Consignee_Request.ConsigneeRegionId = vResultObj.ConsigneeRegionId;
+                    vManageSales_Consignee_Request.ConsigneeRegionName = vResultObj.ConsigneeRegionName;
+                    vManageSales_Consignee_Request.ConsigneeStateId = vResultObj.ConsigneeStateId;
+                    vManageSales_Consignee_Request.ConsigneeStateName = vResultObj.ConsigneeStateName;
+                    vManageSales_Consignee_Request.ConsigneeDistrictId = vResultObj.ConsigneeDistrictId;
+                    vManageSales_Consignee_Request.ConsigneeDistrictName = vResultObj.ConsigneeDistrictName;
+                    vManageSales_Consignee_Request.ConsigneeCityId = vResultObj.ConsigneeCityId;
+                    vManageSales_Consignee_Request.ConsigneeCityName = vResultObj.ConsigneeCityName;
+                    vManageSales_Consignee_Request.ConsigneePinCode = vResultObj.ConsigneePinCode;
+                    vManageSales_Consignee_Request.IsActive = vResultObj.IsActive;
+
+                    var vBuyerObj = new ManageSales_Buyer_Request()
+                    {
+                        BuyerTypeId = vResultObj.BuyerTypeId,
+                        BuyerType = vResultObj.BuyerType,
+                        BuyerName = vResultObj.BuyerName,
+                        BuyerMobileNumber = vResultObj.BuyerMobileNumber,
+                        BuyerAddressId = vResultObj.BuyerAddressId,
+                        BuyerAddress1 = vResultObj.BuyerAddress1,
+                        BuyerRegionId = vResultObj.BuyerRegionId,
+                        BuyerRegionName = vResultObj.BuyerRegionName,
+                        BuyerStateId = vResultObj.BuyerStateId,
+                        BuyerStateName = vResultObj.BuyerStateName,
+                        BuyerDistrictId = vResultObj.BuyerDistrictId,
+                        BuyerDistrictName = vResultObj.BuyerDistrictName,
+                        BuyerCityId = vResultObj.BuyerCityId,
+                        BuyerCityName = vResultObj.BuyerCityName,
+                        BuyerPinCode = vResultObj.BuyerPinCode
+                    };
+
+                    vManageSales_Consignee_Request.BuyerDetail = vBuyerObj;
+
+                    // Accessory
+                    var vSearchObj = new CustomerAccessory_Search()
+                    {
+                        CustomerId = vResultObj.Id,
+                    };
+
+                    var objAccessoryList = await _manageSalesRepository.GetManageSalesAccessoryList(vSearchObj);
+                    foreach (var item in objAccessoryList)
+                    {
+                        vManageSales_Consignee_Request.AccessoryList.Add(item);
+                    }
+                }
+
+                _response.Data = vManageSales_Consignee_Request;
+            }
+            return _response;
+        }
+
+        #endregion
+
+
+        #region Accessory 
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveAccessory(CustomerAccessory_Request parameters)
+        {
+            if (string.IsNullOrWhiteSpace(parameters.AccessoryName))
+            {
+                _response.Message = "AccessoryName is required!";
+
+                return _response;
+            }
+
+            int result = await _manageSalesRepository.SaveManageSalesAccessory(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
             }
             return _response;
         }
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetManageSalesAccessoryList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetAccessoryList(CustomerAccessory_Search parameters)
         {
             var objList = await _manageSalesRepository.GetManageSalesAccessoryList(parameters);
             _response.Data = objList.ToList();
@@ -236,7 +331,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetManageSalesAccessoryById(int Id)
+        public async Task<ResponseModel> GetAccessoryById(int Id)
         {
             if (Id <= 0)
             {
@@ -245,6 +340,68 @@ namespace CLN.API.Controllers
             else
             {
                 var vResultObj = await _manageSalesRepository.GetManageSalesAccessoryById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
+
+        #region Battery 
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveBattery(CustomerBattery_Request parameters)
+        {
+            if (string.IsNullOrWhiteSpace(parameters.SerialNumber))
+            {
+                _response.Message = "SerialNumber is required!";
+
+                return _response;
+            }
+
+            int result = await _manageSalesRepository.SaveCustomerBattery(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetBatteryList(CustomerBattery_Search parameters)
+        {
+            var objList = await _manageSalesRepository.GetCustomerBatteryList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetBatteryById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageSalesRepository.GetCustomerBatteryById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
