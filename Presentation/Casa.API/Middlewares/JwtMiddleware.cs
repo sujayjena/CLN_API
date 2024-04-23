@@ -27,6 +27,7 @@ namespace CLN.API.Middlewares
                 // attach account to context on successful jwt validation
                 context.Items["SessionData"] = usersData;
             }
+            var vSessionManager = new SessionManager();
 
             await _next(context);
         }
