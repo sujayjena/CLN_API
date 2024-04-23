@@ -14,12 +14,13 @@ namespace CLN.Application.Models
 
     public class User_Request : BaseEntity
     {
+        public User_Request()
+        {
+            BranchList = new List<BranchMapping_Request>();
+        }
+
         [DefaultValue(1)]
         public int CompanyId { get; set; }
-
-        [DefaultValue(1)]
-
-        public int BranchId { get; set; }
 
         [DefaultValue(1)]
         public int? DepartmentId { get; set; }
@@ -91,6 +92,8 @@ namespace CLN.Application.Models
         public bool? IsWebUser { get; set; }
 
         public bool? IsActive { get; set; }
+
+        public List<BranchMapping_Request>? BranchList { get; set; }
     }
 
     public class User_Response : BaseResponseEntity
@@ -120,10 +123,6 @@ namespace CLN.Application.Models
         [DefaultValue(1)]
         public int? CompanyId { get; set; }
         public string CompanyName { get; set; }
-
-        [DefaultValue(1)]
-        public int? BranchId { get; set; }
-        public string BranchName { get; set; }
 
         [DefaultValue(1)]
         public int? DepartmentId { get; set; }

@@ -68,5 +68,33 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<Branch_Response>("GetBranchById", queryParameters)).FirstOrDefault();
         }
+
+
+        #region Branch Mapping
+
+        public async Task<int> SaveBranchMapping(BranchMapping_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Action", parameters.Action);
+            queryParameters.Add("@EmployeeId", parameters.UserId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveBranchMapping", queryParameters);
+        }
+
+        public async Task<IEnumerable<BranchMapping_Response>> GetBranchMappingByEmployeeId(int EmployeeId, int BranchId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@EmployeeId", EmployeeId);
+            queryParameters.Add("@BranchId", BranchId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<BranchMapping_Response>("GetBranchMappingByEmployeeId", queryParameters);
+
+            return result;
+        }
+
+        #endregion
     }
 }

@@ -15,5 +15,11 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<Branch_Response>> GetBranchList(BaseSearchEntity parameters);
 
         Task<Branch_Response?> GetBranchById(int Id);
+
+
+
+        Task<int> SaveBranchMapping(BranchMapping_Request parameters);
+
+        Task<IEnumerable<BranchMapping_Response>> GetBranchMappingByEmployeeId(int EmployeeId, int BranchId);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CLN.Application.Models
@@ -50,5 +51,20 @@ namespace CLN.Application.Models
         public int? Pincode { get; set; }
         public int? NoofUserAdd { get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class BranchMapping_Request : BaseEntity
+    {
+        [JsonIgnore]
+        public string? Action { get; set; }
+        [JsonIgnore]
+        public int? UserId { get; set; }
+        public int BranchId { get; set; }
+    }
+
+    public class BranchMapping_Response : BaseEntity
+    {
+        public int? UserId { get; set; }
+        public int? BranchId { get; set; }
     }
 }

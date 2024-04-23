@@ -6,6 +6,7 @@ using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace CLN.API.Controllers.Admin
 {
@@ -41,13 +42,15 @@ namespace CLN.API.Controllers.Admin
             int vCompanyNoofUserAdd = 0;
             int vBranchNoofUserAdd = 0;
 
-            int totalCompanyUser = 0;
-            int totalBranchUser = 0;
+            int totalCompanyRegisteredUser = 0;
+            //int totalBranchRegisteredUser = 0;
 
             if (parameters.Id == 0)
             {
                 var baseSearch = new BaseSearchEntity();
                 var vUser = await _userRepository.GetUserList(baseSearch);
+
+                #region Company Wise User Check
 
                 if (parameters.CompanyId > 0)
                 {
@@ -56,45 +59,57 @@ namespace CLN.API.Controllers.Admin
                     {
                         vCompanyNoofUserAdd = vCompany.NoofUserAdd ?? 0;
                     }
+                }
 
+                if (parameters.CompanyId > 0 && parameters.BranchList.Count == 0)
+                {
                     //get total company user
-                    totalCompanyUser = vUser.Where(x => x.IsActive==true && x.CompanyId == parameters.CompanyId && (x.BranchId == 0 || x.BranchId == null)).Count();
-                }
-                if (parameters.BranchId > 0)
-                {
-                    var vBranch = await _branchRepository.GetBranchById(parameters.BranchId);
-                    if (vBranch != null)
-                    {
-                        vBranchNoofUserAdd = vBranch.NoofUserAdd ?? 0;
-                    }
+                    totalCompanyRegisteredUser = vUser.Where(x => x.IsActive == true && x.CompanyId == parameters.CompanyId).Count();
 
-                    //get total branch user
-                    totalBranchUser = vUser.Where(x => x.IsActive == true && x.CompanyId == parameters.CompanyId && x.BranchId == parameters.BranchId).Count();
-                }
-
-                if (parameters.CompanyId > 0 && parameters.BranchId == 0)
-                {
-                    if (totalCompanyUser >= vCompanyNoofUserAdd)
+                    // Total Company User check with register user
+                    if (totalCompanyRegisteredUser >= vCompanyNoofUserAdd)
                     {
-                        _response.Message = "You are not allowed to create more then " + vCompanyNoofUserAdd + " company user, Please contact your administrator to access this feature!";
+                        _response.Message = "You are not allowed to create user more then " + vCompanyNoofUserAdd + ", Please contact your administrator to access this feature!";
                         return _response;
                     }
                 }
 
-                if (parameters.CompanyId > 0 && parameters.BranchId > 0)
+                #endregion
+
+                #region Company and Branch Wise User Check
+
+                List<string> strBranchList = new List<string>();
+
+                if (parameters.CompanyId > 0 && parameters.BranchList.Count > 0)
                 {
-                    if (totalBranchUser >= vBranchNoofUserAdd)
+                    foreach (var vBranchitem in parameters.BranchList)
                     {
-                        _response.Message = "You are not allowed to create more then " + vBranchNoofUserAdd + " branch user, Please contact your administrator to access this feature!";
+                        var vBranchMappingObj = await _branchRepository.GetBranchMappingByEmployeeId(0, Convert.ToInt32(vBranchitem.BranchId));
+
+                        var vBranchObj = await _branchRepository.GetBranchById(Convert.ToInt32(vBranchitem.BranchId));
+
+                        if (vBranchMappingObj.Count() >= vCompanyNoofUserAdd)
+                        {
+                            strBranchList.Add(vBranchObj != null ? vBranchObj.BranchName : string.Empty);
+                        }
+                    }
+
+                    if (strBranchList.Count > 0)
+                    {
+                        string sbranchListCommaseparated = string.Join(", ", strBranchList);
+
+                        _response.Message = "You are not allowed to create user more then " + vCompanyNoofUserAdd + " for branch " + sbranchListCommaseparated + ", Please contact your administrator to access this feature!";
                         return _response;
                     }
                 }
+
+                #endregion
             }
 
             #endregion
 
             // Aadhar Card Upload
-            if (parameters !!= null && !string.IsNullOrWhiteSpace(parameters.AadharImage_Base64))
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.AadharImage_Base64))
             {
                 var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharImage_Base64, "\\Uploads\\Employee\\", parameters.AadharOriginalFileName);
 
@@ -143,6 +158,34 @@ namespace CLN.API.Controllers.Admin
             else
             {
                 _response.Message = "Record details saved sucessfully";
+
+                #region // Add/Update Branch Mapping
+
+                // Delete Old mapping of employee
+
+                var vBracnMapDELETEObj = new BranchMapping_Request()
+                {
+                    Action = "DELETE",
+                    UserId = result,
+                    BranchId = 0
+                };
+                int resultBranchMappingDELETE = await _branchRepository.SaveBranchMapping(vBracnMapDELETEObj);
+
+
+                // Add new mapping of employee
+                foreach (var vBranchitem in parameters.BranchList)
+                {
+                    var vBracnMapObj = new BranchMapping_Request()
+                    {
+                        Action = "INSERT",
+                        UserId = result,
+                        BranchId = vBranchitem.BranchId
+                    };
+
+                    int resultBranchMapping = await _branchRepository.SaveBranchMapping(vBracnMapObj);
+                }
+
+                #endregion
             }
             return _response;
         }

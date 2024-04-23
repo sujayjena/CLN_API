@@ -35,7 +35,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RoleId", parameters.RoleId);
             queryParameters.Add("@ReportingTo", parameters.ReportingTo);
             queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
+            //queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@DepartmentId", parameters.DepartmentId);
             queryParameters.Add("@AddressLine", parameters.AddressLine);
             queryParameters.Add("@RegionId", parameters.RegionId);
