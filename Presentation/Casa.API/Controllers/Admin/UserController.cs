@@ -212,6 +212,25 @@ namespace CLN.API.Controllers.Admin
             else
             {
                 var vResultObj = await _userRepository.GetUserById(Id);
+
+                if (vResultObj != null)
+                {
+                    var vBranchMappingObj = await _branchRepository.GetBranchMappingByEmployeeId(vResultObj.Id, 0);
+
+                    foreach (var item in vBranchMappingObj)
+                    {
+                        var vBranchObj = await _branchRepository.GetBranchById(Convert.ToInt32(item.BranchId));
+                        var vBrMapResOnj = new BranchMapping_Response()
+                        {
+                            Id = item.Id,
+                            UserId = vResultObj.Id,
+                            BranchId = item.BranchId,
+                            BranchName = vBranchObj != null ? vBranchObj.BranchName : string.Empty,
+                        };
+
+                        vResultObj.BranchList.Add(vBrMapResOnj);
+                    }
+                }
                 _response.Data = vResultObj;
             }
             return _response;

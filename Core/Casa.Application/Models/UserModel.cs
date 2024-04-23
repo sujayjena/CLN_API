@@ -98,6 +98,11 @@ namespace CLN.Application.Models
 
     public class User_Response : BaseResponseEntity
     {
+        public User_Response()
+        {
+            BranchList = new List<BranchMapping_Response>();
+        }
+
         //public string UserCode { get; set; }
 
         public string UserName { get; set; }
@@ -188,5 +193,7 @@ namespace CLN.Application.Models
         public bool? IsWebUser { get; set; }
 
         public bool? IsActive { get; set; }
+
+        public List<BranchMapping_Response>? BranchList { get; set; }
     }
 }
