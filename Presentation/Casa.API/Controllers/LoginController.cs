@@ -17,17 +17,18 @@ namespace CLN.API.Controllers
         private IJwtUtilsRepository _jwt;
         private readonly IRolePermissionRepository _rolePermissionRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IBranchRepository _branchRepository;
 
-        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository)
+        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository , IBranchRepository branchRepository)
         {
             _loginRepository = loginRepository;
             _jwt = jwt;
             _userRepository = userRepository;
+            _rolePermissionRepository = rolePermissionRepository;
+            _branchRepository = branchRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
-            _rolePermissionRepository = rolePermissionRepository;
-            _userRepository = userRepository;
         }
 
         [HttpPost]
@@ -69,9 +70,16 @@ namespace CLN.API.Controllers
 
                     if (loginResponse.UserId != null)
                     {
+                        string strBrnachIdList = string.Empty;
+
                         var vRoleList = await _rolePermissionRepository.GetRoleMasterEmployeePermissionById(Convert.ToInt64(loginResponse.UserId));
                         //var vUserNotificationList = await _notificationService.GetNotificationListById(Convert.ToInt64(loginResponse.EmployeeId));
                         var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(loginResponse.UserId));
+                        var vUserBranchMappingDetail = await _branchRepository.GetBranchMappingByEmployeeId(EmployeeId: Convert.ToInt32(loginResponse.UserId), BranchId: 0);
+                        if (vUserBranchMappingDetail.ToList().Count > 0)
+                        {
+                            strBrnachIdList = string.Join(",", vUserBranchMappingDetail.ToList().OrderBy(x => x.BranchId).Select(x => x.BranchId));
+                        }
 
                         employeeSessionData = new SessionDataEmployee
                         {
@@ -88,7 +96,13 @@ namespace CLN.API.Controllers
                             IsActive = loginResponse.IsActive,
                             Token = tokenResponse.Item1,
 
-                            ProfileImage= vUserDetail  != null ? vUserDetail.ProfileImage : String.Empty,
+                            CompanyId = vUserDetail != null ? Convert.ToInt32(vUserDetail.CompanyId) : 0,
+                            CompanyName = vUserDetail != null ? vUserDetail.CompanyName : String.Empty,
+                            DepartmentId = vUserDetail != null ? Convert.ToInt32(vUserDetail.DepartmentId) : 0,
+                            DepartmentName = vUserDetail != null ? vUserDetail.DepartmentName : String.Empty,
+                            BranchId = strBrnachIdList,
+
+                            ProfileImage = vUserDetail  != null ? vUserDetail.ProfileImage : String.Empty,
                             ProfileOriginalFileName = vUserDetail != null ? vUserDetail.ProfileOriginalFileName : String.Empty,
                             ProfileImageURL = vUserDetail != null ? vUserDetail.ProfileImageURL : String.Empty,
 

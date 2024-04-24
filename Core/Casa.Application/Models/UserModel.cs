@@ -126,12 +126,12 @@ namespace CLN.Application.Models
         public string ReportingToMobileNo { get; set; }
 
         [DefaultValue(1)]
-        public int? CompanyId { get; set; }
-        public string CompanyName { get; set; }
-
-        [DefaultValue(1)]
         public int? DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+
+        [DefaultValue(1)]
+        public int? CompanyId { get; set; }
+        public string CompanyName { get; set; }
 
         public string AddressLine { get; set; }
 
