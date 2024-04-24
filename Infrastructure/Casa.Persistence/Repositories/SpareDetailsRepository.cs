@@ -27,6 +27,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@UniqueCode", parameters.UniqueCode);
             queryParameters.Add("@SpareCategory", parameters.SpareCategory);
             queryParameters.Add("@SpareDesc", parameters.SpareDesc);
+            queryParameters.Add("@UOMId", parameters.UOMId);
+            queryParameters.Add("@MinQty", parameters.MinQty);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

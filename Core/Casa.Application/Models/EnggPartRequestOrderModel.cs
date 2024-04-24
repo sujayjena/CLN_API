@@ -43,6 +43,7 @@ namespace CLN.Application.Models
         [DefaultValue("")]
         public string? BranchId { get; set; }
         public int EngineerId { get; set; }
+        public int StatusId { get; set; }
     }
 
     public class EnggPartRequestOrderDetailsSearch_Request : BaseSearchEntity
@@ -101,7 +102,7 @@ namespace CLN.Application.Models
         public string? UniqueCode { get; set; }
         public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
-        public string? UOM { get; set; }
+        public string? UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
         public string? TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }
