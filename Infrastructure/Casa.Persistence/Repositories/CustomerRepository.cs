@@ -25,8 +25,8 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@CompanyTypeId", parameters.CompanyTypeId);
-            queryParameters.Add("@CompanyName", parameters.CompanyName);
+            queryParameters.Add("@CustomerTypeId", parameters.CustomerTypeId);
+            queryParameters.Add("@CustomerName", parameters.CustomerName);
             queryParameters.Add("@LandLineNumber", parameters.LandLineNumber);
             queryParameters.Add("@MobileNumber", parameters.MobileNumber);
             queryParameters.Add("@EmailId", parameters.EmailId);
@@ -37,11 +37,6 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@GSTImageOriginalFileName", parameters.GSTImageOriginalFileName);
             queryParameters.Add("@PanCardImage", parameters.PanCardImageFileName);
             queryParameters.Add("@PanCardOriginalFileName", parameters.PanCardOriginalFileName);
-            queryParameters.Add("@ConsigneeTypeId", parameters.ConsigneeTypeId);
-            queryParameters.Add("@ConsigneeName", parameters.ConsigneeName);
-            queryParameters.Add("@ConsigneeMobileNumber", parameters.ConsigneeMobileNumber);
-            queryParameters.Add("@ConsigneeAddressId", parameters.ConsigneeAddressId);
-            queryParameters.Add("@IsBuyerSameAsConsignee", parameters.IsBuyerSameAsConsignee);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -78,7 +73,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@ConsigneeAddressId", parameters.ConsigneeAddressId);
+            //queryParameters.Add("@ConsigneeAddressId", parameters.ConsigneeAddressId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("UpdateCustomerAddress", queryParameters);

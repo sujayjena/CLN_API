@@ -40,7 +40,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Pincode", parameters.Pincode);
             queryParameters.Add("@GSTNumber", parameters.GSTNumber);
             queryParameters.Add("@PANNumber", parameters.PANNumber);
-            queryParameters.Add("@CompanyLogo", parameters.CompanyLogoFileName);
+            queryParameters.Add("@LogoImageFileName", parameters.LogoImageFileName);
+            queryParameters.Add("@LogoImageOriginalFileName", parameters.LogoImageOriginalFileName);
             queryParameters.Add("@NoofUserAdd", parameters.NoofUserAdd);
             queryParameters.Add("@NoofBranchAdd", parameters.NoofBranchAdd);
             queryParameters.Add("@IsActive", parameters.IsActive);

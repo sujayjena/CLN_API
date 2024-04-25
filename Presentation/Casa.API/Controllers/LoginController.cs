@@ -18,14 +18,16 @@ namespace CLN.API.Controllers
         private readonly IRolePermissionRepository _rolePermissionRepository;
         private readonly IUserRepository _userRepository;
         private readonly IBranchRepository _branchRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository , IBranchRepository branchRepository)
+        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository , IBranchRepository branchRepository, ICompanyRepository companyRepository)
         {
             _loginRepository = loginRepository;
             _jwt = jwt;
             _userRepository = userRepository;
             _rolePermissionRepository = rolePermissionRepository;
             _branchRepository = branchRepository;
+            _companyRepository = companyRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -81,6 +83,15 @@ namespace CLN.API.Controllers
                             strBrnachIdList = string.Join(",", vUserBranchMappingDetail.ToList().OrderBy(x => x.BranchId).Select(x => x.BranchId));
                         }
 
+                        int iBranchCanAdd = 0;
+                        int iUserCanAdd = 0;
+                        var tblCompanies = await _companyRepository.GetCompanyById(vUserDetail.CompanyId ?? 0);
+                        if (tblCompanies != null)
+                        {
+                            iBranchCanAdd = tblCompanies.NoofBranchAdd ?? 0;
+                            iUserCanAdd = tblCompanies.NoofUserAdd ?? 0;
+                        }
+
                         employeeSessionData = new SessionDataEmployee
                         {
                             UserId = loginResponse.UserId,
@@ -101,6 +112,8 @@ namespace CLN.API.Controllers
                             DepartmentId = vUserDetail != null ? Convert.ToInt32(vUserDetail.DepartmentId) : 0,
                             DepartmentName = vUserDetail != null ? vUserDetail.DepartmentName : String.Empty,
                             BranchId = strBrnachIdList,
+                            BranchCanAdd= iBranchCanAdd,
+                            UserCanAdd = iUserCanAdd,
 
                             ProfileImage = vUserDetail  != null ? vUserDetail.ProfileImage : String.Empty,
                             ProfileOriginalFileName = vUserDetail != null ? vUserDetail.ProfileOriginalFileName : String.Empty,

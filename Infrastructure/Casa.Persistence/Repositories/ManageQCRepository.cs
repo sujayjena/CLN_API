@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace CLN.Persistence.Repositories
 {
-    public class ManageSalesRepository : GenericRepository, IManageSalesRepository
+    public class ManageQCRepository : GenericRepository, IManageQCRepository
     {
         private IConfiguration _configuration;
 
-        public ManageSalesRepository(IConfiguration configuration) : base(configuration)
+        public ManageQCRepository(IConfiguration configuration) : base(configuration)
         {
             _configuration = configuration;
         }
 
-        #region Manage Sales
+        #region Manage QC
 
-        public async Task<IEnumerable<ManageSalesList_Response>> GetManageSalesList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<ManageQCList_Response>> GetManageQCList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -33,25 +33,77 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<ManageSalesList_Response>("GetManageSalesList", queryParameters);
+            var result = await ListByStoredProcedure<ManageQCList_Response>("GetManageQCList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<ManageSalesDetailById_Response?> GetManageSalesById(int Id)
+        public async Task<ManageQCList_Response?> GetManageQCById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<ManageSalesDetailById_Response>("GetManageSalesById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<ManageQCList_Response>("GetManageQCById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
+
+
+        #region Customer BOM
+
+        public async Task<int> SaveCustomerBOM(CustomerBOM_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@CustomerId", parameters.CustomerId);
+            queryParameters.Add("@PartCode", parameters.PartCode);
+            queryParameters.Add("@CustomerCode", parameters.CustomerCode);
+            queryParameters.Add("@SegmentId", parameters.SegmentId);
+            queryParameters.Add("@SubSegmentId", parameters.SubSegmentId);
+            queryParameters.Add("@ModelNumberId", parameters.ModelNumberId);
+            queryParameters.Add("@DrawingNumber", parameters.DrawingNumber);
+            queryParameters.Add("@Warranty", parameters.Warranty);
+            queryParameters.Add("@PartImage", parameters.PartImage);
+            queryParameters.Add("@PartImageOriginalFileName", parameters.PartImageOriginalFileName);
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveCustomerBOM", queryParameters);
+        }
+
+        public async Task<IEnumerable<CustomerBOM_Response>> GetCustomerBOMList(CustomerBOM_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@CustomerId", parameters.CustomerId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<CustomerBOM_Response>("GetCustomerBOMList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<CustomerBOM_Response?> GetCustomerBOMById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<CustomerBOM_Response>("GetCustomerBOMById", queryParameters)).FirstOrDefault();
         }
 
         #endregion
 
         #region Customer Accessory
 
-        public async Task<int> SaveManageSalesAccessory(CustomerAccessory_Request parameters)
+        public async Task<int> SaveManageQCAccessory(CustomerAccessory_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -65,7 +117,7 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveCustomerAccessory", queryParameters);
         }
 
-        public async Task<IEnumerable<CustomerAccessory_Request>> GetManageSalesAccessoryList(CustomerAccessory_Search parameters)
+        public async Task<IEnumerable<CustomerAccessory_Request>> GetManageQCAccessoryList(CustomerAccessory_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -83,7 +135,7 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
-        public async Task<CustomerAccessory_Request?> GetManageSalesAccessoryById(int Id)
+        public async Task<CustomerAccessory_Request?> GetManageQCAccessoryById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
@@ -101,14 +153,11 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
-            queryParameters.Add("@SerialNumber", parameters.SerialNumber);
-            queryParameters.Add("@Specification", parameters.Specification);
+            queryParameters.Add("@PartCodeId", parameters.PartCodeId);
+            queryParameters.Add("@BatterySerialNumber", parameters.BatterySerialNumber);
+            queryParameters.Add("@InvoiceId", parameters.InvoiceId);
             queryParameters.Add("@WarrantyStartDate", parameters.WarrantyStartDate);
             queryParameters.Add("@WarrantyEndDate", parameters.WarrantyEndDate);
-            queryParameters.Add("@ManufacturingDate", parameters.ManufacturingDate);
-            queryParameters.Add("@SalesDate", parameters.SalesDate);
-            queryParameters.Add("@ReceivedDate", parameters.ReceivedDate);
-            queryParameters.Add("@WarrantyStatusId", parameters.WarrantyStatusId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -135,7 +184,7 @@ namespace CLN.Persistence.Repositories
 
         public async Task<CustomerBattery_Response?> GetCustomerBatteryById(int Id)
         {
-            DynamicParameters queryParameters =     new DynamicParameters();
+            DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
 
             return (await ListByStoredProcedure<CustomerBattery_Response>("GetCustomerBatteryById", queryParameters)).FirstOrDefault();

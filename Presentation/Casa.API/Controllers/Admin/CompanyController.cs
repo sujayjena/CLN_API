@@ -32,13 +32,13 @@ namespace CLN.API.Controllers.Admin
         public async Task<ResponseModel> SaveCompany(Company_Request parameters)
         {
             // Company Logo Upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CompanyLogo_Base64))
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.LogoImage_Base64))
             {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CompanyLogo_Base64, "\\Uploads\\Company\\", parameters.CompanyLogoFileName);
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.LogoImage_Base64, "\\Uploads\\Company\\", parameters.LogoImageOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile))
                 {
-                    parameters.CompanyLogoFileName = vUploadFile;
+                    parameters.LogoImageFileName = vUploadFile;
                 }
             }
 

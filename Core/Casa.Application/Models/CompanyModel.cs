@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CLN.Application.Models
@@ -30,8 +31,12 @@ namespace CLN.Application.Models
         public int? Pincode { get; set; }
         public string? GSTNumber { get; set; }
         public string? PANNumber { get; set; }
-        public string? CompanyLogoFileName { get; set; }
-        public string? CompanyLogo_Base64 { get; set; }
+
+        [JsonIgnore]
+        public string? LogoImageFileName { get; set; }
+        public string? LogoImageOriginalFileName { get; set; }
+        public string? LogoImage_Base64 { get; set; }
+
         public int? NoofUserAdd{ get; set; }
         public int? NoofBranchAdd{ get; set; }
         public bool? IsActive { get; set; }
@@ -59,8 +64,9 @@ namespace CLN.Application.Models
         public int? Pincode { get; set; }
         public string? GSTNumber { get; set; }
         public string? PANNumber { get; set; }
-        public string? CompanyLogo { get; set; }
-        public string? CompanyLogoURL { get; set; }
+        public string? LogoImageFileName { get; set; }
+        public string? LogoImageOriginalFileName { get; set; }
+        public string? CompanyLogoImageURL { get; set; }
         public int? NoofUserAdd { get; set; }
         public int? NoofBranchAdd { get; set; }
         public bool? IsActive { get; set; }

@@ -4,49 +4,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CLN.Application.Models
 {
-    public class CustomerBattery_Search : BaseSearchEntity
+    public class CustomerBOM_Search : BaseSearchEntity
     {
         public long CustomerId { get; set; }
     }
 
-    public class CustomerBattery_Request : BaseEntity
+    public class CustomerBOM_Request : BaseEntity
     {
         public int? CustomerId { get; set; }
-
-        public int? PartCodeId { get; set; }
-
-        public string BatterySerialNumber { get; set; }
-
-        public int? InvoiceId { get; set; }
-
-        public DateTime? WarrantyStartDate { get; set; }
-
-        public DateTime? WarrantyEndDate { get; set; }
-
-        public bool? IsActive { get; set; }
-    }
-
-    public class CustomerBattery_Response : BaseEntity
-    {
-        public int? CustomerId { get; set; }
-
-        public string CustomerName { get; set; }
-
-        public int? PartCodeId { get; set; }
 
         public string PartCode { get; set; }
 
         public string CustomerCode { get; set; }
 
-        public string BatterySerialNumber { get; set; }
+        public int? SegmentId { get; set; }
 
-        public int? InvoiceId { get; set; }
+        public int? SubSegmentId { get; set; }
 
-        public string InvoiceNumber { get; set; }
+        public int? ModelNumberId { get; set; }
+
+        public string DrawingNumber { get; set; }
+
+        public string Warranty { get; set; }
+
+        [JsonIgnore]
+        public string? PartImage { get; set; }
+
+        public string? PartImageOriginalFileName { get; set; }
+
+        public string? PartImage_Base64 { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class CustomerBOM_Response : BaseEntity
+    {
+        public int? CustomerId { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string PartCode { get; set; }
+
+        public string CustomerCode { get; set; }
 
         public int? SegmentId { get; set; }
 
@@ -64,9 +68,9 @@ namespace CLN.Application.Models
 
         public string Warranty { get; set; }
 
-        public DateTime? WarrantyStartDate { get; set; }
+        public string PartImage { get; set; }
 
-        public DateTime? WarrantyEndDate { get; set; }
+        public string PartImageOriginalFileName { get; set; }
 
         public bool? IsActive { get; set; }
     }
