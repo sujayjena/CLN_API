@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,6 +41,11 @@ namespace CLN.Application.Models
         public int? NoofUserAdd{ get; set; }
         public int? NoofBranchAdd{ get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class CompanySearch_Request : BaseSearchEntity
+    {
+        public int CompanyId { get; set; }
     }
 
     public class Company_Response : BaseResponseEntity
