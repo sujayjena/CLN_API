@@ -58,6 +58,7 @@ namespace CLN.Persistence
             services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
             services.AddScoped<ILeaveRepository, LeaveRepository>();
             services.AddScoped<IEnggPartRequestOrderRepository, EnggPartRequestOrderRepository>();
+            services.AddScoped<IManageStockRepository, ManageStockRepository>();
         }
     }
 }
