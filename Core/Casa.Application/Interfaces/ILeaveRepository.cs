@@ -14,5 +14,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<Leave_Response>> GetLeaveList(LeaveSearch parameters);
 
         Task<Leave_Response?> GetLeaveById(int Id);
+
+        Task<IEnumerable<LeaveReason_Response>> GetLeaveReasonListById(int LeaveId);
     }
 }

@@ -2,6 +2,7 @@
 using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
+using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,8 +71,38 @@ namespace CLN.API.Controllers
             }
             else
             {
+                var vLeaveDetails_Response = new LeaveDetails_Response();
+
                 var vResultObj = await _leaveRepository.GetLeaveById(Id);
-                _response.Data = vResultObj;
+                if (vResultObj != null)
+                {
+                    vLeaveDetails_Response.Id = vResultObj.Id;
+                    vLeaveDetails_Response.StartDate = vResultObj.StartDate;
+                    vLeaveDetails_Response.EndDate = vResultObj.EndDate;
+                    vLeaveDetails_Response.EmployeeId = vResultObj.EmployeeId;
+                    vLeaveDetails_Response.EmployeeName = vResultObj.EmployeeName;
+                    vLeaveDetails_Response.LeaveTypeId = vResultObj.LeaveTypeId;
+                    vLeaveDetails_Response.LeaveType = vResultObj.LeaveType;
+                    vLeaveDetails_Response.Remark = vResultObj.Remark;
+                    vLeaveDetails_Response.Reason = vResultObj.Reason;
+                    vLeaveDetails_Response.StatusId = vResultObj.StatusId;
+                    vLeaveDetails_Response.StatusName = vResultObj.StatusName;
+                    vLeaveDetails_Response.IsActive = vResultObj.IsActive;
+                    vLeaveDetails_Response.CreatorName = vResultObj.CreatorName;
+                    vLeaveDetails_Response.CreatedBy = vResultObj.CreatedBy;
+                    vLeaveDetails_Response.CreatedDate = vResultObj.CreatedDate;
+                    vLeaveDetails_Response.ModifierName = vResultObj.ModifierName;
+                    vLeaveDetails_Response.ModifiedBy = vResultObj.ModifiedBy;
+                    vLeaveDetails_Response.ModifiedDate = vResultObj.ModifiedDate;
+
+                    var objLeaveReasonList = await _leaveRepository.GetLeaveReasonListById(vResultObj.Id);
+                    foreach (var item in objLeaveReasonList)
+                    {
+                        vLeaveDetails_Response.reasonList.Add(item);
+                    }
+                }
+
+                _response.Data = vLeaveDetails_Response;
             }
             return _response;
         }

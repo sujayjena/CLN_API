@@ -9,7 +9,7 @@ namespace CLN.Application.Models
     public class SelectListResponse
     {
         public long Value { get; set; }
-        public string Text { get; set; }
+        public string? Text { get; set; }
     }
     public class ReportingToEmpListParameters
     {
@@ -23,5 +23,10 @@ namespace CLN.Application.Models
         public int CompanyId { get; set; }
         public string? BranchId { get; set; }
         public int UserId { get; set; }
+    }
+
+    public class RequestIdListParameters
+    {
+        public int StatusId { get; set; }
     }
 }
