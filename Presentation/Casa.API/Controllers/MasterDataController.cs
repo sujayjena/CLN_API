@@ -37,14 +37,5 @@ namespace CLN.API.Controllers
             _response.Data = lstResponse.ToList();
             return _response;
         }
-
-        [Route("[action]")]
-        [HttpPost]
-        public async Task<ResponseModel> GetRequestIdListForSelectList(RequestIdListParameters parameters)
-        {
-            IEnumerable<SelectListResponse> lstResponse = await _masterDataRepository.GetRequestIdListForSelectList(parameters);
-            _response.Data = lstResponse.ToList();
-            return _response;
-        }
     }
 }

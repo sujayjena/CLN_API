@@ -95,10 +95,10 @@ namespace CLN.API.Controllers
                     vLeaveDetails_Response.ModifiedBy = vResultObj.ModifiedBy;
                     vLeaveDetails_Response.ModifiedDate = vResultObj.ModifiedDate;
 
-                    var objLeaveReasonList = await _leaveRepository.GetLeaveReasonListById(vResultObj.Id);
+                    var objLeaveReasonList = await _leaveRepository.GetLeaveRemarksListById(vResultObj.Id);
                     foreach (var item in objLeaveReasonList)
                     {
-                        vLeaveDetails_Response.reasonList.Add(item);
+                        vLeaveDetails_Response.remarksList.Add(item);
                     }
                 }
 
