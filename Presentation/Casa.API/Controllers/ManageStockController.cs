@@ -175,7 +175,73 @@ namespace CLN.API.Controllers
             }
             return _response;
         }
-    }
 
-    #endregion
+        #endregion
+
+
+        #region Stock In
+
+        //[Route("[action]")]
+        //[HttpPost]
+
+        //public async Task<ResponseModel> GetRequestIdListForSelectList(RequestIdListParameters parameters)
+        //{
+        //    IEnumerable<SelectListResponse> lstResponse = await _manageStockRepository.GetRequestIdListForSelectList(parameters);
+        //    _response.Data = lstResponse.ToList();
+        //    return _response;
+        //}
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveStockIn(StockIn_Request parameters)
+        {
+            int result = await _manageStockRepository.SaveStockIn(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record saved sucessfully";
+            }
+
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetStockInList(StockInListSearch_Request parameters)
+        {
+            var objList = await _manageStockRepository.GetStockInList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetStockInById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageStockRepository.GetStockInById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+        #endregion
+    }
 }

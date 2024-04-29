@@ -23,5 +23,12 @@ namespace CLN.Application.Interfaces
         Task<int> SaveGenerateChallanPartDetails(GenerateChallanPartDetails_Request parameters);
         Task<IEnumerable<GenerateChallanPartDetails_Response>> GetGenerateChallanPartDetailsList(GenerateChallanPartDetailsSearch_Request parameters);
         #endregion
+
+        #region Stock In
+        Task<IEnumerable<SelectListResponse>> GetRequestIdListForSelectList(RequestIdListParameters parameters);
+        Task<int> SaveStockIn(StockIn_Request parameters);
+        Task<IEnumerable<StockIn_Response>> GetStockInList(StockInListSearch_Request parameters);
+        Task<StockIn_Response?> GetStockInById(int Id);
+        #endregion
     }
 }

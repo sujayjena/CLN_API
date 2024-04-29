@@ -71,12 +71,12 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<Leave_Response>("GetLeaveById", queryParameters)).FirstOrDefault();
         }
 
-        public async Task<IEnumerable<LeaveReason_Response>> GetLeaveReasonListById(int LeaveId)
+        public async Task<IEnumerable<LeaveRemarks_Response>> GetLeaveRemarksListById(int LeaveId)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@LeaveId", LeaveId);
 
-            var result = await ListByStoredProcedure<LeaveReason_Response>("GetLeaveReasonListById", queryParameters);
+            var result = await ListByStoredProcedure<LeaveRemarks_Response>("GetLeaveRemarksListById", queryParameters);
             return result;
         }
     }

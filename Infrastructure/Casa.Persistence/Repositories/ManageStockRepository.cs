@@ -139,5 +139,54 @@ namespace CLN.Persistence.Repositories
             return result;
         }
         #endregion
+
+        #region Stock In
+        public async Task<IEnumerable<SelectListResponse>> GetRequestIdListForSelectList(RequestIdListParameters parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@StatusId", parameters.StatusId);
+
+            return await ListByStoredProcedure<SelectListResponse>("GetRequestIdListForSelectList", queryParameters);
+        }
+
+        public async Task<int> SaveStockIn(StockIn_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@GenerateChallanId", parameters.GenerateChallanId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@AvailableQty", parameters.AvailableQty);
+            queryParameters.Add("@OrderQty", parameters.OrderQty);
+            queryParameters.Add("@ReceivedQty", parameters.ReceivedQty);
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveStockIn", queryParameters);
+        }
+        public async Task<IEnumerable<StockIn_Response>> GetStockInList(StockInListSearch_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@GenerateChallanId", parameters.GenerateChallanId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<StockIn_Response>("GetStockInList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+        public async Task<StockIn_Response?> GetStockInById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<StockIn_Response>("GetStockInById", queryParameters)).FirstOrDefault();
+        }
+        #endregion
     }
 }

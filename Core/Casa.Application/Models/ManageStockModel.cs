@@ -120,7 +120,6 @@ namespace CLN.Application.Models
 
     public class GenerateChallanPartDetails_Response : BaseResponseEntity
     {
-        public int Id { get; set; }
         public int GenerateChallanId { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
@@ -129,5 +128,39 @@ namespace CLN.Application.Models
         public string? UOMName { get; set; }
         public int? OrderQty { get; set; }
     }
+    #endregion
+
+    #region Stock In
+    public class StockIn_Request
+    {
+        public int? GenerateChallanId { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public int? AvailableQty { get; set; }
+        public int? OrderQty { get; set; }
+        public int? ReceivedQty { get; set; }
+        public int? StatusId { get; set; }
+    }
+    public class StockInListSearch_Request : BaseSearchEntity
+    {
+        public int GenerateChallanId { get; set; }
+    }
+
+    public class StockIn_Response : BaseResponseEntity
+    {
+        public int GenerateChallanId { get; set; }
+        public string? RequestId { get; set; }
+        public DateTime GenerateChallanDate { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareCategory { get; set; }
+        public string? SpareDesc { get; set; }
+        public string? UOMName { get; set; }
+        public int? MinQty { get; set; }
+        public int? AvailableQty { get; set; }
+        public int? OrderQty { get; set; }
+        public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
+    }
+
     #endregion
 }

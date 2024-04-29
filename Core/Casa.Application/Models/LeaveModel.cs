@@ -72,7 +72,7 @@ namespace CLN.Application.Models
     {
         public LeaveDetails_Response()
         {
-            reasonList = new List<LeaveReason_Response>();
+            remarksList = new List<LeaveRemarks_Response>();
         }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -85,13 +85,13 @@ namespace CLN.Application.Models
         public int StatusId { get; set; }
         public string? StatusName { get; set; }
         public bool? IsActive { get; set; }
-        public List<LeaveReason_Response> reasonList { get; set;}
+        public List<LeaveRemarks_Response> remarksList { get; set;}
     }
 
-    public class LeaveReason_Response
+    public class LeaveRemarks_Response
     {
         public int Id { get; set; }
-        public string? Reason { get; set; }
+        public string? Remarks { get; set; }
         public string? ApproveOrReject { get; set; }
         public string? CreatorName { get; set; }
         public long CreatedBy { get; set; }
