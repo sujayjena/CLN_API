@@ -163,4 +163,106 @@ namespace CLN.Application.Models
     }
 
     #endregion
+
+    #region Stock Allocation
+    public class StockAllocationList_Response : BaseResponseEntity
+    {
+        public int? SpareDetailsId { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareCategory { get; set; }
+        public string? SpareDesc { get; set; }
+        public string? UOMName { get; set; }
+        public int? AvailableQty { get; set; }
+    }
+
+    public class StockAllocatedEngg_Request : BaseEntity
+    {
+        public StockAllocatedEngg_Request()
+        {
+            StockAllocatedEnggPartDetailList = new List<StockAllocatedEnggPartDetails_Request>();
+        }
+
+        public int EngineerId { get; set; }
+
+        public int CompanyId { get; set; }
+
+        public int BranchId { get; set; }
+
+        public List<StockAllocatedEnggPartDetails_Request> StockAllocatedEnggPartDetailList { get; set; }
+    }
+    public class StockAllocatedEnggSearch_Request : BaseSearchEntity
+    {
+        public int CompanyId { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchId { get; set; }
+        public int EngineerId { get; set; }
+    }
+
+    public class StockAllocatedEnggPartDetailsSearch_Request : BaseSearchEntity
+    {
+        public int OrderId { get; set; }
+    }
+
+    public class StockAllocatedEngg_Response : BaseResponseEntity
+    {
+        public string? OrderNumber { get; set; }
+        public int? EngineerId { get; set; }
+        public string? EngineerName { get; set; }
+        public int? CompanyId { get; set; }
+        public string? CompanyName { get; set; }
+        public int? BranchId { get; set; }
+        public string? BranchName { get; set; }
+    }
+
+    public class StockAllocatedEnggPartDetailsById_Response : BaseResponseEntity
+    {
+        public StockAllocatedEnggPartDetailsById_Response()
+        {
+            StockAllocatedEnggPartDetailList = new List<StockAllocatedEnggPartDetails_Response>();
+        }
+
+        public string? OrderNumber { get; set; }
+        public int? EngineerId { get; set; }
+        public string? EngineerName { get; set; }
+        public int? CompanyId { get; set; }
+        public string? CompanyName { get; set; }
+        public int? BranchId { get; set; }
+        public string? BranchName { get; set; }
+        public List<StockAllocatedEnggPartDetails_Response> StockAllocatedEnggPartDetailList { get; set; }
+    }
+    public class StockAllocatedEnggPartDetails_Request : BaseEntity
+    {
+        public int? OrderId { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public int? AvailableQty { get; set; }
+        public int? OrderQty { get; set; }
+        public int? AllocatedQty { get; set; }
+    }
+    public class StockAllocatedEnggPartDetails_Response : BaseResponseEntity
+    {
+        public int OrderId { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareCategory { get; set; }
+        public string? SpareDesc { get; set; }
+        public string? UOMName { get; set; }
+        public int? AvailableQty { get; set; }
+        public int? OrderQty { get; set; }
+        public int? AllocatedQty { get; set; }
+    }
+    #endregion
+
+    #region Stock Master
+    public class StockMaster_Response : BaseResponseEntity
+    {
+        public int? SpareDetailsId { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareCategory { get; set; }
+        public string? SpareDesc { get; set; }
+        public string? UOMName { get; set; }
+        public int? MinQty { get; set; }
+        public int? AvailableQty { get; set; }
+    }
+    #endregion
 }

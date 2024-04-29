@@ -30,5 +30,18 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<StockIn_Response>> GetStockInList(StockInListSearch_Request parameters);
         Task<StockIn_Response?> GetStockInById(int Id);
         #endregion
+
+        #region Stock Allocation
+        Task<IEnumerable<StockAllocationList_Response>> GetStockAllocationList(BaseSearchEntity parameters);
+        Task<int> SaveStockAllocatedEngg(StockAllocatedEngg_Request parameters);
+        Task<int> SaveStockAllocatedEnggPartDetails(StockAllocatedEnggPartDetails_Request parameters);
+        Task<IEnumerable<StockAllocatedEngg_Response>> GetStockAllocatedEnggList(StockAllocatedEnggSearch_Request parameters);
+        Task<StockAllocatedEngg_Response?> GetStockAllocatedEnggById(int Id);
+        Task<IEnumerable<StockAllocatedEnggPartDetails_Response>> GetStockAllocatedEnggPartDetailsList(StockAllocatedEnggPartDetailsSearch_Request parameters);
+        #endregion
+
+        #region Stock Master
+        Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId);
+        #endregion
     }
 }

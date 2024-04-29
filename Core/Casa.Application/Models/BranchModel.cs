@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,11 +62,15 @@ namespace CLN.Application.Models
         public int? UserId { get; set; }
         public int BranchId { get; set; }
     }
+    public class BranchSearch_Request : BaseSearchEntity
+    {
+        public int CompanyId { get; set; }
+    }
 
     public class BranchMapping_Response : BaseEntity
     {
         public int? UserId { get; set; }
         public int? BranchId { get; set; }
-        public string BranchName { get; set; }
+        public string? BranchName { get; set; }
     }
 }
