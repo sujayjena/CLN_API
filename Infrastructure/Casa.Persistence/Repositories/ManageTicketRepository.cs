@@ -78,7 +78,9 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_BatteryParametersSetting", parameters.CP_BatteryParametersSetting);
             queryParameters.Add("@CP_BatteryParametersSettingImageFileName", parameters.CP_BatteryParametersSettingImageFileName);
             queryParameters.Add("@CP_BatteryParametersSettingImageOriginalFileName", parameters.CP_BatteryParametersSettingImageOriginalFileName);
-            queryParameters.Add("@CP_BMSSoftware", parameters.CP_BMSSoftware);
+            queryParameters.Add("@CP_BMSSoftwareImageFileName", parameters.CP_BMSSoftwareImageFileName);
+            queryParameters.Add("@CP_BMSSoftwareImageOriginalFileName", parameters.CP_BMSSoftwareImageOriginalFileName);
+
             queryParameters.Add("@CP_Spare", parameters.CP_Spare);
 
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);

@@ -172,7 +172,11 @@ namespace CLN.Application.Models
 
         public string? CP_BatteryParametersSettingImage_Base64 { get; set; }
 
-        public string CP_BMSSoftware { get; set; }
+        public string CP_BMSSoftwareImageFileName { get; set; }
+
+        public string CP_BMSSoftwareImageOriginalFileName { get; set; }
+
+        public string? CP_BMSSoftwareImage_Base64 { get; set; }
 
         public int? CP_Spare { get; set; }
 
@@ -437,7 +441,10 @@ namespace CLN.Application.Models
         public string CP_BatteryParametersSettingImageOriginalFileName { get; set; }
         public string CP_BatteryParametersSettingImageURL { get; set; }
 
-        public string CP_BMSSoftware { get; set; }
+        public string CP_BMSSoftwareImageFileName { get; set; }
+        public string CP_BMSSoftwareImageOriginalFileName { get; set; }
+        public string CP_BMSSoftwareImageURL { get; set; }
+
         public int? CP_Spare { get; set; }
 
 
