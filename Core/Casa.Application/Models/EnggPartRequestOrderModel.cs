@@ -93,6 +93,9 @@ namespace CLN.Application.Models
         public int? TypeOfBMSId { get; set; }
         public int? AvailableQty { get; set; }
         public int? OrderQty { get; set; }
+
+        [DefaultValue("")]
+        public string? Remarks { get; set; }
     }
 
     public class EnggPartRequestOrderDetails_Response : BaseResponseEntity
@@ -107,5 +110,6 @@ namespace CLN.Application.Models
         public string? TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }
         public int? OrderQty { get; set; }
+        public string? Remarks { get; set; }
     }
 }

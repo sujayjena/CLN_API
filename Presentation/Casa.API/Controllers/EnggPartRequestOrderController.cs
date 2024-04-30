@@ -58,6 +58,7 @@ namespace CLN.API.Controllers
                         TypeOfBMSId = item.TypeOfBMSId,
                         AvailableQty = item.AvailableQty,
                         OrderQty = item.OrderQty,
+                        Remarks = item.Remarks,
                         //StatusId = item.StatusId,
                     };
 

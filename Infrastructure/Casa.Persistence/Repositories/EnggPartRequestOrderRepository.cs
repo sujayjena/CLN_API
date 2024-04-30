@@ -75,6 +75,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@OrderQty", parameters.OrderQty);
+            queryParameters.Add("@Remarks", parameters.Remarks);
             //queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
