@@ -20,6 +20,8 @@ namespace CLN.Application.Models
 
         public string CustomerName { get; set; }
 
+        public string? CustomerCode { get; set; }
+
         public string LandLineNumber { get; set; }
 
         public string MobileNumber { get; set; }
@@ -62,6 +64,8 @@ namespace CLN.Application.Models
         public string CustomerType { get; set; }
 
         public string CustomerName { get; set; }
+
+        public string? CustomerCode { get; set; }
 
         public string LandLineNumber { get; set; }
 
