@@ -408,7 +408,6 @@ namespace CLN.API.Controllers
 
         #endregion
 
-
         #region Manage Enquiry
 
         [Route("[action]")]
@@ -485,18 +484,89 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetEnquiryById(int TicketId)
+        public async Task<ResponseModel> GetEnquiryById(int EnquiryId)
         {
-            if (TicketId <= 0)
+            if (EnquiryId <= 0)
             {
                 _response.Message = "Id is required";
             }
             else
             {
-                var vResultObj = await _manageEnquiryRepository.GetManageEnquiryById(TicketId);
+                var vResultObj = await _manageEnquiryRepository.GetManageEnquiryById(EnquiryId);
 
                 _response.Data = vResultObj;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveEnquiryConvertToTicket(int EnquiryId)
+        {
+            if (EnquiryId <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultEnquiryObj = await _manageEnquiryRepository.GetManageEnquiryById(EnquiryId);
+                if (vResultEnquiryObj != null)
+                {
+                    if (vResultEnquiryObj.IsConvertToTicket == true)
+                    {
+                        _response.Message = "The Enquiry already converted into tickets. Please try another enquiry";
+
+                        return _response;
+                    }
+
+                    var vManageTicket_Request = new ManageTicket_Request()
+                    {
+                        TicketdDate = DateTime.Now,
+                        TicketdTime = DateTime.Now.ToLongTimeString(),
+
+                        CD_CallerName = vResultEnquiryObj.CallerName,
+                        CD_BatterySerialNumber = vResultEnquiryObj.BatterySerialNumber,
+                        CD_CallerAddressId = vResultEnquiryObj.AddressId,
+                        EnquiryId = EnquiryId
+                    };
+
+                    int result = await _manageTicketRepository.SaveManageTicket(vManageTicket_Request);
+
+                    if (result == (int)SaveOperationEnums.NoRecordExists)
+                    {
+                        _response.Message = "No record exists";
+                    }
+                    else if (result == (int)SaveOperationEnums.ReocrdExists)
+                    {
+                        _response.Message = "Record is already exists";
+                    }
+                    else if (result == (int)SaveOperationEnums.NoResult)
+                    {
+                        _response.Message = "Something went wrong, please try again";
+                    }
+                    else
+                    {
+                        var vManageEnquiry_Request = new ManageEnquiry_Request()
+                        {
+                            Id = vResultEnquiryObj.Id,
+                            EnquiryNumber = vResultEnquiryObj.EnquiryNumber,
+                            CallerName = vResultEnquiryObj.CallerName,
+                            CallerMobile = vResultEnquiryObj.CallerMobile,
+                            CallerEmailId = vResultEnquiryObj.CallerEmailId,
+                            BatterySerialNumber = vResultEnquiryObj.BatterySerialNumber,
+                            AddressId = vResultEnquiryObj.AddressId,
+                            StatusId = vResultEnquiryObj.StatusId,
+                            IsConvertToTicket = true,
+                            IsActive = vResultEnquiryObj.IsActive,
+                        };
+
+                        int resultManageEnquiry = await _manageEnquiryRepository.SaveManageEnquiry(vManageEnquiry_Request);
+
+                        _response.Message = "Record details saved sucessfully";
+                    }
+                }
+            }
+
             return _response;
         }
 

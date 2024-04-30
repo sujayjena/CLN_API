@@ -32,6 +32,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@BatterySerialNumber", parameters.BatterySerialNumber);
             queryParameters.Add("@AddressId", parameters.AddressId);
             queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@IsConvertToTicket", parameters.IsConvertToTicket);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

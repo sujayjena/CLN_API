@@ -97,6 +97,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@OV_IsMoveToTRC", parameters.OV_IsMoveToTRC);
 
             queryParameters.Add("@TicketStatusId", parameters.TicketdStatusId);
+            queryParameters.Add("@EnquiryId", parameters.EnquiryId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -124,6 +125,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);

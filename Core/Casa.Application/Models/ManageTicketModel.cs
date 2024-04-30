@@ -12,7 +12,8 @@ namespace CLN.Application.Models
 {
     public class ManageTicket_Search : BaseSearchEntity
     {
-
+        [DefaultValue(0)]
+        public int TicketStatusId { get; set; }
     }
 
     public class ManageTicket_Request : BaseEntity
@@ -207,24 +208,11 @@ namespace CLN.Application.Models
 
         public int? TicketdStatusId { get; set; }
 
+        public int? EnquiryId { get; set; }
+
         public bool? IsActive { get; set; }
 
         public List<ManageTicketPartDetails_Request> PartDetail { get; set; }
-
-        //[DefaultValue(false)]
-        //public bool IsTechnicalSupportAddUpdate { get; set; }
-
-        //[DefaultValue(false)]
-        //public bool IsAllocatedServiceEnggAddUpdate { get; set; }
-
-        //public ManageTicketCaller_Request CallerDetail { get; set; }
-        //public ManageTicketCustomer_Request BatteryCustomerDetail { get; set; }
-
-        //public ManageTicketSiteCustomer_Request SiteCustomerDetail { get; set; }
-        //public ManageTicketBatteryDetail_Request BatteryDetail { get; set; }
-        //public ManageTicketDetailsTechnicalSupport_Request TechnicalSupportDetail { get; set; }
-        //public ManageTicketDetailsCheckingParameters_Request CheckingParametersDetail { get; set; }
-        //public ManageTicketDetailsConclusion_Request ConclusionDetail { get; set; }
     }
 
     public class ManageTicketPartDetails_Request : BaseEntity
@@ -322,6 +310,7 @@ namespace CLN.Application.Models
 
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -467,6 +456,7 @@ namespace CLN.Application.Models
 
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
+
         public bool? IsActive { get; set; }
 
         public List<ManageTicketPartDetails_Response> PartDetails { get; set; }

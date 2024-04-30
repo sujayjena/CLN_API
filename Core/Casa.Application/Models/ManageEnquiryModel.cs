@@ -2,6 +2,7 @@
 using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -41,6 +42,9 @@ namespace CLN.Application.Models
 
         public int? StatusId { get; set; }
 
+        [DefaultValue(false)]
+        public bool? IsConvertToTicket { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -79,6 +83,8 @@ namespace CLN.Application.Models
         public string PinCode { get; set; }
 
         public int? StatusId { get; set; }
+
+        public bool? IsConvertToTicket { get; set; }
 
         public bool? IsActive { get; set; }
     }
