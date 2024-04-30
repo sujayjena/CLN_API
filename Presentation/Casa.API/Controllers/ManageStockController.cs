@@ -285,7 +285,7 @@ namespace CLN.API.Controllers
                     var vStockAllocatedEnggPartDetails_Request = new StockAllocatedEnggPartDetails_Request()
                     {
                         Id = item.Id,
-                        OrderId = result,
+                        StockAllocatedEnggId = result,
                         SpareDetailsId = item.SpareDetailsId,
                         AvailableQty = item.AvailableQty,
                         OrderQty = item.OrderQty,
@@ -342,7 +342,7 @@ namespace CLN.API.Controllers
                     // Accessory
                     var vSearchObj = new StockAllocatedEnggPartDetailsSearch_Request()
                     {
-                        OrderId = vResultObj.Id,
+                        StockAllocatedEnggId = vResultObj.Id,
                     };
 
                     var objOrderDetailsList = await _manageStockRepository.GetStockAllocatedEnggPartDetailsList(vSearchObj);

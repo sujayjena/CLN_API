@@ -58,7 +58,8 @@ namespace CLN.API.Controllers
                         TypeOfBMSId = item.TypeOfBMSId,
                         AvailableQty = item.AvailableQty,
                         OrderQty = item.OrderQty,
-                        StatusId = item.StatusId,
+                        Remarks = item.Remarks,
+                        //StatusId = item.StatusId,
                     };
 
                     int result_EnggPartRequestOrderDetails = await _enggPartRequestOrderRepository.SaveEnggPartRequestOrderDetails(vEnggPartRequestOrderDetails_Request);
@@ -99,6 +100,8 @@ namespace CLN.API.Controllers
                     vEnggPartRequestOrderDetailsById_Response.EngineerId = vResultObj.EngineerId;
                     vEnggPartRequestOrderDetailsById_Response.EngineerName = vResultObj.EngineerName;
                     vEnggPartRequestOrderDetailsById_Response.Remarks = vResultObj.Remarks;
+                    vEnggPartRequestOrderDetailsById_Response.StatusId = vResultObj.StatusId;
+                    vEnggPartRequestOrderDetailsById_Response.StatusName = vResultObj.StatusName;
                     vEnggPartRequestOrderDetailsById_Response.CompanyId = vResultObj.CompanyId;
                     vEnggPartRequestOrderDetailsById_Response.CompanyName = vResultObj.CompanyName;
                     vEnggPartRequestOrderDetailsById_Response.BranchId = vResultObj.BranchId;
