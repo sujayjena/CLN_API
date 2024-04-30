@@ -22,10 +22,10 @@ namespace CLN.Application.Models
 
     public class Address_Request : BaseEntity
     {
-        [JsonIgnore]
+        //[JsonIgnore]
         public int RefId { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public string? RefType { get; set; }
 
         public string Address1 { get; set; }

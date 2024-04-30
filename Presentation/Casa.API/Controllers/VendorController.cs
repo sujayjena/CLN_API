@@ -13,13 +13,23 @@ namespace CLN.API.Controllers
     public class VendorController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly IVendorRepository _vendorRepository;
         private IFileManager _fileManager;
 
-        public VendorController(IVendorRepository vendorRepository, IFileManager fileManager)
+        private readonly IVendorRepository _vendorRepository;
+        private readonly IContactDetailRepository _contactDetailRepository;
+        private readonly IAddressRepository _addressRepository;
+        
+
+        public VendorController(
+            IFileManager fileManager,
+            IVendorRepository vendorRepository,
+            IContactDetailRepository contactDetailRepository,
+            IAddressRepository addressRepository)
         {
-            _vendorRepository = vendorRepository;
             _fileManager = fileManager;
+            _vendorRepository = vendorRepository;
+            _contactDetailRepository = contactDetailRepository;
+            _addressRepository = addressRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -74,13 +84,13 @@ namespace CLN.API.Controllers
                 // Contact Detail
                 if (!string.IsNullOrWhiteSpace(parameters.ContactDetail.ContactName))
                 {
-                    int resultContact = await _vendorRepository.SaveVendorContactDetail(parameters.ContactDetail);
+                    int resultContact = await _contactDetailRepository.SaveContactDetail(parameters.ContactDetail);
                 }
 
                 // Address Detail
                 if (!string.IsNullOrWhiteSpace(parameters.AddressDetail.Address1))
                 {
-                    int resultAddressDetail = await _vendorRepository.SaveVendorAddress(parameters.AddressDetail);
+                    int resultAddressDetail = await _addressRepository.SaveAddress(parameters.AddressDetail);
                 }
 
                 _response.Message = "Record details saved sucessfully";
@@ -144,7 +154,7 @@ namespace CLN.API.Controllers
                 }
             }
 
-            int result = await _vendorRepository.SaveVendorContactDetail(parameters);
+            int result = await _contactDetailRepository.SaveContactDetail(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -167,9 +177,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetVendorContactDetailList(VendorContactDetail_Search parameters)
+        public async Task<ResponseModel> GetVendorContactDetailList(ContactDetail_Search parameters)
         {
-            var objList = await _vendorRepository.GetVendorContactDetailList(parameters);
+            var objList = await _contactDetailRepository.GetContactDetailList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -185,7 +195,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _vendorRepository.GetVendorContactDetailById(Id);
+                var vResultObj = await _contactDetailRepository.GetContactDetailById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
@@ -199,7 +209,7 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveVendorAddressDetail(Address_Request parameters)
         {
-            int result = await _vendorRepository.SaveVendorAddress(parameters);
+            int result = await _addressRepository.SaveAddress(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -222,9 +232,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetVendorAddressDetailList(VendorAddress_Search parameters)
+        public async Task<ResponseModel> GetVendorAddressDetailList(Address_Search parameters)
         {
-            var objList = await _vendorRepository.GetVendorAddressList(parameters);
+            var objList = await _addressRepository.GetAddressList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -240,7 +250,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _vendorRepository.GetVendorAddressById(Id);
+                var vResultObj = await _addressRepository.GetAddressById(Id);
                 _response.Data = vResultObj;
             }
             return _response;

@@ -27,6 +27,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CustomerTypeId", parameters.CustomerTypeId);
             queryParameters.Add("@CustomerName", parameters.CustomerName);
+            queryParameters.Add("@CustomerCode", parameters.CustomerCode);
             queryParameters.Add("@LandLineNumber", parameters.LandLineNumber);
             queryParameters.Add("@MobileNumber", parameters.MobileNumber);
             queryParameters.Add("@EmailId", parameters.EmailId);

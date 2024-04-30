@@ -78,14 +78,4 @@ namespace CLN.Application.Models
         public string CityName { get; set; }
         public bool? IsActive { get; set; }
     }
-
-    public class VendorContactDetail_Search : BaseSearchEntity
-    {
-        public long VendorId { get; set; }
-    }
-
-    public class VendorAddress_Search : BaseSearchEntity
-    {
-        public long VendorId { get; set; }
-    }
 }
