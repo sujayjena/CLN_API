@@ -28,6 +28,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@OrderDate", parameters.OrderDate);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@Remarks", parameters.Remarks);
+            queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@CompanyId", parameters.CompanyId);
             queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -74,7 +75,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@OrderQty", parameters.OrderQty);
-            queryParameters.Add("@StatusId", parameters.StatusId);
+            //queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveEnggPartRequestOrderDetails", queryParameters);

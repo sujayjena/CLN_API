@@ -184,6 +184,9 @@ namespace CLN.Application.Models
 
         public int EngineerId { get; set; }
 
+        [DefaultValue("")]
+        public string? OrderNumber { get; set; }
+
         public int CompanyId { get; set; }
 
         public int BranchId { get; set; }
@@ -201,7 +204,7 @@ namespace CLN.Application.Models
 
     public class StockAllocatedEnggPartDetailsSearch_Request : BaseSearchEntity
     {
-        public int OrderId { get; set; }
+        public int StockAllocatedEnggId { get; set; }
     }
 
     public class StockAllocatedEngg_Response : BaseResponseEntity
@@ -233,7 +236,7 @@ namespace CLN.Application.Models
     }
     public class StockAllocatedEnggPartDetails_Request : BaseEntity
     {
-        public int? OrderId { get; set; }
+        public int? StockAllocatedEnggId { get; set; }
         public int? SpareDetailsId { get; set; }
         public int? AvailableQty { get; set; }
         public int? OrderQty { get; set; }
@@ -241,7 +244,7 @@ namespace CLN.Application.Models
     }
     public class StockAllocatedEnggPartDetails_Response : BaseResponseEntity
     {
-        public int OrderId { get; set; }
+        public int StockAllocatedEnggId { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareCategory { get; set; }

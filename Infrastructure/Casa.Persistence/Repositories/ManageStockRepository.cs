@@ -213,6 +213,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@OrderNumber", parameters.OrderNumber);
             queryParameters.Add("@CompanyId", parameters.CompanyId);
             queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -225,7 +226,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@OrderId", parameters.OrderId);
+            queryParameters.Add("@StockAllocatedEnggId", parameters.StockAllocatedEnggId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@OrderQty", parameters.OrderQty);
@@ -267,7 +268,7 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@OrderId", parameters.OrderId);
+            queryParameters.Add("@StockAllocatedEnggId", parameters.StockAllocatedEnggId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);

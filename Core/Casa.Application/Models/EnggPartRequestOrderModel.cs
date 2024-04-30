@@ -28,9 +28,8 @@ namespace CLN.Application.Models
 
         [DefaultValue("")]
         public string? Remarks { get; set; }
-
+        public int? StatusId { get; set; }
         public int CompanyId { get; set; }
-
         public int BranchId { get; set; }
 
         public List<EnggPartRequestOrderDetails_Request> EnggPartRequestOrderDetailList { get; set; }
@@ -53,12 +52,13 @@ namespace CLN.Application.Models
 
     public class EnggPartRequestOrder_Response : BaseResponseEntity
     {
-        public int Id { get; set; }
         public string? OrderNumber { get; set; }
         public DateTime OrderDate { get; set; }
         public int? EngineerId { get; set; }
         public string? EngineerName { get; set; }
         public string? Remarks { get; set; }
+        public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
         public int? CompanyId { get; set; }
         public string? CompanyName { get; set; }
         public int? BranchId { get; set; }
@@ -77,6 +77,8 @@ namespace CLN.Application.Models
         public int? EngineerId { get; set; }
         public string? EngineerName { get; set; }
         public string? Remarks { get; set; }
+        public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
         public int? CompanyId { get; set; }
         public string? CompanyName { get; set; }
         public int? BranchId { get; set; }
@@ -91,12 +93,10 @@ namespace CLN.Application.Models
         public int? TypeOfBMSId { get; set; }
         public int? AvailableQty { get; set; }
         public int? OrderQty { get; set; }
-        public int? StatusId { get; set; }
     }
 
     public class EnggPartRequestOrderDetails_Response : BaseResponseEntity
     {
-        public int Id { get; set; }
         public int OrderId { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
@@ -107,7 +107,5 @@ namespace CLN.Application.Models
         public string? TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }
         public int? OrderQty { get; set; }
-        public int? StatusId { get; set; }
-        public string? StatusName { get; set; }
     }
 }
