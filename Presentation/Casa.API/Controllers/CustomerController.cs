@@ -79,7 +79,7 @@ namespace CLN.API.Controllers
             else
             {
                 parameters.ContactDetail.RefId = result;
-                parameters.ContactDetail.RefType = "Customer"; 
+                parameters.ContactDetail.RefType = "Customer";
                 parameters.AddressDetail.RefId = result;
                 parameters.AddressDetail.RefType = "Customer";
 

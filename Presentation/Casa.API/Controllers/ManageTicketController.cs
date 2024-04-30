@@ -18,18 +18,22 @@ namespace CLN.API.Controllers
 
         private readonly IManageTicketRepository _manageTicketRepository;
         private readonly IAddressRepository _addressRepository;
+        private readonly IManageEnquiryRepository _manageEnquiryRepository;
 
 
-        public ManageTicketController(IManageTicketRepository manageTicketRepository, IFileManager fileManager, IAddressRepository addressRepository)
+        public ManageTicketController(IManageTicketRepository manageTicketRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository)
         {
             _fileManager = fileManager;
 
             _manageTicketRepository = manageTicketRepository;
             _addressRepository = addressRepository;
+            _manageEnquiryRepository = manageEnquiryRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
+
+        #region Manage Ticket
 
         [Route("[action]")]
         [HttpPost]
@@ -211,22 +215,6 @@ namespace CLN.API.Controllers
                     int resultTechnicalSupportAddUpdate = await _manageTicketRepository.SaveManageTicketPartDetail(vManageTicketPartDetails_Request);
                 }
             }
-
-            //// Add/Update Ticket Details Technical Support
-            //if (result > 0 && parameters.IsTechnicalSupportAddUpdate)
-            //{
-            //    int resultTechnicalSupportAddUpdate = await _manageTicketRepository.SaveManageTicketDetailTechnicalSupport(parameters);
-            //}
-
-            //// Add/Update Ticket Details Allocated Service Engg
-            //if (result > 0 && parameters.IsAllocatedServiceEnggAddUpdate)
-            //{
-            //    int resultAllocatedServiceEnggCheckingParametersAddUpdate = await _manageTicketRepository.SaveManageTicketDetailCheckingParameters(parameters);
-
-            //    int resultAllocatedServiceEnggConclusionAddUpdate = await _manageTicketRepository.SaveManageTicketDetailConclusion(parameters);
-            //}
-
-
 
             return _response;
         }
@@ -417,5 +405,101 @@ namespace CLN.API.Controllers
             }
             return _response;
         }
+
+        #endregion
+
+
+        #region Manage Enquiry
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveEnquiry(ManageEnquiry_Request parameters)
+        {
+            // Save/Update
+            int result = await _manageEnquiryRepository.SaveManageEnquiry(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+
+            // Add/Update 
+            if (result > 0)
+            {
+                //  Address Detail
+                if (!string.IsNullOrWhiteSpace(parameters.Address1))
+                {
+                    var AddressDetail = new Address_Request()
+                    {
+                        Id = Convert.ToInt32(parameters.AddressId),
+                        RefId = result,
+                        RefType = "Enquiry",
+                        Address1 = parameters.Address1,
+                        RegionId = parameters.RegionId,
+                        StateId = parameters.StateId,
+                        DistrictId = parameters.DistrictId,
+                        CityId = parameters.CityId,
+                        PinCode = parameters.PinCode,
+                        IsDeleted = false,
+                        IsDefault = false,
+                        IsActive = true,
+                    };
+
+                    int resultAddressDetail = await _addressRepository.SaveAddress(AddressDetail);
+                    if (resultAddressDetail > 0)
+                    {
+                        parameters.AddressId = resultAddressDetail;
+                    }
+                }
+
+                // Add/Update Ticket Details
+                parameters.Id = result;
+
+                int resultEnquiry = await _manageEnquiryRepository.SaveManageEnquiry(parameters);
+            }
+
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEnquiryList(ManageEnquiry_Search parameters)
+        {
+            var objList = await _manageEnquiryRepository.GetManageEnquiryList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEnquiryById(int TicketId)
+        {
+            if (TicketId <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageEnquiryRepository.GetManageEnquiryById(TicketId);
+
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
     }
 }
