@@ -15,10 +15,9 @@ namespace CLN.Application.Models
 
     public class ContactDetail_Search : BaseSearchEntity
     {
-        public long CustomerId { get; set; }
+        public long RefId { get; set; }
 
-        [JsonIgnore]
-        public string RefType { get; set; }
+        public string? RefType { get; set; }
     }
 
     public class ContactDetail_Request : BaseEntity

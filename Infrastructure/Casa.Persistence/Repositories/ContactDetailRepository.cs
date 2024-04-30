@@ -45,7 +45,7 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@RefId", parameters.CustomerId);
+            queryParameters.Add("@RefId", parameters.RefId);
             queryParameters.Add("@RefType", parameters.RefType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);

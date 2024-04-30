@@ -149,5 +149,136 @@ namespace CLN.API.Controllers
         }
 
         #endregion
+
+        #region Customer Contact Detail
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveCustomerContactDetail(ContactDetail_Request parameters)
+        {
+            // Image Upload
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.AadharCardImage_Base64))
+            {
+                var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.AadharCardImage_Base64, "\\Uploads\\Customer\\", parameters.AadharCardOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile_AadharCardImage))
+                {
+                    parameters.AadharCardImageFileName = vUploadFile_AadharCardImage;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PanCardImage_Base64))
+            {
+                var vUploadFile_PanCard = _fileManager.UploadDocumentsBase64ToFile(parameters.PanCardImage_Base64, "\\Uploads\\Customer\\", parameters.PanCardOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile_PanCard))
+                {
+                    parameters.PanCardImageFileName = vUploadFile_PanCard;
+                }
+            }
+
+            int result = await _contactDetailRepository.SaveContactDetail(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerContactDetailList(ContactDetail_Search parameters)
+        {
+            var objList = await _contactDetailRepository.GetContactDetailList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerContactDetailById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _contactDetailRepository.GetContactDetailById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
+
+        #region Customer Address
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveCustomerAddressDetail(Address_Request parameters)
+        {
+            int result = await _addressRepository.SaveAddress(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerAddressDetailList(Address_Search parameters)
+        {
+            var objList = await _addressRepository.GetAddressList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerAddressDetailById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _addressRepository.GetAddressById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
     }
 }
