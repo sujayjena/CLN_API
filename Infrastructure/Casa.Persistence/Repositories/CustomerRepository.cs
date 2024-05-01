@@ -44,7 +44,7 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveCustomer", queryParameters);
         }
 
-        public async Task<IEnumerable<Customer_Response>> GetCustomerList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<CustomerList_Response>> GetCustomerList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -55,18 +55,18 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<Customer_Response>("GetCustomerList", queryParameters);
+            var result = await ListByStoredProcedure<CustomerList_Response>("GetCustomerList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<Customer_Response?> GetCustomerById(int Id)
+        public async Task<CustomerList_Response?> GetCustomerById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<Customer_Response>("GetCustomerById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<CustomerList_Response>("GetCustomerById", queryParameters)).FirstOrDefault();
         }
 
         public async Task<int> UpdateCustomerConsigneeAddress(Customer_Request parameters)

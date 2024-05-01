@@ -12,9 +12,9 @@ namespace CLN.Application.Interfaces
     {
         Task<int> SaveCustomer(Customer_Request parameters);
 
-        Task<IEnumerable<Customer_Response>> GetCustomerList(BaseSearchEntity parameters);
+        Task<IEnumerable<CustomerList_Response>> GetCustomerList(BaseSearchEntity parameters);
 
-        Task<Customer_Response?> GetCustomerById(int Id);
+        Task<CustomerList_Response?> GetCustomerById(int Id);
 
         Task<int> UpdateCustomerConsigneeAddress(Customer_Request parameters);
     }

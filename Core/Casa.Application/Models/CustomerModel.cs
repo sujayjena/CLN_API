@@ -55,7 +55,7 @@ namespace CLN.Application.Models
         public Address_Request AddressDetail { get; set; }
     }
 
-    public class Customer_Response : BaseResponseEntity
+    public class CustomerList_Response : BaseResponseEntity
     {
         public int? Id { get; set; }
 
@@ -112,5 +112,48 @@ namespace CLN.Application.Models
         public string CityName { get; set; }
 
         public bool? IsActive { get; set; }
+    }
+
+    public class CustomerDetail_Response : BaseResponseEntity
+    {
+        public CustomerDetail_Response()
+        {
+            ContactDetail = new ContactDetail_Response();
+            AddressDetail = new Address_Response();
+        }
+
+        public int? CustomerTypeId { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string LandLineNumber { get; set; }
+
+        public string MobileNumber { get; set; }
+
+        public string EmailId { get; set; }
+
+        public string Website { get; set; }
+
+        public string Remark { get; set; }
+
+        public string RefParty { get; set; }
+
+        public string GSTImage { get; set; }
+
+        public string GSTImageOriginalFileName { get; set; }
+
+        public string GSTImageURL { get; set; }
+
+        public string PanCardImage { get; set; }
+
+        public string PanCardOriginalFileName { get; set; }
+
+        public string PanCardImageURL { get; set; }
+
+        public bool? IsActive { get; set; }
+
+        public ContactDetail_Response ContactDetail { get; set; }
+
+        public Address_Response AddressDetail { get; set; }
     }
 }
