@@ -79,7 +79,12 @@ namespace CLN.API.Controllers
             else
             {
                 parameters.ContactDetail.RefId = result;
+                parameters.ContactDetail.RefType = "Vendor";
+                parameters.ContactDetail.IsDefault = true;
+
                 parameters.AddressDetail.RefId = result;
+                parameters.AddressDetail.RefType = "Vendor";
+                parameters.AddressDetail.IsDefault = true;
 
                 // Contact Detail
                 if (!string.IsNullOrWhiteSpace(parameters.ContactDetail.ContactName))
@@ -113,6 +118,8 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> GetVendorById(int Id)
         {
+            var vCustomerDetail_Response = new VendorDetail_Response();
+
             if (Id <= 0)
             {
                 _response.Message = "Id is required";
@@ -120,7 +127,81 @@ namespace CLN.API.Controllers
             else
             {
                 var vResultObj = await _vendorRepository.GetVendorById(Id);
-                _response.Data = vResultObj;
+                if (vResultObj != null)
+                {
+                    vCustomerDetail_Response.Id = Convert.ToInt32(vResultObj.Id);
+                    vCustomerDetail_Response.VendorName = vResultObj.VendorName;
+                    vCustomerDetail_Response.LandLineNumber = vResultObj.LandLineNumber;
+                    vCustomerDetail_Response.MobileNumber = vResultObj.MobileNumber;
+                    vCustomerDetail_Response.EmailId = vResultObj.EmailId;
+                    vCustomerDetail_Response.SpecialRemark = vResultObj.SpecialRemark;
+                    vCustomerDetail_Response.PanCardNo = vResultObj.PanCardNo;
+                    vCustomerDetail_Response.PanCardImage = vResultObj.PanCardImage;
+                    vCustomerDetail_Response.PanCardOriginalFileName = vResultObj.PanCardOriginalFileName;
+                    vCustomerDetail_Response.PanCardImageURL = vResultObj.PanCardImageURL;
+                    vCustomerDetail_Response.GSTNo = vResultObj.GSTNo;
+                    vCustomerDetail_Response.GSTImage = vResultObj.GSTImage;
+                    vCustomerDetail_Response.GSTImageOriginalFileName = vResultObj.GSTImageOriginalFileName;
+                    vCustomerDetail_Response.GSTImageURL = vResultObj.GSTImageURL;
+                    vCustomerDetail_Response.IsActive = vResultObj.IsActive;
+
+                    var vContactDetail_Search = new ContactDetail_Search()
+                    {
+                        RefId = Convert.ToInt32(vResultObj.Id),
+                        RefType = "Vendor"
+                    };
+
+                    // Contact Detail
+                    var vResultContactListObj = await _contactDetailRepository.GetContactDetailList(vContactDetail_Search);
+                    var vContactObj = vResultContactListObj.ToList().Where(x => x.IsDefault == true).FirstOrDefault();
+                    if (vContactObj != null)
+                    {
+                        vCustomerDetail_Response.ContactDetail.Id = vContactObj.Id;
+                        vCustomerDetail_Response.ContactDetail.RefId = Convert.ToInt32(vContactObj.RefId);
+                        vCustomerDetail_Response.ContactDetail.RefType = vContactObj.RefType;
+                        vCustomerDetail_Response.ContactDetail.ContactName = vContactObj.ContactName;
+                        vCustomerDetail_Response.ContactDetail.MobileNumber = vContactObj.MobileNumber;
+                        vCustomerDetail_Response.ContactDetail.EmailId = vContactObj.EmailId;
+                        vCustomerDetail_Response.ContactDetail.AadharCardImageFileName = vContactObj.AadharCardImageFileName;
+                        vCustomerDetail_Response.ContactDetail.AadharCardOriginalFileName = vContactObj.AadharCardOriginalFileName;
+                        vCustomerDetail_Response.ContactDetail.AadharCardImageURL = vContactObj.AadharCardImageURL;
+                        vCustomerDetail_Response.ContactDetail.PanCardImageFileName = vContactObj.PanCardImageFileName;
+                        vCustomerDetail_Response.ContactDetail.PanCardOriginalFileName = vContactObj.PanCardOriginalFileName;
+                        vCustomerDetail_Response.ContactDetail.PanCardImageURL = vContactObj.PanCardImageURL;
+                        vCustomerDetail_Response.ContactDetail.IsDefault = vContactObj.IsDefault;
+                        vCustomerDetail_Response.ContactDetail.IsActive = vContactObj.IsActive;
+                    }
+
+                    var vAddress_Search = new Address_Search()
+                    {
+                        RefId = Convert.ToInt32(vResultObj.Id),
+                        RefType = "Vendor"
+                    };
+
+                    // Address Detail
+                    var vResultAddressListObj = await _addressRepository.GetAddressList(vAddress_Search);
+                    var vAddressObj = vResultAddressListObj.ToList().Where(x => x.IsDefault == true).FirstOrDefault();
+                    if (vAddressObj != null)
+                    {
+                        vCustomerDetail_Response.AddressDetail.Id = vAddressObj.Id;
+                        vCustomerDetail_Response.AddressDetail.RefId = Convert.ToInt32(vAddressObj.RefId);
+                        vCustomerDetail_Response.AddressDetail.RefType = vAddressObj.RefType;
+                        vCustomerDetail_Response.AddressDetail.Address1 = vAddressObj.Address1;
+                        vCustomerDetail_Response.AddressDetail.RegionId = vAddressObj.RegionId;
+                        vCustomerDetail_Response.AddressDetail.RegionName = vAddressObj.RegionName;
+                        vCustomerDetail_Response.AddressDetail.StateId = vAddressObj.StateId;
+                        vCustomerDetail_Response.AddressDetail.StateName = vAddressObj.StateName;
+                        vCustomerDetail_Response.AddressDetail.DistrictId = vAddressObj.DistrictId;
+                        vCustomerDetail_Response.AddressDetail.DistrictName = vAddressObj.DistrictName;
+                        vCustomerDetail_Response.AddressDetail.CityId = vAddressObj.CityId;
+                        vCustomerDetail_Response.AddressDetail.CityName = vAddressObj.CityName;
+                        vCustomerDetail_Response.AddressDetail.PinCode = vAddressObj.PinCode;
+                        vCustomerDetail_Response.AddressDetail.IsDefault = vAddressObj.IsDefault;
+                        vCustomerDetail_Response.AddressDetail.IsActive = vAddressObj.IsActive;
+                    }
+                }
+
+                _response.Data = vCustomerDetail_Response;
             }
             return _response;
         }

@@ -42,7 +42,7 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveVendor", queryParameters);
         }
 
-        public async Task<IEnumerable<Vendor_Response>> GetVendorList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<VendorList_Response>> GetVendorList(BaseSearchEntity parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -53,19 +53,19 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<Vendor_Response>("GetVendorList", queryParameters);
+            var result = await ListByStoredProcedure<VendorList_Response>("GetVendorList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<Vendor_Response?> GetVendorById(int Id)
+        public async Task<VendorList_Response?> GetVendorById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<Vendor_Response>("GetVendorById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<VendorList_Response>("GetVendorById", queryParameters)).FirstOrDefault();
         }
 
     }

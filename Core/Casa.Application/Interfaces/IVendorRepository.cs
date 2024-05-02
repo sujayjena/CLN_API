@@ -12,8 +12,8 @@ namespace CLN.Application.Interfaces
     {
         Task<int> SaveVendor(Vendor_Request parameters);
 
-        Task<IEnumerable<Vendor_Response>> GetVendorList(BaseSearchEntity parameters);
+        Task<IEnumerable<VendorList_Response>> GetVendorList(BaseSearchEntity parameters);
 
-        Task<Vendor_Response?> GetVendorById(int Id);
+        Task<VendorList_Response?> GetVendorById(int Id);
     }
 }

@@ -50,9 +50,8 @@ namespace CLN.Application.Models
         public Address_Request AddressDetail { get; set; }
     }
 
-    public class Vendor_Response : BaseResponseEntity
+    public class VendorList_Response : BaseResponseEntity
     {
-        public int? Id { get; set; }
         public string VendorName { get; set; }
         public string LandLineNumber { get; set; }
         public string MobileNumber { get; set; }
@@ -77,5 +76,33 @@ namespace CLN.Application.Models
         public int? CityId { get; set; }
         public string CityName { get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class VendorDetail_Response : BaseResponseEntity
+    {
+        public VendorDetail_Response()
+        {
+            ContactDetail = new ContactDetail_Response();
+            AddressDetail = new Address_Response();
+        }
+
+        public string VendorName { get; set; }
+        public string LandLineNumber { get; set; }
+        public string MobileNumber { get; set; }
+        public string EmailId { get; set; }
+        public string SpecialRemark { get; set; }
+        public string PanCardNo { get; set; }
+        public string PanCardImage { get; set; }
+        public string PanCardOriginalFileName { get; set; }
+        public string PanCardImageURL { get; set; }
+        public string GSTNo { get; set; }
+        public string GSTImage { get; set; }
+        public string GSTImageOriginalFileName { get; set; }
+        public string GSTImageURL { get; set; }
+        public bool? IsActive { get; set; }
+
+        public ContactDetail_Response ContactDetail { get; set; }
+
+        public Address_Response AddressDetail { get; set; }
     }
 }
