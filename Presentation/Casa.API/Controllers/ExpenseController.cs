@@ -252,6 +252,39 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExpenseDetailsApproveNReject(Expense_ApproveNReject parameters)
+        {
+            if (parameters.Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                int resultExpenseDetails = await _expenseRepository.ExpenseDetailsApproveNReject(parameters);
+
+                if (resultExpenseDetails == (int)SaveOperationEnums.NoRecordExists)
+                {
+                    _response.Message = "No record exists";
+                }
+                else if (resultExpenseDetails == (int)SaveOperationEnums.ReocrdExists)
+                {
+                    _response.Message = "Record is already exists";
+                }
+                else if (resultExpenseDetails == (int)SaveOperationEnums.NoResult)
+                {
+                    _response.Message = "Something went wrong, please try again";
+                }
+                else
+                {
+                    _response.Message = "Record details saved sucessfully";
+                }
+            }
+
+            return _response;
+        }
+
         #endregion
     }
 }

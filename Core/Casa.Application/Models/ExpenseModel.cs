@@ -55,6 +55,13 @@ namespace CLN.Application.Models
         public List<ExpenseDetails_Response> ExpenseDetails { get; set; }
     }
 
+    public class Expense_ApproveNReject
+    {
+        public int Id { get; set; }
+        public int ExpenseId { get; set; }
+        public int ExpenseDetailStatusId { get; set; }
+    }
+
 
     public class ExpenseDetails_Search : BaseSearchEntity
     {

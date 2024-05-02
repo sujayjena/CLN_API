@@ -27,6 +27,8 @@ namespace CLN.Application.Interfaces
 
         Task<ExpenseDetails_Response?> GetExpenseDetailsById(int Id);
 
+        Task<int> ExpenseDetailsApproveNReject(Expense_ApproveNReject parameters);
+
         #endregion
     }
 }

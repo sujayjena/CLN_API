@@ -111,6 +111,18 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<ExpenseDetails_Response>("GetExpenseDetailsById", queryParameters)).FirstOrDefault();
         }
 
+        public async Task<int> ExpenseDetailsApproveNReject(Expense_ApproveNReject parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+            queryParameters.Add("@ExpenseDetailStatusId", parameters.ExpenseDetailStatusId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("ExpenseDetailsApproveNReject", queryParameters);
+        }
+
         #endregion
     }
 }
