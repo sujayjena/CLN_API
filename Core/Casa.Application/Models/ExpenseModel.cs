@@ -2,6 +2,7 @@
 using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -15,6 +16,10 @@ namespace CLN.Application.Models
 
     public class Expense_Search : BaseSearchEntity
     {
+        public int? EmployeeId { get; set; }
+
+        [DefaultValue("All")]
+        public string? FilterType { get; set; }
     }
 
     public class Expense_Request : BaseEntity
