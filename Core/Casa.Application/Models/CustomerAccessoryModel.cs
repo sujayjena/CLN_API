@@ -14,7 +14,7 @@ namespace CLN.Application.Models
         public long CustomerId { get; set; }
     }
 
-    public class CustomerAccessory_Request : BaseEntity
+    public class CustomerAccessory_Request : BaseResponseEntity
     {
         public int? CustomerId { get; set; }
 
