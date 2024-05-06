@@ -265,6 +265,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_CallerCityId = vResultObj.CD_CallerCityId;
                     vManageTicketDetail_Response.CD_CallerCityName = vResultObj.CD_CallerCityName;
                     vManageTicketDetail_Response.CD_CallerPinCode = vResultObj.CD_CallerPinCode;
+                    vManageTicketDetail_Response.CD_CallerRemarks = vResultObj.CD_CallerRemarks;
 
                     vManageTicketDetail_Response.CD_IsSiteAddressSameAsCaller = vResultObj.CD_IsSiteAddressSameAsCaller;
                     vManageTicketDetail_Response.CD_BatterySerialNumber = vResultObj.CD_BatterySerialNumber;

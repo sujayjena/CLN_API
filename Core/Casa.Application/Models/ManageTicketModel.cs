@@ -56,6 +56,7 @@ namespace CLN.Application.Models
 
         public string CD_CallerPinCode { get; set; }
 
+        public string CD_CallerRemarks { get; set; }
 
         public bool? CD_IsSiteAddressSameAsCaller { get; set; }
 
@@ -245,6 +246,8 @@ namespace CLN.Application.Models
         public string CD_LoggingSourceChannel { get; set; }
         public string CD_CallerName { get; set; }
         public string CD_Caller { get; set; }
+        public string CD_CallerRemarks { get; set; }
+
         public string CD_BatterySerialNumber { get; set; }
         public int? CD_CustomerTypeId { get; set; }
         public string CustomerType { get; set; }
@@ -347,6 +350,7 @@ namespace CLN.Application.Models
         public int? CD_CallerCityId { get; set; }
         public string CD_CallerCityName { get; set; }
         public string CD_CallerPinCode { get; set; }
+        public string CD_CallerRemarks { get; set; }
 
         public bool? CD_IsSiteAddressSameAsCaller { get; set; }
         public string CD_BatterySerialNumber { get; set; }
