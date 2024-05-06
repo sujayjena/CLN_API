@@ -65,6 +65,9 @@ namespace CLN.Application.Models
         public int Id { get; set; }
         public int ExpenseId { get; set; }
         public int ExpenseDetailStatusId { get; set; }
+
+        [DefaultValue("")]
+        public string? Remarks { get; set; }
     }
 
 
@@ -109,5 +112,6 @@ namespace CLN.Application.Models
         public string ExpenseImageFileURL { get; set; }
         public int? ExpenseDetailStatusId { get; set; }
         public string ExpenseDeteillStatusName { get; set; }
+        public string Remarks { get; set; }
     }
 }
