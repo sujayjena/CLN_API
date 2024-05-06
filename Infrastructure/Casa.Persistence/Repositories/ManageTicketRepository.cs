@@ -66,6 +66,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TS_ProtectionsId", parameters.TS_ProtectionsId);
             queryParameters.Add("@TS_CurrentChargingValue", parameters.TS_CurrentChargingValue);
             queryParameters.Add("@TS_AllocateToServiceEnggId", parameters.TS_AllocateToServiceEnggId);
+            queryParameters.Add("@TS_TicketDate", parameters.TS_TicketDate);
+            queryParameters.Add("@TS_TicketTime", parameters.TS_TicketTime);
 
             queryParameters.Add("@CP_Visual", parameters.CP_Visual);
             queryParameters.Add("@CP_VisualImageFileName", parameters.CP_VisualImageFileName);

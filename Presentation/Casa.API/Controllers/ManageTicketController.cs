@@ -331,6 +331,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TS_CurrentChargingValue = vResultObj.TS_CurrentChargingValue;
                     vManageTicketDetail_Response.TS_AllocateToServiceEnggId = vResultObj.TS_AllocateToServiceEnggId;
                     vManageTicketDetail_Response.TS_AllocateToServiceEngg = vResultObj.TS_AllocateToServiceEngg;
+                    vManageTicketDetail_Response.TS_TicketDate = vResultObj.TS_TicketDate;
+                    vManageTicketDetail_Response.TS_TicketTime = vResultObj.TS_TicketTime;
 
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;

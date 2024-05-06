@@ -145,6 +145,10 @@ namespace CLN.Application.Models
 
         public int? TS_AllocateToServiceEnggId { get; set; }
 
+        public DateTime? TS_TicketDate { get; set; }
+
+        public string? TS_TicketTime { get; set; }
+
 
         public int? CP_Visual { get; set; }
 
@@ -286,6 +290,8 @@ namespace CLN.Application.Models
         public string TS_CurrentChargingValue { get; set; }
         public int? TS_AllocateToServiceEnggId { get; set; }
         public string TS_AllocateToServiceEngg { get; set; }
+        public DateTime? TS_TicketDate { get; set; }
+        public TimeSpan? TS_TicketTime { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -418,7 +424,8 @@ namespace CLN.Application.Models
         public string TS_CurrentChargingValue { get; set; }
         public int? TS_AllocateToServiceEnggId { get; set; }
         public string TS_AllocateToServiceEngg { get; set; }
-
+        public DateTime? TS_TicketDate { get; set; }
+        public TimeSpan? TS_TicketTime { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -442,13 +449,10 @@ namespace CLN.Application.Models
         public string CP_BMSSoftwareImageFileName { get; set; }
         public string CP_BMSSoftwareImageOriginalFileName { get; set; }
         public string CP_BMSSoftwareImageURL { get; set; }
-
         public int? CP_Spare { get; set; }
-
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
-
 
         public bool? OV_IsCustomerAvailable { get; set; }
         public string OV_EngineerName { get; set; }
