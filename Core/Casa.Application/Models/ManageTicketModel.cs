@@ -12,8 +12,13 @@ namespace CLN.Application.Models
 {
     public class ManageTicket_Search : BaseSearchEntity
     {
+        public int? EmployeeId { get; set; }
+
         [DefaultValue(0)]
         public int TicketStatusId { get; set; }
+
+        [DefaultValue("All")]
+        public string? FilterType { get; set; }
     }
 
     public class ManageTicket_Request : BaseEntity
