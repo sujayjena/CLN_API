@@ -120,6 +120,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@ExpenseId", parameters.ExpenseId);
             queryParameters.Add("@ExpenseDetailStatusId", parameters.ExpenseDetailStatusId);
+            queryParameters.Add("@Remarks", parameters.Remarks);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("ExpenseDetailsApproveNReject", queryParameters);
