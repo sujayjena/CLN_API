@@ -528,7 +528,8 @@ namespace CLN.API.Controllers
                         TicketdTime = DateTime.Now.ToLongTimeString(),
 
                         CD_CallerName = vResultEnquiryObj.CallerName,
-                        CD_BatterySerialNumber = vResultEnquiryObj.BatterySerialNumber,
+                        //CD_BatterySerialNumber = vResultEnquiryObj.BatterySerialNumber,
+                        CD_CallerRemarks = vResultEnquiryObj.Remarks,
                         CD_CallerAddressId = vResultEnquiryObj.AddressId,
                         EnquiryId = EnquiryId
                     };
@@ -556,8 +557,9 @@ namespace CLN.API.Controllers
                             CallerName = vResultEnquiryObj.CallerName,
                             CallerMobile = vResultEnquiryObj.CallerMobile,
                             CallerEmailId = vResultEnquiryObj.CallerEmailId,
-                            BatterySerialNumber = vResultEnquiryObj.BatterySerialNumber,
+                            //BatterySerialNumber = vResultEnquiryObj.BatterySerialNumber,
                             AddressId = vResultEnquiryObj.AddressId,
+                            Remarks = vResultEnquiryObj.Remarks,
                             StatusId = vResultEnquiryObj.StatusId,
                             IsConvertToTicket = true,
                             IsActive = vResultEnquiryObj.IsActive,

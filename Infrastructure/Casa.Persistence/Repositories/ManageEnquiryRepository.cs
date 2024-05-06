@@ -29,8 +29,9 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CallerName", parameters.CallerName);
             queryParameters.Add("@CallerMobile", parameters.CallerMobile);
             queryParameters.Add("@CallerEmailId", parameters.CallerEmailId);
-            queryParameters.Add("@BatterySerialNumber", parameters.BatterySerialNumber);
+            //queryParameters.Add("@BatterySerialNumber", parameters.BatterySerialNumber);
             queryParameters.Add("@AddressId", parameters.AddressId);
+            queryParameters.Add("@Remarks", parameters.Remarks);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@IsConvertToTicket", parameters.IsConvertToTicket);
             queryParameters.Add("@IsActive", parameters.IsActive);

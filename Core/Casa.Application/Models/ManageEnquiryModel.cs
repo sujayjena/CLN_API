@@ -24,7 +24,7 @@ namespace CLN.Application.Models
 
         public string CallerEmailId { get; set; }
 
-        public string BatterySerialNumber { get; set; }
+        //public string BatterySerialNumber { get; set; }
 
         public int? AddressId { get; set; }
 
@@ -39,6 +39,8 @@ namespace CLN.Application.Models
         public int? CityId { get; set; }
 
         public string PinCode { get; set; }
+
+        public string Remarks { get; set; }
 
         public int? StatusId { get; set; }
 
@@ -58,7 +60,7 @@ namespace CLN.Application.Models
 
         public string CallerEmailId { get; set; }
 
-        public string BatterySerialNumber { get; set; }
+        //public string BatterySerialNumber { get; set; }
 
         public int? AddressId { get; set; }
 
@@ -81,6 +83,8 @@ namespace CLN.Application.Models
         public string CityName { get; set; }
 
         public string PinCode { get; set; }
+
+        public string Remarks { get; set; }
 
         public int? StatusId { get; set; }
 
