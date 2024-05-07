@@ -28,10 +28,13 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TicketNumber", parameters.TicketNumber);
             queryParameters.Add("@TicketDate", parameters.TicketdDate);
             queryParameters.Add("@TicketTime", parameters.TicketdTime);
+            queryParameters.Add("@TicketPriorityId", parameters.TicketPriorityId);
+            queryParameters.Add("@TicketSLADays", parameters.TicketSLADays);
 
             queryParameters.Add("@CD_LoggingSourceId", parameters.CD_LoggingSourceId);
             queryParameters.Add("@CD_CallerName", parameters.CD_CallerName);
-            queryParameters.Add("@CD_Caller", parameters.CD_Caller);
+            queryParameters.Add("@CD_CallerMobile", parameters.CD_CallerMobile);
+            queryParameters.Add("@CD_CallerEmailId", parameters.CD_CallerEmailId);
             queryParameters.Add("@CD_CallerAddressId", parameters.CD_CallerAddressId);
             queryParameters.Add("@CD_CallerRemarks", parameters.CD_CallerRemarks);
 
@@ -39,6 +42,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_BatterySerialNumber", parameters.CD_BatterySerialNumber);
             queryParameters.Add("@CD_CustomerTypeId", parameters.CD_CustomerTypeId);
             queryParameters.Add("@CD_CustomerName", parameters.CD_CustomerName);
+            queryParameters.Add("@CD_CustomerMobile", parameters.CD_CustomerMobile);
             queryParameters.Add("@CD_CustomerAddressId", parameters.CD_CustomerAddressId);
             queryParameters.Add("@CD_SiteCustomerName", parameters.CD_SiteCustomerName);
             queryParameters.Add("@CD_SiteContactName", parameters.CD_SiteContactName);

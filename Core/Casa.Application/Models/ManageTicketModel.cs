@@ -34,13 +34,18 @@ namespace CLN.Application.Models
 
         public string? TicketdTime { get; set; }
 
+        public int? TicketPriorityId { get; set; }
+
+ 
+        public string TicketSLADays { get; set; }
 
         public int? CD_LoggingSourceId { get; set; }
 
         public string CD_CallerName { get; set; }
 
-        public string CD_Caller { get; set; }
+        public string CD_CallerMobile { get; set; }
 
+        public string CD_CallerEmailId { get; set; }
 
         public int? CD_CallerAddressId { get; set; }
 
@@ -65,6 +70,8 @@ namespace CLN.Application.Models
         public int? CD_CustomerTypeId { get; set; }
 
         public string CD_CustomerName { get; set; }
+
+        public string CD_CustomerMobile { get; set; }
 
 
         public int? CD_CustomerAddressId { get; set; }
@@ -244,18 +251,23 @@ namespace CLN.Application.Models
         public string TicketNumber { get; set; }
         public DateTime? TicketDate { get; set; }
         public TimeSpan? TicketTime { get; set; }
-
+        public int? TicketPriorityId { get; set; }
+        public string TicketPriority { get; set; }
+        public string TicketSLADays { get; set; }
 
         public int? CD_LoggingSourceId { get; set; }
         public string CD_LoggingSourceChannel { get; set; }
         public string CD_CallerName { get; set; }
-        public string CD_Caller { get; set; }
+        public string CD_CallerMobile { get; set; }
+        public string CD_CallerEmailId { get; set; }
         public string CD_CallerRemarks { get; set; }
 
         public string CD_BatterySerialNumber { get; set; }
         public int? CD_CustomerTypeId { get; set; }
         public string CustomerType { get; set; }
         public string CD_CustomerName { get; set; }
+        public string CD_CustomerMobile { get; set; }
+
         public string CD_SiteCustomerName { get; set; }
         public string CD_SiteContactName { get; set; }
         public string CD_SitContactMobile { get; set; }
@@ -338,12 +350,15 @@ namespace CLN.Application.Models
         public string TicketNumber { get; set; }
         public DateTime? TicketDate { get; set; }
         public TimeSpan? TicketTime { get; set; }
-
+        public int? TicketPriorityId { get; set; }
+        public string TicketPriority { get; set; }
+        public string TicketSLADays { get; set; }
 
         public int? CD_LoggingSourceId { get; set; }
         public string CD_LoggingSourceChannel { get; set; }
         public string CD_CallerName { get; set; }
-        public string CD_Caller { get; set; }
+        public string CD_CallerMobile { get; set; }
+        public string CD_CallerEmailId { get; set; }
 
         public int? CD_CallerAddressId { get; set; }
         public string CD_CallerAddress1 { get; set; }
@@ -361,8 +376,9 @@ namespace CLN.Application.Models
         public bool? CD_IsSiteAddressSameAsCaller { get; set; }
         public string CD_BatterySerialNumber { get; set; }
         public int? CD_CustomerTypeId { get; set; }
-        public string CustomerType { get; set; }
+        public string CD_CustomerType { get; set; }
         public string CD_CustomerName { get; set; }
+        public string CD_CustomerMobile { get; set; }
 
         public int? CD_CustomerAddressId { get; set; }
         public string CD_CustomerAddress1 { get; set; }
