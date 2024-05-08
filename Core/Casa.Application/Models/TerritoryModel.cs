@@ -144,5 +144,25 @@ namespace CLN.Application.Models
         public bool? IsActive { get; set; }
     }
 
+    public class Territories_State_Dist_City_Area_Search
+    {
+        public int? RegionId { get; set; }
+
+        public int? StateId { get; set; }
+
+        public int? DistrictId { get; set; }
+
+        public int? CityId { get; set; }
+    }
+
+    public class Territories_State_Dist_City_Area_Response
+    {
+        public int? Id { get; set; }
+
+        public string? Value { get; set; }
+
+        public string? Text { get; set; }
+    }
+
     #endregion
 }

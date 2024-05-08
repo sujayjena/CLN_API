@@ -250,6 +250,19 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<Territories_Response>("GetTerritoriesById", queryParameters)).FirstOrDefault();
         }
 
+        public async Task<IEnumerable<Territories_State_Dist_City_Area_Response>> GetTerritories_State_Dist_City_Area_List_ById(Territories_State_Dist_City_Area_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@RegionId", parameters.RegionId);
+            queryParameters.Add("@StateId", parameters.StateId);
+            queryParameters.Add("@DistId", parameters.DistrictId);
+            queryParameters.Add("@CityId", parameters.CityId);
+
+            var result = await ListByStoredProcedure<Territories_State_Dist_City_Area_Response>("GetTerritories_State_Dist_City_Area_List_ById", queryParameters);
+
+            return result;
+        }
+
         #endregion
     }
 }

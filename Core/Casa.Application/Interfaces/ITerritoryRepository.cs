@@ -68,6 +68,8 @@ namespace CLN.Application.Interfaces
 
         Task<Territories_Response?> GetTerritoriesById(long Id);
 
+        Task<IEnumerable<Territories_State_Dist_City_Area_Response>> GetTerritories_State_Dist_City_Area_List_ById(Territories_State_Dist_City_Area_Search parameters);
+
         #endregion
     }
 }
