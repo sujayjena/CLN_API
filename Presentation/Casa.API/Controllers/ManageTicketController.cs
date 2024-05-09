@@ -19,15 +19,16 @@ namespace CLN.API.Controllers
         private readonly IManageTicketRepository _manageTicketRepository;
         private readonly IAddressRepository _addressRepository;
         private readonly IManageEnquiryRepository _manageEnquiryRepository;
+        private readonly IManageTRCRepository _manageTRCRepository;
 
-
-        public ManageTicketController(IManageTicketRepository manageTicketRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository)
+        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository)
         {
             _fileManager = fileManager;
 
             _manageTicketRepository = manageTicketRepository;
             _addressRepository = addressRepository;
             _manageEnquiryRepository = manageEnquiryRepository;
+            _manageTRCRepository = manageTRCRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -220,6 +221,23 @@ namespace CLN.API.Controllers
                     };
                     int resultTechnicalSupportAddUpdate = await _manageTicketRepository.SaveManageTicketPartDetail(vManageTicketPartDetails_Request);
                 }
+            }
+
+            // Add Move Ticket To TRC
+            if (result > 0 && parameters.OV_IsMoveToTRC == true)
+            {
+                var vManageTRC_Request = new ManageTRC_Request()
+                {
+                    TicketId = result,
+
+                    TRCDate = DateTime.Now,
+                    TRCTime = DateTime.Now.ToString("hh:mm tt"),
+
+                    TRCStatusId = 1,
+                    IsActive = true,
+                };
+
+                int resultManageTRC = await _manageTRCRepository.SaveManageTRC(vManageTRC_Request);
             }
 
             return _response;

@@ -14,13 +14,6 @@ namespace CLN.Application.Models
 {
     public class ManageTRC_Search : BaseSearchEntity
     {
-        public int? EmployeeId { get; set; }
-
-        [DefaultValue(0)]
-        public int TicketStatusId { get; set; }
-
-        [DefaultValue("All")]
-        public string? FilterType { get; set; }
     }
 
     public class ManageTRC_Request : BaseEntity
@@ -37,7 +30,7 @@ namespace CLN.Application.Models
         public string TRCTime { get; set; }
 
 
-        public string TicketId { get; set; }
+        public int TicketId { get; set; }
 
         public string TicketNumber { get; set; }
 
