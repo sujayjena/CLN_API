@@ -18,6 +18,8 @@ namespace CLN.Application.Interfaces
 
         Task<User_Response?> GetUserById(long Id);
 
+        Task<IEnumerable<UserListByRole_Response>> GetUserLisByRoleIdOrRoleName(UserListByRole_Search parameters);
+
         #endregion
     }
 }

@@ -77,7 +77,7 @@ namespace CLN.Persistence.Repositories
 
             var result = await ListByStoredProcedure<User_Response>("GetUserList", queryParameters);
 
-            if(SessionManager.LoggedInUserId > 1)
+            if (SessionManager.LoggedInUserId > 1)
             {
                 if (SessionManager.LoggedInUserId > 2)
                 {
@@ -99,6 +99,18 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<User_Response>("GetUserById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<UserListByRole_Response>> GetUserLisByRoleIdOrRoleName(UserListByRole_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@CompanyId", parameters.CompanyId);
+            queryParameters.Add("@RoleId", parameters.RoleId);
+            queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
+
+            var result = await ListByStoredProcedure<UserListByRole_Response>("GetUserByRoleIdOrRoleName", queryParameters);
+
+            return result;
         }
 
         #endregion

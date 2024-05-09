@@ -190,7 +190,6 @@ namespace CLN.API.Controllers.Admin
             return _response;
         }
 
-
         [Route("[action]")]
         [HttpPost]
         public async Task<ResponseModel> GetUserList(BaseSearchEntity parameters)
@@ -233,6 +232,15 @@ namespace CLN.API.Controllers.Admin
                 }
                 _response.Data = vResultObj;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetUserLisByRoleIdOrRoleName(UserListByRole_Search parameters)
+        {
+            IEnumerable<UserListByRole_Response> lstUsers = await _userRepository.GetUserLisByRoleIdOrRoleName(parameters);
+            _response.Data = lstUsers.ToList();
             return _response;
         }
 
