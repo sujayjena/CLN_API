@@ -62,6 +62,7 @@ namespace CLN.Persistence
             services.AddScoped<IManageTicketRepository, ManageTicketRepository>();
             services.AddScoped<IManageEnquiryRepository, ManageEnquiryRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
+            services.AddScoped<IManageTRCRepository, ManageTRCRepository>();
         }
     }
 }
