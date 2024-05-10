@@ -57,7 +57,7 @@ namespace CLN.Persistence
             services.AddScoped<IAttendanceRepository, AttendanceRepository>();
             services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
             services.AddScoped<ILeaveRepository, LeaveRepository>();
-            services.AddScoped<IEnggPartRequestOrderRepository, EnggPartRequestOrderRepository>();
+            services.AddScoped<IPartRequestOrderRepository, PartRequestOrderRepository>();
             services.AddScoped<IManageStockRepository, ManageStockRepository>();
             services.AddScoped<IManageTicketRepository, ManageTicketRepository>();
             services.AddScoped<IManageEnquiryRepository, ManageEnquiryRepository>();

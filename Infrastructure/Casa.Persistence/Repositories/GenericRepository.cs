@@ -99,7 +99,7 @@ namespace CLN.Persistence.Repositories
                     return await conn.QueryAsync<T>(storedProcedureName, parameters, null, null, CommandType.StoredProcedure);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 throw;
             }
