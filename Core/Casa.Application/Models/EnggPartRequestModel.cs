@@ -12,10 +12,6 @@ namespace CLN.Application.Models
 {
     public class EnggPartRequest_Search : BaseSearchEntity
     {
-        public int CompanyId { get; set; }
-
-        [DefaultValue("")]
-        public string? BranchId { get; set; }
         public int EngineerId { get; set; }
         public int StatusId { get; set; }
     }
@@ -35,10 +31,6 @@ namespace CLN.Application.Models
         public string RequestNumber { get; set; }
 
         public DateTime? RequestDate { get; set; }
-
-        public int? CompanyId { get; set; }
-
-        public int? BranchId { get; set; }
 
         public int? EngineerId { get; set; }
 
@@ -86,14 +78,6 @@ namespace CLN.Application.Models
         public string RequestNumber { get; set; }
 
         public DateTime? RequestDate { get; set; }
-
-        public int? CompanyId { get; set; }
-
-        public string CompanyName { get; set; }
-
-        public int? BranchId { get; set; }
-
-        public string BranchName { get; set; }
 
         public int? EngineerId { get; set; }
 

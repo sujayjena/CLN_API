@@ -29,8 +29,6 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RequestNumber", parameters.RequestNumber);
             queryParameters.Add("@RequestDate", parameters.RequestDate);
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@Remarks", parameters.Remarks);
             queryParameters.Add("@StatusId", parameters.StatusId);
@@ -44,8 +42,6 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());

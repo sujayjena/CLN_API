@@ -102,11 +102,6 @@ namespace CLN.API.Controllers
                     vEnggPartRequest_Response.RequestNumber = vResultObj.RequestNumber;
                     vEnggPartRequest_Response.RequestDate = vResultObj.RequestDate;
 
-                    vEnggPartRequest_Response.CompanyId = vResultObj.CompanyId;
-                    vEnggPartRequest_Response.CompanyName = vResultObj.CompanyName;
-                    vEnggPartRequest_Response.BranchId = vResultObj.BranchId;
-                    vEnggPartRequest_Response.BranchName = vResultObj.BranchName;
-
                     vEnggPartRequest_Response.EngineerId = vResultObj.EngineerId;
                     vEnggPartRequest_Response.EngineerName = vResultObj.EngineerName;
 
