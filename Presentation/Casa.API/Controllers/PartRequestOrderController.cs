@@ -224,7 +224,7 @@ namespace CLN.API.Controllers
                         RequestId = result,
                         CategoryId = item.CategoryId,
                         SpareId = item.SpareId,
-                        UOMId = item.UOMId,
+                        UOM = item.UOM,
                         TypeOfBMSId = item.TypeOfBMSId,
                         AvailableQty = item.AvailableQty,
                         RequiredQty = item.RequiredQty,
@@ -292,7 +292,7 @@ namespace CLN.API.Controllers
                     // Accessory
                     var vSearchObj = new TRCPartRequestDetails_Search()
                     {
-                        RequestId = vResultObj.Id,
+                        DemoId = vResultObj.Id,
                     };
 
                     var objDetailsList = await _partRequestOrderRepository.GetTRCPartRequestDetailList(vSearchObj);
@@ -305,8 +305,7 @@ namespace CLN.API.Controllers
                             CategoryName = item.CategoryName,
                             SpareId = item.SpareId,
                             SpareDesc = item.SpareDesc,
-                            UOMId = item.UOMId,
-                            UOMName = item.UOMName,
+                            UOM = item.UOM,
                             TypeOfBMSId = item.TypeOfBMSId,
                             TypeOfBMS = item.TypeOfBMS,
                             AvailableQty = item.AvailableQty,

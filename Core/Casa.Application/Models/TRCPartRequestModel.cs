@@ -22,7 +22,7 @@ namespace CLN.Application.Models
 
     public class TRCPartRequestDetails_Search : BaseSearchEntity
     {
-        public int? RequestId { get; set; }
+        public int DemoId { get; set; }
     }
 
     public class TRCPartRequest_Request : BaseEntity
@@ -59,7 +59,7 @@ namespace CLN.Application.Models
 
         public int? SpareId { get; set; }
 
-        public int? UOMId { get; set; }
+        public string UOM { get; set; }
 
         public int? TypeOfBMSId { get; set; }
 
@@ -120,8 +120,7 @@ namespace CLN.Application.Models
         public int? SpareId { get; set; }
         public string SpareDesc { get; set; }
         public string UniqueCode { get; set; }
-        public int? UOMId { get; set; }
-        public string UOMName { get; set; }
+        public string UOM { get; set; }
         public int? TypeOfBMSId { get; set; }
         public string TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }

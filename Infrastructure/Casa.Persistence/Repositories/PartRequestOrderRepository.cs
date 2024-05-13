@@ -173,7 +173,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RequestId", parameters.RequestId);
             queryParameters.Add("@CategoryId", parameters.CategoryId);
             queryParameters.Add("@SpareId", parameters.SpareId);
-            queryParameters.Add("@UOMId", parameters.UOMId);
+            queryParameters.Add("@UOM", parameters.UOM);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);
@@ -188,7 +188,7 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@RequestId,", parameters.RequestId);
+            queryParameters.Add("@DemoId,", parameters.DemoId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -196,7 +196,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<TRCPartRequestDetails_Response>("GetTRCPartRequestDetailsList", queryParameters);
+            var result = await ListByStoredProcedure<TRCPartRequestDetails_Response>("GetTRCPartRequestDetailsListOut", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
