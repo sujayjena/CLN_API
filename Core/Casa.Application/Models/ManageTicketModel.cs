@@ -72,6 +72,7 @@ namespace CLN.Application.Models
         public string CD_CustomerName { get; set; }
 
         public string CD_CustomerMobile { get; set; }
+        public string CD_CustomerEmail { get; set; }
 
 
         public int? CD_CustomerAddressId { get; set; }
@@ -267,6 +268,7 @@ namespace CLN.Application.Models
         public string CustomerType { get; set; }
         public string CD_CustomerName { get; set; }
         public string CD_CustomerMobile { get; set; }
+        public string CD_CustomerEmail { get; set; }
 
         public string CD_SiteCustomerName { get; set; }
         public string CD_SiteContactName { get; set; }
@@ -336,6 +338,7 @@ namespace CLN.Application.Models
 
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
+        public string SLAStatus { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -379,6 +382,7 @@ namespace CLN.Application.Models
         public string CD_CustomerType { get; set; }
         public string CD_CustomerName { get; set; }
         public string CD_CustomerMobile { get; set; }
+        public string CD_CustomerEmail { get; set; }
 
         public int? CD_CustomerAddressId { get; set; }
         public string CD_CustomerAddress1 { get; set; }

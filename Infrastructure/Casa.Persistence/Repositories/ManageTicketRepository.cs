@@ -43,6 +43,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_CustomerTypeId", parameters.CD_CustomerTypeId);
             queryParameters.Add("@CD_CustomerName", parameters.CD_CustomerName);
             queryParameters.Add("@CD_CustomerMobile", parameters.CD_CustomerMobile);
+            queryParameters.Add("@CD_CustomerEmail", parameters.CD_CustomerEmail);
             queryParameters.Add("@CD_CustomerAddressId", parameters.CD_CustomerAddressId);
             queryParameters.Add("@CD_SiteCustomerName", parameters.CD_SiteCustomerName);
             queryParameters.Add("@CD_SiteContactName", parameters.CD_SiteContactName);
