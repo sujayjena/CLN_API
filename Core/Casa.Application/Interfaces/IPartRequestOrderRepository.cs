@@ -12,13 +12,13 @@ namespace CLN.Application.Interfaces
     {
         #region Engg Part Request
 
-        Task<int> SaveEnggPartRequestOrder(EnggPartRequestOrder_Request parameters);
-        Task<IEnumerable<EnggPartRequestOrder_Response>> GetEnggPartRequestOrderList(EnggPartRequestOrderSearch_Request parameters);
-        Task<EnggPartRequestOrder_Response?> GetEnggPartRequestOrderById(int Id);
+        Task<int> SaveEnggPartRequest(EnggPartRequest_Request parameters);
+        Task<IEnumerable<EnggPartRequest_Response>> GetEnggPartRequestList(EnggPartRequest_Search parameters);
+        Task<EnggPartRequest_Response?> GetEnggPartRequestById(int Id);
 
-        Task<int> SaveEnggPartRequestOrderDetails(EnggPartRequestOrderDetails_Request parameters);
-        Task<IEnumerable<EnggPartRequestOrderDetails_Response>> GetEnggPartRequestOrderDetailsList(EnggPartRequestOrderDetailsSearch_Request parameters);
-        Task<EnggPartRequestOrderDetails_Response?> GetEnggPartRequestOrderDetailsById(int Id);
+        Task<int> SaveEnggPartRequestDetail(EnggPartRequestDetails_Request parameters);
+        Task<IEnumerable<EnggPartRequestDetails_Response>> GetEnggPartRequestDetailList(EnggPartRequestDetails_Search parameters);
+        Task<EnggPartRequestDetails_Response?> GetEnggPartRequestDetailById(int Id);
 
         #endregion
 

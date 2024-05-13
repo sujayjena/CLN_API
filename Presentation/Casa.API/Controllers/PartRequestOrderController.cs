@@ -27,9 +27,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveEnggPartRequestOrder(EnggPartRequestOrder_Request parameters)
+        public async Task<ResponseModel> SaveEnggPartRequest(EnggPartRequest_Request parameters)
         {
-            int result = await _partRequestOrderRepository.SaveEnggPartRequestOrder(parameters);
+            int result = await _partRequestOrderRepository.SaveEnggPartRequest(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -51,21 +51,22 @@ namespace CLN.API.Controllers
             if (result > 0)
             {
                 // Save/Update Part Request Order Details
-                foreach (var item in parameters.EnggPartRequestOrderDetailList)
+                foreach (var item in parameters.PartDetail)
                 {
-                    var vEnggPartRequestOrderDetails_Request = new EnggPartRequestOrderDetails_Request()
+                    var vEnggPartRequestDetails_Response = new EnggPartRequestDetails_Request()
                     {
-                        Id = item.Id,
-                        OrderId = result,
-                        SpareDetailsId = item.SpareDetailsId,
+                        RequestId = result,
+                        CategoryId = item.CategoryId,
+                        SpareId = item.SpareId,
+                        UOM = item.UOM,
                         TypeOfBMSId = item.TypeOfBMSId,
                         AvailableQty = item.AvailableQty,
-                        OrderQty = item.OrderQty,
+                        RequiredQty = item.RequiredQty,
                         Remarks = item.Remarks,
-                        //StatusId = item.StatusId,
+                        RGP = item.RGP
                     };
 
-                    int result_EnggPartRequestOrderDetails = await _partRequestOrderRepository.SaveEnggPartRequestOrderDetails(vEnggPartRequestOrderDetails_Request);
+                    int result_EnggPartRequestOrderDetails = await _partRequestOrderRepository.SaveEnggPartRequestDetail(vEnggPartRequestDetails_Response);
                 }
             }
 
@@ -74,9 +75,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetEnggPartRequestOrderList(EnggPartRequestOrderSearch_Request parameters)
+        public async Task<ResponseModel> GetEnggPartRequestList(EnggPartRequest_Search parameters)
         {
-            var objList = await _partRequestOrderRepository.GetEnggPartRequestOrderList(parameters);
+            var objList = await _partRequestOrderRepository.GetEnggPartRequestList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -84,9 +85,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetEnggPartRequestOrderById(int Id)
+        public async Task<ResponseModel> GetEnggPartRequestById(int Id)
         {
-            var vEnggPartRequestOrderDetailsById_Response = new EnggPartRequestOrderDetailsById_Response();
+            var vEnggPartRequest_Response = new EnggPartRequest_Response();
 
             if (Id <= 0)
             {
@@ -94,51 +95,76 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _partRequestOrderRepository.GetEnggPartRequestOrderById(Id);
+                var vResultObj = await _partRequestOrderRepository.GetEnggPartRequestById(Id);
                 if (vResultObj != null)
                 {
-                    vEnggPartRequestOrderDetailsById_Response.Id = vResultObj.Id;
-                    vEnggPartRequestOrderDetailsById_Response.OrderNumber = vResultObj.OrderNumber;
-                    vEnggPartRequestOrderDetailsById_Response.OrderDate = vResultObj.OrderDate;
-                    vEnggPartRequestOrderDetailsById_Response.EngineerId = vResultObj.EngineerId;
-                    vEnggPartRequestOrderDetailsById_Response.EngineerName = vResultObj.EngineerName;
-                    vEnggPartRequestOrderDetailsById_Response.Remarks = vResultObj.Remarks;
-                    vEnggPartRequestOrderDetailsById_Response.StatusId = vResultObj.StatusId;
-                    vEnggPartRequestOrderDetailsById_Response.StatusName = vResultObj.StatusName;
-                    vEnggPartRequestOrderDetailsById_Response.CompanyId = vResultObj.CompanyId;
-                    vEnggPartRequestOrderDetailsById_Response.CompanyName = vResultObj.CompanyName;
-                    vEnggPartRequestOrderDetailsById_Response.BranchId = vResultObj.BranchId;
-                    vEnggPartRequestOrderDetailsById_Response.BranchName = vResultObj.BranchName;
-                    vEnggPartRequestOrderDetailsById_Response.CreatorName = vResultObj.CreatorName;
-                    vEnggPartRequestOrderDetailsById_Response.CreatedBy = vResultObj.CreatedBy;
-                    vEnggPartRequestOrderDetailsById_Response.CreatedDate = vResultObj.CreatedDate;
-                    vEnggPartRequestOrderDetailsById_Response.ModifierName = vResultObj.ModifierName;
-                    vEnggPartRequestOrderDetailsById_Response.ModifiedBy = vResultObj.ModifiedBy;
-                    vEnggPartRequestOrderDetailsById_Response.ModifiedDate = vResultObj.ModifiedDate;
+                    vEnggPartRequest_Response.Id = vResultObj.Id;
+                    vEnggPartRequest_Response.RequestNumber = vResultObj.RequestNumber;
+                    vEnggPartRequest_Response.RequestDate = vResultObj.RequestDate;
+
+                    vEnggPartRequest_Response.CompanyId = vResultObj.CompanyId;
+                    vEnggPartRequest_Response.CompanyName = vResultObj.CompanyName;
+                    vEnggPartRequest_Response.BranchId = vResultObj.BranchId;
+                    vEnggPartRequest_Response.BranchName = vResultObj.BranchName;
+
+                    vEnggPartRequest_Response.EngineerId = vResultObj.EngineerId;
+                    vEnggPartRequest_Response.EngineerName = vResultObj.EngineerName;
+
+                    vEnggPartRequest_Response.Remarks = vResultObj.Remarks;
+                    vEnggPartRequest_Response.StatusId = vResultObj.StatusId;
+                    vEnggPartRequest_Response.StatusName = vResultObj.StatusName;
+
+                    vEnggPartRequest_Response.IsActive = vResultObj.IsActive;
+
+                    vEnggPartRequest_Response.CreatorName = vResultObj.CreatorName;
+                    vEnggPartRequest_Response.CreatedBy = vResultObj.CreatedBy;
+                    vEnggPartRequest_Response.CreatedDate = vResultObj.CreatedDate;
+                    vEnggPartRequest_Response.ModifierName = vResultObj.ModifierName;
+                    vEnggPartRequest_Response.ModifiedBy = vResultObj.ModifiedBy;
+                    vEnggPartRequest_Response.ModifiedDate = vResultObj.ModifiedDate;
 
                     // Accessory
-                    var vSearchObj = new EnggPartRequestOrderDetailsSearch_Request()
+                    var vSearchObj = new EnggPartRequestDetails_Search()
                     {
-                        OrderId = vResultObj.Id,
+                        RequestId = vResultObj.Id,
                     };
 
-                    var objOrderDetailsList = await _partRequestOrderRepository.GetEnggPartRequestOrderDetailsList(vSearchObj);
-                    foreach (var item in objOrderDetailsList)
+                    var objDetailsList = await _partRequestOrderRepository.GetEnggPartRequestDetailList(vSearchObj);
+                    foreach (var item in objDetailsList)
                     {
-                        vEnggPartRequestOrderDetailsById_Response.EnggPartRequestOrderDetailList.Add(item);
+                        var vEnggPartRequestDetails_Response = new EnggPartRequestDetails_Response()
+                        {
+                            RequestId = item.Id,
+                            RequestNumber = item.RequestNumber,
+                            CategoryId = item.CategoryId,
+                            CategoryName = item.CategoryName,
+                            SpareId = item.SpareId,
+                            SpareDesc = item.SpareDesc,
+                            UniqueCode = item.UniqueCode,
+                            UOM = item.UOM,
+                            TypeOfBMSId = item.TypeOfBMSId,
+                            TypeOfBMS = item.TypeOfBMS,
+                            AvailableQty = item.AvailableQty,
+                            RequiredQty = item.RequiredQty,
+                            Remarks = item.Remarks,
+                            RGP = item.RGP
+                        };
+
+                        vEnggPartRequest_Response.PartDetail.Add(vEnggPartRequestDetails_Response);
                     }
                 }
 
-                _response.Data = vEnggPartRequestOrderDetailsById_Response;
+                _response.Data = vEnggPartRequest_Response;
             }
             return _response;
         }
 
+
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveEnggPartRequestOrderDetails(EnggPartRequestOrderDetails_Request parameters)
+        public async Task<ResponseModel> SaveEnggPartRequestDetail(EnggPartRequestDetails_Request parameters)
         {
-            int result = await _partRequestOrderRepository.SaveEnggPartRequestOrderDetails(parameters);
+            int result = await _partRequestOrderRepository.SaveEnggPartRequestDetail(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -162,9 +188,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetEnggPartRequestOrderDetailsList(EnggPartRequestOrderDetailsSearch_Request parameters)
+        public async Task<ResponseModel> GetEnggPartRequestDetailList(EnggPartRequestDetails_Search parameters)
         {
-            var objList = await _partRequestOrderRepository.GetEnggPartRequestOrderDetailsList(parameters);
+            var objList = await _partRequestOrderRepository.GetEnggPartRequestDetailList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -172,7 +198,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetEnggPartRequestOrderDetailsById(int Id)
+        public async Task<ResponseModel> GetEnggPartRequestDetailById(int Id)
         {
             if (Id <= 0)
             {
@@ -180,7 +206,8 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _partRequestOrderRepository.GetEnggPartRequestOrderDetailsById(Id);
+                var vResultObj = await _partRequestOrderRepository.GetEnggPartRequestDetailById(Id);
+
                 _response.Data = vResultObj;
             }
             return _response;
@@ -292,7 +319,7 @@ namespace CLN.API.Controllers
                     // Accessory
                     var vSearchObj = new TRCPartRequestDetails_Search()
                     {
-                        DemoId = vResultObj.Id,
+                        RequestId = vResultObj.Id,
                     };
 
                     var objDetailsList = await _partRequestOrderRepository.GetTRCPartRequestDetailList(vSearchObj);
@@ -301,10 +328,12 @@ namespace CLN.API.Controllers
                         var vTRCPartRequestDetails_Response = new TRCPartRequestDetails_Response()
                         {
                             RequestId = item.Id,
+                            RequestNumber = item.RequestNumber,
                             CategoryId = item.CategoryId,
                             CategoryName = item.CategoryName,
                             SpareId = item.SpareId,
                             SpareDesc = item.SpareDesc,
+                            UniqueCode = item.UniqueCode,
                             UOM = item.UOM,
                             TypeOfBMSId = item.TypeOfBMSId,
                             TypeOfBMS = item.TypeOfBMS,
@@ -364,8 +393,6 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> GetTRCPartRequestDetailById(int Id)
         {
-            var vTRCPartRequest_Response = new TRCPartRequest_Response();
-
             if (Id <= 0)
             {
                 _response.Message = "Id is required";
@@ -374,12 +401,11 @@ namespace CLN.API.Controllers
             {
                 var vResultObj = await _partRequestOrderRepository.GetTRCPartRequestDetailById(Id);
 
-                _response.Data = vTRCPartRequest_Response;
+                _response.Data = vResultObj;
             }
             return _response;
         }
 
         #endregion
-
     }
 }

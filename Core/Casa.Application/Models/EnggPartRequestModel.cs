@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CLN.Application.Models
 {
-    public class TRCPartRequest_Search : BaseSearchEntity
+    public class EnggPartRequest_Search : BaseSearchEntity
     {
         public int CompanyId { get; set; }
 
@@ -20,16 +20,16 @@ namespace CLN.Application.Models
         public int StatusId { get; set; }
     }
 
-    public class TRCPartRequestDetails_Search : BaseSearchEntity
+    public class EnggPartRequestDetails_Search : BaseSearchEntity
     {
         public int RequestId { get; set; }
     }
 
-    public class TRCPartRequest_Request : BaseEntity
+    public class EnggPartRequest_Request : BaseEntity
     {
-        public TRCPartRequest_Request()
+        public EnggPartRequest_Request()
         {
-            PartDetail = new List<TRCPartRequestDetails_Request>();
+            PartDetail = new List<EnggPartRequestDetails_Request>();
         }
 
         public string RequestNumber { get; set; }
@@ -48,10 +48,10 @@ namespace CLN.Application.Models
 
         public bool? IsActive { get; set; }
 
-        public List<TRCPartRequestDetails_Request> PartDetail { get; set; }
+        public List<EnggPartRequestDetails_Request> PartDetail { get; set; }
     }
 
-    public class TRCPartRequestDetails_Request : BaseEntity
+    public class EnggPartRequestDetails_Request : BaseEntity
     {
         public int? RequestId { get; set; }
 
@@ -76,11 +76,11 @@ namespace CLN.Application.Models
 
 
 
-    public class TRCPartRequest_Response : BaseResponseEntity
+    public class EnggPartRequest_Response : BaseResponseEntity
     {
-        public TRCPartRequest_Response()
+        public EnggPartRequest_Response()
         {
-            PartDetail = new List<TRCPartRequestDetails_Response>();
+            PartDetail = new List<EnggPartRequestDetails_Response>();
         }
 
         public string RequestNumber { get; set; }
@@ -107,10 +107,10 @@ namespace CLN.Application.Models
 
         public bool? IsActive { get; set; }
 
-        public List<TRCPartRequestDetails_Response> PartDetail { get; set; }
+        public List<EnggPartRequestDetails_Response> PartDetail { get; set; }
     }
 
-    public class TRCPartRequestDetails_Response 
+    public class EnggPartRequestDetails_Response
     {
         public int Id { get; set; }
         public int? RequestId { get; set; }

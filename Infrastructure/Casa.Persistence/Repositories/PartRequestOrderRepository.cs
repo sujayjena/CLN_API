@@ -22,23 +22,25 @@ namespace CLN.Persistence.Repositories
 
         #region Engg Part Request
 
-        public async Task<int> SaveEnggPartRequestOrder(EnggPartRequestOrder_Request parameters)
+        public async Task<int> SaveEnggPartRequest(EnggPartRequest_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@OrderDate", parameters.OrderDate);
+            queryParameters.Add("@RequestNumber", parameters.RequestNumber);
+            queryParameters.Add("@RequestDate", parameters.RequestDate);
+            queryParameters.Add("@CompanyId", parameters.CompanyId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@Remarks", parameters.Remarks);
             queryParameters.Add("@StatusId", parameters.StatusId);
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveEnggPartRequestOrder", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveEnggPartRequest", queryParameters);
         }
 
-        public async Task<IEnumerable<EnggPartRequestOrder_Response>> GetEnggPartRequestOrderList(EnggPartRequestOrderSearch_Request parameters)
+        public async Task<IEnumerable<EnggPartRequest_Response>> GetEnggPartRequestList(EnggPartRequest_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -53,43 +55,46 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<EnggPartRequestOrder_Response>("GetEnggPartRequestOrderList", queryParameters);
+            var result = await ListByStoredProcedure<EnggPartRequest_Response>("GetEnggPartRequestList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<EnggPartRequestOrder_Response?> GetEnggPartRequestOrderById(int Id)
+        public async Task<EnggPartRequest_Response?> GetEnggPartRequestById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<EnggPartRequestOrder_Response>("GetEnggPartRequestOrderById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<EnggPartRequest_Response>("GetEnggPartRequestById", queryParameters)).FirstOrDefault();
         }
 
 
-        public async Task<int> SaveEnggPartRequestOrderDetails(EnggPartRequestOrderDetails_Request parameters)
+
+        public async Task<int> SaveEnggPartRequestDetail(EnggPartRequestDetails_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@OrderId", parameters.OrderId);
-            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@RequestId", parameters.RequestId);
+            queryParameters.Add("@CategoryId", parameters.CategoryId);
+            queryParameters.Add("@SpareId", parameters.SpareId);
+            queryParameters.Add("@UOM", parameters.UOM);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
-            queryParameters.Add("@OrderQty", parameters.OrderQty);
+            queryParameters.Add("@RequiredQty", parameters.RequiredQty);
             queryParameters.Add("@Remarks", parameters.Remarks);
-            //queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@RGP", parameters.RGP);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveEnggPartRequestOrderDetails", queryParameters);
+            return await SaveByStoredProcedure<int>("SaveEnggPartRequestDetails", queryParameters);
         }
 
-        public async Task<IEnumerable<EnggPartRequestOrderDetails_Response>> GetEnggPartRequestOrderDetailsList(EnggPartRequestOrderDetailsSearch_Request parameters)
+        public async Task<IEnumerable<EnggPartRequestDetails_Response>> GetEnggPartRequestDetailList(EnggPartRequestDetails_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@OrderId", parameters.OrderId);
+            queryParameters.Add("@RequestId", parameters.RequestId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -97,18 +102,18 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<EnggPartRequestOrderDetails_Response>("GetEnggPartRequestOrderDetailsList", queryParameters);
+            var result = await ListByStoredProcedure<EnggPartRequestDetails_Response>("GetEnggPartRequestDetailsList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<EnggPartRequestOrderDetails_Response?> GetEnggPartRequestOrderDetailsById(int Id)
+        public async Task<EnggPartRequestDetails_Response?> GetEnggPartRequestDetailById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<EnggPartRequestOrderDetails_Response>("GetEnggPartRequestOrderDetailsById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<EnggPartRequestDetails_Response>("GetEnggPartRequestDetailsById", queryParameters)).FirstOrDefault();
         }
 
         #endregion
@@ -188,7 +193,7 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@DemoId,", parameters.DemoId);
+            queryParameters.Add("@RequestId", parameters.RequestId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -196,7 +201,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<TRCPartRequestDetails_Response>("GetTRCPartRequestDetailsListOut", queryParameters);
+            var result = await ListByStoredProcedure<TRCPartRequestDetails_Response>("GetTRCPartRequestDetailsList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
