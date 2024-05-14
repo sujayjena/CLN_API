@@ -244,6 +244,7 @@ namespace CLN.API.Controllers
         #endregion
 
         #region Stock Allocation
+
         [Route("[action]")]
         [HttpPost]
         public async Task<ResponseModel> GetStockAllocationList(BaseSearchEntity parameters)
@@ -254,11 +255,13 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        #region Stock Allocate To Engineer / TRC
+
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveStockAllocatedEngg(StockAllocatedEngg_Request parameters)
+        public async Task<ResponseModel> SaveStockAllocated(StockAllocated_Request parameters)
         {
-            int result = await _manageStockRepository.SaveStockAllocatedEngg(parameters);
+            int result = await _manageStockRepository.SaveStockAllocated(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -279,20 +282,20 @@ namespace CLN.API.Controllers
 
             if (result > 0)
             {
-                // Save/Update Stock Allocated Engg. Part Details
-                foreach (var item in parameters.StockAllocatedEnggPartDetailList)
+                // Save/Update Stock Allocated . Part Details
+                foreach (var item in parameters.PartList)
                 {
-                    var vStockAllocatedEnggPartDetails_Request = new StockAllocatedEnggPartDetails_Request()
+                    var vStockAllocatedPartDetails_Request = new StockAllocatedPartDetails_Request()
                     {
                         Id = item.Id,
-                        StockAllocatedEnggId = result,
-                        SpareDetailsId = item.SpareDetailsId,
+                        StockAllocatedId = result,
+                        SpareId = item.SpareId,
                         AvailableQty = item.AvailableQty,
-                        OrderQty = item.OrderQty,
+                        RequiredQty = item.RequiredQty,
                         AllocatedQty = item.AllocatedQty,
                     };
 
-                    int result_StockAllocatedEnggPartDetails = await _manageStockRepository.SaveStockAllocatedEnggPartDetails(vStockAllocatedEnggPartDetails_Request);
+                    int result_StockAllocatedPartDetails = await _manageStockRepository.SaveStockAllocatedPartDetails(vStockAllocatedPartDetails_Request);
                 }
             }
 
@@ -301,9 +304,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetStockAllocatedEnggList(StockAllocatedEnggSearch_Request parameters)
+        public async Task<ResponseModel> GetStockAllocatedList(StockAllocated_Search parameters)
         {
-            var objList = await _manageStockRepository.GetStockAllocatedEnggList(parameters);
+            var objList = await _manageStockRepository.GetStockAllocatedList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -311,9 +314,9 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetStockAllocatedEnggById(int Id)
+        public async Task<ResponseModel> GetStockAllocatedById(int Id)
         {
-            var vStockAllocatedEnggPartDetailsById_Response = new StockAllocatedEnggPartDetailsById_Response();
+            var vStockAllocatedDetails_Response = new StockAllocatedDetails_Response();
 
             if (Id <= 0)
             {
@@ -321,41 +324,110 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _manageStockRepository.GetStockAllocatedEnggById(Id);
+                var vResultObj = await _manageStockRepository.GetStockAllocatedById(Id);
                 if (vResultObj != null)
                 {
-                    vStockAllocatedEnggPartDetailsById_Response.Id = vResultObj.Id;
-                    vStockAllocatedEnggPartDetailsById_Response.OrderNumber = vResultObj.OrderNumber;
-                    vStockAllocatedEnggPartDetailsById_Response.EngineerId = vResultObj.EngineerId;
-                    vStockAllocatedEnggPartDetailsById_Response.EngineerName = vResultObj.EngineerName;
-                    vStockAllocatedEnggPartDetailsById_Response.CompanyId = vResultObj.CompanyId;
-                    vStockAllocatedEnggPartDetailsById_Response.CompanyName = vResultObj.CompanyName;
-                    vStockAllocatedEnggPartDetailsById_Response.BranchId = vResultObj.BranchId;
-                    vStockAllocatedEnggPartDetailsById_Response.BranchName = vResultObj.BranchName;
-                    vStockAllocatedEnggPartDetailsById_Response.CreatorName = vResultObj.CreatorName;
-                    vStockAllocatedEnggPartDetailsById_Response.CreatedBy = vResultObj.CreatedBy;
-                    vStockAllocatedEnggPartDetailsById_Response.CreatedDate = vResultObj.CreatedDate;
-                    vStockAllocatedEnggPartDetailsById_Response.ModifierName = vResultObj.ModifierName;
-                    vStockAllocatedEnggPartDetailsById_Response.ModifiedBy = vResultObj.ModifiedBy;
-                    vStockAllocatedEnggPartDetailsById_Response.ModifiedDate = vResultObj.ModifiedDate;
+                    vStockAllocatedDetails_Response.Id = vResultObj.Id;
+                    vStockAllocatedDetails_Response.RequestId = vResultObj.RequestId;
+                    vStockAllocatedDetails_Response.RequestNumber = vResultObj.RequestNumber;
+                    vStockAllocatedDetails_Response.EngineerId = vResultObj.EngineerId;
+                    vStockAllocatedDetails_Response.EngineerName = vResultObj.EngineerName;
+                    vStockAllocatedDetails_Response.AllocatedType = vResultObj.AllocatedType;
+                    vStockAllocatedDetails_Response.StatusId = vResultObj.StatusId;
+                    vStockAllocatedDetails_Response.StatusName = vResultObj.StatusName;
+                    vStockAllocatedDetails_Response.IsActive = vResultObj.IsActive;
+
+                    vStockAllocatedDetails_Response.CreatorName = vResultObj.CreatorName;
+                    vStockAllocatedDetails_Response.CreatedBy = vResultObj.CreatedBy;
+                    vStockAllocatedDetails_Response.CreatedDate = vResultObj.CreatedDate;
+                    vStockAllocatedDetails_Response.ModifierName = vResultObj.ModifierName;
+                    vStockAllocatedDetails_Response.ModifiedBy = vResultObj.ModifiedBy;
+                    vStockAllocatedDetails_Response.ModifiedDate = vResultObj.ModifiedDate;
 
                     // Accessory
-                    var vSearchObj = new StockAllocatedEnggPartDetailsSearch_Request()
+                    var vSearchObj = new StockAllocatedPartDetails_Search()
                     {
-                        StockAllocatedEnggId = vResultObj.Id,
+                        StockAllocatedId = vResultObj.Id,
                     };
 
-                    var objOrderDetailsList = await _manageStockRepository.GetStockAllocatedEnggPartDetailsList(vSearchObj);
+                    var objOrderDetailsList = await _manageStockRepository.GetStockAllocatedPartDetailsList(vSearchObj);
                     foreach (var item in objOrderDetailsList)
                     {
-                        vStockAllocatedEnggPartDetailsById_Response.StockAllocatedEnggPartDetailList.Add(item);
+                        var vStockAllocatedPartDetails_Response = new StockAllocatedPartDetails_Response()
+                        {
+                            Id = item.Id,
+
+                            StockAllocatedId = item.Id,
+                            SpareId = item.SpareId,
+                            AvailableQty = item.AvailableQty,
+                            RequiredQty = item.RequiredQty,
+                            AllocatedQty = item.AllocatedQty
+                        };
+
+                        vStockAllocatedDetails_Response.PartList.Add(vStockAllocatedPartDetails_Response);
                     }
                 }
 
-                _response.Data = vStockAllocatedEnggPartDetailsById_Response;
+                _response.Data = vStockAllocatedDetails_Response;
             }
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveStockAllocatedPartDetails(StockAllocatedPartDetails_Request parameters)
+        {
+            int result = await _manageStockRepository.SaveStockAllocatedPartDetails(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record saved sucessfully";
+            }
+
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetStockAllocatedPartDetailsList(StockAllocatedPartDetails_Search parameters)
+        {
+            var objList = await _manageStockRepository.GetStockAllocatedPartDetailsList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetStockAllocatedPartDetailsById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageStockRepository.GetStockAllocatedById(Id);
+
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
+
 
         #endregion
 

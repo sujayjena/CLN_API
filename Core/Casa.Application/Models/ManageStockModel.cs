@@ -165,6 +165,7 @@ namespace CLN.Application.Models
     #endregion
 
     #region Stock Allocation
+
     public class StockAllocationList_Response : BaseResponseEntity
     {
         public int? SpareDetailsId { get; set; }
@@ -175,88 +176,109 @@ namespace CLN.Application.Models
         public int? AvailableQty { get; set; }
     }
 
-    public class StockAllocatedEngg_Request : BaseEntity
-    {
-        public StockAllocatedEngg_Request()
-        {
-            StockAllocatedEnggPartDetailList = new List<StockAllocatedEnggPartDetails_Request>();
-        }
+    #region Stock Allocate To Engineer / TRC
 
+    public class StockAllocated_Search : BaseSearchEntity
+    {
+        [DefaultValue("Engg")]
+        public string AllocatedType { get; set; }
+
+        [DefaultValue(0)]
         public int EngineerId { get; set; }
 
-        [DefaultValue("")]
-        public string? OrderNumber { get; set; }
-
-        public int CompanyId { get; set; }
-
-        public int BranchId { get; set; }
-
-        public List<StockAllocatedEnggPartDetails_Request> StockAllocatedEnggPartDetailList { get; set; }
-    }
-    public class StockAllocatedEnggSearch_Request : BaseSearchEntity
-    {
-        public int CompanyId { get; set; }
-
-        [DefaultValue("")]
-        public string? BranchId { get; set; }
-        public int EngineerId { get; set; }
+        [DefaultValue(0)]
+        public int StatusId { get; set; }
     }
 
-    public class StockAllocatedEnggPartDetailsSearch_Request : BaseSearchEntity
+    public class StockAllocated_Request : BaseEntity
     {
-        public int StockAllocatedEnggId { get; set; }
-    }
-
-    public class StockAllocatedEngg_Response : BaseResponseEntity
-    {
-        public string? OrderNumber { get; set; }
-        public int? EngineerId { get; set; }
-        public string? EngineerName { get; set; }
-        public int? CompanyId { get; set; }
-        public string? CompanyName { get; set; }
-        public int? BranchId { get; set; }
-        public string? BranchName { get; set; }
-    }
-
-    public class StockAllocatedEnggPartDetailsById_Response : BaseResponseEntity
-    {
-        public StockAllocatedEnggPartDetailsById_Response()
+        public StockAllocated_Request()
         {
-            StockAllocatedEnggPartDetailList = new List<StockAllocatedEnggPartDetails_Response>();
+            PartList = new List<StockAllocatedPartDetails_Request>();
         }
 
-        public string? OrderNumber { get; set; }
+        public int RequestId { get; set; }
+
         public int? EngineerId { get; set; }
-        public string? EngineerName { get; set; }
-        public int? CompanyId { get; set; }
-        public string? CompanyName { get; set; }
-        public int? BranchId { get; set; }
-        public string? BranchName { get; set; }
-        public List<StockAllocatedEnggPartDetails_Response> StockAllocatedEnggPartDetailList { get; set; }
+
+        [DefaultValue("Engg")]
+        public string AllocatedType { get; set; }
+
+        public int? StatusId { get; set; }
+
+        public bool? IsActive { get; set; }
+
+        public List<StockAllocatedPartDetails_Request> PartList { get; set; }
     }
-    public class StockAllocatedEnggPartDetails_Request : BaseEntity
+
+    public class StockAllocatedList_Response : BaseResponseEntity
     {
-        public int? StockAllocatedEnggId { get; set; }
-        public int? SpareDetailsId { get; set; }
+        public int? RequestId { get; set; }
+        public string RequestNumber { get; set; }
+        public int? EngineerId { get; set; }
+        public string EngineerName { get; set; }
+        public string AllocatedType { get; set; }
+        public int? StatusId { get; set; }
+        public string StatusName { get; set; }
+        public bool? IsActive { get; set; }
+    }
+
+    public class StockAllocatedDetails_Response : BaseResponseEntity
+    {
+        public StockAllocatedDetails_Response()
+        {
+            PartList = new List<StockAllocatedPartDetails_Response>();
+        }
+
+        public int? RequestId { get; set; }
+        public string RequestNumber { get; set; }
+        public int? EngineerId { get; set; }
+        public string EngineerName { get; set; }
+        public string AllocatedType { get; set; }
+        public int? StatusId { get; set; }
+        public string StatusName { get; set; }
+        public bool? IsActive { get; set; }
+
+        public List<StockAllocatedPartDetails_Response> PartList { get; set; }
+    }
+
+
+    public class StockAllocatedPartDetails_Search : BaseSearchEntity
+    {
+        public int StockAllocatedId { get; set; }
+    }
+
+    public class StockAllocatedPartDetails_Request : BaseEntity
+    {
+
+        public int? StockAllocatedId { get; set; }
+
+        public int? SpareId { get; set; }
+
         public int? AvailableQty { get; set; }
-        public int? OrderQty { get; set; }
+
+        public int? RequiredQty { get; set; }
+
         public int? AllocatedQty { get; set; }
     }
-    public class StockAllocatedEnggPartDetails_Response : BaseResponseEntity
+
+    public class StockAllocatedPartDetails_Response : BaseEntity
     {
-        public int StockAllocatedEnggId { get; set; }
-        public int? SpareDetailsId { get; set; }
-        public string? UniqueCode { get; set; }
-        public string? SpareCategory { get; set; }
-        public string? SpareDesc { get; set; }
-        public string? UOMName { get; set; }
+        public int? StockAllocatedId { get; set; }
+        public int? SpareId { get; set; }
+        public string UniqueCode { get; set; }
+        public string SpareDesc { get; set; }
         public int? AvailableQty { get; set; }
-        public int? OrderQty { get; set; }
+        public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
     }
+
+    #endregion
+
     #endregion
 
     #region Stock Master
+
     public class StockMaster_Response : BaseResponseEntity
     {
         public int? SpareDetailsId { get; set; }
@@ -267,5 +289,6 @@ namespace CLN.Application.Models
         public int? MinQty { get; set; }
         public int? AvailableQty { get; set; }
     }
+
     #endregion
 }
