@@ -25,10 +25,12 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
             queryParameters.Add("@ContractCycleName", parameters.ContractCycleName.SanitizeValue());
             queryParameters.Add("@Months", parameters.Months);
             queryParameters.Add("@Days", parameters.Days);
             queryParameters.Add("@ContractCycleFile", parameters.ContractCycleFileName);
+            queryParameters.Add("@WarrantyTypeId", parameters.WarrantyTypeId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

@@ -218,6 +218,16 @@ namespace CLN.Application.Models
         public int? EngineerId { get; set; }
         public string EngineerName { get; set; }
         public string AllocatedType { get; set; }
+
+        [DefaultValue(0)]
+        public int RequiredQty { get; set; }
+
+        [DefaultValue(0)]
+        public int AllocatedQty { get; set; }
+
+        [DefaultValue(0)]
+        public int ReceivedQty { get; set; }
+
         public int? StatusId { get; set; }
         public string StatusName { get; set; }
         public bool? IsActive { get; set; }
@@ -235,6 +245,16 @@ namespace CLN.Application.Models
         public int? EngineerId { get; set; }
         public string EngineerName { get; set; }
         public string AllocatedType { get; set; }
+
+        [DefaultValue(0)]
+        public int RequiredQty { get; set; }
+
+        [DefaultValue(0)]
+        public int AllocatedQty { get; set; }
+
+        [DefaultValue(0)]
+        public int ReceivedQty { get; set; }
+
         public int? StatusId { get; set; }
         public string StatusName { get; set; }
         public bool? IsActive { get; set; }

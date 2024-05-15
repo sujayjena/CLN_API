@@ -255,11 +255,13 @@ namespace CLN.API.Controllers
             return _response;
         }
 
-        #region Stock Allocate To Engineer / TRC
+        #endregion
+
+        #region Stock Allocation > Stock Allocate To Engineer / TRC
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveStockAllocated(StockAllocated_Request parameters)
+        public async Task<ResponseModel> SaveStockAllocated_Engineer_N_TRC(StockAllocated_Request parameters)
         {
             int result = await _manageStockRepository.SaveStockAllocated(parameters);
 
@@ -304,7 +306,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetStockAllocatedList(StockAllocated_Search parameters)
+        public async Task<ResponseModel> GetStockAllocatedList_Engineer_N_TRC(StockAllocated_Search parameters)
         {
             var objList = await _manageStockRepository.GetStockAllocatedList(parameters);
             _response.Data = objList.ToList();
@@ -314,7 +316,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetStockAllocatedById(int Id)
+        public async Task<ResponseModel> GetStockAllocatedById_Engineer_N_TRC(int Id)
         {
             var vStockAllocatedDetails_Response = new StockAllocatedDetails_Response();
 
@@ -333,6 +335,11 @@ namespace CLN.API.Controllers
                     vStockAllocatedDetails_Response.EngineerId = vResultObj.EngineerId;
                     vStockAllocatedDetails_Response.EngineerName = vResultObj.EngineerName;
                     vStockAllocatedDetails_Response.AllocatedType = vResultObj.AllocatedType;
+
+                    vStockAllocatedDetails_Response.RequiredQty = vResultObj.RequiredQty;
+                    vStockAllocatedDetails_Response.AllocatedQty = vResultObj.AllocatedQty;
+                    vStockAllocatedDetails_Response.ReceivedQty = vResultObj.ReceivedQty;
+
                     vStockAllocatedDetails_Response.StatusId = vResultObj.StatusId;
                     vStockAllocatedDetails_Response.StatusName = vResultObj.StatusName;
                     vStockAllocatedDetails_Response.IsActive = vResultObj.IsActive;
@@ -375,7 +382,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveStockAllocatedPartDetails(StockAllocatedPartDetails_Request parameters)
+        public async Task<ResponseModel> SaveStockAllocatedPartDetails_Engineer_N_TRC(StockAllocatedPartDetails_Request parameters)
         {
             int result = await _manageStockRepository.SaveStockAllocatedPartDetails(parameters);
 
@@ -401,7 +408,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetStockAllocatedPartDetailsList(StockAllocatedPartDetails_Search parameters)
+        public async Task<ResponseModel> GetStockAllocatedPartDetailsList_Engineer_N_TRC(StockAllocatedPartDetails_Search parameters)
         {
             var objList = await _manageStockRepository.GetStockAllocatedPartDetailsList(parameters);
             _response.Data = objList.ToList();
@@ -411,7 +418,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetStockAllocatedPartDetailsById(int Id)
+        public async Task<ResponseModel> GetStockAllocatedPartDetailsById_Engineer_N_TRC(int Id)
         {
             if (Id <= 0)
             {
@@ -428,8 +435,20 @@ namespace CLN.API.Controllers
 
         #endregion
 
+        #region Stock Allocation > Employee Inventory > Stock Allocate To Engineer / TRC
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetAllocatedPartListToEngineer_PartReceived_Engineer_N_TRC(StockAllocated_Search parameters)
+        {
+            var objList = await _manageStockRepository.GetStockAllocatedList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
 
         #endregion
+
 
         #region Stock Master
         [Route("[action]")]
