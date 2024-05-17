@@ -365,6 +365,26 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> DeleteManageQCAccessory(int Id)
+        {
+            int result = await _ManageQCRepository.DeleteManageQCAccessory(Id);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details deleted sucessfully";
+            }
+            return _response;
+        }
         #endregion
     }
 }

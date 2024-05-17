@@ -57,5 +57,9 @@ namespace CLN.Application.Interfaces
         #region Stock Master
         Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId);
         #endregion
+
+        #region Engineer Stock Master
+        Task<IEnumerable<EnggStockMaster_Response>> GetEnggStockMasterList(EnggStockMasterListSearch_Request parameters);
+        #endregion
     }
 }

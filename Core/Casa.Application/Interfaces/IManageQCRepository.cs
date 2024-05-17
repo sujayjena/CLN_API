@@ -36,6 +36,8 @@ namespace CLN.Application.Interfaces
 
         Task<CustomerAccessory_Response?> GetManageQCAccessoryById(int Id);
 
+        Task<int> DeleteManageQCAccessory(int Id);
+
         #endregion
 
         #region Customer Battery

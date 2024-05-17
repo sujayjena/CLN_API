@@ -307,5 +307,22 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<StockMaster_Response>("GetStockMasterBySpareDetailsId", queryParameters)).FirstOrDefault();
         }
         #endregion
+
+        #region Engineer Stock Master
+        public async Task<IEnumerable<EnggStockMaster_Response>> GetEnggStockMasterList(EnggStockMasterListSearch_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<EnggStockMaster_Response>("GetEnggStockMasterList", queryParameters);
+        }
+
+        #endregion
     }
 }

@@ -68,6 +68,8 @@ namespace CLN.Application.Models
 
         public DateTime? WarrantyEndDate { get; set; }
 
+        public string WarrantyStatus { get; set; }
+
         public bool? IsActive { get; set; }
     }
 }

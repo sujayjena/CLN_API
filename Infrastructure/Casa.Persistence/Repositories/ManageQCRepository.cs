@@ -143,6 +143,15 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<CustomerAccessory_Response>("GetAccessoryById", queryParameters)).FirstOrDefault();
         }
 
+        public async Task<int> DeleteManageQCAccessory(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return await SaveByStoredProcedure<int>("DeleteCustomerAccessory", queryParameters);
+        }
+
         #endregion
 
         #region Customer Battery

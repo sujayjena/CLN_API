@@ -449,7 +449,6 @@ namespace CLN.API.Controllers
 
         #endregion
 
-
         #region Stock Master
         [Route("[action]")]
         [HttpPost]
@@ -465,6 +464,18 @@ namespace CLN.API.Controllers
 
                 _response.Data = vResultObj;
             }
+            return _response;
+        }
+        #endregion
+
+        #region Engineer Stock Master
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEnggStockMasterList(EnggStockMasterListSearch_Request parameters)
+        {
+            var objList = await _manageStockRepository.GetEnggStockMasterList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
             return _response;
         }
         #endregion

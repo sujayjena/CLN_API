@@ -311,4 +311,23 @@ namespace CLN.Application.Models
     }
 
     #endregion
+
+    #region Engineer Stock Master
+
+    public class EnggStockMasterListSearch_Request : BaseSearchEntity
+    {
+        public int EngineerId { get; set; }
+    }
+
+    public class EnggStockMaster_Response : BaseResponseEntity
+    {
+        public int? EngineerId { get; set; }
+        public string? EngineerName { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareDesc { get; set; }
+        public int? AvailableQty { get; set; }
+    }
+
+    #endregion
 }
