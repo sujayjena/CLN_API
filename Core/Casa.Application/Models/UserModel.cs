@@ -63,7 +63,7 @@ namespace CLN.Application.Models
 
         public string BloodGroup { get; set; }
 
-        public string MobileUniqId { get; set; }
+        public string MobileUniqueId { get; set; }
 
         public string AadharNumber { get; set; }
 

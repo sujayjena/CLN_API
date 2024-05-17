@@ -48,7 +48,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DateOfJoining", parameters.DateOfJoining);
             queryParameters.Add("@EmergencyContactNumber", parameters.EmergencyContactNumber);
             queryParameters.Add("@BloodGroup", parameters.BloodGroup);
-            queryParameters.Add("@MobileUniqueId", parameters.MobileUniqId);
+            queryParameters.Add("@MobileUniqueId", parameters.MobileUniqueId);
             queryParameters.Add("@AadharNumber", parameters.AadharNumber);
             queryParameters.Add("@AadharOriginalFileName", parameters.AadharOriginalFileName);
             queryParameters.Add("@AadharImage", parameters.AadharImage);
