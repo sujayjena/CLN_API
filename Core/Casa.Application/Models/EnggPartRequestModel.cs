@@ -51,7 +51,7 @@ namespace CLN.Application.Models
 
         public int? SpareId { get; set; }
 
-        public string UOM { get; set; }
+        public int? UOMId { get; set; }
 
         public int? TypeOfBMSId { get; set; }
 
@@ -104,7 +104,8 @@ namespace CLN.Application.Models
         public int? SpareId { get; set; }
         public string SpareDesc { get; set; }
         public string UniqueCode { get; set; }
-        public string UOM { get; set; }
+        public int? UOMId { get; set; }
+        public string UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
         public string TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }

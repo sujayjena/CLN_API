@@ -75,7 +75,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RequestId", parameters.RequestId);
             queryParameters.Add("@CategoryId", parameters.CategoryId);
             queryParameters.Add("@SpareId", parameters.SpareId);
-            queryParameters.Add("@UOM", parameters.UOM);
+            queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);
@@ -174,7 +174,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RequestId", parameters.RequestId);
             queryParameters.Add("@CategoryId", parameters.CategoryId);
             queryParameters.Add("@SpareId", parameters.SpareId);
-            queryParameters.Add("@UOM", parameters.UOM);
+            queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);
