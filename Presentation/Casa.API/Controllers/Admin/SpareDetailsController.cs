@@ -53,7 +53,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetSpareDetailsList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetSpareDetailsList(SpareDetails_Search parameters)
         {
             IEnumerable<SpareDetails_Response> lstSpareDetailss = await _spareDetailsRepository.GetSpareDetailsList(parameters);
             _response.Data = lstSpareDetailss.ToList();

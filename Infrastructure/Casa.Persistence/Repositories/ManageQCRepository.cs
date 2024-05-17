@@ -117,7 +117,7 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveCustomerAccessory", queryParameters);
         }
 
-        public async Task<IEnumerable<CustomerAccessory_Request>> GetManageQCAccessoryList(CustomerAccessory_Search parameters)
+        public async Task<IEnumerable<CustomerAccessory_Response>> GetManageQCAccessoryList(CustomerAccessory_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -129,18 +129,18 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<CustomerAccessory_Request>("GetAccessoryList", queryParameters);
+            var result = await ListByStoredProcedure<CustomerAccessory_Response>("GetAccessoryList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<CustomerAccessory_Request?> GetManageQCAccessoryById(int Id)
+        public async Task<CustomerAccessory_Response?> GetManageQCAccessoryById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
 
-            return (await ListByStoredProcedure<CustomerAccessory_Request>("GetAccessoryById", queryParameters)).FirstOrDefault();
+            return (await ListByStoredProcedure<CustomerAccessory_Response>("GetAccessoryById", queryParameters)).FirstOrDefault();
         }
 
         #endregion

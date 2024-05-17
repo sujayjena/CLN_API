@@ -32,9 +32,9 @@ namespace CLN.Application.Interfaces
 
         Task<int> SaveManageQCAccessory(CustomerAccessory_Request parameters);
 
-        Task<IEnumerable<CustomerAccessory_Request>> GetManageQCAccessoryList(CustomerAccessory_Search parameters);
+        Task<IEnumerable<CustomerAccessory_Response>> GetManageQCAccessoryList(CustomerAccessory_Search parameters);
 
-        Task<CustomerAccessory_Request?> GetManageQCAccessoryById(int Id);
+        Task<CustomerAccessory_Response?> GetManageQCAccessoryById(int Id);
 
         #endregion
 

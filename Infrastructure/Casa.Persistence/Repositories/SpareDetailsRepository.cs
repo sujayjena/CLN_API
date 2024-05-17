@@ -25,7 +25,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@UniqueCode", parameters.UniqueCode);
-            queryParameters.Add("@SpareCategory", parameters.SpareCategory);
+            queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
             queryParameters.Add("@SpareDesc", parameters.SpareDesc);
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@MinQty", parameters.MinQty);
@@ -35,9 +35,10 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveSpareDetails", queryParameters);
         }
 
-        public async Task<IEnumerable<SpareDetails_Response>> GetSpareDetailsList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<SpareDetails_Response>> GetSpareDetailsList(SpareDetails_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);

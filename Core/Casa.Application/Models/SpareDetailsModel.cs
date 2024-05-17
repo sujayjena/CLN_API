@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,15 @@ namespace CLN.Application.Models
     {
     }
 
+    public class SpareDetails_Search : BaseSearchEntity
+    {
+        public int? SpareCategoryId { get; set; }
+    }
+
     public class SpareDetails_Request : BaseEntity
     {
         public string? UniqueCode { get; set; }
-        public string? SpareCategory { get; set; }
+        public int? SpareCategoryId { get; set; }
         public string? SpareDesc { get; set; }
         public int UOMId { get; set; }
         public int MinQty { get; set; }
@@ -24,6 +30,7 @@ namespace CLN.Application.Models
     public class SpareDetails_Response : BaseResponseEntity
     {
         public string? UniqueCode { get; set; }
+        public int? SpareCategoryId { get; set; }
         public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
         public int UOMId { get; set; }

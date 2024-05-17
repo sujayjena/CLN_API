@@ -55,7 +55,7 @@ namespace CLN.Application.Models
     {
         public ManageQC_Consignee_Response()
         {
-            AccessoryList = new List<CustomerAccessory_Request>();
+            AccessoryList = new List<CustomerAccessory_Response>();
         }
 
         public int? ConsigneeTypeId { get; set; }
@@ -91,7 +91,7 @@ namespace CLN.Application.Models
 
         public bool? IsActive { get; set; }
 
-        public List<CustomerAccessory_Request> AccessoryList { get; set; }
+        public List<CustomerAccessory_Response> AccessoryList { get; set; }
     }
 
     public class ManageQCList_Response : BaseResponseEntity
@@ -99,6 +99,8 @@ namespace CLN.Application.Models
         public int? ConsigneeTypeId { get; set; }
 
         public string ConsigneeName { get; set; }
+
+        public string ConsigneeCode { get; set; }
 
         public string ConsigneeMobileNumber { get; set; }
 

@@ -255,6 +255,7 @@ namespace CLN.Application.Models
         public int? TicketPriorityId { get; set; }
         public string TicketPriority { get; set; }
         public string TicketSLADays { get; set; }
+        public string TicketAging { get; set; }
 
         public int? CD_LoggingSourceId { get; set; }
         public string CD_LoggingSourceChannel { get; set; }

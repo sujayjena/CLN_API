@@ -57,6 +57,7 @@ namespace CLN.Application.Models
         public string MobileNumber { get; set; }
         public string EmailId { get; set; }
         public string SpecialRemark { get; set; }
+        public string ContactPerson { get; set; }
         public string PanCardNo { get; set; }
         public string PanCardImage { get; set; }
         public string PanCardOriginalFileName { get; set; }

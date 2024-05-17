@@ -12,7 +12,7 @@ namespace CLN.Application.Interfaces
     {
         Task<int> SaveSpareDetails(SpareDetails_Request parameters);
 
-        Task<IEnumerable<SpareDetails_Response>> GetSpareDetailsList(BaseSearchEntity parameters);
+        Task<IEnumerable<SpareDetails_Response>> GetSpareDetailsList(SpareDetails_Search parameters);
 
         Task<SpareDetails_Response?> GetSpareDetailsById(int Id);
     }
