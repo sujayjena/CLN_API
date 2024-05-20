@@ -168,5 +168,23 @@ namespace CLN.Persistence.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<ManageTicketCustomerMobileNumber_Response>> GetCustomerMobileNumberList(string SearchText)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@SearchText", SearchText.SanitizeValue());
+
+            var result = await ListByStoredProcedure<ManageTicketCustomerMobileNumber_Response>("GetCustomerMobileNumberList", queryParameters);
+            return result;
+        }
+
+        public async Task<ManageTicketCustomerDetail_Response?> GetCustomerDetailByMobileNumber(string mobile)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@MobileNumber", mobile);
+
+            return (await ListByStoredProcedure<ManageTicketCustomerDetail_Response>("GetCustomerDetailByMobileNumber", queryParameters)).FirstOrDefault();
+        }
     }
 }

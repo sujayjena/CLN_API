@@ -20,8 +20,9 @@ namespace CLN.API.Controllers
         private readonly IAddressRepository _addressRepository;
         private readonly IManageEnquiryRepository _manageEnquiryRepository;
         private readonly IManageTRCRepository _manageTRCRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository)
+        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository)
         {
             _fileManager = fileManager;
 
@@ -29,6 +30,7 @@ namespace CLN.API.Controllers
             _addressRepository = addressRepository;
             _manageEnquiryRepository = manageEnquiryRepository;
             _manageTRCRepository = manageTRCRepository;
+            _customerRepository = customerRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -436,6 +438,55 @@ namespace CLN.API.Controllers
                 }
 
                 _response.Data = vManageTicketDetail_Response;
+            }
+            return _response;
+        }
+
+
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerMobileNumberList(string SearchText)
+        {
+            var objList = await _manageTicketRepository.GetCustomerMobileNumberList(SearchText);
+            _response.Data = objList.ToList();
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerDetailByMobileNumber(string mobile)
+        {
+            var vCustomerDetail_Response = new ManageTicketCustomerDetail_Response();
+
+            if (string.IsNullOrWhiteSpace(mobile))
+            {
+                _response.Message = "Mobile is required";
+            }
+            else
+            {
+                var vResultObj = await _manageTicketRepository.GetCustomerDetailByMobileNumber(mobile);
+                if (vResultObj != null)
+                {
+                    vCustomerDetail_Response.Id = Convert.ToInt32(vResultObj.Id);
+                    vCustomerDetail_Response.CustomerTypeId = vResultObj.CustomerTypeId;
+                    vCustomerDetail_Response.CustomerName = vResultObj.CustomerName;
+                    vCustomerDetail_Response.LandLineNumber = vResultObj.LandLineNumber;
+                    vCustomerDetail_Response.MobileNumber = vResultObj.MobileNumber;
+                    vCustomerDetail_Response.EmailId = vResultObj.EmailId;
+                    vCustomerDetail_Response.Website = vResultObj.Website;
+                    vCustomerDetail_Response.Remark = vResultObj.Remark;
+                    vCustomerDetail_Response.RefParty = vResultObj.RefParty;
+                    vCustomerDetail_Response.GSTImage = vResultObj.GSTImage;
+                    vCustomerDetail_Response.GSTImageOriginalFileName = vResultObj.GSTImageOriginalFileName;
+                    vCustomerDetail_Response.GSTImageURL = vResultObj.GSTImageURL;
+                    vCustomerDetail_Response.PanCardImage = vResultObj.PanCardImage;
+                    vCustomerDetail_Response.PanCardOriginalFileName = vResultObj.PanCardOriginalFileName;
+                    vCustomerDetail_Response.PanCardImageURL = vResultObj.PanCardImageURL;
+                    vCustomerDetail_Response.IsActive = vResultObj.IsActive;
+                }
+
+                _response.Data = vCustomerDetail_Response;
             }
             return _response;
         }

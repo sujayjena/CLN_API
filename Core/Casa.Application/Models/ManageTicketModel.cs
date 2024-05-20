@@ -510,4 +510,46 @@ namespace CLN.Application.Models
 
         public int? PartStatusId { get; set; }
     }
+
+
+    public class ManageTicketCustomerMobileNumber_Response  
+    {
+        public string MobileNumber { get; set; }
+    }
+
+    public class ManageTicketCustomerDetail_Response : BaseResponseEntity
+    {
+        public int? CustomerTypeId { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string CustomerCode { get; set; }
+
+        public string LandLineNumber { get; set; }
+
+        public string MobileNumber { get; set; }
+
+        public string EmailId { get; set; }
+
+        public string Website { get; set; }
+
+        public string Remark { get; set; }
+
+        public string RefParty { get; set; }
+
+        public string GSTImage { get; set; }
+
+        public string GSTImageOriginalFileName { get; set; }
+
+        public string GSTImageURL { get; set; }
+
+        public string PanCardImage { get; set; }
+
+        public string PanCardOriginalFileName { get; set; }
+
+        public string PanCardImageURL { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
 }

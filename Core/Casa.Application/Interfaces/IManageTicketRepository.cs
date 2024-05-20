@@ -19,5 +19,10 @@ namespace CLN.Application.Interfaces
         Task<int> SaveManageTicketPartDetail(ManageTicketPartDetails_Request parameters);
 
         Task<IEnumerable<ManageTicketPartDetails_Response>> GetManageTicketPartDetailById(int Id);
+
+
+        Task<IEnumerable<ManageTicketCustomerMobileNumber_Response>> GetCustomerMobileNumberList(string SearchText);
+
+        Task<ManageTicketCustomerDetail_Response?> GetCustomerDetailByMobileNumber(string mobile);
     }
 }
