@@ -27,6 +27,8 @@ namespace CLN.Application.Models
 
         public string ConsigneeName { get; set; }
 
+        public string? ConsigneeCode { get; set; }
+
         public string ConsigneeMobileNumber { get; set; }
 
         [JsonIgnore]
@@ -61,6 +63,8 @@ namespace CLN.Application.Models
         public int? ConsigneeTypeId { get; set; }
 
         public string ConsigneeName { get; set; }
+
+        public string? ConsigneeCode { get; set; }
 
         public string ConsigneeMobileNumber { get; set; }
 

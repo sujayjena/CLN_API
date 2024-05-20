@@ -51,6 +51,7 @@ namespace CLN.API.Controllers
             vCustObj.Id = parameters.Id;
             vCustObj.CustomerTypeId = parameters.ConsigneeTypeId;
             vCustObj.CustomerName = parameters.ConsigneeName;
+            vCustObj.CustomerCode = parameters.ConsigneeCode;
             vCustObj.MobileNumber = parameters.ConsigneeMobileNumber;
             vCustObj.IsActive = parameters.IsActive;
 
@@ -147,6 +148,7 @@ namespace CLN.API.Controllers
                     vManageQC_Consignee_Request.Id = vResultObj.Id;
                     vManageQC_Consignee_Request.ConsigneeTypeId = vResultObj.ConsigneeTypeId;
                     vManageQC_Consignee_Request.ConsigneeName = vResultObj.ConsigneeName;
+                    vManageQC_Consignee_Request.ConsigneeCode = vResultObj.ConsigneeCode;
                     vManageQC_Consignee_Request.ConsigneeMobileNumber = vResultObj.ConsigneeMobileNumber;
                     vManageQC_Consignee_Request.ConsigneeAddressId = vResultObj.ConsigneeAddressId;
                     vManageQC_Consignee_Request.ConsigneeAddress1 = vResultObj.ConsigneeAddress1;
