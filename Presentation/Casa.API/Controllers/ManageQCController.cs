@@ -199,7 +199,7 @@ namespace CLN.API.Controllers
             // Image Upload
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PartImage_Base64))
             {
-                var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.PartImage_Base64, "\\Uploads\\QC\\", parameters.PartImageOriginalFileName);
+                var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.PartImage_Base64, "\\Uploads\\Customer\\QC\\", parameters.PartImageOriginalFileName);
 
                 if (!string.IsNullOrWhiteSpace(vUploadFile_AadharCardImage))
                 {
