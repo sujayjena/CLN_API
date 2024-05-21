@@ -21,6 +21,7 @@ namespace CLN.API.Controllers.Admin
             _response.IsSuccess = true;
         }
 
+        #region Source channel
         [Route("[action]")]
         [HttpPost]
         public async Task<ResponseModel> SaveSourceChannel(SourceChannel_Request parameters)
@@ -72,5 +73,62 @@ namespace CLN.API.Controllers.Admin
             }
             return _response;
         }
+
+        #endregion
+
+        #region caller type
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveCallerType(CallerType_Request parameters)
+        {
+            int result = await _sourceChannelRepository.SaveCallerType(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCallerTypeList(BaseSearchEntity parameters)
+        {
+            IEnumerable<CallerType_Response> lstRoles = await _sourceChannelRepository.GetCallerTypeList(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCallerTypeById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _sourceChannelRepository.GetCallerTypeById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
     }
 }

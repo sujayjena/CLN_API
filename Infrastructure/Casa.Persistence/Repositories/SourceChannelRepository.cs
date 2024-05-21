@@ -21,6 +21,7 @@ namespace CLN.Persistence.Repositories
             _configuration = configuration;
         }
 
+        #region source channel
         public async Task<int> SaveSourceChannel(SourceChannel_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
@@ -54,5 +55,42 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<SourceChannel_Response>("GetSourceChannelById", queryParameters)).FirstOrDefault();
         }
+        #endregion
+
+        #region caller type
+        public async Task<int> SaveCallerType(CallerType_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@CallerType", parameters.CallerType);
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveCallerType", queryParameters);
+        }
+
+        public async Task<IEnumerable<CallerType_Response>> GetCallerTypeList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<CallerType_Response>("GetCallerTypeList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<CallerType_Response?> GetCallerTypeById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+            return (await ListByStoredProcedure<CallerType_Response>("GetCallerTypeById", queryParameters)).FirstOrDefault();
+        }
+        #endregion
     }
 }
