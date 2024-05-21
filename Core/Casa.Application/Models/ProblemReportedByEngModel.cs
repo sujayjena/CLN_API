@@ -12,14 +12,14 @@ namespace CLN.Application.Models
     }
     public class ProblemReportedByEng_Request : BaseEntity
     {
-        public int SegmentId { get; set; }
+        public int? SegmentId { get; set; }
         public string? ProblemReportedByEng { get; set; }
         public bool? IsActive { get; set; }
     }
 
     public class ProblemReportedByEng_Response : BaseResponseEntity
     {
-        public int SegmentId { get; set; }
+        public int? SegmentId { get; set; }
         public string? Segment { get; set; }
         public string? ProblemReportedByEng { get; set; }
         public bool? IsActive { get; set; }

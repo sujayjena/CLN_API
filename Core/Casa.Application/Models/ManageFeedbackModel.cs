@@ -12,9 +12,9 @@ namespace CLN.Application.Models
     }
     public class ManageFeedback_Request : BaseEntity
     {
-        public int TicketId { get; set; }
-        public int Rating { get; set; }
-        public string FeedbackDetails { get; set; }
+        public int? TicketId { get; set; }
+        public int? Rating { get; set; }
+        public string? FeedbackDetails { get; set; }
         public bool? IsActive { get; set; }
     }
 

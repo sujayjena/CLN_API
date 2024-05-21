@@ -18,21 +18,21 @@ namespace CLN.Application.Models
     {
         public int? CustomerTypeId { get; set; }
 
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
         public string? CustomerCode { get; set; }
 
-        public string LandLineNumber { get; set; }
+        public string? LandLineNumber { get; set; }
 
-        public string MobileNumber { get; set; }
+        public string? MobileNumber { get; set; }
 
-        public string EmailId { get; set; }
+        public string? EmailId { get; set; }
 
-        public string Website { get; set; }
+        public string? Website { get; set; }
 
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
-        public string RefParty { get; set; }
+        public string? RefParty { get; set; }
 
         [JsonIgnore]
         public string? GSTImageFileName { get; set; }
@@ -61,55 +61,55 @@ namespace CLN.Application.Models
 
         public int? CustomerTypeId { get; set; }
 
-        public string CustomerType { get; set; }
+        public string? CustomerType { get; set; }
 
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
         public string? CustomerCode { get; set; }
 
-        public string LandLineNumber { get; set; }
+        public string? LandLineNumber { get; set; }
 
-        public string MobileNumber { get; set; }
+        public string? MobileNumber { get; set; }
 
-        public string EmailId { get; set; }
+        public string? EmailId { get; set; }
 
-        public string Website { get; set; }
+        public string? Website { get; set; }
 
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
-        public string RefParty { get; set; }
+        public string? RefParty { get; set; }
 
-        public string GSTImage { get; set; }
+        public string? GSTImage { get; set; }
 
-        public string GSTImageOriginalFileName { get; set; }
+        public string? GSTImageOriginalFileName { get; set; }
 
-        public string GSTImageURL { get; set; }
+        public string? GSTImageURL { get; set; }
 
-        public string PanCardImage { get; set; }
+        public string? PanCardImage { get; set; }
 
-        public string PanCardOriginalFileName { get; set; }
+        public string? PanCardOriginalFileName { get; set; }
 
-        public string PanCardImageURL { get; set; }
+        public string? PanCardImageURL { get; set; }
 
-        public string Address1 { get; set; }
+        public string? Address1 { get; set; }
 
-        public string Address2 { get; set; }
+        public string? Address2 { get; set; }
 
         public int? RegionId { get; set; }
 
-        public string RegionName { get; set; }
+        public string? RegionName { get; set; }
 
         public int? StateId { get; set; }
 
-        public string StateName { get; set; }
+        public string? StateName { get; set; }
 
         public int? DistrictId { get; set; }
 
-        public string DistrictName { get; set; }
+        public string? DistrictName { get; set; }
 
         public int? CityId { get; set; }
 
-        public string CityName { get; set; }
+        public string? CityName { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -124,31 +124,33 @@ namespace CLN.Application.Models
 
         public int? CustomerTypeId { get; set; }
 
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
-        public string LandLineNumber { get; set; }
+        public string? CustomerCode { get; set; }
 
-        public string MobileNumber { get; set; }
+        public string? LandLineNumber { get; set; }
 
-        public string EmailId { get; set; }
+        public string? MobileNumber { get; set; }
 
-        public string Website { get; set; }
+        public string? EmailId { get; set; }
 
-        public string Remark { get; set; }
+        public string? Website { get; set; }
 
-        public string RefParty { get; set; }
+        public string? Remark { get; set; }
 
-        public string GSTImage { get; set; }
+        public string? RefParty { get; set; }
 
-        public string GSTImageOriginalFileName { get; set; }
+        public string? GSTImage { get; set; }
 
-        public string GSTImageURL { get; set; }
+        public string? GSTImageOriginalFileName { get; set; }
 
-        public string PanCardImage { get; set; }
+        public string? GSTImageURL { get; set; }
 
-        public string PanCardOriginalFileName { get; set; }
+        public string? PanCardImage { get; set; }
 
-        public string PanCardImageURL { get; set; }
+        public string? PanCardOriginalFileName { get; set; }
+
+        public string? PanCardImageURL { get; set; }
 
         public bool? IsActive { get; set; }
 

@@ -18,15 +18,15 @@ namespace CLN.Application.Models
     }
     public partial class EmployeesListByReportingTo_Response
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? EmployeeName { get; set; }
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public string? BranchId { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
     }
 
     public class RequestIdListParameters
     {
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
     }
 }

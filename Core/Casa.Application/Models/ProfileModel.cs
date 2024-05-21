@@ -17,14 +17,14 @@ namespace CLN.Application.Models
 
     public class Department_Request : BaseEntity
     {
-        public string DepartmentName { get; set; }
+        public string? DepartmentName { get; set; }
 
         public bool? IsActive { get; set; }
     }
 
     public class Department_Response : BaseResponseEntity
     {
-        public string DepartmentName { get; set; }
+        public string? DepartmentName { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -35,7 +35,7 @@ namespace CLN.Application.Models
 
     public class Role_Request : BaseEntity
     {
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
 
         public int? DepartmentId { get; set; }
 
@@ -44,9 +44,9 @@ namespace CLN.Application.Models
 
     public class Role_Response : BaseResponseEntity
     {
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
         public int? DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        public string? DepartmentName { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -58,7 +58,7 @@ namespace CLN.Application.Models
     public class RoleHierarchy_Request : BaseEntity
     {
         [Required]
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
         public int? ReportingTo { get; set; }
 
@@ -67,13 +67,13 @@ namespace CLN.Application.Models
 
     public class RoleHierarchy_Response : BaseResponseEntity
     {
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
 
-        public int ReportingTo { get; set; }
+        public int? ReportingTo { get; set; }
 
-        public string ReportingToName { get; set; }
+        public string? ReportingToName { get; set; }
 
         public bool? IsActive { get; set; }
     }

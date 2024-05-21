@@ -18,7 +18,7 @@ namespace CLN.Application.Models
     {
         public int? CustomerId { get; set; }
 
-        public string AccessoryName { get; set; }
+        public string? AccessoryName { get; set; }
 
         public int? Quantity { get; set; }
 
@@ -29,7 +29,7 @@ namespace CLN.Application.Models
     {
         public int? CustomerId { get; set; }
 
-        public string AccessoryName { get; set; }
+        public string? AccessoryName { get; set; }
 
         public int? Quantity { get; set; }
 

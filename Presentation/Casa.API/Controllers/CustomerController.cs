@@ -153,6 +153,7 @@ namespace CLN.API.Controllers
                     vCustomerDetail_Response.Id = Convert.ToInt32(vResultObj.Id);
                     vCustomerDetail_Response.CustomerTypeId = vResultObj.CustomerTypeId;
                     vCustomerDetail_Response.CustomerName = vResultObj.CustomerName;
+                    vCustomerDetail_Response.CustomerCode = vResultObj.CustomerCode;
                     vCustomerDetail_Response.LandLineNumber = vResultObj.LandLineNumber;
                     vCustomerDetail_Response.MobileNumber = vResultObj.MobileNumber;
                     vCustomerDetail_Response.EmailId = vResultObj.EmailId;

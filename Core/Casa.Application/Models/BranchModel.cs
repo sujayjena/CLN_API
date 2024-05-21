@@ -60,11 +60,11 @@ namespace CLN.Application.Models
         public string? Action { get; set; }
         [JsonIgnore]
         public int? UserId { get; set; }
-        public int BranchId { get; set; }
+        public int? BranchId { get; set; }
     }
     public class BranchSearch_Request : BaseSearchEntity
     {
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
     }
 
     public class BranchMapping_Response : BaseEntity

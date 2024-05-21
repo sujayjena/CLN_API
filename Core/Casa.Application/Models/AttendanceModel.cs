@@ -36,10 +36,10 @@ namespace CLN.Application.Models
 
     public class Attendance_Response : BaseResponseEntity
     {
-        public int UserId { get; set; }
-        public int EmployeeId { get; set; }
+        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
         public string? EmployeeName { get; set; }
-        public DateTime PunchInOut { get; set; }
+        public DateTime? PunchInOut { get; set; }
         public string? PunchType { get; set; }
         public string? Latitude { get; set; }
         public string? Longitude { get; set; }
@@ -51,7 +51,7 @@ namespace CLN.Application.Models
     public class AttendanceSearch : BaseSearchEntity
     {
         [DefaultValue(0)]
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         [DefaultValue("")]
         public string? BranchId { get; set; }
@@ -63,7 +63,7 @@ namespace CLN.Application.Models
         public string? EmployeeName { get; set; }
 
         [DefaultValue(0)]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         [DefaultValue("All")]
         public string? FilterType { get; set; }

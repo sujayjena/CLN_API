@@ -45,7 +45,7 @@ namespace CLN.Application.Models
 
     public class CompanySearch_Request : BaseSearchEntity
     {
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
     }
 
     public class Company_Response : BaseResponseEntity

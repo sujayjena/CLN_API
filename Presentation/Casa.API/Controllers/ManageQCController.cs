@@ -196,6 +196,17 @@ namespace CLN.API.Controllers
                 return _response;
             }
 
+            // Image Upload
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PartImage_Base64))
+            {
+                var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.PartImage_Base64, "\\Uploads\\QC\\", parameters.PartImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile_AadharCardImage))
+                {
+                    parameters.PartImage = vUploadFile_AadharCardImage;
+                }
+            }
+
             int result = await _ManageQCRepository.SaveCustomerBOM(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)

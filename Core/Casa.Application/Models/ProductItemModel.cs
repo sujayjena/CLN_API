@@ -15,14 +15,14 @@ namespace CLN.Application.Models
 
     public class ProductCategory_Request : BaseEntity
     {
-        public string ProductCategory { get; set; }
+        public string? ProductCategory { get; set; }
 
         public bool? IsActive { get; set; }
     }
 
     public class ProductCategory_Response : BaseResponseEntity
     {
-        public string ProductCategory { get; set; }
+        public string? ProductCategory { get; set; }
 
         public bool? IsActive { get; set; }
     }

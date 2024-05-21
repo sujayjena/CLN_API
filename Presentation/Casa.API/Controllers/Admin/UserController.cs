@@ -54,7 +54,7 @@ namespace CLN.API.Controllers.Admin
 
                 if (parameters.CompanyId > 0)
                 {
-                    var vCompany = await _companyRepository.GetCompanyById(parameters.CompanyId);
+                    var vCompany = await _companyRepository.GetCompanyById(Convert.ToInt32(parameters.CompanyId));
                     if (vCompany != null)
                     {
                         vCompanyNoofUserAdd = vCompany.NoofUserAdd ?? 0;

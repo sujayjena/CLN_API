@@ -13,7 +13,7 @@ namespace CLN.Application.Models
     public class PMCycle_Request : BaseEntity
     {
         public string? PMCycleName { get; set; }
-        public int Days { get; set; }
+        public int? Days { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -21,7 +21,7 @@ namespace CLN.Application.Models
     public class PMCycle_Response : BaseResponseEntity
     {
         public string? PMCycleName { get; set; }
-        public int Days { get; set; }
+        public int? Days { get; set; }
 
         public bool? IsActive { get; set; }
     }

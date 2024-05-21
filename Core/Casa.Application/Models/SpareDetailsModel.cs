@@ -22,8 +22,8 @@ namespace CLN.Application.Models
         public string? UniqueCode { get; set; }
         public int? SpareCategoryId { get; set; }
         public string? SpareDesc { get; set; }
-        public int UOMId { get; set; }
-        public int MinQty { get; set; }
+        public int? UOMId { get; set; }
+        public int? MinQty { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -33,9 +33,9 @@ namespace CLN.Application.Models
         public int? SpareCategoryId { get; set; }
         public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
-        public int UOMId { get; set; }
+        public int? UOMId { get; set; }
         public string? UOMName { get; set; }
-        public int MinQty { get; set; }
+        public int? MinQty { get; set; }
         public bool? IsActive { get; set; }
     }
 }

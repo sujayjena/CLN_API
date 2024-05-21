@@ -18,9 +18,9 @@ namespace CLN.Application.Models
     {
         public int? CustomerId { get; set; }
 
-        public string PartCode { get; set; }
+        public string? PartCode { get; set; }
 
-        public string CustomerCode { get; set; }
+        public string? CustomerCode { get; set; }
 
         public int? SegmentId { get; set; }
 
@@ -28,9 +28,9 @@ namespace CLN.Application.Models
 
         public int? ModelNumberId { get; set; }
 
-        public string DrawingNumber { get; set; }
+        public string? DrawingNumber { get; set; }
 
-        public string Warranty { get; set; }
+        public string? Warranty { get; set; }
 
         [JsonIgnore]
         public string? PartImage { get; set; }
@@ -46,31 +46,33 @@ namespace CLN.Application.Models
     {
         public int? CustomerId { get; set; }
 
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
-        public string PartCode { get; set; }
+        public string? PartCode { get; set; }
 
-        public string CustomerCode { get; set; }
+        public string? CustomerCode { get; set; }
 
         public int? SegmentId { get; set; }
 
-        public string Segment { get; set; }
+        public string? Segment { get; set; }
 
         public int? SubSegmentId { get; set; }
 
-        public string SubSegment { get; set; }
+        public string? SubSegment { get; set; }
 
         public int? ModelNumberId { get; set; }
 
-        public string ProductModel { get; set; }
+        public string? ProductModel { get; set; }
 
-        public string DrawingNumber { get; set; }
+        public string? DrawingNumber { get; set; }
 
-        public string Warranty { get; set; }
+        public string? Warranty { get; set; }
 
-        public string PartImage { get; set; }
+        public string? PartImage { get; set; }
 
-        public string PartImageOriginalFileName { get; set; }
+        public string? PartImageOriginalFileName { get; set; }
+
+        public string? PartImageURL { get; set; }
 
         public bool? IsActive { get; set; }
     }

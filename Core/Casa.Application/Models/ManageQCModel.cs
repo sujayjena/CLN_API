@@ -25,18 +25,18 @@ namespace CLN.Application.Models
 
         public int? ConsigneeTypeId { get; set; }
 
-        public string ConsigneeName { get; set; }
+        public string? ConsigneeName { get; set; }
 
         public string? ConsigneeCode { get; set; }
 
-        public string ConsigneeMobileNumber { get; set; }
+        public string? ConsigneeMobileNumber { get; set; }
 
         [JsonIgnore]
-        public int RefId { get; set; }
+        public int? RefId { get; set; }
 
         public int? ConsigneeAddressId { get; set; }
 
-        public string ConsigneeAddress1 { get; set; }
+        public string? ConsigneeAddress1 { get; set; }
 
         public int? ConsigneeRegionId { get; set; }
 
@@ -46,7 +46,7 @@ namespace CLN.Application.Models
 
         public int? ConsigneeCityId { get; set; }
 
-        public string ConsigneePinCode { get; set; }
+        public string? ConsigneePinCode { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -62,36 +62,36 @@ namespace CLN.Application.Models
 
         public int? ConsigneeTypeId { get; set; }
 
-        public string ConsigneeName { get; set; }
+        public string? ConsigneeName { get; set; }
 
         public string? ConsigneeCode { get; set; }
 
-        public string ConsigneeMobileNumber { get; set; }
+        public string? ConsigneeMobileNumber { get; set; }
 
         [JsonIgnore]
-        public int RefId { get; set; }
+        public int? RefId { get; set; }
 
         public int? ConsigneeAddressId { get; set; }
 
-        public string ConsigneeAddress1 { get; set; }
+        public string? ConsigneeAddress1 { get; set; }
 
         public int? ConsigneeRegionId { get; set; }
 
-        public string ConsigneeRegionName { get; set; }
+        public string? ConsigneeRegionName { get; set; }
 
         public int? ConsigneeStateId { get; set; }
 
-        public string ConsigneeStateName { get; set; }
+        public string? ConsigneeStateName { get; set; }
 
         public int? ConsigneeDistrictId { get; set; }
 
-        public string ConsigneeDistrictName { get; set; }
+        public string? ConsigneeDistrictName { get; set; }
 
         public int? ConsigneeCityId { get; set; }
 
-        public string ConsigneeCityName { get; set; }
+        public string? ConsigneeCityName { get; set; }
 
-        public string ConsigneePinCode { get; set; }
+        public string? ConsigneePinCode { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -102,33 +102,33 @@ namespace CLN.Application.Models
     {
         public int? ConsigneeTypeId { get; set; }
 
-        public string ConsigneeName { get; set; }
+        public string? ConsigneeName { get; set; }
 
-        public string ConsigneeCode { get; set; }
+        public string? ConsigneeCode { get; set; }
 
-        public string ConsigneeMobileNumber { get; set; }
+        public string? ConsigneeMobileNumber { get; set; }
 
         public int? ConsigneeAddressId { get; set; }
 
-        public string ConsigneeAddress1 { get; set; }
+        public string? ConsigneeAddress1 { get; set; }
 
         public int? ConsigneeRegionId { get; set; }
 
-        public string ConsigneeRegionName { get; set; }
+        public string? ConsigneeRegionName { get; set; }
 
         public int? ConsigneeStateId { get; set; }
 
-        public string ConsigneeStateName { get; set; }
+        public string? ConsigneeStateName { get; set; }
 
         public int? ConsigneeDistrictId { get; set; }
 
-        public string ConsigneeDistrictName { get; set; }
+        public string? ConsigneeDistrictName { get; set; }
 
         public int? ConsigneeCityId { get; set; }
 
-        public string ConsigneeCityName { get; set; }
+        public string? ConsigneeCityName { get; set; }
 
-        public string ConsigneePinCode { get; set; }
+        public string? ConsigneePinCode { get; set; }
 
         public bool? IsActive { get; set; }
     }

@@ -19,7 +19,7 @@ namespace CLN.Application.Models
 
         public int? PartCodeId { get; set; }
 
-        public string BatterySerialNumber { get; set; }
+        public string? BatterySerialNumber { get; set; }
 
         public int? InvoiceId { get; set; }
 
@@ -34,41 +34,41 @@ namespace CLN.Application.Models
     {
         public int? CustomerId { get; set; }
 
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
 
         public int? PartCodeId { get; set; }
 
-        public string PartCode { get; set; }
+        public string? PartCode { get; set; }
 
-        public string CustomerCode { get; set; }
+        public string? CustomerCode { get; set; }
 
-        public string BatterySerialNumber { get; set; }
+        public string? BatterySerialNumber { get; set; }
 
         public int? InvoiceId { get; set; }
 
-        public string InvoiceNumber { get; set; }
+        public string? InvoiceNumber { get; set; }
 
         public int? SegmentId { get; set; }
 
-        public string Segment { get; set; }
+        public string? Segment { get; set; }
 
         public int? SubSegmentId { get; set; }
 
-        public string SubSegment { get; set; }
+        public string? SubSegment { get; set; }
 
         public int? ModelNumberId { get; set; }
 
-        public string ProductModel { get; set; }
+        public string? ProductModel { get; set; }
 
-        public string DrawingNumber { get; set; }
+        public string? DrawingNumber { get; set; }
 
-        public string Warranty { get; set; }
+        public string? Warranty { get; set; }
 
         public DateTime? WarrantyStartDate { get; set; }
 
         public DateTime? WarrantyEndDate { get; set; }
 
-        public string WarrantyStatus { get; set; }
+        public string? WarrantyStatus { get; set; }
 
         public bool? IsActive { get; set; }
     }

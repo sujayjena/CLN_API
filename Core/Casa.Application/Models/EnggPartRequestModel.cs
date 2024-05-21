@@ -12,13 +12,13 @@ namespace CLN.Application.Models
 {
     public class EnggPartRequest_Search : BaseSearchEntity
     {
-        public int EngineerId { get; set; }
-        public int StatusId { get; set; }
+        public int? EngineerId { get; set; }
+        public int? StatusId { get; set; }
     }
 
     public class EnggPartRequestDetails_Search : BaseSearchEntity
     {
-        public int RequestId { get; set; }
+        public int? RequestId { get; set; }
     }
 
     public class EnggPartRequest_Request : BaseEntity
@@ -28,13 +28,13 @@ namespace CLN.Application.Models
             PartDetail = new List<EnggPartRequestDetails_Request>();
         }
 
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
 
         public DateTime? RequestDate { get; set; }
 
         public int? EngineerId { get; set; }
 
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         public int? StatusId { get; set; }
 
@@ -60,7 +60,7 @@ namespace CLN.Application.Models
         public int? RequiredQty { get; set; }
 
         [DefaultValue("")]
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         [DefaultValue(false)]
         public bool? RGP { get; set; }
@@ -75,19 +75,19 @@ namespace CLN.Application.Models
             PartDetail = new List<EnggPartRequestDetails_Response>();
         }
 
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
 
         public DateTime? RequestDate { get; set; }
 
         public int? EngineerId { get; set; }
 
-        public string EngineerName { get; set; }
+        public string? EngineerName { get; set; }
 
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         public int? StatusId { get; set; }
 
-        public string StatusName { get; set; }
+        public string? StatusName { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -96,21 +96,21 @@ namespace CLN.Application.Models
 
     public class EnggPartRequestDetails_Response
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? RequestId { get; set; }
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
         public int? CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
         public int? SpareId { get; set; }
-        public string SpareDesc { get; set; }
-        public string UniqueCode { get; set; }
+        public string? SpareDesc { get; set; }
+        public string? UniqueCode { get; set; }
         public int? UOMId { get; set; }
-        public string UOMName { get; set; }
+        public string? UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
-        public string TypeOfBMS { get; set; }
+        public string? TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }
         public int? RequiredQty { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
         [DefaultValue(false)]
         public bool? RGP { get; set; }
     }

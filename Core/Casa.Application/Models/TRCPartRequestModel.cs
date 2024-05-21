@@ -12,17 +12,17 @@ namespace CLN.Application.Models
 {
     public class TRCPartRequest_Search : BaseSearchEntity
     {
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         [DefaultValue("")]
         public string? BranchId { get; set; }
-        public int EngineerId { get; set; }
-        public int StatusId { get; set; }
+        public int? EngineerId { get; set; }
+        public int? StatusId { get; set; }
     }
 
     public class TRCPartRequestDetails_Search : BaseSearchEntity
     {
-        public int RequestId { get; set; }
+        public int? RequestId { get; set; }
     }
 
     public class TRCPartRequest_Request : BaseEntity
@@ -32,7 +32,7 @@ namespace CLN.Application.Models
             PartDetail = new List<TRCPartRequestDetails_Request>();
         }
 
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
 
         public DateTime? RequestDate { get; set; }
 
@@ -42,7 +42,7 @@ namespace CLN.Application.Models
 
         public int? EngineerId { get; set; }
 
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         public int? StatusId { get; set; }
 
@@ -68,7 +68,7 @@ namespace CLN.Application.Models
         public int? RequiredQty { get; set; }
 
         [DefaultValue("")]
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         [DefaultValue(false)]
         public bool? RGP { get; set; }
@@ -83,27 +83,27 @@ namespace CLN.Application.Models
             PartDetail = new List<TRCPartRequestDetails_Response>();
         }
 
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
 
         public DateTime? RequestDate { get; set; }
 
         public int? CompanyId { get; set; }
 
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; }
 
         public int? BranchId { get; set; }
 
-        public string BranchName { get; set; }
+        public string? BranchName { get; set; }
 
         public int? EngineerId { get; set; }
 
-        public string EngineerName { get; set; }
+        public string? EngineerName { get; set; }
 
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         public int? StatusId { get; set; }
 
-        public string StatusName { get; set; }
+        public string? StatusName { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -112,21 +112,21 @@ namespace CLN.Application.Models
 
     public class TRCPartRequestDetails_Response 
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? RequestId { get; set; }
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
         public int? CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
         public int? SpareId { get; set; }
-        public string SpareDesc { get; set; }
-        public string UniqueCode { get; set; }
+        public string? SpareDesc { get; set; }
+        public string? UniqueCode { get; set; }
         public int? UOMId { get; set; }
-        public string UOMName { get; set; }
+        public string? UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
-        public string TypeOfBMS { get; set; }
+        public string? TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }
         public int? RequiredQty { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
         [DefaultValue(false)]
         public bool? RGP { get; set; }
     }

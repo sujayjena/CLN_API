@@ -30,7 +30,7 @@ namespace CLN.Application.Models
     }
     public class GeneratePartRequestSearch_Request : BaseSearchEntity
     {
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         [DefaultValue("")]
         public string? BranchId { get; set; }
@@ -65,16 +65,16 @@ namespace CLN.Application.Models
             GenerateChallanPartDetailList = new List<GenerateChallanPartDetails_Request>();
         }
 
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
-        public int BranchId { get; set; }
+        public int? BranchId { get; set; }
 
         public List<GenerateChallanPartDetails_Request> GenerateChallanPartDetailList { get; set; }
     }
 
     public class GenerateChallanSearch_Request : BaseSearchEntity
     {
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         [DefaultValue("")]
         public string? BranchId { get; set; }
@@ -82,12 +82,12 @@ namespace CLN.Application.Models
 
     public class GenerateChallanPartDetailsSearch_Request : BaseSearchEntity
     {
-        public int GenerateChallanId { get; set; }
+        public int? GenerateChallanId { get; set; }
     }
 
     public class GenerateChallan_Response : BaseResponseEntity
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? RequestId { get; set; }
         public int? CompanyId { get; set; }
         public string? CompanyName { get; set; }
@@ -101,7 +101,7 @@ namespace CLN.Application.Models
         {
             GenerateChallanPartDetailList = new List<GenerateChallanPartDetails_Response>();
         }
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? RequestId { get; set; }
         public int? CompanyId { get; set; }
         public string? CompanyName { get; set; }
@@ -120,7 +120,7 @@ namespace CLN.Application.Models
 
     public class GenerateChallanPartDetails_Response : BaseResponseEntity
     {
-        public int GenerateChallanId { get; set; }
+        public int? GenerateChallanId { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareCategory { get; set; }
@@ -142,14 +142,14 @@ namespace CLN.Application.Models
     }
     public class StockInListSearch_Request : BaseSearchEntity
     {
-        public int GenerateChallanId { get; set; }
+        public int? GenerateChallanId { get; set; }
     }
 
     public class StockIn_Response : BaseResponseEntity
     {
-        public int GenerateChallanId { get; set; }
+        public int? GenerateChallanId { get; set; }
         public string? RequestId { get; set; }
-        public DateTime GenerateChallanDate { get; set; }
+        public DateTime? GenerateChallanDate { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareCategory { get; set; }
@@ -181,13 +181,13 @@ namespace CLN.Application.Models
     public class StockAllocated_Search : BaseSearchEntity
     {
         [DefaultValue("Engg")]
-        public string AllocatedType { get; set; }
+        public string? AllocatedType { get; set; }
 
         [DefaultValue(0)]
-        public int EngineerId { get; set; }
+        public int? EngineerId { get; set; }
 
         [DefaultValue(0)]
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
     }
 
     public class StockAllocated_Request : BaseEntity
@@ -197,12 +197,12 @@ namespace CLN.Application.Models
             PartList = new List<StockAllocatedPartDetails_Request>();
         }
 
-        public int RequestId { get; set; }
+        public int? RequestId { get; set; }
 
         public int? EngineerId { get; set; }
 
         [DefaultValue("Engg")]
-        public string AllocatedType { get; set; }
+        public string? AllocatedType { get; set; }
 
         public int? StatusId { get; set; }
 
@@ -214,22 +214,22 @@ namespace CLN.Application.Models
     public class StockAllocatedList_Response : BaseResponseEntity
     {
         public int? RequestId { get; set; }
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
         public int? EngineerId { get; set; }
-        public string EngineerName { get; set; }
-        public string AllocatedType { get; set; }
+        public string? EngineerName { get; set; }
+        public string? AllocatedType { get; set; }
 
         [DefaultValue(0)]
-        public int RequiredQty { get; set; }
+        public int? RequiredQty { get; set; }
 
         [DefaultValue(0)]
-        public int AllocatedQty { get; set; }
+        public int? AllocatedQty { get; set; }
 
         [DefaultValue(0)]
-        public int ReceivedQty { get; set; }
+        public int? ReceivedQty { get; set; }
 
         public int? StatusId { get; set; }
-        public string StatusName { get; set; }
+        public string? StatusName { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -241,22 +241,22 @@ namespace CLN.Application.Models
         }
 
         public int? RequestId { get; set; }
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
         public int? EngineerId { get; set; }
-        public string EngineerName { get; set; }
-        public string AllocatedType { get; set; }
+        public string? EngineerName { get; set; }
+        public string? AllocatedType { get; set; }
 
         [DefaultValue(0)]
-        public int RequiredQty { get; set; }
+        public int? RequiredQty { get; set; }
 
         [DefaultValue(0)]
-        public int AllocatedQty { get; set; }
+        public int? AllocatedQty { get; set; }
 
         [DefaultValue(0)]
-        public int ReceivedQty { get; set; }
+        public int? ReceivedQty { get; set; }
 
         public int? StatusId { get; set; }
-        public string StatusName { get; set; }
+        public string? StatusName { get; set; }
         public bool? IsActive { get; set; }
 
         public List<StockAllocatedPartDetails_Response> PartList { get; set; }
@@ -265,7 +265,7 @@ namespace CLN.Application.Models
 
     public class StockAllocatedPartDetails_Search : BaseSearchEntity
     {
-        public int StockAllocatedId { get; set; }
+        public int? StockAllocatedId { get; set; }
     }
 
     public class StockAllocatedPartDetails_Request : BaseEntity
@@ -286,8 +286,8 @@ namespace CLN.Application.Models
     {
         public int? StockAllocatedId { get; set; }
         public int? SpareId { get; set; }
-        public string UniqueCode { get; set; }
-        public string SpareDesc { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareDesc { get; set; }
         public int? AvailableQty { get; set; }
         public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
@@ -316,7 +316,7 @@ namespace CLN.Application.Models
 
     public class EnggStockMasterListSearch_Request : BaseSearchEntity
     {
-        public int EngineerId { get; set; }
+        public int? EngineerId { get; set; }
     }
 
     public class EnggStockMaster_Response : BaseResponseEntity

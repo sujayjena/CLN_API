@@ -23,16 +23,16 @@ namespace CLN.Application.Models
     public class ContactDetail_Request : BaseEntity
     {
         //[JsonIgnore]
-        public int RefId { get; set; }
+        public int? RefId { get; set; }
 
         //[JsonIgnore]
         public string? RefType { get; set; }
 
-        public string ContactName { get; set; }
+        public string? ContactName { get; set; }
 
-        public string MobileNumber { get; set; }
+        public string? MobileNumber { get; set; }
 
-        public string EmailId { get; set; }
+        public string? EmailId { get; set; }
 
         [JsonIgnore]
         public string? AadharCardImageFileName { get; set; }
@@ -57,13 +57,13 @@ namespace CLN.Application.Models
     {
         public int? RefId { get; set; }
 
-        public string RefType { get; set; }
+        public string? RefType { get; set; }
 
-        public string ContactName { get; set; }
+        public string? ContactName { get; set; }
 
-        public string MobileNumber { get; set; }
+        public string? MobileNumber { get; set; }
 
-        public string EmailId { get; set; }
+        public string? EmailId { get; set; }
 
         public string? AadharCardImageFileName { get; set; }
 

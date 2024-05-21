@@ -26,17 +26,17 @@ namespace CLN.Application.Models
     public class ModuleMaster_Response //: BaseResponseEntity
     {
         public long ModuleId { get; set; }
-        public string ModuleName { get; set; }
-        public string AppType { get; set; }
-        public bool IsActive { get; set; }
+        public string? ModuleName { get; set; }
+        public string? AppType { get; set; }
+        public bool? IsActive { get; set; }
     }
 
     public class ModuleList
     {
         public long ModuleId { get; set; }
-        public bool View { get; set; }
-        public bool Add { get; set; }
-        public bool Edit { get; set; }
+        public bool? View { get; set; }
+        public bool? Add { get; set; }
+        public bool? Edit { get; set; }
     }
 
     #endregion
@@ -60,7 +60,7 @@ namespace CLN.Application.Models
 
         public long? RoleId { get; set; }
 
-        public string AppType { get; set; }
+        public string? AppType { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -69,11 +69,11 @@ namespace CLN.Application.Models
 
     public class RolePermission_Response
     {
-        public string AppType { get; set; }
+        public string? AppType { get; set; }
 
         //public long RolePermissionId { get; set; }
         //public long? RoleId { get; set; }
-        //public string RoleName { get; set; }
+        //public string? RoleName { get; set; }
 
         public long? ModuleId { get; set; }
 
@@ -103,25 +103,25 @@ namespace CLN.Application.Models
     {
         public long RolePermissionId { get; set; }
         public long RoleId { get; set; }
-        public string AppType { get; set; }
+        public string? AppType { get; set; }
         public long EmployeeId { get; set; }
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public List<ModuleList>? ModuleList { get; set; }
     }
 
     public class RoleMaster_Employee_Permission_Response 
     {
-        public string AppType { get; set; }
+        public string? AppType { get; set; }
         //public long EmployeePermissionId { get; set; }
         //public long EmployeeId { get; set; }
         //public long RoleId { get; set; }
-        //public string RoleName { get; set; }
+        //public string? RoleName { get; set; }
         public long ModuleId { get; set; }
-        public string ModuleName { get; set; }
-        public bool View { get; set; }
-        public bool Add { get; set; }
-        public bool Edit { get; set; }
+        public string? ModuleName { get; set; }
+        public bool? View { get; set; }
+        public bool? Add { get; set; }
+        public bool? Edit { get; set; }
     }
 
     #endregion
