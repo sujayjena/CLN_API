@@ -22,6 +22,8 @@ namespace CLN.Application.Models
 
         public int? CD_LoggingSourceId { get; set; }
 
+        public int? CD_CallerTypeId { get; set; }
+
         public string? CD_CallerName { get; set; }
 
         public string? CD_CallerMobile { get; set; }
@@ -129,6 +131,8 @@ namespace CLN.Application.Models
 
         public int? CD_LoggingSourceId { get; set; }
         public string? CD_SourceChannel { get; set; }
+        public int? CD_CallerTypeId { get; set; }
+        public string? CD_CallerType { get; set; }
         public string? CD_CallerName { get; set; }
         public string? CD_CallerMobile { get; set; }
         public string? CD_CallerEmailId { get; set; }

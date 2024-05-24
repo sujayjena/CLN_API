@@ -46,7 +46,6 @@ namespace CLN.API.Controllers.Admin
             return _response;
         }
 
-
         [Route("[action]")]
         [HttpPost]
         public async Task<ResponseModel> GetExpenseTypeList(BaseSearchEntity parameters)
@@ -72,5 +71,62 @@ namespace CLN.API.Controllers.Admin
             }
             return _response;
         }
+
+
+
+        #region Expense Matrix
+
+        //[Route("[action]")]
+        //[HttpPost]
+        //public async Task<ResponseModel> SaveExpenseMatrix(ExpenseMatrix_Request parameters)
+        //{
+        //    int result = await _expenseTypeRepository.SaveExpenseMatrix(parameters);
+
+        //    if (result == (int)SaveOperationEnums.NoRecordExists)
+        //    {
+        //        _response.Message = "No record exists";
+        //    }
+        //    else if (result == (int)SaveOperationEnums.ReocrdExists)
+        //    {
+        //        _response.Message = "Record is already exists";
+        //    }
+        //    else if (result == (int)SaveOperationEnums.NoResult)
+        //    {
+        //        _response.Message = "Something went wrong, please try again";
+        //    }
+        //    else
+        //    {
+        //        _response.Message = "Record details saved sucessfully";
+        //    }
+        //    return _response;
+        //}
+
+        //[Route("[action]")]
+        //[HttpPost]
+        //public async Task<ResponseModel> GetExpenseMatrixList(BaseSearchEntity parameters)
+        //{
+        //    IEnumerable<ExpenseMatrix_Response> lstRoles = await _expenseTypeRepository.GetExpenseMatrixList(parameters);
+        //    _response.Data = lstRoles.ToList();
+        //    _response.Total = parameters.Total;
+        //    return _response;
+        //}
+
+        //[Route("[action]")]
+        //[HttpPost]
+        //public async Task<ResponseModel> GetExpenseMatrixById(long Id)
+        //{
+        //    if (Id <= 0)
+        //    {
+        //        _response.Message = "Id is required";
+        //    }
+        //    else
+        //    {
+        //        var vResultObj = await _expenseTypeRepository.GetExpenseMatrixById(Id);
+        //        _response.Data = vResultObj;
+        //    }
+        //    return _response;
+        //}
+
+        #endregion
     }
 }

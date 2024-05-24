@@ -113,91 +113,82 @@ namespace CLN.API.Controllers
             if (result > 0)
             {
                 // Caller Address Detail
-                if (!string.IsNullOrWhiteSpace(parameters.CD_CallerAddress1))
+                var CallerAddressDetail = new Address_Request()
                 {
-                    var CallerAddressDetail = new Address_Request()
+                    Id = Convert.ToInt32(parameters.CD_CallerAddressId),
+                    RefId = result,
+                    RefType = "Ticket",
+                    Address1 = parameters.CD_CallerAddress1,
+                    RegionId = parameters.CD_CallerRegionId,
+                    StateId = parameters.CD_CallerStateId,
+                    DistrictId = parameters.CD_CallerDistrictId,
+                    CityId = parameters.CD_CallerCityId,
+                    PinCode = parameters.CD_CallerPinCode,
+                    IsDeleted = false,
+                    IsDefault = false,
+                    IsActive = true,
+                };
+
+                int resultAddressDetail = await _addressRepository.SaveAddress(CallerAddressDetail);
+
+                if (resultAddressDetail > 0)
+                {
+                    parameters.CD_CallerAddressId = resultAddressDetail;
+
+                    if (parameters.CD_IsSiteAddressSameAsCaller == true)
                     {
-                        Id = Convert.ToInt32(parameters.CD_CallerAddressId),
-                        RefId = result,
-                        RefType = "Ticket",
-                        Address1 = parameters.CD_CallerAddress1,
-                        RegionId = parameters.CD_CallerRegionId,
-                        StateId = parameters.CD_CallerStateId,
-                        DistrictId = parameters.CD_CallerDistrictId,
-                        CityId = parameters.CD_CallerCityId,
-                        PinCode = parameters.CD_CallerPinCode,
-                        IsDeleted = false,
-                        IsDefault = false,
-                        IsActive = true,
-                    };
-
-                    int resultAddressDetail = await _addressRepository.SaveAddress(CallerAddressDetail);
-
-                    if (resultAddressDetail > 0)
-                    {
-                        parameters.CD_CallerAddressId = resultAddressDetail;
-
-                        if (parameters.CD_IsSiteAddressSameAsCaller == true)
-                        {
-                            parameters.CD_SiteAddressId = resultAddressDetail;
-                        }
+                        parameters.CD_SiteAddressId = resultAddressDetail;
                     }
                 }
 
                 // Battery Customer Address Detail
-                if (!string.IsNullOrWhiteSpace(parameters.CD_CustomerAddress1))
+                var BatteryCustomerAddressDetail = new Address_Request()
                 {
-                    var BatteryCustomerAddressDetail = new Address_Request()
-                    {
-                        Id = Convert.ToInt32(parameters.CD_CustomerAddressId),
-                        RefId = result,
-                        RefType = "Ticket",
-                        Address1 = parameters.CD_CustomerAddress1,
-                        RegionId = parameters.CD_CustomerRegionId,
-                        StateId = parameters.CD_CustomerStateId,
-                        DistrictId = parameters.CD_CustomerDistrictId,
-                        CityId = parameters.CD_CustomerCityId,
-                        PinCode = parameters.CD_CustomerPinCode,
-                        IsDeleted = false,
-                        IsDefault = false,
-                        IsActive = true,
-                    };
+                    Id = Convert.ToInt32(parameters.CD_CustomerAddressId),
+                    RefId = result,
+                    RefType = "Ticket",
+                    Address1 = parameters.CD_CustomerAddress1,
+                    RegionId = parameters.CD_CustomerRegionId,
+                    StateId = parameters.CD_CustomerStateId,
+                    DistrictId = parameters.CD_CustomerDistrictId,
+                    CityId = parameters.CD_CustomerCityId,
+                    PinCode = parameters.CD_CustomerPinCode,
+                    IsDeleted = false,
+                    IsDefault = false,
+                    IsActive = true,
+                };
 
-                    int resultBatteryCustomerAddressDetail = await _addressRepository.SaveAddress(BatteryCustomerAddressDetail);
+                int resultBatteryCustomerAddressDetail = await _addressRepository.SaveAddress(BatteryCustomerAddressDetail);
 
-                    if (resultBatteryCustomerAddressDetail > 0)
-                    {
-                        parameters.CD_CustomerAddressId = resultBatteryCustomerAddressDetail;
-                    }
+                if (resultBatteryCustomerAddressDetail > 0)
+                {
+                    parameters.CD_CustomerAddressId = resultBatteryCustomerAddressDetail;
                 }
 
                 // Site Customer Address Detail
                 if (parameters.CD_IsSiteAddressSameAsCaller == false)
                 {
-                    if (!string.IsNullOrWhiteSpace(parameters.CD_SiteCustomerAddress1))
+                    var SiteCustomerAddressDetail = new Address_Request()
                     {
-                        var SiteCustomerAddressDetail = new Address_Request()
-                        {
-                            Id = Convert.ToInt32(parameters.CD_SiteAddressId),
-                            RefId = result,
-                            RefType = "Ticket",
-                            Address1 = parameters.CD_SiteCustomerAddress1,
-                            RegionId = parameters.CD_SiteCustomerRegionId,
-                            StateId = parameters.CD_SiteCustomerStateId,
-                            DistrictId = parameters.CD_SiteCustomerDistrictId,
-                            CityId = parameters.CD_SiteCustomerCityId,
-                            PinCode = parameters.CD_SiteCustomerPinCode,
-                            IsDeleted = false,
-                            IsDefault = false,
-                            IsActive = true,
-                        };
+                        Id = Convert.ToInt32(parameters.CD_SiteAddressId),
+                        RefId = result,
+                        RefType = "Ticket",
+                        Address1 = parameters.CD_SiteCustomerAddress1,
+                        RegionId = parameters.CD_SiteCustomerRegionId,
+                        StateId = parameters.CD_SiteCustomerStateId,
+                        DistrictId = parameters.CD_SiteCustomerDistrictId,
+                        CityId = parameters.CD_SiteCustomerCityId,
+                        PinCode = parameters.CD_SiteCustomerPinCode,
+                        IsDeleted = false,
+                        IsDefault = false,
+                        IsActive = true,
+                    };
 
-                        int resultSiteCustomerAddressDetail = await _addressRepository.SaveAddress(SiteCustomerAddressDetail);
+                    int resultSiteCustomerAddressDetail = await _addressRepository.SaveAddress(SiteCustomerAddressDetail);
 
-                        if (resultSiteCustomerAddressDetail > 0)
-                        {
-                            parameters.CD_SiteAddressId = resultSiteCustomerAddressDetail;
-                        }
+                    if (resultSiteCustomerAddressDetail > 0)
+                    {
+                        parameters.CD_SiteAddressId = resultSiteCustomerAddressDetail;
                     }
                 }
 
@@ -281,6 +272,9 @@ namespace CLN.API.Controllers
 
                     vManageTicketDetail_Response.CD_LoggingSourceId = vResultObj.CD_LoggingSourceId;
                     vManageTicketDetail_Response.CD_LoggingSourceChannel = vResultObj.CD_LoggingSourceChannel;
+                    
+                    vManageTicketDetail_Response.CD_CallerTypeId = vResultObj.CD_CallerTypeId;
+                    vManageTicketDetail_Response.CD_CallerType = vResultObj.CD_CallerType;
                     vManageTicketDetail_Response.CD_CallerName = vResultObj.CD_CallerName;
                     vManageTicketDetail_Response.CD_CallerMobile = vResultObj.CD_CallerMobile;
                     vManageTicketDetail_Response.CD_CallerEmailId = vResultObj.CD_CallerEmailId;
@@ -523,91 +517,82 @@ namespace CLN.API.Controllers
             if (result > 0)
             {
                 // Caller Address Detail
-                if (!string.IsNullOrWhiteSpace(parameters.CD_CallerAddress1))
+                var CallerAddressDetail = new Address_Request()
                 {
-                    var CallerAddressDetail = new Address_Request()
+                    Id = Convert.ToInt32(parameters.CD_CallerAddressId),
+                    RefId = result,
+                    RefType = "Enquiry",
+                    Address1 = parameters.CD_CallerAddress1,
+                    RegionId = parameters.CD_CallerRegionId,
+                    StateId = parameters.CD_CallerStateId,
+                    DistrictId = parameters.CD_CallerDistrictId,
+                    CityId = parameters.CD_CallerCityId,
+                    PinCode = parameters.CD_CallerPinCode,
+                    IsDeleted = false,
+                    IsDefault = false,
+                    IsActive = true,
+                };
+
+                int resultAddressDetail = await _addressRepository.SaveAddress(CallerAddressDetail);
+
+                if (resultAddressDetail > 0)
+                {
+                    parameters.CD_CallerAddressId = resultAddressDetail;
+
+                    if (parameters.CD_IsSiteAddressSameAsCaller == true)
                     {
-                        Id = Convert.ToInt32(parameters.CD_CallerAddressId),
-                        RefId = result,
-                        RefType = "Enquiry",
-                        Address1 = parameters.CD_CallerAddress1,
-                        RegionId = parameters.CD_CallerRegionId,
-                        StateId = parameters.CD_CallerStateId,
-                        DistrictId = parameters.CD_CallerDistrictId,
-                        CityId = parameters.CD_CallerCityId,
-                        PinCode = parameters.CD_CallerPinCode,
-                        IsDeleted = false,
-                        IsDefault = false,
-                        IsActive = true,
-                    };
-
-                    int resultAddressDetail = await _addressRepository.SaveAddress(CallerAddressDetail);
-
-                    if (resultAddressDetail > 0)
-                    {
-                        parameters.CD_CallerAddressId = resultAddressDetail;
-
-                        if (parameters.CD_IsSiteAddressSameAsCaller == true)
-                        {
-                            parameters.CD_SiteAddressId = resultAddressDetail;
-                        }
+                        parameters.CD_SiteAddressId = resultAddressDetail;
                     }
                 }
 
                 // Battery Customer Address Detail
-                if (!string.IsNullOrWhiteSpace(parameters.CD_CustomerAddress1))
+                var BatteryCustomerAddressDetail = new Address_Request()
                 {
-                    var BatteryCustomerAddressDetail = new Address_Request()
-                    {
-                        Id = Convert.ToInt32(parameters.CD_CustomerAddressId),
-                        RefId = result,
-                        RefType = "Enquiry",
-                        Address1 = parameters.CD_CustomerAddress1,
-                        RegionId = parameters.CD_CustomerRegionId,
-                        StateId = parameters.CD_CustomerStateId,
-                        DistrictId = parameters.CD_CustomerDistrictId,
-                        CityId = parameters.CD_CustomerCityId,
-                        PinCode = parameters.CD_CustomerPinCode,
-                        IsDeleted = false,
-                        IsDefault = false,
-                        IsActive = true,
-                    };
+                    Id = Convert.ToInt32(parameters.CD_CustomerAddressId),
+                    RefId = result,
+                    RefType = "Enquiry",
+                    Address1 = parameters.CD_CustomerAddress1,
+                    RegionId = parameters.CD_CustomerRegionId,
+                    StateId = parameters.CD_CustomerStateId,
+                    DistrictId = parameters.CD_CustomerDistrictId,
+                    CityId = parameters.CD_CustomerCityId,
+                    PinCode = parameters.CD_CustomerPinCode,
+                    IsDeleted = false,
+                    IsDefault = false,
+                    IsActive = true,
+                };
 
-                    int resultBatteryCustomerAddressDetail = await _addressRepository.SaveAddress(BatteryCustomerAddressDetail);
+                int resultBatteryCustomerAddressDetail = await _addressRepository.SaveAddress(BatteryCustomerAddressDetail);
 
-                    if (resultBatteryCustomerAddressDetail > 0)
-                    {
-                        parameters.CD_CustomerAddressId = resultBatteryCustomerAddressDetail;
-                    }
+                if (resultBatteryCustomerAddressDetail > 0)
+                {
+                    parameters.CD_CustomerAddressId = resultBatteryCustomerAddressDetail;
                 }
 
                 // Site Customer Address Detail
                 if (parameters.CD_IsSiteAddressSameAsCaller == false)
                 {
-                    if (!string.IsNullOrWhiteSpace(parameters.CD_SiteCustomerAddress1))
+                    var SiteCustomerAddressDetail = new Address_Request()
                     {
-                        var SiteCustomerAddressDetail = new Address_Request()
-                        {
-                            Id = Convert.ToInt32(parameters.CD_SiteAddressId),
-                            RefId = result,
-                            RefType = "Enquiry",
-                            Address1 = parameters.CD_SiteCustomerAddress1,
-                            RegionId = parameters.CD_SiteCustomerRegionId,
-                            StateId = parameters.CD_SiteCustomerStateId,
-                            DistrictId = parameters.CD_SiteCustomerDistrictId,
-                            CityId = parameters.CD_SiteCustomerCityId,
-                            PinCode = parameters.CD_SiteCustomerPinCode,
-                            IsDeleted = false,
-                            IsDefault = false,
-                            IsActive = true,
-                        };
+                        Id = Convert.ToInt32(parameters.CD_SiteAddressId),
+                        RefId = result,
+                        RefType = "Enquiry",
+                        Address1 = parameters.CD_SiteCustomerAddress1,
+                        RegionId = parameters.CD_SiteCustomerRegionId,
+                        StateId = parameters.CD_SiteCustomerStateId,
+                        DistrictId = parameters.CD_SiteCustomerDistrictId,
+                        CityId = parameters.CD_SiteCustomerCityId,
+                        PinCode = parameters.CD_SiteCustomerPinCode,
+                        IsDeleted = false,
+                        IsDefault = false,
+                        IsActive = true,
+                    };
 
-                        int resultSiteCustomerAddressDetail = await _addressRepository.SaveAddress(SiteCustomerAddressDetail);
+                    int resultSiteCustomerAddressDetail = await _addressRepository.SaveAddress(SiteCustomerAddressDetail);
 
-                        if (resultSiteCustomerAddressDetail > 0)
-                        {
-                            parameters.CD_SiteAddressId = resultSiteCustomerAddressDetail;
-                        }
+                    if (resultSiteCustomerAddressDetail > 0)
+                    {
+                        parameters.CD_SiteAddressId = resultSiteCustomerAddressDetail;
                     }
                 }
 
@@ -673,6 +658,7 @@ namespace CLN.API.Controllers
                         TicketdTime = DateTime.Now.ToLongTimeString(),
 
                         CD_LoggingSourceId = vResultEnquiryObj.CD_LoggingSourceId,
+                        CD_CallerTypeId = vResultEnquiryObj.CD_CallerTypeId,
                         CD_CallerName = vResultEnquiryObj.CD_CallerName,
                         CD_CallerMobile = vResultEnquiryObj.CD_CallerMobile,
                         CD_CallerEmailId = vResultEnquiryObj.CD_CallerEmailId,
@@ -753,6 +739,7 @@ namespace CLN.API.Controllers
                             EnquiryTime = DateTime.Now.ToLongTimeString(),
 
                             CD_LoggingSourceId = vResultEnquiryObj.CD_LoggingSourceId,
+                            CD_CallerTypeId = vResultEnquiryObj.CD_CallerTypeId,
                             CD_CallerName = vResultEnquiryObj.CD_CallerName,
                             CD_CallerMobile = vResultEnquiryObj.CD_CallerMobile,
                             CD_CallerEmailId = vResultEnquiryObj.CD_CallerEmailId,

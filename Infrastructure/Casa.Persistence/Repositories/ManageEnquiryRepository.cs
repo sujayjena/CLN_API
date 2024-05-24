@@ -29,6 +29,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EnquiryDate", parameters.EnquiryDate);
             queryParameters.Add("@EnquiryTime", parameters.EnquiryTime);
             queryParameters.Add("@CD_LoggingSourceId", parameters.CD_LoggingSourceId);
+            queryParameters.Add("@CD_CallerTypeId", parameters.CD_CallerTypeId);
             queryParameters.Add("@CD_CallerName", parameters.CD_CallerName);
             queryParameters.Add("@CD_CallerMobile", parameters.CD_CallerMobile);
             queryParameters.Add("@CD_CallerEmailId", parameters.CD_CallerEmailId);

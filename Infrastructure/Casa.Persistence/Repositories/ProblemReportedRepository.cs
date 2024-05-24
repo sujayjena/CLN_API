@@ -25,6 +25,7 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
             queryParameters.Add("@SegmentId", parameters.SegmentId);
             queryParameters.Add("@ProblemReported", parameters.ProblemReported);
             queryParameters.Add("@IsActive", parameters.IsActive);
