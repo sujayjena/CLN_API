@@ -64,6 +64,7 @@ namespace CLN.Persistence
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IManageTRCRepository, ManageTRCRepository>();
             services.AddScoped<ISpareCategoryRepository, SpareCategoryRepository>();
+            services.AddScoped<IEmployeeLevelRepository, EmployeeLevelRepository>();
         }
     }
 }
