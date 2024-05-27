@@ -210,6 +210,44 @@ namespace CLN.Persistence.Repositories
 
         #endregion
 
+        #region City Grade
+
+        public async Task<int> SaveCityGrade(CityGrade_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@CityGrade", parameters.CityGrade.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveCityGrade", queryParameters);
+        }
+
+        public async Task<IEnumerable<CityGrade_Response>> GetCityGradeList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<CityGrade_Response>("GetCityGradeList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<CityGrade_Response?> GetCityGradeById(long Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+            return (await ListByStoredProcedure<CityGrade_Response>("GetCityGradeById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
+
         #region Territories
 
         public async Task<int> SaveTerritories(Territories_Request parameters)
@@ -221,6 +259,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DistrictId", parameters.DistrictId);
             queryParameters.Add("@CityId", parameters.CityId);
             queryParameters.Add("@AreadId", parameters.AreadId);
+            queryParameters.Add("@CityGradeId", parameters.CityGradeId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -257,6 +296,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@StateId", parameters.StateId);
             queryParameters.Add("@DistId", parameters.DistrictId);
             queryParameters.Add("@CityId", parameters.CityId);
+            queryParameters.Add("@CityGradeId", parameters.CityGradeId);
 
             var result = await ListByStoredProcedure<Territories_State_Dist_City_Area_Response>("GetTerritories_State_Dist_City_Area_List_ById", queryParameters);
 

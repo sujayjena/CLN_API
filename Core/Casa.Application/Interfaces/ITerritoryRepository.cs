@@ -60,6 +60,16 @@ namespace CLN.Application.Interfaces
 
         #endregion
 
+        #region City Grade 
+
+        Task<int> SaveCityGrade(CityGrade_Request parameters);
+
+        Task<IEnumerable<CityGrade_Response>> GetCityGradeList(BaseSearchEntity parameters);
+
+        Task<CityGrade_Response?> GetCityGradeById(long Id);
+
+        #endregion
+
         #region Territories 
 
         Task<int> SaveTerritories(Territories_Request parameters);

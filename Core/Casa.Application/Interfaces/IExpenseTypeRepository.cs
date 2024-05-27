@@ -10,17 +10,20 @@ namespace CLN.Application.Interfaces
 {
     public interface IExpenseTypeRepository
     {
+        #region Expense Type
         Task<int> SaveExpenseType(ExpenseType_Request parameters);
 
         Task<IEnumerable<ExpenseType_Response>> GetExpenseTypeList(BaseSearchEntity parameters);
 
         Task<ExpenseType_Response?> GetExpenseTypeById(long Id);
+        #endregion
 
+        #region Expense Matrix
+        Task<int> SaveExpenseMatrix(ExpenseMatrix_Request parameters);
 
-        //Task<int> SaveExpenseMatrix(ExpenseMatrix_Request parameters);
+        Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(BaseSearchEntity parameters);
 
-        //Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(BaseSearchEntity parameters);
-
-        //Task<ExpenseMatrix_Response?> GetExpenseMatrixById(long Id);
+        Task<ExpenseMatrix_Response?> GetExpenseMatrixById(long Id);
+        #endregion
     }
 }

@@ -21,6 +21,7 @@ namespace CLN.Persistence.Repositories
             _configuration = configuration;
         }
 
+        #region Expense Type
         public async Task<int> SaveExpenseType(ExpenseType_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
@@ -55,40 +56,46 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<ExpenseType_Response>("GetExpenseTypeById", queryParameters)).FirstOrDefault();
         }
 
+        #endregion
 
+        #region Expense Matrix
 
-        //public async Task<int> SaveExpenseMatrix(ExpenseMatrix_Request parameters)
-        //{
-        //    //DynamicParameters queryParameters = new DynamicParameters();
-        //    //queryParameters.Add("@Id", parameters.Id);
-        //    //queryParameters.Add("@ExpenseMatrix", parameters.ExpenseMatrix.SanitizeValue());
-        //    //queryParameters.Add("@IsActive", parameters.IsActive);
-        //    //queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+        public async Task<int> SaveExpenseMatrix(ExpenseMatrix_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@EmployeeLevelId", parameters.EmployeeLevelId);
+            queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);
+            queryParameters.Add("@CityGradeId", parameters.CityGradeId);
+            queryParameters.Add("@Amount", parameters.Amount);
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-        //    return await SaveByStoredProcedure<int>("SaveExpenseMatrix", queryParameters);
-        //}
+            return await SaveByStoredProcedure<int>("SaveExpenseMatrix", queryParameters);
+        }
 
-        //public async Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(BaseSearchEntity parameters)
-        //{
-        //    DynamicParameters queryParameters = new DynamicParameters();
-        //    queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
-        //    queryParameters.Add("@IsActive", parameters.IsActive);
-        //    queryParameters.Add("@PageNo", parameters.PageNo);
-        //    queryParameters.Add("@PageSize", parameters.PageSize);
-        //    queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
-        //    queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+        public async Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-        //    var result = await ListByStoredProcedure<ExpenseMatrix_Response>("GetExpenseMatrixList", queryParameters);
-        //    parameters.Total = queryParameters.Get<int>("Total");
+            var result = await ListByStoredProcedure<ExpenseMatrix_Response>("GetExpenseMatrixList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
 
-        //    return result;
-        //}
+            return result;
+        }
 
-        //public async Task<ExpenseMatrix_Response?> GetExpenseMatrixById(long Id)
-        //{
-        //    DynamicParameters queryParameters = new DynamicParameters();
-        //    queryParameters.Add("@Id", Id);
-        //    return (await ListByStoredProcedure<ExpenseMatrix_Response>("GetExpenseMatrixById", queryParameters)).FirstOrDefault();
-        //}
+        public async Task<ExpenseMatrix_Response?> GetExpenseMatrixById(long Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+            return (await ListByStoredProcedure<ExpenseMatrix_Response>("GetExpenseMatrixById", queryParameters)).FirstOrDefault();
+        }
+        #endregion
     }
 }

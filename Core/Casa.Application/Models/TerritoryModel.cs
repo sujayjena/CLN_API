@@ -102,6 +102,24 @@ namespace CLN.Application.Models
 
     #endregion
 
+    #region City Grade
+
+    public class CityGrade_Request : BaseEntity
+    {
+        public string? CityGrade { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    public class CityGrade_Response : BaseResponseEntity
+    {
+        public string? CityGrade { get; set; }
+
+        public bool? IsActive { get; set; }
+    }
+
+    #endregion
+
     #region Territories
 
     public class Territories_Request : BaseEntity
@@ -115,6 +133,8 @@ namespace CLN.Application.Models
         public int? CityId { get; set; }
 
         public int? AreadId { get; set; }
+
+        public int? CityGradeId { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -141,6 +161,10 @@ namespace CLN.Application.Models
 
         public string? AreaName { get; set; }
 
+        public int? CityGradeId { get; set; }
+
+        public string? CityGrade { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -153,6 +177,7 @@ namespace CLN.Application.Models
         public int? DistrictId { get; set; }
 
         public int? CityId { get; set; }
+        public int? CityGradeId { get; set; }
     }
 
     public class Territories_State_Dist_City_Area_Response
