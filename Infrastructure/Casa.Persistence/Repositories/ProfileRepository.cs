@@ -63,6 +63,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
             queryParameters.Add("@DepartmentId", parameters.DepartmentId.SanitizeValue());
+            queryParameters.Add("@EmployeeLevelId", parameters.EmployeeLevelId.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

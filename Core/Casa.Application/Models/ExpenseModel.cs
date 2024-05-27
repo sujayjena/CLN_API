@@ -87,6 +87,7 @@ namespace CLN.Application.Models
 
         public string? ExpenseDescription { get; set; }
 
+        public decimal? ApprovedAmount { get; set; }
         public decimal? ExpenseAmount { get; set; }
 
         public string? ExpenseImageFileName { get; set; }
@@ -106,6 +107,7 @@ namespace CLN.Application.Models
         public int? ExpenseTypeId { get; set; }
         public string? ExpenseType { get; set; }
         public string? ExpenseDescription { get; set; }
+        public decimal? ApprovedAmount { get; set; }
         public decimal? ExpenseAmount { get; set; }
         public string? ExpenseImageFileName { get; set; }
         public string? ExpenseImageOriginalFileName { get; set; }

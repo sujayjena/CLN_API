@@ -39,6 +39,8 @@ namespace CLN.Application.Models
 
         public int? DepartmentId { get; set; }
 
+        public int? EmployeeLevelId { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -47,6 +49,9 @@ namespace CLN.Application.Models
         public string? RoleName { get; set; }
         public int? DepartmentId { get; set; }
         public string? DepartmentName { get; set; }
+
+        public int? EmployeeLevelId { get; set; }
+        public string? EmployeeLevel { get; set; }
 
         public bool? IsActive { get; set; }
     }

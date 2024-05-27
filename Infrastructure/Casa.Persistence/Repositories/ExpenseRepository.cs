@@ -77,6 +77,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@ExpenseDate", parameters.ExpenseDate);
             queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);
             queryParameters.Add("@ExpenseDescription", parameters.ExpenseDescription);
+            queryParameters.Add("@ApprovedAmount", parameters.ApprovedAmount);
             queryParameters.Add("@ExpenseAmount", parameters.ExpenseAmount);
             queryParameters.Add("@ExpenseImageFileName", parameters.ExpenseImageFileName);
             queryParameters.Add("@ExpenseImageOriginalFileName", parameters.ExpenseImageOriginalFileName);

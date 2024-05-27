@@ -79,6 +79,7 @@ namespace CLN.API.Controllers
                         ExpenseDate = item.ExpenseDate,
                         ExpenseTypeId = item.ExpenseTypeId,
                         ExpenseDescription = item.ExpenseDescription,
+                        ApprovedAmount = item.ApprovedAmount,
                         ExpenseAmount = item.ExpenseAmount,
                         ExpenseImageFileName = item.ExpenseImageFileName,
                         ExpenseImageOriginalFileName = item.ExpenseImageOriginalFileName,
@@ -158,6 +159,7 @@ namespace CLN.API.Controllers
                             ExpenseType = item.ExpenseType,
 
                             ExpenseDescription = item.ExpenseDescription,
+                            ApprovedAmount = item.ApprovedAmount,
                             ExpenseAmount = item.ExpenseAmount,
                             ExpenseImageFileName = item.ExpenseImageFileName,
                             ExpenseImageOriginalFileName = item.ExpenseImageOriginalFileName,

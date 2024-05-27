@@ -119,6 +119,9 @@ namespace CLN.Application.Models
 
         public string? RoleName { get; set; }
 
+        public int? EmployeeLevelId { get; set; }
+        public string EmployeeLevel { get; set; }
+
         public int? ReportingTo { get; set; }
 
         public string? ReportingToName { get; set; }
