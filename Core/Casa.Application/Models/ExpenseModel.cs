@@ -81,7 +81,8 @@ namespace CLN.Application.Models
     {
         public int? ExpenseId { get; set; }
 
-        public DateTime? ExpenseDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public int? ExpenseTypeId { get; set; }
 
@@ -103,7 +104,8 @@ namespace CLN.Application.Models
     {
         public int? ExpenseId { get; set; }
         public string? ExpenseNumber { get; set; }
-        public DateTime? ExpenseDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
         public int? ExpenseTypeId { get; set; }
         public string? ExpenseType { get; set; }
         public string? ExpenseDescription { get; set; }
