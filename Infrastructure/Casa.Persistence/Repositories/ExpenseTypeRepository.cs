@@ -74,9 +74,12 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveExpenseMatrix", queryParameters);
         }
 
-        public async Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(ExpenseMatrixSearch_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@EmployeeLevelId", parameters.EmployeeLevelId);
+            queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);
+            queryParameters.Add("@CityGradeId", parameters.CityGradeId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);

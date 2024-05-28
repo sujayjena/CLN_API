@@ -25,6 +25,7 @@ namespace CLN.Application.Models
     public class TicketStatus_Request : BaseEntity
     {
         public string? TicketStatus { get; set; }
+        public int SequenceNo { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -32,6 +33,7 @@ namespace CLN.Application.Models
     public class TicketStatus_Response : BaseResponseEntity
     {
         public string? TicketStatus { get; set; }
+        public int SequenceNo { get; set; }
         public bool? IsActive { get; set; }
     }
 

@@ -64,6 +64,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TicketStatus", parameters.TicketStatus.SanitizeValue());
+            queryParameters.Add("@SequenceNo", parameters.SequenceNo);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

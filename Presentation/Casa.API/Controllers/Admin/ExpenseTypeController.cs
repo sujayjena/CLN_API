@@ -104,7 +104,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetExpenseMatrixList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetExpenseMatrixList(ExpenseMatrixSearch_Request parameters)
         {
             IEnumerable<ExpenseMatrix_Response> lstRoles = await _expenseTypeRepository.GetExpenseMatrixList(parameters);
             _response.Data = lstRoles.ToList();

@@ -21,7 +21,7 @@ namespace CLN.Application.Interfaces
         #region Expense Matrix
         Task<int> SaveExpenseMatrix(ExpenseMatrix_Request parameters);
 
-        Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(BaseSearchEntity parameters);
+        Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(ExpenseMatrixSearch_Request parameters);
 
         Task<ExpenseMatrix_Response?> GetExpenseMatrixById(long Id);
         #endregion

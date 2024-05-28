@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,13 @@ namespace CLN.Application.Models
         public int? CityGradeId { get; set; }
         public decimal? Amount { get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class ExpenseMatrixSearch_Request : BaseSearchEntity
+    {
+        public int? EmployeeLevelId { get; set; }
+        public int? ExpenseTypeId { get; set; }
+        public int? CityGradeId { get; set; }
     }
 
     public class ExpenseMatrix_Response : BaseResponseEntity
