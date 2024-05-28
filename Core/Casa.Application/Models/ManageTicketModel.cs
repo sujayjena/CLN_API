@@ -279,6 +279,18 @@ namespace CLN.Application.Models
         public string? CD_SiteContactName { get; set; }
         public string? CD_SitContactMobile { get; set; }
 
+        public int? CD_SiteAddressId { get; set; }
+        public string? CD_SiteCustomerAddress1 { get; set; }
+        public int? CD_SiteCustomerRegionId { get; set; }
+        public string? CD_SiteCustomerRegionName { get; set; }
+        public int? CD_SiteCustomerStateId { get; set; }
+        public string? CD_SiteCustomerStateName { get; set; }
+        public int? CD_SiteCustomerDistrictId { get; set; }
+        public string? CD_SiteCustomerDistrictName { get; set; }
+        public int? CD_SiteCustomerCityId { get; set; }
+        public string? CD_SiteCustomerCityName { get; set; }
+        public string? CD_SiteCustomerPinCode { get; set; }
+
         public string? BD_BatteryPartCode { get; set; }
         public int? BD_BatterySegmentId { get; set; }
         public string? BD_Segment { get; set; }
