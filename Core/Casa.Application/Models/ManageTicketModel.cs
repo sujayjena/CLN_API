@@ -555,6 +555,17 @@ namespace CLN.Application.Models
 
         public string? PanCardImageURL { get; set; }
 
+        public string? Address1 { get; set; }
+        public string? Address2 { get; set; }
+        public int RegionId { get; set; }
+        public string? RegionName { get; set; }
+        public int StateId { get; set; }
+        public string? StateName { get; set; }
+        public int DistrictId { get; set; }
+        public string? DistrictName { get; set; }
+        public int CityId { get; set; }
+        public string? CityName { get; set; }
+
         public bool? IsActive { get; set; }
     }
 

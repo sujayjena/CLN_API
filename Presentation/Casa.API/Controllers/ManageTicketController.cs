@@ -477,6 +477,17 @@ namespace CLN.API.Controllers
                     vCustomerDetail_Response.PanCardImage = vResultObj.PanCardImage;
                     vCustomerDetail_Response.PanCardOriginalFileName = vResultObj.PanCardOriginalFileName;
                     vCustomerDetail_Response.PanCardImageURL = vResultObj.PanCardImageURL;
+                    vCustomerDetail_Response.Address1 = vResultObj.Address1;
+                    vCustomerDetail_Response.Address2 = vResultObj.Address2;
+                    vCustomerDetail_Response.RegionId = vResultObj.RegionId;
+                    vCustomerDetail_Response.RegionName = vResultObj.RegionName;
+                    vCustomerDetail_Response.StateId = vResultObj.StateId;
+                    vCustomerDetail_Response.StateName = vResultObj.StateName;
+                    vCustomerDetail_Response.DistrictId = vResultObj.DistrictId;
+                    vCustomerDetail_Response.DistrictName = vResultObj.DistrictName;
+                    vCustomerDetail_Response.CityId = vResultObj.CityId;
+                    vCustomerDetail_Response.CityName = vResultObj.CityName;
+
                     vCustomerDetail_Response.IsActive = vResultObj.IsActive;
                 }
 
