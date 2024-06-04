@@ -73,7 +73,6 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RequestId", parameters.RequestId);
-            queryParameters.Add("@CategoryId", parameters.CategoryId);
             queryParameters.Add("@SpareId", parameters.SpareId);
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
@@ -124,8 +123,6 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RequestNumber", parameters.RequestNumber);
             queryParameters.Add("@RequestDate", parameters.RequestDate);
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@Remarks", parameters.Remarks);
             queryParameters.Add("@StatusId", parameters.StatusId);
@@ -172,7 +169,6 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RequestId", parameters.RequestId);
-            queryParameters.Add("@CategoryId", parameters.CategoryId);
             queryParameters.Add("@SpareId", parameters.SpareId);
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);

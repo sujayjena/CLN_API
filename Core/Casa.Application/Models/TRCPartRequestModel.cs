@@ -36,10 +36,6 @@ namespace CLN.Application.Models
 
         public DateTime? RequestDate { get; set; }
 
-        public int? CompanyId { get; set; }
-
-        public int? BranchId { get; set; }
-
         public int? EngineerId { get; set; }
 
         public string? Remarks { get; set; }
@@ -54,8 +50,6 @@ namespace CLN.Application.Models
     public class TRCPartRequestDetails_Request : BaseEntity
     {
         public int? RequestId { get; set; }
-
-        public int? CategoryId { get; set; }
 
         public int? SpareId { get; set; }
 
@@ -87,14 +81,6 @@ namespace CLN.Application.Models
 
         public DateTime? RequestDate { get; set; }
 
-        public int? CompanyId { get; set; }
-
-        public string? CompanyName { get; set; }
-
-        public int? BranchId { get; set; }
-
-        public string? BranchName { get; set; }
-
         public int? EngineerId { get; set; }
 
         public string? EngineerName { get; set; }
@@ -115,8 +101,6 @@ namespace CLN.Application.Models
         public int? Id { get; set; }
         public int? RequestId { get; set; }
         public string? RequestNumber { get; set; }
-        public int? CategoryId { get; set; }
-        public string? CategoryName { get; set; }
         public int? SpareId { get; set; }
         public string? SpareDesc { get; set; }
         public string? UniqueCode { get; set; }

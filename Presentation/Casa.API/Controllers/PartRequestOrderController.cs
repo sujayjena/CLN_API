@@ -56,7 +56,6 @@ namespace CLN.API.Controllers
                     var vEnggPartRequestDetails_Response = new EnggPartRequestDetails_Request()
                     {
                         RequestId = result,
-                        CategoryId = item.CategoryId,
                         SpareId = item.SpareId,
                         UOMId = item.UOMId,
                         TypeOfBMSId = item.TypeOfBMSId,
@@ -129,10 +128,9 @@ namespace CLN.API.Controllers
                     {
                         var vEnggPartRequestDetails_Response = new EnggPartRequestDetails_Response()
                         {
-                            RequestId = item.Id,
+                            Id= item.Id,
+                            RequestId = item.RequestId,
                             RequestNumber = item.RequestNumber,
-                            CategoryId = item.CategoryId,
-                            CategoryName = item.CategoryName,
                             SpareId = item.SpareId,
                             SpareDesc = item.SpareDesc,
                             UniqueCode = item.UniqueCode,
@@ -245,7 +243,6 @@ namespace CLN.API.Controllers
                     var vTRCPartRequestDetails_Response = new TRCPartRequestDetails_Request()
                     {
                         RequestId = result,
-                        CategoryId = item.CategoryId,
                         SpareId = item.SpareId,
                         UOMId = item.UOMId,
                         TypeOfBMSId = item.TypeOfBMSId,
@@ -291,11 +288,6 @@ namespace CLN.API.Controllers
                     vTRCPartRequest_Response.RequestNumber = vResultObj.RequestNumber;
                     vTRCPartRequest_Response.RequestDate = vResultObj.RequestDate;
 
-                    vTRCPartRequest_Response.CompanyId = vResultObj.CompanyId;
-                    vTRCPartRequest_Response.CompanyName = vResultObj.CompanyName;
-                    vTRCPartRequest_Response.BranchId = vResultObj.BranchId;
-                    vTRCPartRequest_Response.BranchName = vResultObj.BranchName;
-
                     vTRCPartRequest_Response.EngineerId = vResultObj.EngineerId;
                     vTRCPartRequest_Response.EngineerName = vResultObj.EngineerName;
 
@@ -325,8 +317,6 @@ namespace CLN.API.Controllers
                         {
                             RequestId = item.Id,
                             RequestNumber = item.RequestNumber,
-                            CategoryId = item.CategoryId,
-                            CategoryName = item.CategoryName,
                             SpareId = item.SpareId,
                             SpareDesc = item.SpareDesc,
                             UniqueCode = item.UniqueCode,
