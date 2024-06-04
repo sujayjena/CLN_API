@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -126,6 +127,15 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("ExpenseDetailsApproveNReject", queryParameters);
+        }
+
+        public async Task<IEnumerable<ExpenseDetailsRemarks_Response>> GetExpenseDetailsRemarksListById(int LeaveId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@ExpenseDetailsId", LeaveId);
+
+            var result = await ListByStoredProcedure<ExpenseDetailsRemarks_Response>("GetExpenseDetailsRemarksListById", queryParameters);
+            return result;
         }
 
         #endregion

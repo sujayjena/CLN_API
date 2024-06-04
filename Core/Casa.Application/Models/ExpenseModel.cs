@@ -102,6 +102,10 @@ namespace CLN.Application.Models
 
     public class ExpenseDetails_Response : BaseResponseEntity
     {
+        public ExpenseDetails_Response()
+        {
+            remarksList = new List<ExpenseDetailsRemarks_Response>();
+        }
         public int? ExpenseId { get; set; }
         public string? ExpenseNumber { get; set; }
         public DateTime? FromDate { get; set; }
@@ -117,5 +121,16 @@ namespace CLN.Application.Models
         public int? ExpenseDetailStatusId { get; set; }
         public string? ExpenseDeteillStatusName { get; set; }
         public string? Remarks { get; set; }
+        public List<ExpenseDetailsRemarks_Response> remarksList { get; set; }
+    }
+
+    public class ExpenseDetailsRemarks_Response
+    {
+        public int? Id { get; set; }
+        public string? Remarks { get; set; }
+        public string? ApproveOrReject { get; set; }
+        public string? CreatorName { get; set; }
+        public long CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

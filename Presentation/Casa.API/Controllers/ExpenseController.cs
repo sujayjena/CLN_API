@@ -233,7 +233,15 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> GetExpenseDetailsList(ExpenseDetails_Search parameters)
         {
+            var vExpenseDetails_Response = new ExpenseDetails_Response();
+
             var objList = await _expenseRepository.GetExpenseDetailsList(parameters);
+            foreach (var item in objList)
+            {
+                var objExpenseDetailsRemarksList = await _expenseRepository.GetExpenseDetailsRemarksListById(item.Id);
+                item.remarksList = objExpenseDetailsRemarksList.ToList();
+            }
+
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -250,6 +258,11 @@ namespace CLN.API.Controllers
             else
             {
                 var vResultObj = await _expenseRepository.GetExpenseDetailsById(Id);
+                if (vResultObj != null)
+                {
+                    var objExpenseDetailsRemarksList = await _expenseRepository.GetExpenseDetailsRemarksListById(vResultObj.Id);
+                    vResultObj.remarksList = objExpenseDetailsRemarksList.ToList();
+                }
 
                 _response.Data = vResultObj;
             }
