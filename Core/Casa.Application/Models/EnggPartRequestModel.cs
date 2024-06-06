@@ -47,7 +47,7 @@ namespace CLN.Application.Models
     {
         public int? RequestId { get; set; }
 
-        public int? SpareId { get; set; }
+        public int? SpareDetailsId { get; set; }
 
         public int? UOMId { get; set; }
 
@@ -97,7 +97,7 @@ namespace CLN.Application.Models
         public int? Id { get; set; }
         public int? RequestId { get; set; }
         public string? RequestNumber { get; set; }
-        public int? SpareId { get; set; }
+        public int? SpareDetailsId { get; set; }
         public string? SpareDesc { get; set; }
         public string? UniqueCode { get; set; }
         public int? UOMId { get; set; }

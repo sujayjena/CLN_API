@@ -18,42 +18,42 @@ namespace CLN.Application.Models
     public class GeneratePartRequest_Request : BaseEntity
     {
         public int? SpareDetailsId { get; set; }
+        public int? UOMId { get; set; }
         public int? TypeOfBMSId { get; set; }
         public int? AvailableQty { get; set; }
-        public int? OrderQty { get; set; }
         public int? RequiredQty { get; set; }
+        public int? RequestedQty { get; set; }
 
         [DefaultValue("")]
         public string? Remarks { get; set; }
-        public int? CompanyId { get; set; }
-        public int? BranchId { get; set; }
+        //public int? CompanyId { get; set; }
+        //public int? BranchId { get; set; }
     }
     public class GeneratePartRequestSearch_Request : BaseSearchEntity
     {
-        public int? CompanyId { get; set; }
+        //public int? CompanyId { get; set; }
 
-        [DefaultValue("")]
-        public string? BranchId { get; set; }
+        //[DefaultValue("")]
+        //public string? BranchId { get; set; }
     }
 
     public class GeneratePartRequest_Response : BaseResponseEntity
     {
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
-        public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
         public string? UOMName { get; set; }
-        public int? MinQty { get; set; }
         public int? TypeOfBMSId { get; set; }
         public string? TypeOfBMS { get; set; }
+        public int? MinQty { get; set; }
         public int? AvailableQty { get; set; }
-        public int? OrderQty { get; set; }
         public int? RequiredQty { get; set; }
+        public int? RequestedQty { get; set; }
         public string? Remarks { get; set; }
-        public int? CompanyId { get; set; }
-        public string? CompanyName { get; set; }
-        public int? BranchId { get; set; }
-        public string? BranchName { get; set; }
+        //public int? CompanyId { get; set; }
+        //public string? CompanyName { get; set; }
+        //public int? BranchId { get; set; }
+        //public string? BranchName { get; set; }
     }
     #endregion
 
@@ -65,19 +65,19 @@ namespace CLN.Application.Models
             GenerateChallanPartDetailList = new List<GenerateChallanPartDetails_Request>();
         }
 
-        public int? CompanyId { get; set; }
+        //public int? CompanyId { get; set; }
 
-        public int? BranchId { get; set; }
+        //public int? BranchId { get; set; }
 
         public List<GenerateChallanPartDetails_Request> GenerateChallanPartDetailList { get; set; }
     }
 
     public class GenerateChallanSearch_Request : BaseSearchEntity
     {
-        public int? CompanyId { get; set; }
+        //public int? CompanyId { get; set; }
 
-        [DefaultValue("")]
-        public string? BranchId { get; set; }
+        //[DefaultValue("")]
+        //public string? BranchId { get; set; }
     }
 
     public class GenerateChallanPartDetailsSearch_Request : BaseSearchEntity
@@ -89,10 +89,10 @@ namespace CLN.Application.Models
     {
         public int? Id { get; set; }
         public string? RequestId { get; set; }
-        public int? CompanyId { get; set; }
-        public string? CompanyName { get; set; }
-        public int? BranchId { get; set; }
-        public string? BranchName { get; set; }
+        //public int? CompanyId { get; set; }
+        //public string? CompanyName { get; set; }
+        //public int? BranchId { get; set; }
+        //public string? BranchName { get; set; }
     }
 
     public class GenerateChallanPartDetailsById_Response : BaseResponseEntity
@@ -103,10 +103,10 @@ namespace CLN.Application.Models
         }
         public int? Id { get; set; }
         public string? RequestId { get; set; }
-        public int? CompanyId { get; set; }
-        public string? CompanyName { get; set; }
-        public int? BranchId { get; set; }
-        public string? BranchName { get; set; }
+        //public int? CompanyId { get; set; }
+        //public string? CompanyName { get; set; }
+        //public int? BranchId { get; set; }
+        //public string? BranchName { get; set; }
         public List<GenerateChallanPartDetails_Response> GenerateChallanPartDetailList { get; set; }
     }
 
@@ -115,28 +115,40 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public int? GenerateChallanId { get; set; }
         public int? SpareDetailsId { get; set; }
-        public int? OrderQty { get; set; }
+        public int? UOMId { get; set; }
+        public int? TypeOfBMSId { get; set; }
+        public int? AvailableQty { get; set; }
+        public int? RequiredQty { get; set; }
+        public int? RequestedQty { get; set; }
     }
 
     public class GenerateChallanPartDetails_Response : BaseResponseEntity
     {
         public int? GenerateChallanId { get; set; }
+        public string? RequestId { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
-        public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
+        public int? UOMId { get; set; }
         public string? UOMName { get; set; }
-        public int? OrderQty { get; set; }
+        public int? TypeOfBMSId { get; set; }
+        public string? TypeOfBMS { get; set; }
+        public int? AvailableQty { get; set; }
+        public int? RequiredQty { get; set; }
+        public int? RequestedQty { get; set; }
     }
     #endregion
 
     #region Stock In
     public class StockIn_Request
     {
+        public int? Id { get; set; }
         public int? GenerateChallanId { get; set; }
         public int? SpareDetailsId { get; set; }
+        public int? UOMId { get; set; }
         public int? AvailableQty { get; set; }
-        public int? OrderQty { get; set; }
+        public int? RequiredQty { get; set; }
+        public int? RequestedQty { get; set; }
         public int? ReceivedQty { get; set; }
         public int? StatusId { get; set; }
     }
@@ -152,12 +164,14 @@ namespace CLN.Application.Models
         public DateTime? GenerateChallanDate { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
-        public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
+        public int? UOMId { get; set; }
         public string? UOMName { get; set; }
-        public int? MinQty { get; set; }
+
         public int? AvailableQty { get; set; }
-        public int? OrderQty { get; set; }
+        public int? RequiredQty { get; set; }
+        public int? RequestedQty { get; set; }
+        public int? ReceivedQty { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
     }
@@ -170,9 +184,12 @@ namespace CLN.Application.Models
     {
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
-        public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
+        public int? UOMId { get; set; }
         public string? UOMName { get; set; }
+
+        public int? BalanceQty { get; set; }
+        public int? ReceivedQty { get; set; }
         public int? AvailableQty { get; set; }
     }
 
@@ -201,7 +218,7 @@ namespace CLN.Application.Models
 
         public int? EngineerId { get; set; }
 
-        [DefaultValue("Engg")]
+        [DefaultValue("Engg/TRC")]
         public string? AllocatedType { get; set; }
 
         public int? StatusId { get; set; }
@@ -270,16 +287,13 @@ namespace CLN.Application.Models
 
     public class StockAllocatedPartDetails_Request : BaseEntity
     {
-
+        public int? EngineerId { get; set; }
         public int? StockAllocatedId { get; set; }
-
         public int? SpareId { get; set; }
-
         public int? AvailableQty { get; set; }
-
         public int? RequiredQty { get; set; }
-
         public int? AllocatedQty { get; set; }
+        public int? ReceivedQty { get; set; }
     }
 
     public class StockAllocatedPartDetails_Response : BaseEntity
@@ -291,6 +305,7 @@ namespace CLN.Application.Models
         public int? AvailableQty { get; set; }
         public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
+        public int? ReceivedQty { get; set; }
     }
 
     #endregion

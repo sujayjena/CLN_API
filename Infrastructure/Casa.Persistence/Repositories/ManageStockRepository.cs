@@ -27,13 +27,14 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
-            queryParameters.Add("@OrderQty", parameters.OrderQty);
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);
+            queryParameters.Add("@RequestedQty", parameters.RequestedQty);
             queryParameters.Add("@Remarks", parameters.Remarks);
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
+            //queryParameters.Add("@CompanyId", parameters.CompanyId);
+            //queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveGeneratePartRequest", queryParameters);
@@ -43,8 +44,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
+            //queryParameters.Add("@CompanyId", parameters.CompanyId);
+            //queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -74,8 +75,8 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
+            //queryParameters.Add("@CompanyId", parameters.CompanyId);
+            //queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveGenerateChallan", queryParameters);
@@ -85,8 +86,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
+            //queryParameters.Add("@CompanyId", parameters.CompanyId);
+            //queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -115,7 +116,11 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@GenerateChallanId", parameters.GenerateChallanId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
-            queryParameters.Add("@OrderQty", parameters.OrderQty);
+            queryParameters.Add("@UOMId", parameters.UOMId);
+            queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
+            queryParameters.Add("@AvailableQty", parameters.AvailableQty);
+            queryParameters.Add("@RequiredQty", parameters.RequiredQty);
+            queryParameters.Add("@RequestedQty", parameters.RequestedQty);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveGenerateChallanPartDetails", queryParameters);
@@ -153,10 +158,13 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@GenerateChallanId", parameters.GenerateChallanId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
-            queryParameters.Add("@OrderQty", parameters.OrderQty);
+            queryParameters.Add("@RequiredQty", parameters.RequiredQty);
+            queryParameters.Add("@RequestedQty", parameters.RequestedQty);
             queryParameters.Add("@ReceivedQty", parameters.ReceivedQty);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -258,11 +266,13 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StockAllocatedId", parameters.StockAllocatedId);
-            queryParameters.Add("@SpareId", parameters.SpareId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);
             queryParameters.Add("@AllocatedQty", parameters.AllocatedQty);
+            queryParameters.Add("@ReceivedQty", parameters.ReceivedQty);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveStockAllocatedPartDetails", queryParameters);

@@ -73,7 +73,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RequestId", parameters.RequestId);
-            queryParameters.Add("@SpareId", parameters.SpareId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
@@ -136,8 +136,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@BranchId", parameters.BranchId);
+            //queryParameters.Add("@CompanyId", parameters.CompanyId);
+            //queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
@@ -169,7 +169,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@RequestId", parameters.RequestId);
-            queryParameters.Add("@SpareId", parameters.SpareId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);

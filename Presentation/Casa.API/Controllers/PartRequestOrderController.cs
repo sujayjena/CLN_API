@@ -56,7 +56,7 @@ namespace CLN.API.Controllers
                     var vEnggPartRequestDetails_Response = new EnggPartRequestDetails_Request()
                     {
                         RequestId = result,
-                        SpareId = item.SpareId,
+                        SpareDetailsId = item.SpareDetailsId,
                         UOMId = item.UOMId,
                         TypeOfBMSId = item.TypeOfBMSId,
                         AvailableQty = item.AvailableQty,
@@ -131,7 +131,7 @@ namespace CLN.API.Controllers
                             Id= item.Id,
                             RequestId = item.RequestId,
                             RequestNumber = item.RequestNumber,
-                            SpareId = item.SpareId,
+                            SpareDetailsId = item.SpareDetailsId,
                             SpareDesc = item.SpareDesc,
                             UniqueCode = item.UniqueCode,
                             UOMId = item.UOMId,
@@ -243,7 +243,7 @@ namespace CLN.API.Controllers
                     var vTRCPartRequestDetails_Response = new TRCPartRequestDetails_Request()
                     {
                         RequestId = result,
-                        SpareId = item.SpareId,
+                        SpareDetailsId = item.SpareDetailsId,
                         UOMId = item.UOMId,
                         TypeOfBMSId = item.TypeOfBMSId,
                         AvailableQty = item.AvailableQty,
@@ -315,9 +315,10 @@ namespace CLN.API.Controllers
                     {
                         var vTRCPartRequestDetails_Response = new TRCPartRequestDetails_Response()
                         {
-                            RequestId = item.Id,
+                            Id=item.Id,
+                            RequestId = item.RequestId,
                             RequestNumber = item.RequestNumber,
-                            SpareId = item.SpareId,
+                            SpareDetailsId = item.SpareDetailsId,
                             SpareDesc = item.SpareDesc,
                             UniqueCode = item.UniqueCode,
                             UOMId = item.UOMId,

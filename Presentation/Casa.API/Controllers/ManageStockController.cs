@@ -109,8 +109,12 @@ namespace CLN.API.Controllers
                     {
                         Id = item.Id,
                         GenerateChallanId = result,
+                        UOMId = item.UOMId,
+                        TypeOfBMSId = item.TypeOfBMSId,
                         SpareDetailsId = item.SpareDetailsId,
-                        OrderQty = item.OrderQty,
+                        AvailableQty = item.AvailableQty,
+                        RequiredQty = item.RequiredQty,
+                        RequestedQty = item.RequestedQty
                     };
 
                     int result_GenerateChallanPartDetails = await _manageStockRepository.SaveGenerateChallanPartDetails(vGenerateChallanPartDetails_Request);
@@ -147,10 +151,6 @@ namespace CLN.API.Controllers
                 {
                     vGenerateChallanPartDetailsById_Response.Id = vResultObj.Id;
                     vGenerateChallanPartDetailsById_Response.RequestId = vResultObj.RequestId;
-                    vGenerateChallanPartDetailsById_Response.CompanyId = vResultObj.CompanyId;
-                    vGenerateChallanPartDetailsById_Response.CompanyName = vResultObj.CompanyName;
-                    vGenerateChallanPartDetailsById_Response.BranchId = vResultObj.BranchId;
-                    vGenerateChallanPartDetailsById_Response.BranchName = vResultObj.BranchName;
                     vGenerateChallanPartDetailsById_Response.CreatorName = vResultObj.CreatorName;
                     vGenerateChallanPartDetailsById_Response.CreatedBy = vResultObj.CreatedBy;
                     vGenerateChallanPartDetailsById_Response.CreatedDate = vResultObj.CreatedDate;
@@ -290,11 +290,13 @@ namespace CLN.API.Controllers
                     var vStockAllocatedPartDetails_Request = new StockAllocatedPartDetails_Request()
                     {
                         Id = item.Id,
+                        EngineerId = parameters.EngineerId,
                         StockAllocatedId = result,
                         SpareId = item.SpareId,
                         AvailableQty = item.AvailableQty,
                         RequiredQty = item.RequiredQty,
                         AllocatedQty = item.AllocatedQty,
+                        ReceivedQty = item.ReceivedQty,
                     };
 
                     int result_StockAllocatedPartDetails = await _manageStockRepository.SaveStockAllocatedPartDetails(vStockAllocatedPartDetails_Request);
@@ -366,9 +368,13 @@ namespace CLN.API.Controllers
 
                             StockAllocatedId = item.Id,
                             SpareId = item.SpareId,
+                            UniqueCode = item.UniqueCode,
+                            SpareDesc = item.SpareDesc,
+
                             AvailableQty = item.AvailableQty,
                             RequiredQty = item.RequiredQty,
-                            AllocatedQty = item.AllocatedQty
+                            AllocatedQty = item.AllocatedQty,
+                            ReceivedQty = item.ReceivedQty
                         };
 
                         vStockAllocatedDetails_Response.PartList.Add(vStockAllocatedPartDetails_Response);
@@ -435,40 +441,18 @@ namespace CLN.API.Controllers
 
         #endregion
 
-        #region Stock Allocation > Employee Inventory > Stock Allocate To Engineer / TRC
-
-        [Route("[action]")]
-        [HttpPost]
-        public async Task<ResponseModel> GetAllocatedPartListToEngineer_PartReceived_Engineer_N_TRC(StockAllocated_Search parameters)
-        {
-            var objList = await _manageStockRepository.GetStockAllocatedList(parameters);
-            _response.Data = objList.ToList();
-            _response.Total = parameters.Total;
-            return _response;
-        }
-
-        #endregion
-
-        #region Stock Master
-        [Route("[action]")]
-        [HttpPost]
-        public async Task<ResponseModel> GetStockMasterBySpareDetailsId(int SpareDetailsId)
-        {
-            if (SpareDetailsId <= 0)
-            {
-                _response.Message = "Id is required";
-            }
-            else
-            {
-                var vResultObj = await _manageStockRepository.GetStockMasterBySpareDetailsId(SpareDetailsId);
-
-                _response.Data = vResultObj;
-            }
-            return _response;
-        }
-        #endregion
-
         #region Engineer Stock Master
+
+        //[Route("[action]")]
+        //[HttpPost]
+        //public async Task<ResponseModel> GetAllocatedPartListToEngineer_PartReceived_Engineer_N_TRC(StockAllocated_Search parameters)
+        //{
+        //    var objList = await _manageStockRepository.GetStockAllocatedList(parameters);
+        //    _response.Data = objList.ToList();
+        //    _response.Total = parameters.Total;
+        //    return _response;
+        //}
+
         [Route("[action]")]
         [HttpPost]
         public async Task<ResponseModel> GetEnggStockMasterList(EnggStockMasterListSearch_Request parameters)
@@ -478,6 +462,28 @@ namespace CLN.API.Controllers
             _response.Total = parameters.Total;
             return _response;
         }
+
+        #endregion
+
+        #region Stock Master
+
+        //[Route("[action]")]
+        //[HttpPost]
+        //public async Task<ResponseModel> GetStockMasterBySpareDetailsId(int SpareDetailsId)
+        //{
+        //    if (SpareDetailsId <= 0)
+        //    {
+        //        _response.Message = "Id is required";
+        //    }
+        //    else
+        //    {
+        //        var vResultObj = await _manageStockRepository.GetStockMasterBySpareDetailsId(SpareDetailsId);
+
+        //        _response.Data = vResultObj;
+        //    }
+        //    return _response;
+        //}
+
         #endregion
     }
 }
