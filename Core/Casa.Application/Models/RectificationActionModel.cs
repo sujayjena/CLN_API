@@ -12,12 +12,18 @@ namespace CLN.Application.Models
     }
     public class RectificationAction_Request : BaseEntity
     {
+        public int? ProductCategoryId { get; set; }
+        public int? SegmentId { get; set; }
         public string? RectificationAction { get; set; }
         public bool? IsActive { get; set; }
     }
 
     public class RectificationAction_Response : BaseResponseEntity
     {
+        public int? ProductCategoryId { get; set; }
+        public string? ProductCategory { get; set; }
+        public int? SegmentId { get; set; }
+        public string? Segment { get; set; }
         public string? RectificationAction { get; set; }
         public bool? IsActive { get; set; }
     }
