@@ -13,6 +13,7 @@ namespace CLN.Application.Models
     public class ProblemReportedByEng_Request : BaseEntity
     {
         public int? SegmentId { get; set; }
+        public int? ProductCategoryId { get; set; }
         public string? ProblemReportedByEng { get; set; }
         public bool? IsActive { get; set; }
     }
@@ -21,6 +22,8 @@ namespace CLN.Application.Models
     {
         public int? SegmentId { get; set; }
         public string? Segment { get; set; }
+        public int? ProductCategoryId { get; set; }
+        public string? ProductCategory { get; set; }
         public string? ProblemReportedByEng { get; set; }
         public bool? IsActive { get; set; }
     }
