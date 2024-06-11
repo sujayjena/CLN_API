@@ -118,7 +118,7 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> GetVendorById(int Id)
         {
-            var vCustomerDetail_Response = new VendorDetail_Response();
+            var vCustomerDetail_Response = new Vendor_Response();
 
             if (Id <= 0)
             {
@@ -202,6 +202,64 @@ namespace CLN.API.Controllers
                 }
 
                 _response.Data = vCustomerDetail_Response;
+            }
+            return _response;
+        }
+
+        #endregion
+
+        #region Vendor Detail
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveVendorDetail(VendorDetail_Request parameters)
+        {
+            int result = await _vendorRepository.SaveVendorDetail(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetVendorDetailList(VendorDetail_Search parameters)
+        {
+            var objList = await _vendorRepository.GetVendorDetailList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetVendorDetailById(int Id)
+        {
+            var vCustomerDetail_Response = new Vendor_Response();
+
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _vendorRepository.GetVendorDetailById(Id);
+                _response.Data = vResultObj;
             }
             return _response;
         }

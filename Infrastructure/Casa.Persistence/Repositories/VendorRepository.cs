@@ -20,6 +20,8 @@ namespace CLN.Persistence.Repositories
             _configuration = configuration;
         }
 
+        #region Vendor
+
         public async Task<int> SaveVendor(Vendor_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
@@ -68,5 +70,51 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<VendorList_Response>("GetVendorById", queryParameters)).FirstOrDefault();
         }
 
+        #endregion
+
+        #region Vendor Detail
+
+        public async Task<int> SaveVendorDetail(VendorDetail_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@VendorId", parameters.VendorId);
+            queryParameters.Add("@ChargerSerial", parameters.ChargerSerial);
+            queryParameters.Add("@ChargerModel", parameters.ChargerModel);
+            queryParameters.Add("@WarrantyPeriod", parameters.WarrantyPeriod);
+            queryParameters.Add("@ChargerName", parameters.ChargerName);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveVendorDetail", queryParameters);
+        }
+
+        public async Task<IEnumerable<VendorDetailList_Response>> GetVendorDetailList(VendorDetail_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@VendorId", parameters.VendorId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<VendorDetailList_Response>("GetVendorDetailList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<VendorDetailList_Response?> GetVendorDetailById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<VendorDetailList_Response>("GetVendorDetailById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
     }
 }

@@ -23,6 +23,8 @@ namespace CLN.Application.Models
 
         public int? InvoiceId { get; set; }
 
+        public DateTime? ManufacturingDate { get; set; }
+
         public DateTime? WarrantyStartDate { get; set; }
 
         public DateTime? WarrantyEndDate { get; set; }
@@ -61,6 +63,8 @@ namespace CLN.Application.Models
         public string? ProductModel { get; set; }
 
         public string? DrawingNumber { get; set; }
+
+        public DateTime? ManufacturingDate { get; set; }
 
         public string? Warranty { get; set; }
 

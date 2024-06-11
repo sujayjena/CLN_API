@@ -165,6 +165,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@PartCodeId", parameters.PartCodeId);
             queryParameters.Add("@BatterySerialNumber", parameters.BatterySerialNumber);
             queryParameters.Add("@InvoiceId", parameters.InvoiceId);
+            queryParameters.Add("@ManufacturingDate", parameters.ManufacturingDate);
             queryParameters.Add("@WarrantyStartDate", parameters.WarrantyStartDate);
             queryParameters.Add("@WarrantyEndDate", parameters.WarrantyEndDate);
             queryParameters.Add("@IsActive", parameters.IsActive);

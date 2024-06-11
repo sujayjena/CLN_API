@@ -79,9 +79,9 @@ namespace CLN.Application.Models
         public bool? IsActive { get; set; }
     }
 
-    public class VendorDetail_Response : BaseResponseEntity
+    public class Vendor_Response : BaseResponseEntity
     {
-        public VendorDetail_Response()
+        public Vendor_Response()
         {
             ContactDetail = new ContactDetail_Response();
             AddressDetail = new Address_Response();
@@ -105,5 +105,31 @@ namespace CLN.Application.Models
         public ContactDetail_Response ContactDetail { get; set; }
 
         public Address_Response AddressDetail { get; set; }
+    }
+
+
+
+    public class VendorDetail_Search : BaseSearchEntity
+    {
+        public int? VendorId { get; set; }
+    }
+
+    public class VendorDetail_Request : BaseEntity
+    {
+        public int? VendorId { get; set; }
+        public string ChargerSerial { get; set; }
+        public string ChargerModel { get; set; }
+        public string WarrantyPeriod { get; set; }
+        public string ChargerName { get; set; }
+    }
+
+    public class VendorDetailList_Response : BaseResponseEntity
+    {
+        public int? VendorId { get; set; }
+        public string VendorName { get; set; }
+        public string ChargerSerial { get; set; }
+        public string ChargerModel { get; set; }
+        public string WarrantyPeriod { get; set; }
+        public string ChargerName { get; set; }
     }
 }
