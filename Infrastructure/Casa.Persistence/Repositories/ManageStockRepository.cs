@@ -323,12 +323,37 @@ namespace CLN.Persistence.Repositories
 
         #region Engineer Part Return
 
+        public async Task<IEnumerable<EnggPartsReturn_RequestIdList>> GetRequestIdListForPartReturnRequest(EnggPartsReturn_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<EnggPartsReturn_RequestIdList>("GetRequestIdListForPartReturnRequest", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<EnggPartsReturn_RequestIdList?> GetEngineerPartRequestDetailByRequestNumber(string RequestNumber)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@RequestNumber", RequestNumber);
+
+            return (await ListByStoredProcedure<EnggPartsReturn_RequestIdList>("GetEngineerPartRequestDetailByRequestNumber", queryParameters)).FirstOrDefault();
+        }
+
         public async Task<int> SaveEngineerPartReturn(EnggPartsReturn_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@RequestId", parameters.RequestId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@ReturnQuantity", parameters.ReturnQuantity);
             queryParameters.Add("@StatusId", parameters.StatusId);
@@ -361,6 +386,27 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
 
             return (await ListByStoredProcedure<EnggPartsReturn_Response>("GetEngineerPartReturnById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<int> ApproveOrRejectEngineerPartReturn(EnggPartsReturn_ApprovedRequest parameters)
+        {
+            int i = 0;
+            foreach (var item in parameters.PartList)
+            {
+                DynamicParameters queryParameters = new DynamicParameters();
+
+                queryParameters.Add("@RequestId", parameters.RequestId);
+                queryParameters.Add("@EngineerId", parameters.EngineerId);
+                queryParameters.Add("@SpareDetailsId", item.SpareDetailsId);
+                queryParameters.Add("@StatusId", item.StatusId);
+                queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+                 await SaveByStoredProcedure<int>("SaveApproveOrRejectEngineerPartReturn", queryParameters);
+
+                i= i + 1;
+            }
+
+            return i;
         }
 
         #endregion

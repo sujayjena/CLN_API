@@ -469,6 +469,33 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
+        public async Task<ResponseModel> GetRequestIdListForPartReturnRequest(EnggPartsReturn_Search parameters)
+        {
+            var objList = await _manageStockRepository.GetRequestIdListForPartReturnRequest(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEngineerPartRequestDetailByRequestNumber(string RequestNumber)
+        {
+            if (string.IsNullOrWhiteSpace(RequestNumber))
+            {
+                _response.Message = "RequestNumber is required";
+            }
+            else
+            {
+                var vResultObj = await _manageStockRepository.GetEngineerPartRequestDetailByRequestNumber(RequestNumber);
+
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
         public async Task<ResponseModel> SaveEngineerPartReturn(EnggPartsReturn_Request parameters)
         {
             int result = await _manageStockRepository.SaveEngineerPartReturn(parameters);
@@ -515,6 +542,31 @@ namespace CLN.API.Controllers
                 var vResultObj = await _manageStockRepository.GetEngineerPartReturnById(Id);
 
                 _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ApproveOrRejectEngineerPartReturn(EnggPartsReturn_ApprovedRequest parameters)
+        {
+            int result = await _manageStockRepository.ApproveOrRejectEngineerPartReturn(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record saved sucessfully";
             }
             return _response;
         }

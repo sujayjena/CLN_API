@@ -58,11 +58,17 @@ namespace CLN.Application.Interfaces
 
         #region Engineer Part Return
 
+        Task<IEnumerable<EnggPartsReturn_RequestIdList>> GetRequestIdListForPartReturnRequest(EnggPartsReturn_Search parameters);
+
+        Task<EnggPartsReturn_RequestIdList?> GetEngineerPartRequestDetailByRequestNumber(string RequestNumber);
+
         Task<int> SaveEngineerPartReturn(EnggPartsReturn_Request parameters);
 
         Task<IEnumerable<EnggPartsReturn_Response>> GetEngineerPartReturnList(EnggPartsReturn_Search parameters);
 
         Task<EnggPartsReturn_Response?> GetEngineerPartReturnById(int Id);
+
+        Task<int> ApproveOrRejectEngineerPartReturn(EnggPartsReturn_ApprovedRequest parameters);
 
         #endregion
 

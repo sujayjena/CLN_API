@@ -85,7 +85,6 @@ namespace CLN.Application.Models
 
         public string? Remarks { get; set; }
 
-        public int? TotalRequestedQty { get; set; }
         public int? DistrictId { get; set; }
 
         public string? DistrictName { get; set; }
