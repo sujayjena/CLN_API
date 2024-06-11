@@ -81,6 +81,8 @@ namespace CLN.Application.Models
 
         public string? EngineerName { get; set; }
 
+        public int? TotalRequestedQty { get; set; }
+
         public string? Remarks { get; set; }
 
         public int? TotalRequestedQty { get; set; }

@@ -197,7 +197,7 @@ namespace CLN.Persistence.Repositories
         }
         #endregion
 
-        #region Stock Allocation
+        #region Stock Allocation To Engineer / TRC
 
         public async Task<IEnumerable<StockAllocationList_Response>> GetStockAllocationList(BaseSearchEntity parameters)
         {
@@ -215,8 +215,6 @@ namespace CLN.Persistence.Repositories
 
             return result;
         }
-
-        #region Stock Allocate To Engineer / TRC
 
         public async Task<int> SaveStockAllocated(StockAllocated_Request parameters)
         {
@@ -303,22 +301,10 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<StockAllocatedPartDetails_Response>("GetStockAllocatedPartDetailsById", queryParameters)).FirstOrDefault();
         }
 
-
-        #endregion
-
-        #endregion
-
-        #region Stock Master
-        public async Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId)
-        {
-            DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@SpareDetailsId", SpareDetailsId);
-
-            return (await ListByStoredProcedure<StockMaster_Response>("GetStockMasterBySpareDetailsId", queryParameters)).FirstOrDefault();
-        }
         #endregion
 
         #region Engineer Stock Master
+
         public async Task<IEnumerable<EnggStockMaster_Response>> GetEnggStockMasterList(EnggStockMasterListSearch_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
@@ -331,6 +317,62 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await ListByStoredProcedure<EnggStockMaster_Response>("GetEnggStockMasterList", queryParameters);
+        }
+
+        #endregion
+
+        #region Engineer Part Return
+
+        public async Task<int> SaveEngineerPartReturn(EnggPartsReturn_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@ReturnQuantity", parameters.ReturnQuantity);
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveEngineerPartsReturn", queryParameters);
+        }
+
+        public async Task<IEnumerable<EnggPartsReturn_Response>> GetEngineerPartReturnList(EnggPartsReturn_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<EnggPartsReturn_Response>("GetEngineerPartReturnList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<EnggPartsReturn_Response?> GetEngineerPartReturnById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<EnggPartsReturn_Response>("GetEngineerPartReturnById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region Stock Master
+
+        public async Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SpareDetailsId", SpareDetailsId);
+
+            return (await ListByStoredProcedure<StockMaster_Response>("GetStockMasterBySpareDetailsId", queryParameters)).FirstOrDefault();
         }
 
         #endregion

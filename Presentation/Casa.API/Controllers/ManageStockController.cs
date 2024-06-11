@@ -465,6 +465,63 @@ namespace CLN.API.Controllers
 
         #endregion
 
+        #region Engineer Part Return
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveEngineerPartReturn(EnggPartsReturn_Request parameters)
+        {
+            int result = await _manageStockRepository.SaveEngineerPartReturn(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEngineerPartReturnList(EnggPartsReturn_Search parameters)
+        {
+            var objList = await _manageStockRepository.GetEngineerPartReturnList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEngineerPartReturnById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageStockRepository.GetEngineerPartReturnById(Id);
+
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+
+        #endregion
+
         #region Stock Master
 
         //[Route("[action]")]
