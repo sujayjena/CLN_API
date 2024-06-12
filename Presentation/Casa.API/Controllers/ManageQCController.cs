@@ -318,6 +318,68 @@ namespace CLN.API.Controllers
 
         #endregion
 
+        #region Customer Charger 
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveCustomerCharger(CustomerCharger_Request parameters)
+        {
+            if (string.IsNullOrWhiteSpace(parameters.ChargerSerial))
+            {
+                _response.Message = "ChargerSerial is required!";
+
+                return _response;
+            }
+
+            int result = await _ManageQCRepository.SaveCustomerCharger(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerChargerList(CustomerCharger_Search parameters)
+        {
+            var objList = await _ManageQCRepository.GetCustomerChargerList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerChargerById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _ManageQCRepository.GetCustomerChargerById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
+
         #region Accessory 
 
         [Route("[action]")]

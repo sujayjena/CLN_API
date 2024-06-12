@@ -156,6 +156,7 @@ namespace CLN.Application.Models
     public class StockInListSearch_Request : BaseSearchEntity
     {
         public int? GenerateChallanId { get; set; }
+        public int? StatusId { get; set; }
     }
 
     public class StockIn_Response : BaseResponseEntity

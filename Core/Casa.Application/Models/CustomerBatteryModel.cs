@@ -21,7 +21,7 @@ namespace CLN.Application.Models
 
         public string? BatterySerialNumber { get; set; }
 
-        public int? InvoiceId { get; set; }
+        public string? InvoiceNumber { get; set; }
 
         public DateTime? ManufacturingDate { get; set; }
 
@@ -45,8 +45,6 @@ namespace CLN.Application.Models
         public string? CustomerCode { get; set; }
 
         public string? BatterySerialNumber { get; set; }
-
-        public int? InvoiceId { get; set; }
 
         public string? InvoiceNumber { get; set; }
 

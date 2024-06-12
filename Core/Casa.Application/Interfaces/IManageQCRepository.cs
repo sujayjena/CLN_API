@@ -49,5 +49,15 @@ namespace CLN.Application.Interfaces
         Task<CustomerBattery_Response?> GetCustomerBatteryById(int Id);
 
         #endregion
+
+        #region Customer Charger
+
+        Task<int> SaveCustomerCharger(CustomerCharger_Request parameters);
+
+        Task<IEnumerable<CustomerCharger_Response>> GetCustomerChargerList(CustomerCharger_Search parameters);
+
+        Task<CustomerCharger_Response?> GetCustomerChargerById(int Id);
+
+        #endregion
     }
 }

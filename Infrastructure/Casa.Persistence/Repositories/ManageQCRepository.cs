@@ -164,7 +164,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CustomerId", parameters.CustomerId);
             queryParameters.Add("@PartCodeId", parameters.PartCodeId);
             queryParameters.Add("@BatterySerialNumber", parameters.BatterySerialNumber);
-            queryParameters.Add("@InvoiceId", parameters.InvoiceId);
+            queryParameters.Add("@InvoiceNumber", parameters.InvoiceNumber);
             queryParameters.Add("@ManufacturingDate", parameters.ManufacturingDate);
             queryParameters.Add("@WarrantyStartDate", parameters.WarrantyStartDate);
             queryParameters.Add("@WarrantyEndDate", parameters.WarrantyEndDate);
@@ -198,6 +198,51 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
 
             return (await ListByStoredProcedure<CustomerBattery_Response>("GetCustomerBatteryById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region Customer Charger
+
+        public async Task<int> SaveCustomerCharger(CustomerCharger_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@CustomerId", parameters.CustomerId);
+            queryParameters.Add("@PartCodeId", parameters.PartCodeId);
+            queryParameters.Add("@ChargerSerial", parameters.ChargerSerial);
+            queryParameters.Add("@ChargerModel", parameters.ChargerModel);
+            queryParameters.Add("@WarrantyPeriod", parameters.WarrantyPeriod);
+            queryParameters.Add("@ChargerName", parameters.ChargerName);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveCustomerCharger", queryParameters);
+        }
+
+        public async Task<IEnumerable<CustomerCharger_Response>> GetCustomerChargerList(CustomerCharger_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@CustomerId", parameters.CustomerId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<CustomerCharger_Response>("GetCustomerChargerList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<CustomerCharger_Response?> GetCustomerChargerById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<CustomerCharger_Response>("GetCustomerChargerById", queryParameters)).FirstOrDefault();
         }
 
         #endregion
