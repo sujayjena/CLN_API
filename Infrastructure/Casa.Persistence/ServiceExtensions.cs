@@ -68,6 +68,7 @@ namespace CLN.Persistence
             services.AddScoped<IRatePerKMRepository, RatePerKMRepository>();
             services.AddScoped<IPartStatusRepository, PartStatusRepository>();
             services.AddScoped<IComplaintTypeRepository, ComplaintTypeRepository>();
+            services.AddScoped<ISLARepository, SLARepository>();
         }
     }
 }
