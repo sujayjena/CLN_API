@@ -333,6 +333,7 @@ namespace CLN.Application.Models
     public class EnggStockMasterListSearch_Request : BaseSearchEntity
     {
         public int? EngineerId { get; set; }
+        public int? SpareDetailsId { get; set; }
     }
 
     public class EnggStockMaster_Response : BaseResponseEntity
