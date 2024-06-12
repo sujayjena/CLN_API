@@ -25,7 +25,7 @@ namespace CLN.Application.Models
         [DefaultValue(1)]
         public int? DepartmentId { get; set; }
 
-        //public string? UserCode { get; set; }
+        public string? UserCode { get; set; }
 
         public string? UserName { get; set; }
 
@@ -103,7 +103,7 @@ namespace CLN.Application.Models
             BranchList = new List<BranchMapping_Response>();
         }
 
-        //public string? UserCode { get; set; }
+        public string? UserCode { get; set; }
 
         public string? UserName { get; set; }
 
