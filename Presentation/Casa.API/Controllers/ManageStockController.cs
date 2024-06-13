@@ -496,9 +496,34 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveEngineerPartReturn(EnggPartsReturn_Request parameters)
+        public async Task<ResponseModel> SaveEngineerPartReturn(EnggPartsReturn_RequestWeb parameters)
         {
             int result = await _manageStockRepository.SaveEngineerPartReturn(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record is already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record saved sucessfully";
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveEngineerPartReturn_For_Mobile(EnggPartsReturn_RequestMobile parameters)
+        {
+            int result = await _manageStockRepository.SaveEngineerPartReturn_Mobile(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {

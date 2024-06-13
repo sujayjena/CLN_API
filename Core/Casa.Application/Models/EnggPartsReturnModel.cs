@@ -19,7 +19,7 @@ namespace CLN.Application.Models
         public int? StatusId { get; set; }
     }
 
-    public class EnggPartsReturn_Request : BaseEntity
+    public class EnggPartsReturn_RequestWeb : BaseEntity
     {
         public int? EngineerId { get; set; }
         public int? RequestId { get; set; }
@@ -28,7 +28,7 @@ namespace CLN.Application.Models
         public int? StatusId { get; set; }
     }
 
-    public class EnggPartsReturn_Response : BaseResponseEntity
+    public class EnggPartsReturn_ResponseWeb : BaseResponseEntity
     {
         public int? EngineerId { get; set; }
         public string EngineerName { get; set; }
@@ -42,6 +42,29 @@ namespace CLN.Application.Models
         public int? StatusId { get; set; }
         public string StatusName { get; set; }
     }
+
+
+    public class EnggPartsReturn_RequestMobile : BaseEntity
+    {
+        public EnggPartsReturn_RequestMobile()
+        {
+            SpareDetailsList = new List<EnggSpareDetailsList_RequestMobile>();
+        }
+
+        public int? EngineerId { get; set; }
+        public int? RequestId { get; set; }
+
+        public List<EnggSpareDetailsList_RequestMobile> SpareDetailsList { get; set; }
+    }
+
+    public class EnggSpareDetailsList_RequestMobile : BaseEntity
+    {
+        public int? SpareDetailsId { get; set; }
+        public int? ReturnQuantity { get; set; }
+        public int? StatusId { get; set; }
+    }
+
+
 
     public class EnggPartsReturn_RequestIdList 
     {

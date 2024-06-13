@@ -49,7 +49,7 @@ namespace CLN.Application.Models
         public string TicketStatusTo { get; set; }
         public int? SeqNo { get; set; }
         public int? TicketPriorityId { get; set; }
-        public string SLAPriority { get; set; }
+        public string TicketPriority { get; set; }
         public string Days { get; set; }
         public string Hrs { get; set; }
         public string Min { get; set; }
