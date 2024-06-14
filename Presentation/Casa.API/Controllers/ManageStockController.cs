@@ -479,17 +479,51 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetEngineerPartRequestDetailByRequestNumber(string RequestNumber)
+        public async Task<ResponseModel> GetEngineerPartRequestDetailByRequestNumber(EnggPartsReturn_Search parameters)
         {
-            if (string.IsNullOrWhiteSpace(RequestNumber))
+            var vEnggPartsReturnByRequestNumber_For_MobileObj = new EnggPartsReturnByRequestNumber_For_Mobile();
+
+
+            if (string.IsNullOrWhiteSpace(parameters.RequestNumber))
             {
                 _response.Message = "RequestNumber is required";
             }
             else
             {
-                var vResultObj = await _manageStockRepository.GetEngineerPartRequestDetailByRequestNumber(RequestNumber);
+                var objRequestIdList = _manageStockRepository.GetRequestIdListForPartReturnRequest(parameters).Result.FirstOrDefault();
+                if (objRequestIdList != null)
+                {
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.Id = objRequestIdList.Id;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.Engineerid = objRequestIdList.Engineerid;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.RequestNumber = parameters.RequestNumber;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.Total_RequiredQty = objRequestIdList.Total_RequiredQty;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.Total_AllocatedQty = objRequestIdList.Total_AllocatedQty;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.Total_ReceivedQty = objRequestIdList.Total_ReceivedQty;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.Total_AvailableQty = objRequestIdList.Total_AvailableQty;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.Total_ReturnQuantity = objRequestIdList.Total_ReturnQuantity;
 
-                _response.Data = vResultObj;
+                    var vResultPartRequestDetailListObj = _manageStockRepository.GetEngineerPartRequestDetailByRequestNumber(parameters);
+
+                    foreach (var item in vResultPartRequestDetailListObj.Result)
+                    {
+                        var vEnggSpareDetailsListByRequestNumber_RequestMobileobj = new EnggSpareDetailsList_ResponseMobile()
+                        {
+                            Id = Convert.ToInt32(item.Id),
+                            SpareDetailsId = Convert.ToInt32(item.SpareDetailsId),
+                            UniqueCode = Convert.ToString(item.UniqueCode),
+                            SpareDesc = Convert.ToString(item.SpareDesc),
+                            RequiredQty = Convert.ToInt32(item.Total_RequiredQty),
+                            AllocatedQty = Convert.ToInt32(item.Total_AllocatedQty),
+                            ReceivedQty = Convert.ToInt32(item.Total_ReceivedQty),
+                            AvailableQty = Convert.ToInt32(item.Total_AvailableQty),
+                            ReturnQuantity = Convert.ToInt32(item.Total_ReturnQuantity),
+                        };
+
+                        vEnggPartsReturnByRequestNumber_For_MobileObj.SpareDetailsList.Add(vEnggSpareDetailsListByRequestNumber_RequestMobileobj);
+                    }
+                }
+
+                _response.Data = vEnggPartsReturnByRequestNumber_For_MobileObj;
             }
             return _response;
         }

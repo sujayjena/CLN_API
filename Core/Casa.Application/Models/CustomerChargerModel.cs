@@ -23,7 +23,7 @@ namespace CLN.Application.Models
         public string ChargerName { get; set; }
     }
 
-    public class CustomerCharger_Response : BaseEntity
+    public class CustomerCharger_Response : BaseResponseEntity
     {
         public int? CustomerId { get; set; }
         public string? CustomerName { get; set; }

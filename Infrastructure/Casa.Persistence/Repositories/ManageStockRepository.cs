@@ -325,28 +325,31 @@ namespace CLN.Persistence.Repositories
 
         #region Engineer Part Return
 
-        public async Task<IEnumerable<EnggPartsReturn_RequestIdList>> GetRequestIdListForPartReturnRequest(EnggPartsReturn_Search parameters)
+        public async Task<IEnumerable<EnggPartsReturn_For_Mobile_RequestIdList>> GetRequestIdListForPartReturnRequest(EnggPartsReturn_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@RequestNumber", parameters.RequestNumber);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<EnggPartsReturn_RequestIdList>("GetRequestIdListForPartReturnRequest", queryParameters);
+            var result = await ListByStoredProcedure<EnggPartsReturn_For_Mobile_RequestIdList>("GetRequestIdListForPartReturnRequest", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");
 
             return result;
         }
 
-        public async Task<EnggPartsReturn_RequestIdList?> GetEngineerPartRequestDetailByRequestNumber(string RequestNumber)
+        public async Task<IEnumerable<EnggSpareDetailsListByRequestNumber_ResponseMobile>> GetEngineerPartRequestDetailByRequestNumber(EnggPartsReturn_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@RequestNumber", RequestNumber);
+            queryParameters.Add("@RequestNumber", parameters.RequestNumber);
 
-            return (await ListByStoredProcedure<EnggPartsReturn_RequestIdList>("GetEngineerPartRequestDetailByRequestNumber", queryParameters)).FirstOrDefault();
+            var result = await ListByStoredProcedure<EnggSpareDetailsListByRequestNumber_ResponseMobile>("GetEngineerPartRequestDetailByRequestNumber", queryParameters);
+
+            return result;
         }
 
         public async Task<int> SaveEngineerPartReturn(EnggPartsReturn_RequestWeb parameters)
