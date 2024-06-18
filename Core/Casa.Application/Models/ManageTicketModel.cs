@@ -243,9 +243,7 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public int? TicketId { get; set; }
 
-        public string? SparePartNo { get; set; }
-
-        public string? PartDescription { get; set; }
+        public int? SpareDetailsId { get; set; }
 
         public int? Quantity { get; set; }
 
@@ -526,13 +524,17 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public int? TicketId { get; set; }
 
-        public string? SparePartNo { get; set; }
+        public int? SpareDetailsId { get; set; }
 
-        public string? PartDescription { get; set; }
+        public string? UniqueCode { get; set; }
+
+        public string? SpareDesc { get; set; }
 
         public int? Quantity { get; set; }
 
         public int? PartStatusId { get; set; }
+
+        public string? PartStatus { get; set; }
     }
 
 

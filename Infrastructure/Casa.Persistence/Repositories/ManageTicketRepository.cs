@@ -121,8 +121,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TicketId", parameters.TicketId);
-            queryParameters.Add("@SparePartNo", parameters.SparePartNo);
-            queryParameters.Add("@PartDescription", parameters.PartDescription);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@Quantity", parameters.Quantity);
             queryParameters.Add("@PartStatusId", parameters.PartStatusId);
 

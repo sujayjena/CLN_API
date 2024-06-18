@@ -207,8 +207,7 @@ namespace CLN.API.Controllers
                     {
                         Id = Convert.ToInt32(item.Id),
                         TicketId = result,
-                        SparePartNo = item.SparePartNo,
-                        PartDescription = item.PartDescription,
+                        SpareDetailsId= item.SpareDetailsId,
                         Quantity = item.Quantity,
                         PartStatusId = item.PartStatusId,
                     };
@@ -423,10 +422,12 @@ namespace CLN.API.Controllers
                         {
                             Id = item.Id,
                             TicketId = item.TicketId,
-                            SparePartNo = item.SparePartNo,
-                            PartDescription = item.PartDescription,
+                            SpareDetailsId= item.SpareDetailsId,
+                            UniqueCode = item.UniqueCode,
+                            SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
-                            PartStatusId = item.PartStatusId
+                            PartStatusId = item.PartStatusId,
+                            PartStatus = item.PartStatus
                         };
 
                         vManageTicketDetail_Response.PartDetails.Add(vManageTicketPartDetails_Response);
