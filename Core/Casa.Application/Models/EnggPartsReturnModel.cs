@@ -150,6 +150,7 @@ namespace CLN.Application.Models
 
     public class EnggPartsReturn_ApprovedPartList
     {
+        public int? Id { get; set; }
         public int? SpareDetailsId { get; set; }
         public int? StatusId { get; set; }
     }

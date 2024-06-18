@@ -229,7 +229,9 @@ namespace CLN.Application.Models
         [DefaultValue(false)]
         public bool? OV_IsMoveToTRC { get; set; }
 
-        public int? TicketdStatusId { get; set; }
+        public int? TicketStatusFromId { get; set; }
+
+        public int? TicketStatusToId { get; set; }
 
         public int? EnquiryId { get; set; }
 
@@ -354,8 +356,12 @@ namespace CLN.Application.Models
         public string? OV_Signature { get; set; }
         public bool? OV_IsMoveToTRC { get; set; }
 
-        public int? TicketStatusId { get; set; }
-        public string? TicketStatus { get; set; }
+        public int? TicketStatusFromId { get; set; }
+        public string TicketStatusFrom { get; set; }
+
+        public int? TicketStatusToId { get; set; }
+        public string TicketStatusTo { get; set; }
+
         public string? SLAStatus { get; set; }
 
         public bool? IsActive { get; set; }
@@ -511,8 +517,11 @@ namespace CLN.Application.Models
         public bool? OV_IsMoveToTRC { get; set; }
 
 
-        public int? TicketStatusId { get; set; }
-        public string? TicketStatus { get; set; }
+        public int? TicketStatusFromId { get; set; }
+        public string TicketStatusFrom { get; set; }
+
+        public int? TicketStatusToId { get; set; }
+        public string TicketStatusTo { get; set; }
 
         public bool? IsActive { get; set; }
 

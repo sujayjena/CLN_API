@@ -105,7 +105,7 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@CompanyId", parameters.CompanyId);
-            queryParameters.Add("@RoleId", parameters.RoleId);
+            queryParameters.Add("@RoleId", parameters.RoleId.SanitizeValue());
             queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
 
             var result = await ListByStoredProcedure<UserListByRole_Response>("GetUserByRoleIdOrRoleName", queryParameters);

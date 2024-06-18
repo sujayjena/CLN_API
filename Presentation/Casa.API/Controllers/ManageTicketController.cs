@@ -86,7 +86,7 @@ namespace CLN.API.Controllers
             // Set Status if id zero for new record
             if (parameters.Id == 0)
             {
-                parameters.TicketdStatusId = 1;
+                parameters.TicketStatusFromId = 1;
             }
 
             // Save/Update
@@ -402,8 +402,12 @@ namespace CLN.API.Controllers
 
                     vManageTicketDetail_Response.OV_IsMoveToTRC = vResultObj.OV_IsMoveToTRC;
 
-                    vManageTicketDetail_Response.TicketStatusId = vResultObj.TicketStatusId;
-                    vManageTicketDetail_Response.TicketStatus = vResultObj.TicketStatus;
+                    vManageTicketDetail_Response.TicketStatusFromId = vResultObj.TicketStatusFromId;
+                    vManageTicketDetail_Response.TicketStatusFrom = vResultObj.TicketStatusFrom;
+
+                    vManageTicketDetail_Response.TicketStatusToId = vResultObj.TicketStatusToId;
+                    vManageTicketDetail_Response.TicketStatusTo = vResultObj.TicketStatusTo;
+
                     vManageTicketDetail_Response.IsActive = vResultObj.IsActive;
 
                     vManageTicketDetail_Response.CreatorName = vResultObj.CreatorName;
@@ -724,7 +728,7 @@ namespace CLN.API.Controllers
                         BD_WarrantyStatusId = vResultEnquiryObj.BD_WarrantyStatusId,
                         BD_TechnicalSupportEnggId = vResultEnquiryObj.BD_TechnicalSupportEnggId,
 
-                        TicketdStatusId = 1,
+                        TicketStatusFromId = 1,
                         EnquiryId = vResultEnquiryObj.Id,
                     };
 

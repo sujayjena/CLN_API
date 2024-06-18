@@ -107,7 +107,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@OV_Signature", parameters.OV_Signature);
             queryParameters.Add("@OV_IsMoveToTRC", parameters.OV_IsMoveToTRC);
 
-            queryParameters.Add("@TicketStatusId", parameters.TicketdStatusId);
+            queryParameters.Add("@TicketStatusFromId", parameters.TicketStatusFromId);
+            queryParameters.Add("@TicketStatusToId", parameters.TicketStatusToId);
             queryParameters.Add("@EnquiryId", parameters.EnquiryId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
