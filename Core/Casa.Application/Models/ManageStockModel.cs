@@ -348,4 +348,44 @@ namespace CLN.Application.Models
     }
 
     #endregion
+
+    #region Order Received Engineer
+
+    public class OrderReceivedEngineer_Search : BaseSearchEntity
+    {
+    }
+
+    public class OrderReceivedEngineer_Response
+    {
+        public int? EngineerId { get; set; }
+        public string EngineerName { get; set; }
+        public int? RegionId { get; set; }
+        public string RegionName { get; set; }
+        public int? StateId { get; set; }
+        public string StateName { get; set; }
+        public int? DistrictId { get; set; }
+        public string DistrictName { get; set; }
+        public int? CityId { get; set; }
+        public string CityName { get; set; }
+        public int? AreaId { get; set; }
+        public string AreaName { get; set; }
+    }
+
+    public class EngineerOrderListByEngineerId_Search : BaseSearchEntity
+    {
+        public int? EngineerId { get; set; }
+    }
+
+    public class EngineerOrderListByEngineerId_Response : BaseResponseEntity
+    {
+        public int? EngineerId { get; set; }
+        public string RequestNumber { get; set; }
+        public DateTime? RequestDate { get; set; }
+        public int? StatusId { get; set; }
+        public string StatusName { get; set; }
+        public string RequestType { get; set; }
+    }
+       
+
+    #endregion
 }

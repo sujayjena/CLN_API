@@ -72,11 +72,21 @@ namespace CLN.Application.Interfaces
 
         Task<int> SaveEngineerPartReturn_Mobile(EnggPartsReturn_RequestMobile parameters);
 
+        Task<IEnumerable<EnggPendingSpareDetailsList_ResponseWeb>> GetEngineerPartReturnPendingList_Engineer_N_TRC(EnggPendingPartsReturn_Search parameters);
+
         #endregion
 
         #region Stock Master
 
         Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId);
+
+        #endregion
+
+        #region Order Received Engineer
+
+        Task<IEnumerable<OrderReceivedEngineer_Response>> GetOrderReceivedEngineerList(OrderReceivedEngineer_Search parameters);
+
+        Task<IEnumerable<EngineerOrderListByEngineerId_Response>> GetEngineerOrderListByEngineerId(EngineerOrderListByEngineerId_Search parameters);
 
         #endregion
     }

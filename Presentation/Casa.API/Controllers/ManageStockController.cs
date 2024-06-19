@@ -484,7 +484,7 @@ namespace CLN.API.Controllers
             var vEnggPartsReturnByRequestNumber_For_MobileObj = new EnggPartsReturnByRequestNumber_For_Mobile();
 
 
-            if (string.IsNullOrWhiteSpace(parameters.RequestNumber))
+            if (string.IsNullOrWhiteSpace(parameters.SearchText))
             {
                 _response.Message = "RequestNumber is required";
             }
@@ -495,7 +495,7 @@ namespace CLN.API.Controllers
                 {
                     vEnggPartsReturnByRequestNumber_For_MobileObj.Id = objRequestIdList.Id;
                     vEnggPartsReturnByRequestNumber_For_MobileObj.Engineerid = objRequestIdList.Engineerid;
-                    vEnggPartsReturnByRequestNumber_For_MobileObj.RequestNumber = parameters.RequestNumber;
+                    vEnggPartsReturnByRequestNumber_For_MobileObj.RequestNumber = parameters.SearchText;
                     vEnggPartsReturnByRequestNumber_For_MobileObj.Total_RequiredQty = objRequestIdList.Total_RequiredQty;
                     vEnggPartsReturnByRequestNumber_For_MobileObj.Total_AllocatedQty = objRequestIdList.Total_AllocatedQty;
                     vEnggPartsReturnByRequestNumber_For_MobileObj.Total_ReceivedQty = objRequestIdList.Total_ReceivedQty;
@@ -512,6 +512,7 @@ namespace CLN.API.Controllers
                             SpareDetailsId = Convert.ToInt32(item.SpareDetailsId),
                             UniqueCode = Convert.ToString(item.UniqueCode),
                             SpareDesc = Convert.ToString(item.SpareDesc),
+
                             RequiredQty = Convert.ToInt32(item.Total_RequiredQty),
                             AllocatedQty = Convert.ToInt32(item.Total_AllocatedQty),
                             ReceivedQty = Convert.ToInt32(item.Total_ReceivedQty),
@@ -630,6 +631,19 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        #endregion
+
+        #region RGP Tracker
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEngineerPartReturnPendingListByRequestNumber(EnggPendingPartsReturn_Search parameters)
+        {
+            var objList = await _manageStockRepository.GetEngineerPartReturnPendingList_Engineer_N_TRC(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
 
         #endregion
 
@@ -651,6 +665,30 @@ namespace CLN.API.Controllers
         //    }
         //    return _response;
         //}
+
+        #endregion
+
+        #region Order Received Engineer
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetOrderReceivedEngineerList(OrderReceivedEngineer_Search parameters)
+        {
+            var objList = await _manageStockRepository.GetOrderReceivedEngineerList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEngineerOrderListByEngineerId(EngineerOrderListByEngineerId_Search parameters)
+        {
+            var objList = await _manageStockRepository.GetEngineerOrderListByEngineerId(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
 
         #endregion
     }

@@ -69,6 +69,8 @@ namespace CLN.Application.Models
 
         public int? CD_ComplaintTypeId { get; set; }
 
+        public bool? CD_IsNewBattery { get; set; }
+
         public string? CD_BatterySerialNumber { get; set; }
 
         public int? CD_CustomerTypeId { get; set; }
@@ -407,6 +409,7 @@ namespace CLN.Application.Models
 
         public int? CD_ComplaintTypeId { get; set; }
         public string? CD_ComplaintType { get; set; }
+        public bool? CD_IsNewBattery { get; set; }
         public string? CD_BatterySerialNumber { get; set; }
         public int? CD_CustomerTypeId { get; set; }
         public string? CD_CustomerType { get; set; }

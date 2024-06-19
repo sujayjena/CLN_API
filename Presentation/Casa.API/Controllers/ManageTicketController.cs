@@ -294,6 +294,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_IsSiteAddressSameAsCaller = vResultObj.CD_IsSiteAddressSameAsCaller;
                     vManageTicketDetail_Response.CD_ComplaintTypeId = vResultObj.CD_ComplaintTypeId;
                     vManageTicketDetail_Response.CD_ComplaintType = vResultObj.CD_ComplaintType;
+                    vManageTicketDetail_Response.CD_IsNewBattery = vResultObj.CD_IsNewBattery;
                     vManageTicketDetail_Response.CD_BatterySerialNumber = vResultObj.CD_BatterySerialNumber;
                     vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
                     vManageTicketDetail_Response.CD_CustomerType = vResultObj.CD_CustomerType;

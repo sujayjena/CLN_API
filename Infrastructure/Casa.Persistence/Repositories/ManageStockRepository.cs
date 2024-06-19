@@ -329,8 +329,9 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@RequestType", parameters.RequestType);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
-            queryParameters.Add("@RequestNumber", parameters.RequestNumber);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
@@ -345,7 +346,8 @@ namespace CLN.Persistence.Repositories
         public async Task<IEnumerable<EnggSpareDetailsListByRequestNumber_ResponseMobile>> GetEngineerPartRequestDetailByRequestNumber(EnggPartsReturn_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
-            queryParameters.Add("@RequestNumber", parameters.RequestNumber);
+            queryParameters.Add("@RequestType", parameters.RequestType);
+            queryParameters.Add("@RequestNumber", parameters.SearchText.SanitizeValue());
 
             var result = await ListByStoredProcedure<EnggSpareDetailsListByRequestNumber_ResponseMobile>("GetEngineerPartRequestDetailByRequestNumber", queryParameters);
 
@@ -358,7 +360,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
-            queryParameters.Add("@RequestId", parameters.RequestId);
+            queryParameters.Add("@RequestNumber", parameters.RequestNumber);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@ReturnQuantity", parameters.ReturnQuantity);
             queryParameters.Add("@StatusId", parameters.StatusId);
@@ -376,7 +378,7 @@ namespace CLN.Persistence.Repositories
 
                 queryParameters.Add("@Id", parameters.Id);
                 queryParameters.Add("@EngineerId", parameters.EngineerId);
-                queryParameters.Add("@RequestId", parameters.RequestId);
+                queryParameters.Add("@RequestNumber", parameters.RequestNumber);
                 queryParameters.Add("@SpareDetailsId", item.SpareDetailsId);
                 queryParameters.Add("@ReturnQuantity", item.ReturnQuantity);
                 queryParameters.Add("@StatusId", item.StatusId);
@@ -423,7 +425,7 @@ namespace CLN.Persistence.Repositories
                 DynamicParameters queryParameters = new DynamicParameters();
 
                 queryParameters.Add("@Id", item.Id);
-                queryParameters.Add("@RequestId", parameters.RequestId);
+                queryParameters.Add("@RequestNumber", parameters.RequestNumber);
                 queryParameters.Add("@EngineerId", parameters.EngineerId);
                 queryParameters.Add("@SpareDetailsId", item.SpareDetailsId);
                 queryParameters.Add("@StatusId", item.StatusId);
@@ -437,6 +439,24 @@ namespace CLN.Persistence.Repositories
             return i;
         }
 
+        public async Task<IEnumerable<EnggPendingSpareDetailsList_ResponseWeb>> GetEngineerPartReturnPendingList_Engineer_N_TRC(EnggPendingPartsReturn_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@RequestType", parameters.RequestType);
+            queryParameters.Add("@RequestNumber", parameters.RequestNumber);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<EnggPendingSpareDetailsList_ResponseWeb>("GetEngineerPendingPartReturnRequestDetail_Engg_N_TRC", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
         #endregion
 
         #region Stock Master
@@ -447,6 +467,48 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@SpareDetailsId", SpareDetailsId);
 
             return (await ListByStoredProcedure<StockMaster_Response>("GetStockMasterBySpareDetailsId", queryParameters)).FirstOrDefault();
+        }
+
+        public Task<IEnumerable<OrderReceivedEngineer_Response>> GetOrderReceivedEngineerList(EnggPartsReturn_Search parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Order Received Engineer
+
+        public async Task<IEnumerable<OrderReceivedEngineer_Response>> GetOrderReceivedEngineerList(OrderReceivedEngineer_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<OrderReceivedEngineer_Response>("GetEngineerOrderReceivedList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<IEnumerable<EngineerOrderListByEngineerId_Response>> GetEngineerOrderListByEngineerId(EngineerOrderListByEngineerId_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<EngineerOrderListByEngineerId_Response>("GetEngineerOrderListByEngineerId", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
         }
 
         #endregion
