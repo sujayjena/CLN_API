@@ -15,5 +15,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<ProblemReported_Response>> GetProblemReportedList(BaseSearchEntity parameters);
 
         Task<ProblemReported_Response?> GetProblemReportedById(long Id);
+
+        Task<IEnumerable<ProblemReportedByCustDataValidationErrors>> ImportProblemReportedByCustsDetails(List<ImportedProblemReportedByCustDetails> parameters);
     }
 }

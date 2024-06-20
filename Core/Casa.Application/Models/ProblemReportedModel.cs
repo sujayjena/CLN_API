@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,25 @@ namespace CLN.Application.Models
         public string? Segment { get; set; }
         public string? ProblemReported { get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class ImportRequest
+    {
+        public IFormFile FileUpload { get; set; }
+    }
+    public class ProblemReportedByCustDataValidationErrors
+    {
+        public string ProductCategory { get; set; }
+        public string Segment { get; set; }
+        public string ProblemReported { get; set; }
+        public string IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+    public class ImportedProblemReportedByCustDetails
+    {
+        public string ProductCategory { get; set; }
+        public string Segment { get; set; }
+        public string ProblemReported { get; set; }
+        public string IsActive { get; set; }
     }
 }

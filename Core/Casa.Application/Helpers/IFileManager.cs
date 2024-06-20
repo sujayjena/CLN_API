@@ -15,6 +15,8 @@ namespace CLN.Application.Helpers
         byte[]? GetDocumentsInByte(string fileName, string folderPath);
 
         string UploadDocumentsBase64ToFile(string base64String, string folderPath, string? fileName);
+
+        byte[]? GetFormatFileFromPath(string fileName);
     }
 
     public class FileManager : IFileManager
