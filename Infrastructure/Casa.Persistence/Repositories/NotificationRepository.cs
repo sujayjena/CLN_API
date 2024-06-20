@@ -47,7 +47,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
-            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId == 0 ? parameters.UserId : SessionManager.LoggedInUserId);
 
             var result = await ListByStoredProcedure<Notification_Response>("GetNotificationList", queryParameters);
             parameters.Total = queryParameters.Get<int>("Total");

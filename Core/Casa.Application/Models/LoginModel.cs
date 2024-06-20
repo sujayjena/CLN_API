@@ -111,5 +111,6 @@ namespace CLN.Application.Models
         public string? ProfileOriginalFileName { get; set; }
         public string ProfileImageURL { get; set; }
         public List<RoleMaster_Employee_Permission_Response> UserRoleList { get; set; }
+        public List<Notification_Response> UserNotificationList { get; set; }
     }
 }

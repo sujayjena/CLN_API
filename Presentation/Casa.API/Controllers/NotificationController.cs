@@ -13,12 +13,12 @@ namespace CLN.API.Controllers
     public class NotificationController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly INotificationRepository _NotificationRepository;
+        private readonly INotificationRepository _notificationRepository;
         private IFileManager _fileManager;
 
         public NotificationController(INotificationRepository NotificationRepository, IFileManager fileManager)
         {
-            _NotificationRepository = NotificationRepository;
+            _notificationRepository = NotificationRepository;
             _fileManager = fileManager;
 
             _response = new ResponseModel();
@@ -29,7 +29,7 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveNotification(Notification_Request parameters)
         {
-            int result = await _NotificationRepository.SaveNotification(parameters);
+            int result = await _notificationRepository.SaveNotification(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -55,7 +55,7 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> GetNotificationList(Notification_Search parameters)
         {
-            var objList = await _NotificationRepository.GetNotificationList(parameters);
+            var objList = await _notificationRepository.GetNotificationList(parameters);
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -71,7 +71,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _NotificationRepository.GetNotificationById(Id);
+                var vResultObj = await _notificationRepository.GetNotificationById(Id);
 
                 _response.Data = vResultObj;
             }

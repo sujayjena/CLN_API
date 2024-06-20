@@ -19,8 +19,9 @@ namespace CLN.API.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IBranchRepository _branchRepository;
         private readonly ICompanyRepository _companyRepository;
+        private readonly INotificationRepository _notificationRepository;
 
-        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository , IBranchRepository branchRepository, ICompanyRepository companyRepository)
+        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository, IBranchRepository branchRepository, ICompanyRepository companyRepository, INotificationRepository notificationRepository)
         {
             _loginRepository = loginRepository;
             _jwt = jwt;
@@ -28,6 +29,7 @@ namespace CLN.API.Controllers
             _rolePermissionRepository = rolePermissionRepository;
             _branchRepository = branchRepository;
             _companyRepository = companyRepository;
+            _notificationRepository = notificationRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -75,7 +77,15 @@ namespace CLN.API.Controllers
                         string strBrnachIdList = string.Empty;
 
                         var vRoleList = await _rolePermissionRepository.GetRoleMasterEmployeePermissionById(Convert.ToInt64(loginResponse.UserId));
-                        //var vUserNotificationList = await _notificationService.GetNotificationListById(Convert.ToInt64(loginResponse.EmployeeId));
+
+                        // Notification List
+                        var vNotification_SearchObj = new Notification_Search()
+                        {
+                            NotifyDate = null,
+                            UserId = Convert.ToInt32(loginResponse.UserId)
+                        };
+                        var vUserNotificationList = await _notificationRepository.GetNotificationList(vNotification_SearchObj);
+
                         var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(loginResponse.UserId));
                         var vUserBranchMappingDetail = await _branchRepository.GetBranchMappingByEmployeeId(EmployeeId: Convert.ToInt32(loginResponse.UserId), BranchId: 0);
                         if (vUserBranchMappingDetail.ToList().Count > 0)
@@ -112,15 +122,15 @@ namespace CLN.API.Controllers
                             DepartmentId = vUserDetail != null ? Convert.ToInt32(vUserDetail.DepartmentId) : 0,
                             DepartmentName = vUserDetail != null ? vUserDetail.DepartmentName : String.Empty,
                             BranchId = strBrnachIdList,
-                            BranchCanAdd= iBranchCanAdd,
+                            BranchCanAdd = iBranchCanAdd,
                             UserCanAdd = iUserCanAdd,
 
-                            ProfileImage = vUserDetail  != null ? vUserDetail.ProfileImage : String.Empty,
+                            ProfileImage = vUserDetail != null ? vUserDetail.ProfileImage : String.Empty,
                             ProfileOriginalFileName = vUserDetail != null ? vUserDetail.ProfileOriginalFileName : String.Empty,
                             ProfileImageURL = vUserDetail != null ? vUserDetail.ProfileImageURL : String.Empty,
 
                             UserRoleList = vRoleList.ToList(),
-                            //UserNotificationList = vUserNotificationList.ToList()
+                            UserNotificationList = vUserNotificationList.ToList()
                         };
 
                         _response.Data = employeeSessionData;
