@@ -298,6 +298,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_BatterySerialNumber = vResultObj.CD_BatterySerialNumber;
                     vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
                     vManageTicketDetail_Response.CD_CustomerType = vResultObj.CD_CustomerType;
+                    vManageTicketDetail_Response.CD_CustomerNameId = vResultObj.CD_CustomerNameId;
                     vManageTicketDetail_Response.CD_CustomerName = vResultObj.CD_CustomerName;
                     vManageTicketDetail_Response.CD_CustomerMobile = vResultObj.CD_CustomerMobile;
                     vManageTicketDetail_Response.CD_CustomerEmail = vResultObj.CD_CustomerEmail;
@@ -694,7 +695,7 @@ namespace CLN.API.Controllers
                         CD_IsSiteAddressSameAsCaller = vResultEnquiryObj.CD_IsSiteAddressSameAsCaller,
                         CD_BatterySerialNumber = vResultEnquiryObj.CD_BatterySerialNumber,
                         CD_CustomerTypeId = vResultEnquiryObj.CD_CustomerTypeId,
-                        CD_CustomerName = vResultEnquiryObj.CD_CustomerName,
+                        CD_CustomerNameId = vResultEnquiryObj.CD_CustomerNameId,
                         CD_CustomerMobile = vResultEnquiryObj.CD_CustomerMobile,
 
                         CD_CustomerAddressId = vResultEnquiryObj.CD_CustomerAddressId,
@@ -775,7 +776,7 @@ namespace CLN.API.Controllers
                             CD_IsSiteAddressSameAsCaller = vResultEnquiryObj.CD_IsSiteAddressSameAsCaller,
                             CD_BatterySerialNumber = vResultEnquiryObj.CD_BatterySerialNumber,
                             CD_CustomerTypeId = vResultEnquiryObj.CD_CustomerTypeId,
-                            CD_CustomerName = vResultEnquiryObj.CD_CustomerName,
+                            CD_CustomerNameId = vResultEnquiryObj.CD_CustomerNameId,
                             CD_CustomerMobile = vResultEnquiryObj.CD_CustomerMobile,
 
                             CD_CustomerAddressId = vResultEnquiryObj.CD_CustomerAddressId,

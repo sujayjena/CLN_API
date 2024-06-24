@@ -38,7 +38,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_IsSiteAddressSameAsCaller", parameters.CD_IsSiteAddressSameAsCaller);
             queryParameters.Add("@CD_BatterySerialNumber", parameters.CD_BatterySerialNumber);
             queryParameters.Add("@CD_CustomerTypeId", parameters.CD_CustomerTypeId);
-            queryParameters.Add("@CD_CustomerName", parameters.CD_CustomerName);
+            queryParameters.Add("@CD_CustomerNameId", parameters.CD_CustomerNameId);
             queryParameters.Add("@CD_CustomerMobile", parameters.CD_CustomerMobile);
             queryParameters.Add("@CD_CustomerAddressId", parameters.CD_CustomerAddressId);
             queryParameters.Add("@CD_SiteCustomerName", parameters.CD_SiteCustomerName);

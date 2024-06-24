@@ -21,9 +21,12 @@ namespace CLN.Application.Models
     public class ManageFeedback_Response : BaseResponseEntity
     {
         public string? TicketId { get; set; }
-        public string? CustomerName { get; set; }
-        public string? ContactName { get; set; }
-        public string? MobielNo { get; set; }
+        public int? CD_CustomerNameId { get; set; }
+        public string? CD_CustomerName { get; set; }
+        public string? CD_CallerName { get; set; }
+        public string? CD_CustomerMobile { get; set; }
+        public string? TicketSLADays { get; set; }
+
         public string? Rating { get; set; }
         public string? FeedbackDetails { get; set; }
         public bool? IsActive { get; set; }

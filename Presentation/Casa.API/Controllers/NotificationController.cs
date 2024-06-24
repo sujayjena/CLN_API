@@ -63,6 +63,38 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
+        public async Task<ResponseModel> GetNotificationPopupList(Notification_Search parameters)
+        {
+            var vNotificationPopup_ResponseObj = new NotificationPopup_Response();
+
+            var objList = await _notificationRepository.GetNotificationList(parameters);
+
+            vNotificationPopup_ResponseObj.UnReadCount = objList.ToList().Where(x => x.ReadUnread == false).ToList().Count();
+            foreach (var notification in objList)
+            {
+                var vNotification_ResponseObj = new Notification_Response()
+                {
+                    Id = notification.Id,
+                    CustomerEmployeeId = notification.CustomerEmployeeId,
+                    Subject = notification.Subject,
+                    SendTo = notification.SendTo,
+                    Message = notification.Message,
+                    RefValue1 = notification.RefValue1,
+                    RefValue2 = notification.RefValue2,
+                    ReadUnread = notification.ReadUnread,
+                    CreatedDate = notification.CreatedDate,
+                };
+
+                vNotificationPopup_ResponseObj.NotificationList.Add(notification);
+            }
+
+            _response.Data = vNotificationPopup_ResponseObj;
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
         public async Task<ResponseModel> GetNotificationById(int Id)
         {
             if (Id <= 0)

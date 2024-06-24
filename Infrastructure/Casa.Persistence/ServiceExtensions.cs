@@ -71,6 +71,8 @@ namespace CLN.Persistence
             services.AddScoped<ISLARepository, SLARepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IManageFeedbackRepository, ManageFeedbackRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
         }
     }
 }
