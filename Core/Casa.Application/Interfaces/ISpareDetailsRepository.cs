@@ -15,5 +15,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<SpareDetails_Response>> GetSpareDetailsList(SpareDetails_Search parameters);
 
         Task<SpareDetails_Response?> GetSpareDetailsById(int Id);
+
+        Task<IEnumerable<SpareDetails_ImportDataValidation>> ImportProblemReportedByCustsDetails(List<SpareDetails_ImportData> parameters);
     }
 }

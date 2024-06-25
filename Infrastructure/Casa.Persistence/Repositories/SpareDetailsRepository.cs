@@ -58,5 +58,14 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<SpareDetails_Response>("GetSpareDetailsById", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<IEnumerable<SpareDetails_ImportDataValidation>> ImportProblemReportedByCustsDetails(List<SpareDetails_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<SpareDetails_ImportDataValidation>("ImportSpareDetails", queryParameters);
+        }
     }
 }

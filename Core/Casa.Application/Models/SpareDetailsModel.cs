@@ -1,5 +1,6 @@
 ﻿using CLN.Domain.Entities;
 using CLN.Persistence.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,4 +39,33 @@ namespace CLN.Application.Models
         public int? MinQty { get; set; }
         public bool? IsActive { get; set; }
     }
+
+
+    #region Import and Download
+
+    public class SpareDetails_ImportRequest
+    {
+        public IFormFile FileUpload { get; set; }
+    }
+
+    public class SpareDetails_ImportData
+    {
+        public string? PartCode { get; set; }
+        public string Description { get; set; }
+        public string UOM { get; set; }
+        public string MinQty { get; set; }
+        public string IsActive { get; set; }
+    }
+
+    public class SpareDetails_ImportDataValidation
+    {
+        public string? PartCode { get; set; }
+        public string Description { get; set; }
+        public string UOM { get; set; }
+        public string MinQty { get; set; }
+        public string IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+
+    #endregion
 }
