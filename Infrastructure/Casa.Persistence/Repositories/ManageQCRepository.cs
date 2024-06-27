@@ -163,6 +163,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
             queryParameters.Add("@PartCodeId", parameters.PartCodeId);
+            queryParameters.Add("@SerialNumber", parameters.SerialNumber);
             queryParameters.Add("@BatterySerialNumber", parameters.BatterySerialNumber);
             queryParameters.Add("@InvoiceNumber", parameters.InvoiceNumber);
             queryParameters.Add("@ManufacturingDate", parameters.ManufacturingDate);

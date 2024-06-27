@@ -19,6 +19,8 @@ namespace CLN.Application.Models
 
         public int? PartCodeId { get; set; }
 
+        public string? SerialNumber { get; set; }
+
         public string? BatterySerialNumber { get; set; }
 
         public string? InvoiceNumber { get; set; }
@@ -43,6 +45,8 @@ namespace CLN.Application.Models
         public string? PartCode { get; set; }
 
         public string? CustomerCode { get; set; }
+
+        public string? SerialNumber { get; set; }
 
         public string? BatterySerialNumber { get; set; }
 

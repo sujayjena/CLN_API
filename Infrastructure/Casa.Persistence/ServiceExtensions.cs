@@ -72,7 +72,7 @@ namespace CLN.Persistence
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IManageFeedbackRepository, ManageFeedbackRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-
+            services.AddScoped<ITatTimesRepository, TatTimesRepository>();
         }
     }
 }

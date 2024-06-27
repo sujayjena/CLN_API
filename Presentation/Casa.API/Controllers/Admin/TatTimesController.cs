@@ -9,23 +9,23 @@ namespace CLN.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : CustomBaseController
+    public class TatTimesController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly IProductRepository _ProductRepository;
+        private readonly ITatTimesRepository _TatTimesRepository;
 
-        public ProductController(IProductRepository ProductRepository)
+        public TatTimesController(ITatTimesRepository TatTimesRepository)
         {
-            _ProductRepository = ProductRepository;
+            _TatTimesRepository = TatTimesRepository;
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveProduct(Product_Request parameters)
+        public async Task<ResponseModel> SaveTatTimes(TatTimes_Request parameters)
         {
-            int result = await _ProductRepository.SaveProduct(parameters);
+            int result = await _TatTimesRepository.SaveTatTimes(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -46,11 +46,12 @@ namespace CLN.API.Controllers.Admin
             return _response;
         }
 
+
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetProductList(Product_Search parameters)
+        public async Task<ResponseModel> GetTatTimesList(TatTimes_Search parameters)
         {
-            IEnumerable<Product_Response> lstRoles = await _ProductRepository.GetProductList(parameters);
+            IEnumerable<TatTimes_Response> lstRoles = await _TatTimesRepository.GetTatTimesList(parameters);
             _response.Data = lstRoles.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -58,7 +59,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetProductById(int Id)
+        public async Task<ResponseModel> GetTatTimesById(int Id)
         {
             if (Id <= 0)
             {
@@ -66,21 +67,10 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                var vResultObj = await _ProductRepository.GetProductById(Id);
+                var vResultObj = await _TatTimesRepository.GetTatTimesById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
         }
-
-        [Route("[action]")]
-        [HttpPost]
-        public async Task<ResponseModel> GetProduct_Segment_SubSegment_ProductModel_List_ById(Product_Segment_SubSegment_ProductModel_Search parameters)
-        {
-            var vResultObj = await _ProductRepository.GetProduct_Segment_SubSegment_ProductModel_List_ById(parameters);
-            _response.Data = vResultObj;
-
-            return _response;
-        }
-
     }
 }

@@ -25,7 +25,6 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@ProductName", parameters.ProductName);
             queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
             queryParameters.Add("@SegmentId", parameters.SegmentId);
             queryParameters.Add("@SubSegmentId", parameters.SubSegmentId);
@@ -60,6 +59,19 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
 
             return (await ListByStoredProcedure<Product_Response>("GetProductById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<Product_Segment_SubSegment_ProductModel_Response>> GetProduct_Segment_SubSegment_ProductModel_List_ById(Product_Segment_SubSegment_ProductModel_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
+            queryParameters.Add("@SegmentId", parameters.SegmentId);
+            queryParameters.Add("@SubSegmentId", parameters.SubSegmentId);
+            queryParameters.Add("@ProductModelId", parameters.ProductModelId);
+
+            var result = await ListByStoredProcedure<Product_Segment_SubSegment_ProductModel_Response>("GetProduct_Segment_SubSegment_ProductModel_List_ById", queryParameters);
+
+            return result;
         }
     }
 }

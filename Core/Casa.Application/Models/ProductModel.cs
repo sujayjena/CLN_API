@@ -15,7 +15,6 @@ namespace CLN.Application.Models
 
     public class Product_Request : BaseEntity
     {
-        public string? ProductName { get; set; }
         public int? ProductCategoryId { get; set; }
         public string? ProductCategory { get; set; }
         public int? SegmentId { get; set; }
@@ -29,7 +28,6 @@ namespace CLN.Application.Models
 
     public class Product_Response : BaseResponseEntity
     {
-        public string? ProductName { get; set; }
         public int? ProductCategoryId { get; set; }
         public string? ProductCategory { get; set; }
         public int? SegmentId { get; set; }
@@ -40,4 +38,23 @@ namespace CLN.Application.Models
         public string? ProductModel { get; set; }
         public bool? IsActive { get; set; }
     }
+
+
+    public class Product_Segment_SubSegment_ProductModel_Search
+    {
+        public int? ProductCategoryId { get; set; }
+        public int? SegmentId { get; set; }
+        public int? SubSegmentId { get; set; }
+        public int? ProductModelId { get; set; }
+    }
+
+    public class Product_Segment_SubSegment_ProductModel_Response
+    {
+        public int? Id { get; set; }
+
+        public string? Value { get; set; }
+
+        public string? Text { get; set; }
+    }
+
 }
