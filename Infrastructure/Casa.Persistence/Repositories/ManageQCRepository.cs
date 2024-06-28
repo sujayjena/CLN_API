@@ -60,9 +60,10 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CustomerId", parameters.CustomerId);
             queryParameters.Add("@PartCode", parameters.PartCode);
             queryParameters.Add("@CustomerCode", parameters.CustomerCode);
+            queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
             queryParameters.Add("@SegmentId", parameters.SegmentId);
             queryParameters.Add("@SubSegmentId", parameters.SubSegmentId);
-            queryParameters.Add("@ModelNumberId", parameters.ModelNumberId);
+            queryParameters.Add("@ProductModelId", parameters.ProductModelId);
             queryParameters.Add("@DrawingNumber", parameters.DrawingNumber);
             queryParameters.Add("@Warranty", parameters.Warranty);
             queryParameters.Add("@PartImage", parameters.PartImage);

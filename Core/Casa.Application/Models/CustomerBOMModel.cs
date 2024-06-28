@@ -22,11 +22,13 @@ namespace CLN.Application.Models
 
         public string? CustomerCode { get; set; }
 
+        public int? ProductCategoryId { get; set; }
+
         public int? SegmentId { get; set; }
 
         public int? SubSegmentId { get; set; }
 
-        public int? ModelNumberId { get; set; }
+        public int? ProductModelId { get; set; }
 
         public string? DrawingNumber { get; set; }
 
@@ -52,6 +54,10 @@ namespace CLN.Application.Models
 
         public string? CustomerCode { get; set; }
 
+        public int? ProductCategoryId { get; set; }
+
+        public string? ProductCategory { get; set; }
+
         public int? SegmentId { get; set; }
 
         public string? Segment { get; set; }
@@ -60,7 +66,7 @@ namespace CLN.Application.Models
 
         public string? SubSegment { get; set; }
 
-        public int? ModelNumberId { get; set; }
+        public int? ProductModelId { get; set; }
 
         public string? ProductModel { get; set; }
 
