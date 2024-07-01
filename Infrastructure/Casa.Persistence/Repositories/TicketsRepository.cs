@@ -65,6 +65,10 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TicketStatus", parameters.TicketStatus.SanitizeValue());
             queryParameters.Add("@SequenceNo", parameters.SequenceNo);
+            queryParameters.Add("@TicketCategoryId", parameters.TicketCategoryId);
+            queryParameters.Add("@SLADays", parameters.SLADays);
+            queryParameters.Add("@SLAHours", parameters.SLAHours);
+            queryParameters.Add("@SLAMin", parameters.SLAMin);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

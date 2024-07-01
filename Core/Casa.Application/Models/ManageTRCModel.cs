@@ -74,7 +74,7 @@ namespace CLN.Application.Models
 
         public int? CD_CustomerTypeId { get; set; }
 
-        public string? CD_CustomerName { get; set; }
+        public int? CD_CustomerNameId { get; set; }
 
         public string? CD_CustomerMobile { get; set; }
 
@@ -290,6 +290,7 @@ namespace CLN.Application.Models
 
         public int? CD_CustomerTypeId { get; set; }
         public string? CD_CustomerType { get; set; }
+        public int? CD_CustomerNameId { get; set; }
         public string? CD_CustomerName { get; set; }
         public string? CD_CustomerMobile { get; set; }
 
@@ -348,6 +349,7 @@ namespace CLN.Application.Models
         public string? CD_BatterySerialNumber { get; set; }
         public int? CD_CustomerTypeId { get; set; }
         public string? CD_CustomerType { get; set; }
+        public int? CD_CustomerNameId { get; set; }
         public string? CD_CustomerName { get; set; }
         public string? CD_CustomerMobile { get; set; }
 

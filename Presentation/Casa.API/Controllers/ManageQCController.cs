@@ -191,7 +191,7 @@ namespace CLN.API.Controllers
         {
             if (string.IsNullOrWhiteSpace(parameters.PartCode))
             {
-                _response.Message = "SerialNumber is required!";
+                _response.Message = "PartCode is required!";
 
                 return _response;
             }

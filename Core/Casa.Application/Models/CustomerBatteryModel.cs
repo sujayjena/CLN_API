@@ -34,7 +34,7 @@ namespace CLN.Application.Models
         public bool? IsActive { get; set; }
     }
 
-    public class CustomerBattery_Response : BaseEntity
+    public class CustomerBattery_Response : BaseResponseEntity
     {
         public int? CustomerId { get; set; }
 

@@ -26,7 +26,10 @@ namespace CLN.Application.Models
     {
         public string? TicketStatus { get; set; }
         public int SequenceNo { get; set; }
-
+        public int? TicketCategoryId { get; set; }
+        public string? SLADays { get; set; }
+        public string? SLAHours { get; set; }
+        public string? SLAMin { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -34,6 +37,11 @@ namespace CLN.Application.Models
     {
         public string? TicketStatus { get; set; }
         public int SequenceNo { get; set; }
+        public int? TicketCategoryId { get; set; }
+        public string? TicketCategory { get; set; }
+        public string? SLADays { get; set; }
+        public string? SLAHours { get; set; }
+        public string? SLAMin { get; set; }
         public bool? IsActive { get; set; }
     }
 
