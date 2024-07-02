@@ -101,6 +101,8 @@ namespace CLN.API.Controllers.Admin
             {
                 _response.Message = "Record details saved sucessfully";
             }
+
+            _response.Id = result;
             return _response;
         }
 
