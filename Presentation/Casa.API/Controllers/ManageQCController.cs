@@ -265,7 +265,7 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveBattery(CustomerBattery_Request parameters)
         {
-            if (string.IsNullOrWhiteSpace(parameters.BatterySerialNumber))
+            if (string.IsNullOrWhiteSpace(parameters.ProductSerialNumber))
             {
                 _response.Message = "SerialNumber is required!";
 
@@ -285,6 +285,10 @@ namespace CLN.API.Controllers
             else if (result == (int)SaveOperationEnums.NoResult)
             {
                 _response.Message = "Something went wrong, please try again";
+            }
+            else if (result == -3)
+            {
+                _response.Message = "Product Serial Number already exists";
             }
             else
             {

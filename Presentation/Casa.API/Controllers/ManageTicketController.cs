@@ -86,7 +86,7 @@ namespace CLN.API.Controllers
             // Set Status if id zero for new record
             if (parameters.Id == 0)
             {
-                parameters.TicketStatusFromId = 1;
+                parameters.TicketStatusId = 1;
             }
 
             // Save/Update
@@ -207,7 +207,7 @@ namespace CLN.API.Controllers
                     {
                         Id = Convert.ToInt32(item.Id),
                         TicketId = result,
-                        SpareDetailsId= item.SpareDetailsId,
+                        SpareDetailsId = item.SpareDetailsId,
                         Quantity = item.Quantity,
                         PartStatusId = item.PartStatusId,
                     };
@@ -272,7 +272,7 @@ namespace CLN.API.Controllers
 
                     vManageTicketDetail_Response.CD_LoggingSourceId = vResultObj.CD_LoggingSourceId;
                     vManageTicketDetail_Response.CD_LoggingSourceChannel = vResultObj.CD_LoggingSourceChannel;
-                    
+
                     vManageTicketDetail_Response.CD_CallerTypeId = vResultObj.CD_CallerTypeId;
                     vManageTicketDetail_Response.CD_CallerType = vResultObj.CD_CallerType;
                     vManageTicketDetail_Response.CD_CallerName = vResultObj.CD_CallerName;
@@ -295,8 +295,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_IsSiteAddressSameAsCaller = vResultObj.CD_IsSiteAddressSameAsCaller;
                     vManageTicketDetail_Response.CD_ComplaintTypeId = vResultObj.CD_ComplaintTypeId;
                     vManageTicketDetail_Response.CD_ComplaintType = vResultObj.CD_ComplaintType;
-                    vManageTicketDetail_Response.CD_IsNewBattery = vResultObj.CD_IsNewBattery;
-                    vManageTicketDetail_Response.CD_BatterySerialNumber = vResultObj.CD_BatterySerialNumber;
+                    vManageTicketDetail_Response.CD_IsOldProduct = vResultObj.CD_IsOldProduct;
+                    vManageTicketDetail_Response.CD_ProductSerialNumber = vResultObj.CD_ProductSerialNumber;
                     vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
                     vManageTicketDetail_Response.CD_CustomerType = vResultObj.CD_CustomerType;
                     vManageTicketDetail_Response.CD_CustomerNameId = vResultObj.CD_CustomerNameId;
@@ -332,13 +332,15 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_SiteCustomerCityName = vResultObj.CD_SiteCustomerCityName;
                     vManageTicketDetail_Response.CD_SiteCustomerPinCode = vResultObj.CD_SiteCustomerPinCode;
 
-                    vManageTicketDetail_Response.BD_BatteryPartCode = vResultObj.BD_BatteryPartCode;
+                    vManageTicketDetail_Response.BD_BatteryBOMNumber = vResultObj.BD_BatteryBOMNumber;
+                    vManageTicketDetail_Response.BD_BatteryProductCategoryId = vResultObj.BD_BatteryProductCategoryId;
+                    vManageTicketDetail_Response.BD_ProductCategory = vResultObj.BD_ProductCategory;
                     vManageTicketDetail_Response.BD_BatterySegmentId = vResultObj.BD_BatterySegmentId;
                     vManageTicketDetail_Response.BD_Segment = vResultObj.BD_Segment;
                     vManageTicketDetail_Response.BD_BatterySubSegmentId = vResultObj.BD_BatterySubSegmentId;
                     vManageTicketDetail_Response.BD_SubSegment = vResultObj.BD_SubSegment;
-                    vManageTicketDetail_Response.BD_BatterySpecificationId = vResultObj.BD_BatterySpecificationId;
-                    vManageTicketDetail_Response.BD_BatterySpecification = vResultObj.BD_BatterySpecification;
+                    vManageTicketDetail_Response.BD_BatteryProductModelId = vResultObj.BD_BatteryProductModelId;
+                    vManageTicketDetail_Response.BD_ProductModel = vResultObj.BD_ProductModel;
                     vManageTicketDetail_Response.BD_BatteryCellChemistryId = vResultObj.BD_BatteryCellChemistryId;
                     vManageTicketDetail_Response.BD_CellChemistry = vResultObj.BD_CellChemistry;
                     vManageTicketDetail_Response.BD_DateofManufacturing = vResultObj.BD_DateofManufacturing;
@@ -405,11 +407,8 @@ namespace CLN.API.Controllers
 
                     vManageTicketDetail_Response.OV_IsMoveToTRC = vResultObj.OV_IsMoveToTRC;
 
-                    vManageTicketDetail_Response.TicketStatusFromId = vResultObj.TicketStatusFromId;
-                    vManageTicketDetail_Response.TicketStatusFrom = vResultObj.TicketStatusFrom;
-
-                    vManageTicketDetail_Response.TicketStatusToId = vResultObj.TicketStatusToId;
-                    vManageTicketDetail_Response.TicketStatusTo = vResultObj.TicketStatusTo;
+                    vManageTicketDetail_Response.TicketStatusId = vResultObj.TicketStatusId;
+                    vManageTicketDetail_Response.TicketStatus = vResultObj.TicketStatus;
 
                     vManageTicketDetail_Response.IsActive = vResultObj.IsActive;
 
@@ -429,7 +428,7 @@ namespace CLN.API.Controllers
                         {
                             Id = item.Id,
                             TicketId = item.TicketId,
-                            SpareDetailsId= item.SpareDetailsId,
+                            SpareDetailsId = item.SpareDetailsId,
                             UniqueCode = item.UniqueCode,
                             SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
@@ -654,180 +653,180 @@ namespace CLN.API.Controllers
             return _response;
         }
 
-        [Route("[action]")]
-        [HttpPost]
-        public async Task<ResponseModel> SaveEnquiryConvertToTicket(int EnquiryId)
-        {
-            if (EnquiryId <= 0)
-            {
-                _response.Message = "Id is required";
-            }
-            else
-            {
-                var vResultEnquiryObj = await _manageEnquiryRepository.GetManageEnquiryById(EnquiryId);
-                if (vResultEnquiryObj != null)
-                {
-                    if (vResultEnquiryObj.IsConvertToTicket == true)
-                    {
-                        _response.Message = "The Enquiry already converted into tickets. Please try another enquiry";
+        //[Route("[action]")]
+        //[HttpPost]
+        //public async Task<ResponseModel> SaveEnquiryConvertToTicket(int EnquiryId)
+        //{
+        //    if (EnquiryId <= 0)
+        //    {
+        //        _response.Message = "Id is required";
+        //    }
+        //    else
+        //    {
+        //        var vResultEnquiryObj = await _manageEnquiryRepository.GetManageEnquiryById(EnquiryId);
+        //        if (vResultEnquiryObj != null)
+        //        {
+        //            if (vResultEnquiryObj.IsConvertToTicket == true)
+        //            {
+        //                _response.Message = "The Enquiry already converted into tickets. Please try another enquiry";
 
-                        return _response;
-                    }
+        //                return _response;
+        //            }
 
-                    var vManageTicket_Request = new ManageTicket_Request()
-                    {
-                        TicketdDate = DateTime.Now,
-                        TicketdTime = DateTime.Now.ToLongTimeString(),
+        //            var vManageTicket_Request = new ManageTicket_Request()
+        //            {
+        //                //TicketdDate = DateTime.Now,
+        //                //TicketdTime = DateTime.Now.ToLongTimeString(),
 
-                        CD_LoggingSourceId = vResultEnquiryObj.CD_LoggingSourceId,
-                        CD_CallerTypeId = vResultEnquiryObj.CD_CallerTypeId,
-                        CD_CallerName = vResultEnquiryObj.CD_CallerName,
-                        CD_CallerMobile = vResultEnquiryObj.CD_CallerMobile,
-                        CD_CallerEmailId = vResultEnquiryObj.CD_CallerEmailId,
+        //                CD_LoggingSourceId = vResultEnquiryObj.CD_LoggingSourceId,
+        //                CD_CallerTypeId = vResultEnquiryObj.CD_CallerTypeId,
+        //                CD_CallerName = vResultEnquiryObj.CD_CallerName,
+        //                CD_CallerMobile = vResultEnquiryObj.CD_CallerMobile,
+        //                CD_CallerEmailId = vResultEnquiryObj.CD_CallerEmailId,
 
-                        CD_CallerAddressId = vResultEnquiryObj.CD_CallerAddressId,
-                        CD_CallerAddress1 = vResultEnquiryObj.CD_CallerAddress1,
-                        CD_CallerRegionId = vResultEnquiryObj.CD_CallerRegionId,
-                        CD_CallerStateId = vResultEnquiryObj.CD_CallerStateId,
-                        CD_CallerDistrictId = vResultEnquiryObj.CD_CallerDistrictId,
-                        CD_CallerCityId = vResultEnquiryObj.CD_CallerCityId,
-                        CD_CallerPinCode = vResultEnquiryObj.CD_CallerPinCode,
-                        CD_CallerRemarks = vResultEnquiryObj.CD_CallerRemarks,
+        //                CD_CallerAddressId = vResultEnquiryObj.CD_CallerAddressId,
+        //                CD_CallerAddress1 = vResultEnquiryObj.CD_CallerAddress1,
+        //                CD_CallerRegionId = vResultEnquiryObj.CD_CallerRegionId,
+        //                CD_CallerStateId = vResultEnquiryObj.CD_CallerStateId,
+        //                CD_CallerDistrictId = vResultEnquiryObj.CD_CallerDistrictId,
+        //                CD_CallerCityId = vResultEnquiryObj.CD_CallerCityId,
+        //                CD_CallerPinCode = vResultEnquiryObj.CD_CallerPinCode,
+        //                CD_CallerRemarks = vResultEnquiryObj.CD_CallerRemarks,
 
-                        CD_IsSiteAddressSameAsCaller = vResultEnquiryObj.CD_IsSiteAddressSameAsCaller,
-                        CD_BatterySerialNumber = vResultEnquiryObj.CD_BatterySerialNumber,
-                        CD_CustomerTypeId = vResultEnquiryObj.CD_CustomerTypeId,
-                        CD_CustomerNameId = vResultEnquiryObj.CD_CustomerNameId,
-                        CD_CustomerMobile = vResultEnquiryObj.CD_CustomerMobile,
+        //                CD_IsSiteAddressSameAsCaller = vResultEnquiryObj.CD_IsSiteAddressSameAsCaller,
+        //                CD_BatterySerialNumber = vResultEnquiryObj.CD_BatterySerialNumber,
+        //                CD_CustomerTypeId = vResultEnquiryObj.CD_CustomerTypeId,
+        //                CD_CustomerNameId = vResultEnquiryObj.CD_CustomerNameId,
+        //                CD_CustomerMobile = vResultEnquiryObj.CD_CustomerMobile,
 
-                        CD_CustomerAddressId = vResultEnquiryObj.CD_CustomerAddressId,
-                        CD_CustomerAddress1 = vResultEnquiryObj.CD_CustomerAddress1,
-                        CD_CustomerRegionId = vResultEnquiryObj.CD_CustomerRegionId,
-                        CD_CustomerStateId = vResultEnquiryObj.CD_CustomerStateId,
-                        CD_CustomerDistrictId = vResultEnquiryObj.CD_CustomerDistrictId,
-                        CD_CustomerCityId = vResultEnquiryObj.CD_CustomerCityId,
-                        CD_CustomerPinCode = vResultEnquiryObj.CD_CustomerPinCode,
+        //                CD_CustomerAddressId = vResultEnquiryObj.CD_CustomerAddressId,
+        //                CD_CustomerAddress1 = vResultEnquiryObj.CD_CustomerAddress1,
+        //                CD_CustomerRegionId = vResultEnquiryObj.CD_CustomerRegionId,
+        //                CD_CustomerStateId = vResultEnquiryObj.CD_CustomerStateId,
+        //                CD_CustomerDistrictId = vResultEnquiryObj.CD_CustomerDistrictId,
+        //                CD_CustomerCityId = vResultEnquiryObj.CD_CustomerCityId,
+        //                CD_CustomerPinCode = vResultEnquiryObj.CD_CustomerPinCode,
 
-                        CD_SiteCustomerName = vResultEnquiryObj.CD_SiteCustomerName,
-                        CD_SiteContactName = vResultEnquiryObj.CD_SiteContactName,
-                        CD_SitContactMobile = vResultEnquiryObj.CD_SitContactMobile,
+        //                CD_SiteCustomerName = vResultEnquiryObj.CD_SiteCustomerName,
+        //                CD_SiteContactName = vResultEnquiryObj.CD_SiteContactName,
+        //                CD_SitContactMobile = vResultEnquiryObj.CD_SitContactMobile,
 
-                        CD_SiteAddressId = vResultEnquiryObj.CD_SiteAddressId,
-                        CD_SiteCustomerAddress1 = vResultEnquiryObj.CD_SiteCustomerAddress1,
-                        CD_SiteCustomerRegionId = vResultEnquiryObj.CD_SiteCustomerRegionId,
-                        CD_SiteCustomerStateId = vResultEnquiryObj.CD_SiteCustomerStateId,
-                        CD_SiteCustomerDistrictId = vResultEnquiryObj.CD_SiteCustomerDistrictId,
-                        CD_SiteCustomerCityId = vResultEnquiryObj.CD_SiteCustomerCityId,
-                        CD_SiteCustomerPinCode = vResultEnquiryObj.CD_SiteCustomerPinCode,
+        //                CD_SiteAddressId = vResultEnquiryObj.CD_SiteAddressId,
+        //                CD_SiteCustomerAddress1 = vResultEnquiryObj.CD_SiteCustomerAddress1,
+        //                CD_SiteCustomerRegionId = vResultEnquiryObj.CD_SiteCustomerRegionId,
+        //                CD_SiteCustomerStateId = vResultEnquiryObj.CD_SiteCustomerStateId,
+        //                CD_SiteCustomerDistrictId = vResultEnquiryObj.CD_SiteCustomerDistrictId,
+        //                CD_SiteCustomerCityId = vResultEnquiryObj.CD_SiteCustomerCityId,
+        //                CD_SiteCustomerPinCode = vResultEnquiryObj.CD_SiteCustomerPinCode,
 
-                        BD_BatteryPartCode = vResultEnquiryObj.BD_BatteryPartCode,
-                        BD_BatterySegmentId = vResultEnquiryObj.BD_BatterySegmentId,
-                        BD_BatterySubSegmentId = vResultEnquiryObj.BD_BatterySubSegmentId,
-                        BD_BatterySpecificationId = vResultEnquiryObj.BD_BatterySpecificationId,
-                        BD_BatteryCellChemistryId = vResultEnquiryObj.BD_BatteryCellChemistryId,
-                        BD_DateofManufacturing = vResultEnquiryObj.BD_DateofManufacturing,
-                        BD_ProbReportedByCustId = vResultEnquiryObj.BD_ProbReportedByCustId,
-                        BD_WarrantyStartDate = vResultEnquiryObj.BD_WarrantyStartDate,
-                        BD_WarrantyEndDate = vResultEnquiryObj.BD_WarrantyEndDate,
-                        BD_WarrantyStatusId = vResultEnquiryObj.BD_WarrantyStatusId,
-                        BD_TechnicalSupportEnggId = vResultEnquiryObj.BD_TechnicalSupportEnggId,
+        //                BD_BatteryBOMNumber = vResultEnquiryObj.BD_BatteryBOMNumber,
+        //                BD_BatterySegmentId = vResultEnquiryObj.BD_BatterySegmentId,
+        //                BD_BatterySubSegmentId = vResultEnquiryObj.BD_BatterySubSegmentId,
+        //                BD_BatteryProductModelId = vResultEnquiryObj.BD_BatteryProductModelId,
+        //                BD_BatteryCellChemistryId = vResultEnquiryObj.BD_BatteryCellChemistryId,
+        //                BD_DateofManufacturing = vResultEnquiryObj.BD_DateofManufacturing,
+        //                BD_ProbReportedByCustId = vResultEnquiryObj.BD_ProbReportedByCustId,
+        //                BD_WarrantyStartDate = vResultEnquiryObj.BD_WarrantyStartDate,
+        //                BD_WarrantyEndDate = vResultEnquiryObj.BD_WarrantyEndDate,
+        //                BD_WarrantyStatusId = vResultEnquiryObj.BD_WarrantyStatusId,
+        //                BD_TechnicalSupportEnggId = vResultEnquiryObj.BD_TechnicalSupportEnggId,
 
-                        TicketStatusFromId = 1,
-                        EnquiryId = vResultEnquiryObj.Id,
-                    };
+        //                TicketStatusFromId = 1,
+        //                EnquiryId = vResultEnquiryObj.Id,
+        //            };
 
 
-                    int result = await _manageTicketRepository.SaveManageTicket(vManageTicket_Request);
+        //            int result = await _manageTicketRepository.SaveManageTicket(vManageTicket_Request);
 
-                    if (result == (int)SaveOperationEnums.NoRecordExists)
-                    {
-                        _response.Message = "No record exists";
-                    }
-                    else if (result == (int)SaveOperationEnums.ReocrdExists)
-                    {
-                        _response.Message = "Record already exists";
-                    }
-                    else if (result == (int)SaveOperationEnums.NoResult)
-                    {
-                        _response.Message = "Something went wrong, please try again";
-                    }
-                    else
-                    {
-                        var vManageEnquiry_Request = new ManageEnquiry_Request()
-                        {
-                            Id = vResultEnquiryObj.Id,
-                            EnquiryNumber = vResultEnquiryObj.EnquiryNumber,
-                            EnquiryDate = DateTime.Now,
-                            EnquiryTime = DateTime.Now.ToLongTimeString(),
+        //            if (result == (int)SaveOperationEnums.NoRecordExists)
+        //            {
+        //                _response.Message = "No record exists";
+        //            }
+        //            else if (result == (int)SaveOperationEnums.ReocrdExists)
+        //            {
+        //                _response.Message = "Record already exists";
+        //            }
+        //            else if (result == (int)SaveOperationEnums.NoResult)
+        //            {
+        //                _response.Message = "Something went wrong, please try again";
+        //            }
+        //            else
+        //            {
+        //                var vManageEnquiry_Request = new ManageEnquiry_Request()
+        //                {
+        //                    Id = vResultEnquiryObj.Id,
+        //                    EnquiryNumber = vResultEnquiryObj.EnquiryNumber,
+        //                    EnquiryDate = DateTime.Now,
+        //                    EnquiryTime = DateTime.Now.ToLongTimeString(),
 
-                            CD_LoggingSourceId = vResultEnquiryObj.CD_LoggingSourceId,
-                            CD_CallerTypeId = vResultEnquiryObj.CD_CallerTypeId,
-                            CD_CallerName = vResultEnquiryObj.CD_CallerName,
-                            CD_CallerMobile = vResultEnquiryObj.CD_CallerMobile,
-                            CD_CallerEmailId = vResultEnquiryObj.CD_CallerEmailId,
+        //                    CD_LoggingSourceId = vResultEnquiryObj.CD_LoggingSourceId,
+        //                    CD_CallerTypeId = vResultEnquiryObj.CD_CallerTypeId,
+        //                    CD_CallerName = vResultEnquiryObj.CD_CallerName,
+        //                    CD_CallerMobile = vResultEnquiryObj.CD_CallerMobile,
+        //                    CD_CallerEmailId = vResultEnquiryObj.CD_CallerEmailId,
 
-                            CD_CallerAddressId = vResultEnquiryObj.CD_CallerAddressId,
-                            CD_CallerAddress1 = vResultEnquiryObj.CD_CallerAddress1,
-                            CD_CallerRegionId = vResultEnquiryObj.CD_CallerRegionId,
-                            CD_CallerStateId = vResultEnquiryObj.CD_CallerStateId,
-                            CD_CallerDistrictId = vResultEnquiryObj.CD_CallerDistrictId,
-                            CD_CallerCityId = vResultEnquiryObj.CD_CallerCityId,
-                            CD_CallerPinCode = vResultEnquiryObj.CD_CallerPinCode,
-                            CD_CallerRemarks = vResultEnquiryObj.CD_CallerRemarks,
+        //                    CD_CallerAddressId = vResultEnquiryObj.CD_CallerAddressId,
+        //                    CD_CallerAddress1 = vResultEnquiryObj.CD_CallerAddress1,
+        //                    CD_CallerRegionId = vResultEnquiryObj.CD_CallerRegionId,
+        //                    CD_CallerStateId = vResultEnquiryObj.CD_CallerStateId,
+        //                    CD_CallerDistrictId = vResultEnquiryObj.CD_CallerDistrictId,
+        //                    CD_CallerCityId = vResultEnquiryObj.CD_CallerCityId,
+        //                    CD_CallerPinCode = vResultEnquiryObj.CD_CallerPinCode,
+        //                    CD_CallerRemarks = vResultEnquiryObj.CD_CallerRemarks,
 
-                            CD_IsSiteAddressSameAsCaller = vResultEnquiryObj.CD_IsSiteAddressSameAsCaller,
-                            CD_BatterySerialNumber = vResultEnquiryObj.CD_BatterySerialNumber,
-                            CD_CustomerTypeId = vResultEnquiryObj.CD_CustomerTypeId,
-                            CD_CustomerNameId = vResultEnquiryObj.CD_CustomerNameId,
-                            CD_CustomerMobile = vResultEnquiryObj.CD_CustomerMobile,
+        //                    CD_IsSiteAddressSameAsCaller = vResultEnquiryObj.CD_IsSiteAddressSameAsCaller,
+        //                    CD_BatterySerialNumber = vResultEnquiryObj.CD_BatterySerialNumber,
+        //                    CD_CustomerTypeId = vResultEnquiryObj.CD_CustomerTypeId,
+        //                    CD_CustomerNameId = vResultEnquiryObj.CD_CustomerNameId,
+        //                    CD_CustomerMobile = vResultEnquiryObj.CD_CustomerMobile,
 
-                            CD_CustomerAddressId = vResultEnquiryObj.CD_CustomerAddressId,
-                            CD_CustomerAddress1 = vResultEnquiryObj.CD_CustomerAddress1,
-                            CD_CustomerRegionId = vResultEnquiryObj.CD_CustomerRegionId,
-                            CD_CustomerStateId = vResultEnquiryObj.CD_CustomerStateId,
-                            CD_CustomerDistrictId = vResultEnquiryObj.CD_CustomerDistrictId,
-                            CD_CustomerCityId = vResultEnquiryObj.CD_CustomerCityId,
-                            CD_CustomerPinCode = vResultEnquiryObj.CD_CustomerPinCode,
+        //                    CD_CustomerAddressId = vResultEnquiryObj.CD_CustomerAddressId,
+        //                    CD_CustomerAddress1 = vResultEnquiryObj.CD_CustomerAddress1,
+        //                    CD_CustomerRegionId = vResultEnquiryObj.CD_CustomerRegionId,
+        //                    CD_CustomerStateId = vResultEnquiryObj.CD_CustomerStateId,
+        //                    CD_CustomerDistrictId = vResultEnquiryObj.CD_CustomerDistrictId,
+        //                    CD_CustomerCityId = vResultEnquiryObj.CD_CustomerCityId,
+        //                    CD_CustomerPinCode = vResultEnquiryObj.CD_CustomerPinCode,
 
-                            CD_SiteCustomerName = vResultEnquiryObj.CD_SiteCustomerName,
-                            CD_SiteContactName = vResultEnquiryObj.CD_SiteContactName,
-                            CD_SitContactMobile = vResultEnquiryObj.CD_SitContactMobile,
+        //                    CD_SiteCustomerName = vResultEnquiryObj.CD_SiteCustomerName,
+        //                    CD_SiteContactName = vResultEnquiryObj.CD_SiteContactName,
+        //                    CD_SitContactMobile = vResultEnquiryObj.CD_SitContactMobile,
 
-                            CD_SiteAddressId = vResultEnquiryObj.CD_SiteAddressId,
-                            CD_SiteCustomerAddress1 = vResultEnquiryObj.CD_SiteCustomerAddress1,
-                            CD_SiteCustomerRegionId = vResultEnquiryObj.CD_SiteCustomerRegionId,
-                            CD_SiteCustomerStateId = vResultEnquiryObj.CD_SiteCustomerStateId,
-                            CD_SiteCustomerDistrictId = vResultEnquiryObj.CD_SiteCustomerDistrictId,
-                            CD_SiteCustomerCityId = vResultEnquiryObj.CD_SiteCustomerCityId,
-                            CD_SiteCustomerPinCode = vResultEnquiryObj.CD_SiteCustomerPinCode,
+        //                    CD_SiteAddressId = vResultEnquiryObj.CD_SiteAddressId,
+        //                    CD_SiteCustomerAddress1 = vResultEnquiryObj.CD_SiteCustomerAddress1,
+        //                    CD_SiteCustomerRegionId = vResultEnquiryObj.CD_SiteCustomerRegionId,
+        //                    CD_SiteCustomerStateId = vResultEnquiryObj.CD_SiteCustomerStateId,
+        //                    CD_SiteCustomerDistrictId = vResultEnquiryObj.CD_SiteCustomerDistrictId,
+        //                    CD_SiteCustomerCityId = vResultEnquiryObj.CD_SiteCustomerCityId,
+        //                    CD_SiteCustomerPinCode = vResultEnquiryObj.CD_SiteCustomerPinCode,
 
-                            BD_BatteryPartCode = vResultEnquiryObj.BD_BatteryPartCode,
-                            BD_BatterySegmentId = vResultEnquiryObj.BD_BatterySegmentId,
-                            BD_BatterySubSegmentId = vResultEnquiryObj.BD_BatterySubSegmentId,
-                            BD_BatterySpecificationId = vResultEnquiryObj.BD_BatterySpecificationId,
-                            BD_BatteryCellChemistryId = vResultEnquiryObj.BD_BatteryCellChemistryId,
-                            BD_DateofManufacturing = vResultEnquiryObj.BD_DateofManufacturing,
-                            BD_ProbReportedByCustId = vResultEnquiryObj.BD_ProbReportedByCustId,
-                            BD_WarrantyStartDate = vResultEnquiryObj.BD_WarrantyStartDate,
-                            BD_WarrantyEndDate = vResultEnquiryObj.BD_WarrantyEndDate,
-                            BD_WarrantyStatusId = vResultEnquiryObj.BD_WarrantyStatusId,
-                            BD_TechnicalSupportEnggId = vResultEnquiryObj.BD_TechnicalSupportEnggId,
+        //                    BD_BatteryBOMNumber = vResultEnquiryObj.BD_BatteryBOMNumber,
+        //                    BD_BatterySegmentId = vResultEnquiryObj.BD_BatterySegmentId,
+        //                    BD_BatterySubSegmentId = vResultEnquiryObj.BD_BatterySubSegmentId,
+        //                    BD_BatteryProductModelId = vResultEnquiryObj.BD_BatteryProductModelId,
+        //                    BD_BatteryCellChemistryId = vResultEnquiryObj.BD_BatteryCellChemistryId,
+        //                    BD_DateofManufacturing = vResultEnquiryObj.BD_DateofManufacturing,
+        //                    BD_ProbReportedByCustId = vResultEnquiryObj.BD_ProbReportedByCustId,
+        //                    BD_WarrantyStartDate = vResultEnquiryObj.BD_WarrantyStartDate,
+        //                    BD_WarrantyEndDate = vResultEnquiryObj.BD_WarrantyEndDate,
+        //                    BD_WarrantyStatusId = vResultEnquiryObj.BD_WarrantyStatusId,
+        //                    BD_TechnicalSupportEnggId = vResultEnquiryObj.BD_TechnicalSupportEnggId,
 
-                            IsConvertToTicket = true,
-                            IsActive = vResultEnquiryObj.IsActive,
-                        };
+        //                    IsConvertToTicket = true,
+        //                    IsActive = vResultEnquiryObj.IsActive,
+        //                };
 
-                        int resultManageEnquiry = await _manageEnquiryRepository.SaveManageEnquiry(vManageEnquiry_Request);
+        //                int resultManageEnquiry = await _manageEnquiryRepository.SaveManageEnquiry(vManageEnquiry_Request);
 
-                        _response.Message = "Record details saved sucessfully";
-                    }
+        //                _response.Message = "Record details saved sucessfully";
+        //            }
 
-                    _response.Id = result;
-                }
-            }
+        //            _response.Id = result;
+        //        }
+        //    }
 
-            return _response;
-        }
+        //    return _response;
+        //}
 
         #endregion
     }

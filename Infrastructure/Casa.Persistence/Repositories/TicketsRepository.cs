@@ -27,6 +27,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TicketCategory", parameters.TicketCategory.SanitizeValue());
+            queryParameters.Add("@SequenceNo", parameters.SequenceNo);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -66,9 +67,9 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TicketStatus", parameters.TicketStatus.SanitizeValue());
             queryParameters.Add("@SequenceNo", parameters.SequenceNo);
             queryParameters.Add("@TicketCategoryId", parameters.TicketCategoryId);
-            queryParameters.Add("@SLADays", parameters.SLADays);
-            queryParameters.Add("@SLAHours", parameters.SLAHours);
-            queryParameters.Add("@SLAMin", parameters.SLAMin);
+            //queryParameters.Add("@SLADays", parameters.SLADays);
+            //queryParameters.Add("@SLAHours", parameters.SLAHours);
+            //queryParameters.Add("@SLAMin", parameters.SLAMin);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -133,6 +134,48 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<TicketType_Response>("GetTicketTypeById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region Ticket Status
+        public async Task<int> SaveTicketStatusMatrix(TicketStatusMatrix_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
+            queryParameters.Add("@TicketCategoryId", parameters.TicketCategoryId);
+            queryParameters.Add("@SequenceNo", parameters.SequenceNo);
+            queryParameters.Add("@SLADays", parameters.SLADays);
+            queryParameters.Add("@SLAHours", parameters.SLAHours);
+            queryParameters.Add("@SLAMin", parameters.SLAMin);
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveTicketStatusMatrix", queryParameters);
+        }
+
+        public async Task<IEnumerable<TicketStatusMatrix_Response>> GetTicketStatusMatrixList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<TicketStatusMatrix_Response>("GetTicketStatusMatrixList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<TicketStatusMatrix_Response?> GetTicketStatusMatrixById(long Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+            return (await ListByStoredProcedure<TicketStatusMatrix_Response>("GetTicketStatusMatrixById", queryParameters)).FirstOrDefault();
         }
 
         #endregion

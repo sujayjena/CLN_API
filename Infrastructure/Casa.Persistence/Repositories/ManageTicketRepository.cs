@@ -26,10 +26,12 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TicketNumber", parameters.TicketNumber);
-            queryParameters.Add("@TicketDate", parameters.TicketdDate);
-            queryParameters.Add("@TicketTime", parameters.TicketdTime);
+            queryParameters.Add("@TicketDate", parameters.TicketDate);
+            queryParameters.Add("@TicketTime", parameters.TicketTime);
             queryParameters.Add("@TicketPriorityId", parameters.TicketPriorityId);
             queryParameters.Add("@TicketSLADays", parameters.TicketSLADays);
+            queryParameters.Add("@TicketSLAHours", parameters.TicketSLAHours);
+            queryParameters.Add("@TicketSLAMin", parameters.TicketSLAMin);
 
             queryParameters.Add("@CD_LoggingSourceId", parameters.CD_LoggingSourceId);
             queryParameters.Add("@CD_CallerTypeId", parameters.CD_CallerTypeId);
@@ -38,11 +40,11 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_CallerEmailId", parameters.CD_CallerEmailId);
             queryParameters.Add("@CD_CallerAddressId", parameters.CD_CallerAddressId);
             queryParameters.Add("@CD_CallerRemarks", parameters.CD_CallerRemarks);
-
             queryParameters.Add("@CD_IsSiteAddressSameAsCaller", parameters.CD_IsSiteAddressSameAsCaller);
             queryParameters.Add("@CD_ComplaintTypeId", parameters.CD_ComplaintTypeId);
-            queryParameters.Add("@CD_IsNewBattery", parameters.CD_IsNewBattery);
-            queryParameters.Add("@CD_BatterySerialNumber", parameters.CD_BatterySerialNumber);
+            queryParameters.Add("@CD_IsOldProduct", parameters.CD_IsOldProduct);
+            queryParameters.Add("@CD_ProductSerialNumberId", parameters.CD_ProductSerialNumberId);
+            queryParameters.Add("@CD_ProductSerialNumber", parameters.CD_ProductSerialNumber);
             queryParameters.Add("@CD_CustomerTypeId", parameters.CD_CustomerTypeId);
             queryParameters.Add("@CD_CustomerNameId", parameters.CD_CustomerNameId);
             queryParameters.Add("@CD_CustomerMobile", parameters.CD_CustomerMobile);
@@ -53,10 +55,11 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_SitContactMobile", parameters.CD_SitContactMobile);
             queryParameters.Add("@CD_SiteAddressId", parameters.CD_SiteAddressId);
 
-            queryParameters.Add("@BD_BatteryPartCode", parameters.BD_BatteryPartCode);
+            queryParameters.Add("@BD_BatteryBOMNumber", parameters.BD_BatteryBOMNumber);
+            queryParameters.Add("@BD_BatteryProductCategoryId", parameters.BD_BatteryProductCategoryId);
             queryParameters.Add("@BD_BatterySegmentId", parameters.BD_BatterySegmentId);
             queryParameters.Add("@BD_BatterySubSegmentId", parameters.BD_BatterySubSegmentId);
-            queryParameters.Add("@BD_BatterySpecificationId", parameters.BD_BatterySpecificationId);
+            queryParameters.Add("@BD_BatteryProductModelId", parameters.BD_BatteryProductModelId);
             queryParameters.Add("@BD_BatteryCellChemistryId", parameters.BD_BatteryCellChemistryId);
             queryParameters.Add("@BD_DateofManufacturing", parameters.BD_DateofManufacturing);
             queryParameters.Add("@BD_ProbReportedByCustId", parameters.BD_ProbReportedByCustId);
@@ -92,7 +95,6 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_BatteryParametersSettingImageOriginalFileName", parameters.CP_BatteryParametersSettingImageOriginalFileName);
             queryParameters.Add("@CP_BMSSoftwareImageFileName", parameters.CP_BMSSoftwareImageFileName);
             queryParameters.Add("@CP_BMSSoftwareImageOriginalFileName", parameters.CP_BMSSoftwareImageOriginalFileName);
-
             queryParameters.Add("@CP_Spare", parameters.CP_Spare);
 
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);
@@ -108,9 +110,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@OV_Signature", parameters.OV_Signature);
             queryParameters.Add("@OV_IsMoveToTRC", parameters.OV_IsMoveToTRC);
 
-            queryParameters.Add("@TicketStatusFromId", parameters.TicketStatusFromId);
-            queryParameters.Add("@TicketStatusToId", parameters.TicketStatusToId);
             queryParameters.Add("@EnquiryId", parameters.EnquiryId);
+            queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

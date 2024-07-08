@@ -41,6 +41,10 @@ namespace CLN.API.Controllers.Admin
             {
                 _response.Message = "Something went wrong, please try again";
             }
+            else if (result == -3)
+            {
+                _response.Message = "Sequence number already exists";
+            }
             else
             {
                 _response.Message = "Record details saved sucessfully";
@@ -111,7 +115,6 @@ namespace CLN.API.Controllers.Admin
             _response.Id = result;
             return _response;
         }
-
 
         [Route("[action]")]
         [HttpPost]
@@ -192,6 +195,67 @@ namespace CLN.API.Controllers.Admin
             else
             {
                 var vResultObj = await _ticketsRepository.GetTicketTypeById(Id);
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        #endregion
+
+        #region Ticket Status Matrix
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveTicketStatusMatrix(TicketStatusMatrix_Request parameters)
+        {
+            int result = await _ticketsRepository.SaveTicketStatusMatrix(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else if (result == -3)
+            {
+                _response.Message = "Sequence number already exists";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+
+            _response.Id = result;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetTicketStatusMatrixList(BaseSearchEntity parameters)
+        {
+            IEnumerable<TicketStatusMatrix_Response> lstRoles = await _ticketsRepository.GetTicketStatusMatrixList(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetTicketStatusMatrixById(long Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _ticketsRepository.GetTicketStatusMatrixById(Id);
                 _response.Data = vResultObj;
             }
             return _response;

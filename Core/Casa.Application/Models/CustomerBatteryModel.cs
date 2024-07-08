@@ -21,7 +21,7 @@ namespace CLN.Application.Models
 
         public string? SerialNumber { get; set; }
 
-        public string? BatterySerialNumber { get; set; }
+        public string? ProductSerialNumber { get; set; }
 
         public string? InvoiceNumber { get; set; }
 
@@ -48,7 +48,7 @@ namespace CLN.Application.Models
 
         public string? SerialNumber { get; set; }
 
-        public string? BatterySerialNumber { get; set; }
+        public string? ProductSerialNumber { get; set; }
 
         public string? InvoiceNumber { get; set; }
 

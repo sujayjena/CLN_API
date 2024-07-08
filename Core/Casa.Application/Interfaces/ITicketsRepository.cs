@@ -33,5 +33,13 @@ namespace CLN.Application.Interfaces
 
         Task<TicketType_Response?> GetTicketTypeById(long Id);
         #endregion
+
+        #region Ticket Status Matrix
+        Task<int> SaveTicketStatusMatrix(TicketStatusMatrix_Request parameters);
+
+        Task<IEnumerable<TicketStatusMatrix_Response>> GetTicketStatusMatrixList(BaseSearchEntity parameters);
+
+        Task<TicketStatusMatrix_Response?> GetTicketStatusMatrixById(long Id);
+        #endregion
     }
 }

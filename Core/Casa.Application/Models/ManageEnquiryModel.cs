@@ -95,13 +95,13 @@ namespace CLN.Application.Models
         public string? CD_SiteCustomerPinCode { get; set; }
 
 
-        public string? BD_BatteryPartCode { get; set; }
-
+        public string? BD_BatteryBOMNumber { get; set; }
+        public int? BD_BatteryProductCategoryId { get; set; }
         public int? BD_BatterySegmentId { get; set; }
 
         public int? BD_BatterySubSegmentId { get; set; }
 
-        public int? BD_BatterySpecificationId { get; set; }
+        public int? BD_BatteryProductModelId { get; set; }
 
         public int? BD_BatteryCellChemistryId { get; set; }
 
@@ -116,6 +116,7 @@ namespace CLN.Application.Models
         public int? BD_WarrantyStatusId { get; set; }
 
         public int? BD_TechnicalSupportEnggId { get; set; }
+
 
         [DefaultValue(false)]
         public bool? IsConvertToTicket { get; set; }
@@ -186,19 +187,22 @@ namespace CLN.Application.Models
         public int? CD_SiteCustomerCityId { get; set; }
         public string? CD_SiteCustomerCityName { get; set; }
         public string? CD_SiteCustomerPinCode { get; set; }
-        public string? BD_BatteryPartCode { get; set; }
 
+        public string? BD_BatteryBOMNumber { get; set; }
+        public int? BD_BatteryProductCategoryId { get; set; }
+        public string? BD_ProductCategory { get; set; }
         public int? BD_BatterySegmentId { get; set; }
         public string? BD_Segment { get; set; }
         public int? BD_BatterySubSegmentId { get; set; }
         public string? BD_SubSegment { get; set; }
-        public int? BD_BatterySpecificationId { get; set; }
-        public string? BD_ProductSpeces { get; set; }
+        public int? BD_BatteryProductModelId { get; set; }
+        public string? BD_ProductModel { get; set; }
+        public string? BD_BatterySpecification { get; set; }
         public int? BD_BatteryCellChemistryId { get; set; }
         public string? BD_CellChemistry { get; set; }
         public DateTime? BD_DateofManufacturing { get; set; }
         public int? BD_ProbReportedByCustId { get; set; }
-        public string? BD_ProblemReported { get; set; }
+        public string? BD_ProbReportedByCust { get; set; }
         public DateTime? BD_WarrantyStartDate { get; set; }
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }

@@ -19,7 +19,7 @@ namespace CLN.Application.Models
 
         public DateTime? HolidayDate { get; set; }
 
-        public int? HolidayDay { get; set; }
+        public int? DaysId { get; set; }
 
         public int? StartTimeHour { get; set; }
 
@@ -32,6 +32,8 @@ namespace CLN.Application.Models
         public int? EndTimeHour { get; set; }
 
         public int? EndTimeMinutes { get; set; }
+
+        public bool? IsHoliday { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -42,7 +44,9 @@ namespace CLN.Application.Models
 
         public DateTime? HolidayDate { get; set; }
 
-        public int? HolidayDay { get; set; }
+        public int? DaysId { get; set; }
+
+        public string Days { get; set; }
 
         public int? StartTimeHour { get; set; }
 
@@ -55,6 +59,8 @@ namespace CLN.Application.Models
         public int? EndTimeHour { get; set; }
 
         public int? EndTimeMinutes { get; set; }
+
+        public bool? IsHoliday { get; set; }
 
         public bool? IsActive { get; set; }
     }

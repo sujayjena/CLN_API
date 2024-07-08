@@ -27,13 +27,14 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@HolidayName", parameters.HolidayName);
             queryParameters.Add("@HolidayDate", parameters.HolidayDate);
-            queryParameters.Add("@HolidayDay", parameters.HolidayDay);
+            queryParameters.Add("@DaysId", parameters.DaysId);
             queryParameters.Add("@StartTimeHour", parameters.StartTimeHour);
             queryParameters.Add("@StartTimeMinutes", parameters.StartTimeMinutes);
             queryParameters.Add("@SlaTimeHour", parameters.SlaTimeHour);
             queryParameters.Add("@SlaTimeMinutes", parameters.SlaTimeMinutes);
             queryParameters.Add("@EndTimeHour", parameters.EndTimeHour);
             queryParameters.Add("@EndTimeMinutes", parameters.EndTimeMinutes);
+            queryParameters.Add("@IsHoliday", parameters.IsHoliday);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
