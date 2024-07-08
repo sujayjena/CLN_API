@@ -47,7 +47,7 @@ namespace CLN.API.Controllers
             }
             else if (result == (int)SaveOperationEnums.ReocrdExists)
             {
-                _response.Message = "Record is already exists";
+                _response.Message = "Record already exists";
             }
             else if (result == (int)SaveOperationEnums.NoResult)
             {
@@ -77,6 +77,7 @@ namespace CLN.API.Controllers
                 }
             }
 
+            _response.Id = result;
             return _response;
         }
 

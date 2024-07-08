@@ -35,7 +35,7 @@ namespace CLN.API.Controllers.Admin
             }
             else if (result == (int)SaveOperationEnums.ReocrdExists)
             {
-                _response.Message = "Record is already exists";
+                _response.Message = "Record already exists";
             }
             else if (result == (int)SaveOperationEnums.NoResult)
             {
@@ -45,6 +45,8 @@ namespace CLN.API.Controllers.Admin
             {
                 _response.Message = "Record details saved sucessfully";
             }
+
+            _response.Id = result;
             return _response;
         }
 
@@ -91,11 +93,15 @@ namespace CLN.API.Controllers.Admin
             }
             else if (result == (int)SaveOperationEnums.ReocrdExists)
             {
-                _response.Message = "Record is already exists";
+                _response.Message = "Record already exists";
             }
             else if (result == (int)SaveOperationEnums.NoResult)
             {
                 _response.Message = "Something went wrong, please try again";
+            }
+            else if (result == -3)
+            {
+                _response.Message = "Sequence number already exists";
             }
             else
             {
@@ -149,7 +155,7 @@ namespace CLN.API.Controllers.Admin
             }
             else if (result == (int)SaveOperationEnums.ReocrdExists)
             {
-                _response.Message = "Record is already exists";
+                _response.Message = "Record already exists";
             }
             else if (result == (int)SaveOperationEnums.NoResult)
             {
@@ -159,6 +165,8 @@ namespace CLN.API.Controllers.Admin
             {
                 _response.Message = "Record details saved sucessfully";
             }
+
+            _response.Id = result;
             return _response;
         }
 

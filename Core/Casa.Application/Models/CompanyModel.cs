@@ -40,6 +40,11 @@ namespace CLN.Application.Models
 
         public int? NoofUserAdd{ get; set; }
         public int? NoofBranchAdd{ get; set; }
+
+        //public int? AmcMonths { get; set; }
+        //public DateTime? AmcStartDate { get; set; }
+        //public DateTime? AmcEndDate { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -75,6 +80,11 @@ namespace CLN.Application.Models
         public string? CompanyLogoImageURL { get; set; }
         public int? NoofUserAdd { get; set; }
         public int? NoofBranchAdd { get; set; }
+
+        //public int? AmcMonths { get; set; }
+        //public DateTime? AmcStartDate { get; set; }
+        //public DateTime? AmcEndDate { get; set; }
+
         public bool? IsActive { get; set; }
     }
 }

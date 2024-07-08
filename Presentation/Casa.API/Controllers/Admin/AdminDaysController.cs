@@ -9,23 +9,23 @@ namespace CLN.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DetailsOfAdjustmentController : CustomBaseController
+    public class AdminDaysController : CustomBaseController
     {
         private ResponseModel _response;
-        private readonly IDetailsOfAdjustmentRepository _detailsOfAdjustmentRepository;
+        private readonly IAdminDaysRepository _AdminDaysRepository;
 
-        public DetailsOfAdjustmentController(IDetailsOfAdjustmentRepository detailsOfAdjustmentRepository)
+        public AdminDaysController(IAdminDaysRepository AdminDaysRepository)
         {
-            _detailsOfAdjustmentRepository = detailsOfAdjustmentRepository;
+            _AdminDaysRepository = AdminDaysRepository;
             _response = new ResponseModel();
             _response.IsSuccess = true;
         }
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveDetailsOfAdjustment(DetailsOfAdjustment_Request parameters)
+        public async Task<ResponseModel> SaveAdminDays(AdminDays_Request parameters)
         {
-            int result = await _detailsOfAdjustmentRepository.SaveDetailsOfAdjustment(parameters);
+            int result = await _AdminDaysRepository.SaveAdminDays(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
@@ -51,9 +51,9 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetDetailsOfAdjustmentList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetAdminDaysList(AdminDays_Search parameters)
         {
-            IEnumerable<DetailsOfAdjustment_Response> lstRoles = await _detailsOfAdjustmentRepository.GetDetailsOfAdjustmentList(parameters);
+            IEnumerable<AdminDays_Response> lstRoles = await _AdminDaysRepository.GetAdminDaysList(parameters);
             _response.Data = lstRoles.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -61,7 +61,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetDetailsOfAdjustmentById(long Id)
+        public async Task<ResponseModel> GetAdminDaysById(int Id)
         {
             if (Id <= 0)
             {
@@ -69,7 +69,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                var vResultObj = await _detailsOfAdjustmentRepository.GetDetailsOfAdjustmentById(Id);
+                var vResultObj = await _AdminDaysRepository.GetAdminDaysById(Id);
                 _response.Data = vResultObj;
             }
             return _response;
