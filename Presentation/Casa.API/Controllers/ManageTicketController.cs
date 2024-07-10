@@ -296,6 +296,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_ComplaintTypeId = vResultObj.CD_ComplaintTypeId;
                     vManageTicketDetail_Response.CD_ComplaintType = vResultObj.CD_ComplaintType;
                     vManageTicketDetail_Response.CD_IsOldProduct = vResultObj.CD_IsOldProduct;
+                    vManageTicketDetail_Response.CD_ProductSerialNumberId = vResultObj.CD_ProductSerialNumberId;
                     vManageTicketDetail_Response.CD_ProductSerialNumber = vResultObj.CD_ProductSerialNumber;
                     vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
                     vManageTicketDetail_Response.CD_CustomerType = vResultObj.CD_CustomerType;
@@ -332,6 +333,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_SiteCustomerCityName = vResultObj.CD_SiteCustomerCityName;
                     vManageTicketDetail_Response.CD_SiteCustomerPinCode = vResultObj.CD_SiteCustomerPinCode;
 
+                    vManageTicketDetail_Response.BD_BatteryBOMNumberId = vResultObj.BD_BatteryBOMNumberId;
                     vManageTicketDetail_Response.BD_BatteryBOMNumber = vResultObj.BD_BatteryBOMNumber;
                     vManageTicketDetail_Response.BD_BatteryProductCategoryId = vResultObj.BD_BatteryProductCategoryId;
                     vManageTicketDetail_Response.BD_ProductCategory = vResultObj.BD_ProductCategory;

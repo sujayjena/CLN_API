@@ -55,7 +55,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_SitContactMobile", parameters.CD_SitContactMobile);
             queryParameters.Add("@CD_SiteAddressId", parameters.CD_SiteAddressId);
 
-            queryParameters.Add("@BD_BatteryBOMNumber", parameters.BD_BatteryBOMNumber);
+            queryParameters.Add("@BD_BatteryBOMNumberId", parameters.BD_BatteryBOMNumberId);
             queryParameters.Add("@BD_BatteryProductCategoryId", parameters.BD_BatteryProductCategoryId);
             queryParameters.Add("@BD_BatterySegmentId", parameters.BD_BatterySegmentId);
             queryParameters.Add("@BD_BatterySubSegmentId", parameters.BD_BatterySubSegmentId);

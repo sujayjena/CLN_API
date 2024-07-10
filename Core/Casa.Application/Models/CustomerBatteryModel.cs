@@ -30,6 +30,7 @@ namespace CLN.Application.Models
         public DateTime? WarrantyStartDate { get; set; }
 
         public DateTime? WarrantyEndDate { get; set; }
+        public int? WarrantyStatusId { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -77,6 +78,8 @@ namespace CLN.Application.Models
         public DateTime? WarrantyStartDate { get; set; }
 
         public DateTime? WarrantyEndDate { get; set; }
+
+        public int? WarrantyStatusId { get; set; }
 
         public string? WarrantyStatus { get; set; }
 

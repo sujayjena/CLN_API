@@ -82,7 +82,7 @@ namespace CLN.Application.Models
         public int? CD_SiteCustomerCityId { get; set; }
         public string? CD_SiteCustomerPinCode { get; set; }
 
-        public string? BD_BatteryBOMNumber { get; set; }
+        public int? BD_BatteryBOMNumberId { get; set; }
         public int? BD_BatteryProductCategoryId { get; set; }
         public int? BD_BatterySegmentId { get; set; }
         public int? BD_BatterySubSegmentId { get; set; }
@@ -244,6 +244,7 @@ namespace CLN.Application.Models
         public string? CD_SiteCustomerCityName { get; set; }
         public string? CD_SiteCustomerPinCode { get; set; }
 
+        public int? BD_BatteryBOMNumberId { get; set; }
         public string? BD_BatteryBOMNumber { get; set; }
         public int? BD_BatteryProductCategoryId { get; set; }
         public string? BD_ProductCategory { get; set; }
@@ -398,6 +399,7 @@ namespace CLN.Application.Models
         public string? CD_SiteCustomerCityName { get; set; }
         public string? CD_SiteCustomerPinCode { get; set; }
 
+        public int? BD_BatteryBOMNumberId { get; set; }
         public string? BD_BatteryBOMNumber { get; set; }
         public int? BD_BatteryProductCategoryId { get; set; }
         public string? BD_ProductCategory { get; set; }
