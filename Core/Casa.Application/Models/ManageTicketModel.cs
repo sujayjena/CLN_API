@@ -181,6 +181,7 @@ namespace CLN.Application.Models
         public string? TicketSLAHours { get; set; }
         public string? TicketSLAMin { get; set; }
         public string? TicketAging { get; set; }
+        public string? SLAStatus { get; set; }
 
         public int? CD_LoggingSourceId { get; set; }
         public string? CD_LoggingSourceChannel { get; set; }
@@ -336,6 +337,7 @@ namespace CLN.Application.Models
         public string? TicketSLAHours { get; set; }
         public string? TicketSLAMin { get; set; }
         public string? TicketAging { get; set; }
+        public string? SLAStatus { get; set; }
 
         public int? CD_LoggingSourceId { get; set; }
         public string? CD_LoggingSourceChannel { get; set; }
