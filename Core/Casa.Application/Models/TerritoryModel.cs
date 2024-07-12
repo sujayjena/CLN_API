@@ -46,6 +46,18 @@ namespace CLN.Application.Models
         public bool? IsActive { get; set; }
     }
 
+    public class StateDataValidationErrors
+    {
+        public string StateName { get; set; }
+        public string IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+    public class ImportedState
+    {
+        public string StateName { get; set; }
+        public string IsActive { get; set; }
+    }
+
     #endregion
 
     #region District
@@ -64,6 +76,18 @@ namespace CLN.Application.Models
         public bool? IsActive { get; set; }
     }
 
+    public class DistrictDataValidationErrors
+    {
+        public string DistrictName { get; set; }
+        public string IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+    public class ImportedDistrict
+    {
+        public string DistrictName { get; set; }
+        public string IsActive { get; set; }
+    }
+
     #endregion
 
     #region City
@@ -80,6 +104,18 @@ namespace CLN.Application.Models
         public string? CityName { get; set; }
 
         public bool? IsActive { get; set; }
+    }
+
+    public class CityDataValidationErrors
+    {
+        public string CityName { get; set; }
+        public string IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+    public class ImportedCity
+    {
+        public string CityName { get; set; }
+        public string IsActive { get; set; }
     }
 
     #endregion
@@ -187,6 +223,26 @@ namespace CLN.Application.Models
         public string? Value { get; set; }
 
         public string? Text { get; set; }
+    }
+
+    public class TerritoriesDataValidationErrors
+    {
+        public string RegionName { get; set; }
+        public string StateName { get; set; }
+        public string DistrictName { get; set; }
+        public string CityName { get; set; }
+        public string CityGrade { get; set; }
+        public string IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+    public class ImportedTerritories
+    {
+        public string RegionName { get; set; }
+        public string StateName { get; set; }
+        public string DistrictName { get; set; }
+        public string CityName { get; set; }
+        public string CityGrade { get; set; }
+        public string IsActive { get; set; }
     }
 
     #endregion

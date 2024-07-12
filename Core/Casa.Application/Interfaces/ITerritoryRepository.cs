@@ -28,6 +28,8 @@ namespace CLN.Application.Interfaces
 
         Task<State_Response?> GetStateById(long Id);
 
+        Task<IEnumerable<StateDataValidationErrors>> ImportState(List<ImportedState> parameters);
+
         #endregion
 
         #region District 
@@ -38,6 +40,8 @@ namespace CLN.Application.Interfaces
 
         Task<District_Response?> GetDistrictById(long Id);
 
+        Task<IEnumerable<DistrictDataValidationErrors>> ImportDistrict(List<ImportedDistrict> parameters);
+
         #endregion
 
         #region City 
@@ -47,6 +51,8 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<City_Response>> GetCityList(BaseSearchEntity parameters);
 
         Task<City_Response?> GetCityById(long Id);
+
+        Task<IEnumerable<CityDataValidationErrors>> ImportCity(List<ImportedCity> parameters);
 
         #endregion
 
@@ -79,6 +85,8 @@ namespace CLN.Application.Interfaces
         Task<Territories_Response?> GetTerritoriesById(long Id);
 
         Task<IEnumerable<Territories_State_Dist_City_Area_Response>> GetTerritories_State_Dist_City_Area_List_ById(Territories_State_Dist_City_Area_Search parameters);
+
+        Task<IEnumerable<TerritoriesDataValidationErrors>> ImportTerritories(List<ImportedTerritories> parameters);
 
         #endregion
     }

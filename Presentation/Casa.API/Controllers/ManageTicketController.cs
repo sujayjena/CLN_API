@@ -269,6 +269,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TicketPriority = vResultObj.TicketPriority;
                     vManageTicketDetail_Response.TicketSLADays = vResultObj.TicketSLADays;
                     vManageTicketDetail_Response.TicketAging = vResultObj.TicketAging;
+                    vManageTicketDetail_Response.SLAStatus = vResultObj.SLAStatus;
 
                     vManageTicketDetail_Response.CD_LoggingSourceId = vResultObj.CD_LoggingSourceId;
                     vManageTicketDetail_Response.CD_LoggingSourceChannel = vResultObj.CD_LoggingSourceChannel;
