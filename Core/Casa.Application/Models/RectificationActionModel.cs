@@ -27,4 +27,20 @@ namespace CLN.Application.Models
         public string? RectificationAction { get; set; }
         public bool? IsActive { get; set; }
     }
+
+    public class RectificationActionDataValidationErrors
+    {
+        public string ProductCategory { get; set; }
+        public string Segment { get; set; }
+        public string RectificationAction { get; set; }
+        public string IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+    public class ImportedRectificationAction
+    {
+        public string ProductCategory { get; set; }
+        public string Segment { get; set; }
+        public string RectificationAction { get; set; }
+        public string IsActive { get; set; }
+    }
 }

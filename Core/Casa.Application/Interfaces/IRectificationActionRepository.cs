@@ -15,5 +15,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<RectificationAction_Response>> GetRectificationActionList(BaseSearchEntity parameters);
 
         Task<RectificationAction_Response?> GetRectificationActionById(long Id);
+
+        Task<IEnumerable<RectificationActionDataValidationErrors>> ImportRectificationAction(List<ImportedRectificationAction> parameters);
     }
 }

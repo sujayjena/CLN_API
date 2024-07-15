@@ -25,8 +25,9 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@SegmentId", parameters.SegmentId);
             queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
+            queryParameters.Add("@SegmentId", parameters.SegmentId);
+            queryParameters.Add("@SubSegmentId", parameters.SubSegmentId);
             queryParameters.Add("@ProblemReportedByEng", parameters.ProblemReportedByEng);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
@@ -55,6 +56,15 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<ProblemReportedByEng_Response>("GetProblemReportedByEngById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<ProblemReportedByEngDataValidationErrors>> ImportProblemReportedByEng(List<ImportedProblemReportedByEng> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<ProblemReportedByEngDataValidationErrors>("ImportProblemReportedByEng", queryParameters);
         }
     }
 }

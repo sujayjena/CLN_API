@@ -1148,17 +1148,25 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
-                    WorkSheet1.Cells[1, 1].Value = "StateName";
-                    WorkSheet1.Cells[1, 2].Value = "IsActive";
-                    WorkSheet1.Cells[1, 3].Value = "ValidationMessage";
+                    WorkSheet1.Cells[1, 1].Value = "RegionName";
+                    WorkSheet1.Cells[1, 2].Value = "StateName";
+                    WorkSheet1.Cells[1, 3].Value = "DistrictName";
+                    WorkSheet1.Cells[1, 4].Value = "CityName";
+                    WorkSheet1.Cells[1, 5].Value = "CityGrade";
+                    WorkSheet1.Cells[1, 6].Value = "IsActive";
+                    WorkSheet1.Cells[1, 7].Value = "ValidationMessage";
 
                     recordIndex = 2;
 
                     foreach (TerritoriesDataValidationErrors record in lstTerritoriesFailedToImport)
                     {
-                        WorkSheet1.Cells[recordIndex, 1].Value = record.StateName;
-                        WorkSheet1.Cells[recordIndex, 2].Value = record.IsActive;
-                        WorkSheet1.Cells[recordIndex, 3].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 1].Value = record.RegionName;
+                        WorkSheet1.Cells[recordIndex, 2].Value = record.StateName;
+                        WorkSheet1.Cells[recordIndex, 3].Value = record.DistrictName;
+                        WorkSheet1.Cells[recordIndex, 4].Value = record.CityName;
+                        WorkSheet1.Cells[recordIndex, 5].Value = record.CityGrade;
+                        WorkSheet1.Cells[recordIndex, 6].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 7].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -1166,6 +1174,10 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Column(1).AutoFit();
                     WorkSheet1.Column(2).AutoFit();
                     WorkSheet1.Column(3).AutoFit();
+                    WorkSheet1.Column(4).AutoFit();
+                    WorkSheet1.Column(5).AutoFit();
+                    WorkSheet1.Column(6).AutoFit();
+                    WorkSheet1.Column(7).AutoFit();
 
                     excelInvalidData.SaveAs(msInvalidDataFile);
                     msInvalidDataFile.Position = 0;
@@ -1203,23 +1215,31 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
-                    WorkSheet1.Cells[1, 1].Value = "State";
-                    WorkSheet1.Cells[1, 2].Value = "Status";
+                    WorkSheet1.Cells[1, 1].Value = "Region";
+                    WorkSheet1.Cells[1, 2].Value = "State";
+                    WorkSheet1.Cells[1, 3].Value = "District";
+                    WorkSheet1.Cells[1, 4].Value = "City";
+                    WorkSheet1.Cells[1, 5].Value = "CityGrade";
+                    WorkSheet1.Cells[1, 6].Value = "Status";
 
-                    WorkSheet1.Cells[1, 3].Value = "CreatedDate";
-                    WorkSheet1.Cells[1, 4].Value = "CreatedBy";
+                    WorkSheet1.Cells[1, 7].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 8].Value = "CreatedBy";
 
 
                     recordIndex = 2;
 
                     foreach (var items in lstSizeObj)
                     {
-                        WorkSheet1.Cells[recordIndex, 1].Value = items.StateName;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.RegionName;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.StateName;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.DistrictName;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.CityName;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.CityGrade;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.IsActive == true ? "Active" : "Inactive";
 
-                        WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.CreatedDate;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 7].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.CreatorName;
 
                         recordIndex += 1;
                     }
@@ -1228,6 +1248,10 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Column(2).AutoFit();
                     WorkSheet1.Column(3).AutoFit();
                     WorkSheet1.Column(4).AutoFit();
+                    WorkSheet1.Column(5).AutoFit();
+                    WorkSheet1.Column(6).AutoFit();
+                    WorkSheet1.Column(7).AutoFit();
+                    WorkSheet1.Column(8).AutoFit();
 
                     excelExportData.SaveAs(msExportDataFile);
                     msExportDataFile.Position = 0;

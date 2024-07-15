@@ -56,5 +56,14 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<RectificationAction_Response>("GetRectificationActionById", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<IEnumerable<RectificationActionDataValidationErrors>> ImportRectificationAction(List<ImportedRectificationAction> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<RectificationActionDataValidationErrors>("ImportRectificationAction", queryParameters);
+        }
     }
 }
