@@ -53,6 +53,16 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSPD_PhysicaImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.TSPD_PhysicaImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TSPD_PhysicaImageFileName = vUploadFile;
+                }
+            }
+
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_TerminalWireImage_Base64))
             {
                 var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_TerminalWireImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_TerminalWireImageOriginalFileName);
@@ -216,7 +226,7 @@ namespace CLN.API.Controllers
             }
 
             // Add Move Ticket To TRC
-            if (result > 0 && parameters.OV_IsMoveToTRC == true)
+            if (result > 0 && parameters.TSSP_SolutionProvider == 2) // Refer To TRC
             {
                 var vManageTRC_Request = new ManageTRC_Request()
                 {
@@ -268,8 +278,11 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TicketPriorityId = vResultObj.TicketPriorityId;
                     vManageTicketDetail_Response.TicketPriority = vResultObj.TicketPriority;
                     vManageTicketDetail_Response.TicketSLADays = vResultObj.TicketSLADays;
-                    vManageTicketDetail_Response.TicketAging = vResultObj.TicketAging;
+                    vManageTicketDetail_Response.TicketSLAHours = vResultObj.TicketSLAHours;
+                    vManageTicketDetail_Response.TicketSLAMin = vResultObj.TicketSLAMin;
                     vManageTicketDetail_Response.SLAStatus = vResultObj.SLAStatus;
+                    vManageTicketDetail_Response.TicketAging = vResultObj.TicketAging;
+
 
                     vManageTicketDetail_Response.CD_LoggingSourceId = vResultObj.CD_LoggingSourceId;
                     vManageTicketDetail_Response.CD_LoggingSourceChannel = vResultObj.CD_LoggingSourceChannel;
@@ -299,8 +312,9 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_IsOldProduct = vResultObj.CD_IsOldProduct;
                     vManageTicketDetail_Response.CD_ProductSerialNumberId = vResultObj.CD_ProductSerialNumberId;
                     vManageTicketDetail_Response.CD_ProductSerialNumber = vResultObj.CD_ProductSerialNumber;
+
                     vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
-                    vManageTicketDetail_Response.CD_CustomerType = vResultObj.CD_CustomerType;
+                    vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
                     vManageTicketDetail_Response.CD_CustomerNameId = vResultObj.CD_CustomerNameId;
                     vManageTicketDetail_Response.CD_CustomerName = vResultObj.CD_CustomerName;
                     vManageTicketDetail_Response.CD_CustomerMobile = vResultObj.CD_CustomerMobile;
@@ -353,48 +367,56 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.BD_WarrantyEndDate = vResultObj.BD_WarrantyEndDate;
                     vManageTicketDetail_Response.BD_WarrantyStatusId = vResultObj.BD_WarrantyStatusId;
                     vManageTicketDetail_Response.BD_WarrantyStatus = vResultObj.BD_WarrantyStatus;
-                    vManageTicketDetail_Response.BD_TechnicalSupportEnggId = vResultObj.BD_TechnicalSupportEnggId;
-                    vManageTicketDetail_Response.BD_TechnicalSupportEngg = vResultObj.BD_TechnicalSupportEngg;
 
-                    vManageTicketDetail_Response.TS_Visual = vResultObj.TS_Visual;
-                    vManageTicketDetail_Response.TS_BatterTerminalVoltage = vResultObj.TS_BatterTerminalVoltage;
-                    vManageTicketDetail_Response.TS_LifeCycle = vResultObj.TS_LifeCycle;
-                    vManageTicketDetail_Response.TS_StringVoltageVariation = vResultObj.TS_StringVoltageVariation;
-                    vManageTicketDetail_Response.TS_BatteryTemperature = vResultObj.TS_BatteryTemperature;
-                    vManageTicketDetail_Response.TS_CurrentDischargingValue = vResultObj.TS_CurrentDischargingValue;
-                    vManageTicketDetail_Response.TS_ProtectionsId = vResultObj.TS_ProtectionsId;
-                    vManageTicketDetail_Response.TS_Protections = vResultObj.TS_Protections;
-                    vManageTicketDetail_Response.TS_CurrentChargingValue = vResultObj.TS_CurrentChargingValue;
-                    vManageTicketDetail_Response.TS_AllocateToServiceEnggId = vResultObj.TS_AllocateToServiceEnggId;
-                    vManageTicketDetail_Response.TS_AllocateToServiceEngg = vResultObj.TS_AllocateToServiceEngg;
-                    vManageTicketDetail_Response.TS_TicketDate = vResultObj.TS_TicketDate;
-                    vManageTicketDetail_Response.TS_TicketTime = vResultObj.TS_TicketTime;
+                    vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
+                    vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
+                    vManageTicketDetail_Response.TSAD_Visual = vResultObj.TSAD_Visual;
+                    vManageTicketDetail_Response.TSAD_VisualImageFileName = vResultObj.TSAD_VisualImageFileName;
+                    vManageTicketDetail_Response.TSAD_VisualImageOriginalFileName = vResultObj.TSAD_VisualImageOriginalFileName;
+                    vManageTicketDetail_Response.TSAD_VisualImageURL = vResultObj.TSAD_VisualImageURL;
+                    vManageTicketDetail_Response.TSAD_BatteryTemperature = vResultObj.TSAD_BatteryTemperature;
+                    vManageTicketDetail_Response.TSAD_CurrentChargingValue = vResultObj.TSAD_CurrentChargingValue;
+                    vManageTicketDetail_Response.TSAD_CurrentDischargingValue = vResultObj.TSAD_CurrentDischargingValue;
+                    vManageTicketDetail_Response.TSAD_BatteryTemperature = vResultObj.TSAD_BatteryTemperature;
+                    vManageTicketDetail_Response.TSAD_BatterVoltage = vResultObj.TSAD_BatterVoltage;
+                    vManageTicketDetail_Response.TSAD_CellDiffrence = vResultObj.TSAD_CellDiffrence;
+                    vManageTicketDetail_Response.TSAD_ProtectionsId = vResultObj.TSAD_ProtectionsId;
+                    vManageTicketDetail_Response.TSAD_Protections = vResultObj.TSAD_Protections;
+
+                    vManageTicketDetail_Response.TSAD_CycleCount = vResultObj.TSAD_CycleCount;
+                    vManageTicketDetail_Response.TSPD_PhysicaImageFileName = vResultObj.TSPD_PhysicaImageFileName;
+                    vManageTicketDetail_Response.TSPD_PhysicaImageOriginalFileName = vResultObj.TSPD_PhysicaImageOriginalFileName;
+                    vManageTicketDetail_Response.TSPD_PhysicaImageURL = vResultObj.TSPD_PhysicaImageURL;
+                    vManageTicketDetail_Response.TSPD_AnyPhysicalDamage = vResultObj.TSPD_AnyPhysicalDamage;
+                    vManageTicketDetail_Response.TSPD_Other = vResultObj.TSPD_Other;
+                    vManageTicketDetail_Response.TSPD_IsWarrantyVoid = vResultObj.TSPD_IsWarrantyVoid;
+                    vManageTicketDetail_Response.TSSP_SolutionProvider = vResultObj.TSSP_SolutionProvider;
 
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;
                     vManageTicketDetail_Response.CP_VisualImageOriginalFileName = vResultObj.CP_VisualImageOriginalFileName;
                     vManageTicketDetail_Response.CP_VisualImageURL = vResultObj.CP_VisualImageURL;
-
                     vManageTicketDetail_Response.CP_TerminalVoltage = vResultObj.CP_TerminalVoltage;
                     vManageTicketDetail_Response.CP_CommunicationWithBattery = vResultObj.CP_CommunicationWithBattery;
                     vManageTicketDetail_Response.CP_TerminalWire = vResultObj.CP_TerminalWire;
                     vManageTicketDetail_Response.CP_TerminalWireImageFileName = vResultObj.CP_TerminalWireImageFileName;
                     vManageTicketDetail_Response.CP_TerminalWireImageOriginalFileName = vResultObj.CP_TerminalWireImageOriginalFileName;
                     vManageTicketDetail_Response.CP_TerminalWireImageURL = vResultObj.CP_TerminalWireImageURL;
-
                     vManageTicketDetail_Response.CP_LifeCycle = vResultObj.CP_LifeCycle;
                     vManageTicketDetail_Response.CP_StringVoltageVariation = vResultObj.CP_StringVoltageVariation;
                     vManageTicketDetail_Response.CP_BatteryParametersSetting = vResultObj.CP_BatteryParametersSetting;
                     vManageTicketDetail_Response.CP_BatteryParametersSettingImageFileName = vResultObj.CP_BatteryParametersSettingImageFileName;
                     vManageTicketDetail_Response.CP_BatteryParametersSettingImageOriginalFileName = vResultObj.CP_BatteryParametersSettingImageOriginalFileName;
                     vManageTicketDetail_Response.CP_BatteryParametersSettingImageURL = vResultObj.CP_BatteryParametersSettingImageURL;
-
-
+                    vManageTicketDetail_Response.CP_Spare = vResultObj.CP_Spare;
+                    vManageTicketDetail_Response.CP_BMSStatus = vResultObj.CP_BMSStatus;
                     vManageTicketDetail_Response.CP_BMSSoftwareImageFileName = vResultObj.CP_BMSSoftwareImageFileName;
                     vManageTicketDetail_Response.CP_BMSSoftwareImageOriginalFileName = vResultObj.CP_BMSSoftwareImageOriginalFileName;
                     vManageTicketDetail_Response.CP_BMSSoftwareImageURL = vResultObj.CP_BMSSoftwareImageURL;
-
-                    vManageTicketDetail_Response.CP_Spare = vResultObj.CP_Spare;
+                    vManageTicketDetail_Response.CP_BMSType = vResultObj.CP_BMSType;
+                    vManageTicketDetail_Response.CP_BatteryTemp = vResultObj.CP_BatteryTemp;
+                    vManageTicketDetail_Response.CP_BMSSerialNumber = vResultObj.CP_BMSSerialNumber;
+                    vManageTicketDetail_Response.CP_ProblemObserved = vResultObj.CP_ProblemObserved;
 
                     vManageTicketDetail_Response.CC_BatteryRepairedOnSite = vResultObj.CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.CC_BatteryRepairedToPlant = vResultObj.CC_BatteryRepairedToPlant;
@@ -407,8 +429,6 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.OV_CustomerMobileNumber = vResultObj.OV_CustomerMobileNumber;
                     vManageTicketDetail_Response.OV_RequestOTP = vResultObj.OV_RequestOTP;
                     vManageTicketDetail_Response.OV_Signature = vResultObj.OV_Signature;
-
-                    vManageTicketDetail_Response.OV_IsMoveToTRC = vResultObj.OV_IsMoveToTRC;
 
                     vManageTicketDetail_Response.TicketStatusId = vResultObj.TicketStatusId;
                     vManageTicketDetail_Response.TicketStatus = vResultObj.TicketStatus;

@@ -32,7 +32,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TicketSLADays", parameters.TicketSLADays);
             queryParameters.Add("@TicketSLAHours", parameters.TicketSLAHours);
             queryParameters.Add("@TicketSLAMin", parameters.TicketSLAMin);
-
+        
             queryParameters.Add("@CD_LoggingSourceId", parameters.CD_LoggingSourceId);
             queryParameters.Add("@CD_CallerTypeId", parameters.CD_CallerTypeId);
             queryParameters.Add("@CD_CallerName", parameters.CD_CallerName);
@@ -54,7 +54,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_SiteContactName", parameters.CD_SiteContactName);
             queryParameters.Add("@CD_SitContactMobile", parameters.CD_SitContactMobile);
             queryParameters.Add("@CD_SiteAddressId", parameters.CD_SiteAddressId);
-
+          
             queryParameters.Add("@BD_BatteryBOMNumberId", parameters.BD_BatteryBOMNumberId);
             queryParameters.Add("@BD_BatteryProductCategoryId", parameters.BD_BatteryProductCategoryId);
             queryParameters.Add("@BD_BatterySegmentId", parameters.BD_BatterySegmentId);
@@ -67,19 +67,25 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@BD_WarrantyEndDate", parameters.BD_WarrantyEndDate);
             queryParameters.Add("@BD_WarrantyStatusId", parameters.BD_WarrantyStatusId);
             queryParameters.Add("@BD_TechnicalSupportEnggId", parameters.BD_TechnicalSupportEnggId);
-
-            queryParameters.Add("@TS_Visual", parameters.TS_Visual);
-            queryParameters.Add("@TS_BatterTerminalVoltage", parameters.TS_BatterTerminalVoltage);
-            queryParameters.Add("@TS_LifeCycle", parameters.TS_LifeCycle);
-            queryParameters.Add("@TS_StringVoltageVariation", parameters.TS_StringVoltageVariation);
-            queryParameters.Add("@TS_BatteryTemperature", parameters.TS_BatteryTemperature);
-            queryParameters.Add("@TS_CurrentDischargingValue", parameters.TS_CurrentDischargingValue);
-            queryParameters.Add("@TS_ProtectionsId", parameters.TS_ProtectionsId);
-            queryParameters.Add("@TS_CurrentChargingValue", parameters.TS_CurrentChargingValue);
-            queryParameters.Add("@TS_AllocateToServiceEnggId", parameters.TS_AllocateToServiceEnggId);
-            queryParameters.Add("@TS_TicketDate", parameters.TS_TicketDate);
-            queryParameters.Add("@TS_TicketTime", parameters.TS_TicketTime);
-
+          
+            queryParameters.Add("@TSAD_Visual", parameters.TSAD_Visual);
+            queryParameters.Add("@TSAD_VisualImageFileName", parameters.TSAD_VisualImageFileName);
+            queryParameters.Add("@TSAD_VisualImageOriginalFileName", parameters.TSAD_VisualImageOriginalFileName);
+            queryParameters.Add("@TSAD_CurrentChargingValue", parameters.TSAD_CurrentChargingValue);
+            queryParameters.Add("@TSAD_CurrentDischargingValue", parameters.TSAD_CurrentDischargingValue);
+            queryParameters.Add("@TSAD_BatteryTemperature", parameters.TSAD_BatteryTemperature);
+            queryParameters.Add("@TSAD_BatterVoltage", parameters.TSAD_BatterVoltage);
+            queryParameters.Add("@TSAD_CellDiffrence", parameters.TSAD_CellDiffrence);
+            queryParameters.Add("@TSAD_ProtectionsId", parameters.TSAD_ProtectionsId);
+            queryParameters.Add("@TSAD_CycleCount", parameters.TSAD_CycleCount);
+            queryParameters.Add("@TSPD_PhysicaImageFileName", parameters.TSPD_PhysicaImageFileName);
+            queryParameters.Add("@TSPD_PhysicaImageOriginalFileName", parameters.TSPD_PhysicaImageOriginalFileName);
+            queryParameters.Add("@TSPD_AnyPhysicalDamage", parameters.TSPD_AnyPhysicalDamage);
+            queryParameters.Add("@TSPD_Other", parameters.TSPD_Other);
+            queryParameters.Add("@TSPD_IsWarrantyVoid", parameters.TSPD_IsWarrantyVoid);
+            queryParameters.Add("@TSSP_SolutionProvider", parameters.TSSP_SolutionProvider);
+            queryParameters.Add("@TSSP_AllocateToServiceEnggId", parameters.TSSP_AllocateToServiceEnggId);
+         
             queryParameters.Add("@CP_Visual", parameters.CP_Visual);
             queryParameters.Add("@CP_VisualImageFileName", parameters.CP_VisualImageFileName);
             queryParameters.Add("@CP_VisualImageOriginalFileName", parameters.CP_VisualImageOriginalFileName);
@@ -93,13 +99,18 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_BatteryParametersSetting", parameters.CP_BatteryParametersSetting);
             queryParameters.Add("@CP_BatteryParametersSettingImageFileName", parameters.CP_BatteryParametersSettingImageFileName);
             queryParameters.Add("@CP_BatteryParametersSettingImageOriginalFileName", parameters.CP_BatteryParametersSettingImageOriginalFileName);
+            queryParameters.Add("@CP_Spare", parameters.CP_Spare);
+            queryParameters.Add("@CP_BMSStatus", parameters.CP_BMSStatus);
             queryParameters.Add("@CP_BMSSoftwareImageFileName", parameters.CP_BMSSoftwareImageFileName);
             queryParameters.Add("@CP_BMSSoftwareImageOriginalFileName", parameters.CP_BMSSoftwareImageOriginalFileName);
-            queryParameters.Add("@CP_Spare", parameters.CP_Spare);
-
+            queryParameters.Add("@CP_BMSType", parameters.CP_BMSType);
+            queryParameters.Add("@CP_BatteryTemp", parameters.CP_BatteryTemp);
+            queryParameters.Add("@CP_BMSSerialNumber", parameters.CP_BMSSerialNumber);
+            queryParameters.Add("@CP_ProblemObserved", parameters.CP_ProblemObserved);
+          
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);
             queryParameters.Add("@CC_BatteryRepairedToPlant", parameters.CC_BatteryRepairedToPlant);
-
+         
             queryParameters.Add("@OV_IsCustomerAvailable", parameters.OV_IsCustomerAvailable);
             queryParameters.Add("@OV_EngineerName", parameters.OV_EngineerName);
             queryParameters.Add("@OV_EngineerNumber", parameters.OV_EngineerNumber);
@@ -108,7 +119,6 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@OV_CustomerMobileNumber", parameters.OV_CustomerMobileNumber);
             queryParameters.Add("@OV_RequestOTP", parameters.OV_RequestOTP);
             queryParameters.Add("@OV_Signature", parameters.OV_Signature);
-            queryParameters.Add("@OV_IsMoveToTRC", parameters.OV_IsMoveToTRC);
 
             queryParameters.Add("@EnquiryId", parameters.EnquiryId);
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
