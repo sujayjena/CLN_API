@@ -48,6 +48,8 @@ namespace CLN.Application.Interfaces
 
         Task<CustomerBattery_Response?> GetCustomerBatteryById(int Id);
 
+        Task<IEnumerable<CustomerBattery_ImportDataValidation>> ImportBattery(List<CustomerBattery_ImportData> parameters);
+
         #endregion
 
         #region Customer Charger

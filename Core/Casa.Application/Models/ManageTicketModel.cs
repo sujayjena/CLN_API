@@ -376,9 +376,8 @@ namespace CLN.Application.Models
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
         public string BD_WarrantyStatus { get; set; }
-
-        public int? TSSP_AllocateToServiceEnggId { get; set; }
-        public string TSSP_AllocateToServiceEngg { get; set; }
+        public int? BD_TechnicalSupportEnggId { get; set; }
+        public string BD_TechnicalSupportEngg { get; set; }
 
         public int? TSAD_Visual { get; set; }
         public string TSAD_VisualImageFileName { get; set; }
@@ -392,7 +391,6 @@ namespace CLN.Application.Models
         public int? TSAD_ProtectionsId { get; set; }
        
         public string TSAD_Protections { get; set; }
-       
         public string TSAD_CycleCount { get; set; }
         public string TSPD_PhysicaImageFileName { get; set; }
         public string TSPD_PhysicaImageOriginalFileName { get; set; }
@@ -400,7 +398,10 @@ namespace CLN.Application.Models
         public string TSPD_AnyPhysicalDamage { get; set; }
         public string TSPD_Other { get; set; }
         public bool? TSPD_IsWarrantyVoid { get; set; }
+
         public int? TSSP_SolutionProvider { get; set; }
+        public int? TSSP_AllocateToServiceEnggId { get; set; }
+        public string TSSP_AllocateToServiceEngg { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }

@@ -1,5 +1,6 @@
 ﻿using CLN.Domain.Entities;
 using CLN.Persistence.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,4 +86,61 @@ namespace CLN.Application.Models
 
         public bool? IsActive { get; set; }
     }
+
+    #region Import and Download
+
+    public class CustomerBattery_ImportRequest
+    {
+        public IFormFile FileUpload { get; set; }
+    }
+
+    public class CustomerBattery_ImportData
+    {
+        public string? CustomerId { get; set; }
+
+        public string? PartCode { get; set; }
+
+        //public string? SerialNumber { get; set; }
+
+        public string? ProductSerialNumber { get; set; }
+
+        //public string? InvoiceNumber { get; set; }
+
+        public DateTime? ManufacturingDate { get; set; }
+
+        public DateTime? WarrantyStartDate { get; set; }
+
+        public DateTime? WarrantyEndDate { get; set; }
+
+        public string? WarrantyStatus { get; set; }
+
+        public string? IsActive { get; set; }
+    }
+
+    public class CustomerBattery_ImportDataValidation
+    {
+        public string? CustomerId { get; set; }
+
+        public string? PartCode { get; set; }
+
+        //public string? SerialNumber { get; set; }
+
+        public string? ProductSerialNumber { get; set; }
+
+        //public string? InvoiceNumber { get; set; }
+
+        public string? ManufacturingDate { get; set; }
+
+        public string? WarrantyStartDate { get; set; }
+
+        public string? WarrantyEndDate { get; set; }
+
+        public string? WarrantyStatus { get; set; }
+
+        public string? IsActive { get; set; }
+
+        public string ValidationMessage { get; set; }
+    }
+
+    #endregion
 }

@@ -151,6 +151,14 @@ namespace CLN.API.Controllers.Admin
             {
                 _response.Message = "Record already exists";
             }
+            else if (result == -3)
+            {
+                _response.Message = "Email already exists";
+            }
+            else if (result == -4)
+            {
+                _response.Message = "Mobile already exists";
+            }
             else if (result == (int)SaveOperationEnums.NoResult)
             {
                 _response.Message = "Something went wrong, please try again";

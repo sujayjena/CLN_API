@@ -53,6 +53,16 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_VisualImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_VisualImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TSAD_VisualImageFileName = vUploadFile;
+                }
+            }
+
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSPD_PhysicaImage_Base64))
             {
                 var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.TSPD_PhysicaImageOriginalFileName);
@@ -91,12 +101,6 @@ namespace CLN.API.Controllers
                 {
                     parameters.CP_BMSSoftwareImageFileName = vUploadFile;
                 }
-            }
-
-            // Set Status if id zero for new record
-            if (parameters.Id == 0)
-            {
-                parameters.TicketStatusId = 1;
             }
 
             // Save/Update
@@ -367,9 +371,9 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.BD_WarrantyEndDate = vResultObj.BD_WarrantyEndDate;
                     vManageTicketDetail_Response.BD_WarrantyStatusId = vResultObj.BD_WarrantyStatusId;
                     vManageTicketDetail_Response.BD_WarrantyStatus = vResultObj.BD_WarrantyStatus;
+                    vManageTicketDetail_Response.BD_TechnicalSupportEnggId = vResultObj.BD_TechnicalSupportEnggId;
+                    vManageTicketDetail_Response.BD_TechnicalSupportEngg = vResultObj.BD_TechnicalSupportEngg;
 
-                    vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
-                    vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
                     vManageTicketDetail_Response.TSAD_Visual = vResultObj.TSAD_Visual;
                     vManageTicketDetail_Response.TSAD_VisualImageFileName = vResultObj.TSAD_VisualImageFileName;
                     vManageTicketDetail_Response.TSAD_VisualImageOriginalFileName = vResultObj.TSAD_VisualImageOriginalFileName;
@@ -391,6 +395,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSPD_Other = vResultObj.TSPD_Other;
                     vManageTicketDetail_Response.TSPD_IsWarrantyVoid = vResultObj.TSPD_IsWarrantyVoid;
                     vManageTicketDetail_Response.TSSP_SolutionProvider = vResultObj.TSSP_SolutionProvider;
+                    vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
+                    vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
 
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;

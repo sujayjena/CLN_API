@@ -203,6 +203,15 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<CustomerBattery_Response>("GetCustomerBatteryById", queryParameters)).FirstOrDefault();
         }
 
+        public async Task<IEnumerable<CustomerBattery_ImportDataValidation>> ImportBattery(List<CustomerBattery_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<CustomerBattery_ImportDataValidation>("ImportCustomerBattery", queryParameters);
+        }
+
         #endregion
 
         #region Customer Charger
@@ -247,7 +256,7 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<CustomerCharger_Response>("GetCustomerChargerById", queryParameters)).FirstOrDefault();
         }
-
+      
         #endregion
     }
 }
