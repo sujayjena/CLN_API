@@ -41,6 +41,8 @@ namespace CLN.Application.Models
 
         public string? PartImage_Base64 { get; set; }
 
+        public string? Remarks { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -79,6 +81,8 @@ namespace CLN.Application.Models
         public string? PartImageOriginalFileName { get; set; }
 
         public string? PartImageURL { get; set; }
+
+        public string? Remarks { get; set; }
 
         public bool? IsActive { get; set; }
     }

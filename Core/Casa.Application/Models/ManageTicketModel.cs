@@ -118,6 +118,7 @@ namespace CLN.Application.Models
         public bool? TSPD_IsWarrantyVoid { get; set; }
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
+        public string? TSSP_Remarks { get; set; }
 
         public int? CP_Visual { get; set; }
         public string? CP_VisualImageFileName { get; set; }
@@ -273,9 +274,6 @@ namespace CLN.Application.Models
         public int? BD_WarrantyStatusId { get; set; }
         public string BD_WarrantyStatus { get; set; }
 
-        public int? TSSP_AllocateToServiceEnggId { get; set; }
-        public string TSSP_AllocateToServiceEngg { get; set; }
-
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
@@ -287,6 +285,7 @@ namespace CLN.Application.Models
         public ManageTicketDetail_Response()
         {
             PartDetails = new List<ManageTicketPartDetails_Response>();
+            TicketStatusLog = new List<ManageTicketStatusLog_Response>();
         }
 
         public string TicketNumber { get; set; }
@@ -389,7 +388,7 @@ namespace CLN.Application.Models
         public string TSAD_BatterVoltage { get; set; }
         public string TSAD_CellDiffrence { get; set; }
         public int? TSAD_ProtectionsId { get; set; }
-       
+
         public string TSAD_Protections { get; set; }
         public string TSAD_CycleCount { get; set; }
         public string TSPD_PhysicaImageFileName { get; set; }
@@ -402,6 +401,7 @@ namespace CLN.Application.Models
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string TSSP_AllocateToServiceEngg { get; set; }
+        public string? TSSP_Remarks { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -447,6 +447,7 @@ namespace CLN.Application.Models
         public bool? IsActive { get; set; }
 
         public List<ManageTicketPartDetails_Response> PartDetails { get; set; }
+        public List<ManageTicketStatusLog_Response> TicketStatusLog { get; set; }
     }
 
     public class ManageTicketPartDetails_Response : BaseEntity
@@ -467,6 +468,17 @@ namespace CLN.Application.Models
         public string? PartStatus { get; set; }
     }
 
+    public class ManageTicketStatusLog_Response
+    {
+        public int? TicketId { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int? StatusId { get; set; }
+        public string TicketStatus { get; set; }
+        public int? PriorityId { get; set; }
+        public string Priority { get; set; }
+        public string Agging { get; set; }
+    }
 
     public class ManageTicketCustomerMobileNumber_Response
     {

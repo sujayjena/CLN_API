@@ -85,7 +85,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSPD_IsWarrantyVoid", parameters.TSPD_IsWarrantyVoid);
             queryParameters.Add("@TSSP_SolutionProvider", parameters.TSSP_SolutionProvider);
             queryParameters.Add("@TSSP_AllocateToServiceEnggId", parameters.TSSP_AllocateToServiceEnggId);
-         
+            queryParameters.Add("@TSSP_Remarks", parameters.TSSP_Remarks);
+
             queryParameters.Add("@CP_Visual", parameters.CP_Visual);
             queryParameters.Add("@CP_VisualImageFileName", parameters.CP_VisualImageFileName);
             queryParameters.Add("@CP_VisualImageOriginalFileName", parameters.CP_VisualImageOriginalFileName);
@@ -171,6 +172,18 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<ManageTicketDetail_Response>("GetTicketById", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<IEnumerable<ManageTicketStatusLog_Response>> GetManageTicketStatusLogById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            var result = await ListByStoredProcedure<ManageTicketStatusLog_Response>("GetTicketStatusLog", queryParameters);
+
+            return result;
+        }
+
 
         public async Task<IEnumerable<ManageTicketPartDetails_Response>> GetManageTicketPartDetailById(int Id)
         {

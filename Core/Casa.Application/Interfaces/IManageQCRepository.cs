@@ -38,6 +38,8 @@ namespace CLN.Application.Interfaces
 
         Task<int> DeleteManageQCAccessory(int Id);
 
+        Task<IEnumerable<CustomerAccessory_ImportDataValidation>> ImportAccessory(List<CustomerAccessory_ImportData> parameters);
+
         #endregion
 
         #region Customer Battery

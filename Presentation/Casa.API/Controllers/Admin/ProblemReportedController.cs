@@ -126,8 +126,9 @@ namespace CLN.API.Controllers.Admin
 
                 if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "ProductCategory", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "Segment", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "ProblemReported", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
+                   !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "SubSegment", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "ProblemReported", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file. Please Download Format file for reference";
@@ -140,8 +141,9 @@ namespace CLN.API.Controllers.Admin
                     {
                         ProductCategory = workSheet.Cells[rowIterator, 1].Value?.ToString(),
                         Segment = workSheet.Cells[rowIterator, 2].Value?.ToString(),
-                        ProblemReported = workSheet.Cells[rowIterator, 3].Value?.ToString(),
-                        IsActive = workSheet.Cells[rowIterator, 4].Value?.ToString()
+                        SubSegment = workSheet.Cells[rowIterator, 3].Value?.ToString(),
+                        ProblemReported = workSheet.Cells[rowIterator, 4].Value?.ToString(),
+                        IsActive = workSheet.Cells[rowIterator, 5].Value?.ToString()
                     });
                 }
             }
@@ -190,9 +192,10 @@ namespace CLN.API.Controllers.Admin
 
                     WorkSheet1.Cells[1, 1].Value = "ProductCategory";
                     WorkSheet1.Cells[1, 2].Value = "Segment";
-                    WorkSheet1.Cells[1, 3].Value = "ProblemReported";
-                    WorkSheet1.Cells[1, 4].Value = "IsActive";
-                    WorkSheet1.Cells[1, 5].Value = "ValidationMessage";
+                    WorkSheet1.Cells[1, 3].Value = "SubSegment";
+                    WorkSheet1.Cells[1, 4].Value = "ProblemReported";
+                    WorkSheet1.Cells[1, 5].Value = "IsActive";
+                    WorkSheet1.Cells[1, 6].Value = "ValidationMessage";
 
                     recordIndex = 2;
 
@@ -200,9 +203,10 @@ namespace CLN.API.Controllers.Admin
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = record.ProductCategory;
                         WorkSheet1.Cells[recordIndex, 2].Value = record.Segment;
-                        WorkSheet1.Cells[recordIndex, 3].Value = record.ProblemReported;
-                        WorkSheet1.Cells[recordIndex, 4].Value = record.IsActive;
-                        WorkSheet1.Cells[recordIndex, 5].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 3].Value = record.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 4].Value = record.ProblemReported;
+                        WorkSheet1.Cells[recordIndex, 5].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 6].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -212,6 +216,7 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Column(3).AutoFit();
                     WorkSheet1.Column(4).AutoFit();
                     WorkSheet1.Column(5).AutoFit();
+                    WorkSheet1.Column(6).AutoFit();
 
                     excelInvalidData.SaveAs(msInvalidDataFile);
                     msInvalidDataFile.Position = 0;

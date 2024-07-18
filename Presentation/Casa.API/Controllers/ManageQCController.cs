@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System;
 using System.Globalization;
 using System.Text.Json.Serialization;
 
@@ -390,7 +391,7 @@ namespace CLN.API.Controllers
 
                 for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                 {
-                    if (!string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 2].Value?.ToString()))
+                    if (!string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 2].Value?.ToString()) && !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 3].Value?.ToString()))
                     {
                         lstCustomerBattery_ImportData.Add(new CustomerBattery_ImportData()
                         {
@@ -399,9 +400,9 @@ namespace CLN.API.Controllers
                             //SerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString(),
                             ProductSerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString(),
                             //InvoiceNumber = workSheet.Cells[rowIterator, 5].Value?.ToString(),
-                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 4].Value?.ToString()) : null,
-                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 5].Value?.ToString()) : null,
-                            ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 6].Value?.ToString()) : null,
+                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 4].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 5].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+                            ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 6].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
                             WarrantyStatus = workSheet.Cells[rowIterator, 7].Value?.ToString(),
                             IsActive = workSheet.Cells[rowIterator, 8].Value?.ToString()
                         });
@@ -571,9 +572,9 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 1].Value = record.CustomerId;
                         WorkSheet1.Cells[recordIndex, 2].Value = record.PartCode;
                         WorkSheet1.Cells[recordIndex, 3].Value = record.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 4].Value = !string.IsNullOrWhiteSpace(record.ManufacturingDate) ? Convert.ToDateTime(record.ManufacturingDate).ToString("dd-MM-yyyy") : "";
-                        WorkSheet1.Cells[recordIndex, 5].Value = !string.IsNullOrWhiteSpace(record.WarrantyStartDate) ? Convert.ToDateTime(record.WarrantyStartDate).ToString("dd-MM-yyyy") : "";
-                        WorkSheet1.Cells[recordIndex, 6].Value = !string.IsNullOrWhiteSpace(record.WarrantyEndDate) ? Convert.ToDateTime(record.WarrantyEndDate).ToString("dd-MM-yyyy") : ""; ;
+                        WorkSheet1.Cells[recordIndex, 4].Value = !string.IsNullOrWhiteSpace(record.ManufacturingDate) ? Convert.ToDateTime(record.ManufacturingDate).ToString("dd/MM/yyyy") : "";
+                        WorkSheet1.Cells[recordIndex, 5].Value = !string.IsNullOrWhiteSpace(record.WarrantyStartDate) ? Convert.ToDateTime(record.WarrantyStartDate).ToString("dd/MM/yyyy") : "";
+                        WorkSheet1.Cells[recordIndex, 6].Value = !string.IsNullOrWhiteSpace(record.WarrantyEndDate) ? Convert.ToDateTime(record.WarrantyEndDate).ToString("dd/MM/yyyy") : ""; ;
                         WorkSheet1.Cells[recordIndex, 7].Value = record.WarrantyStatus;
                         WorkSheet1.Cells[recordIndex, 8].Value = record.ValidationMessage;
 
@@ -739,6 +740,235 @@ namespace CLN.API.Controllers
             }
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> DownloadAccessoryTemplate()
+        {
+            byte[]? formatFile = await Task.Run(() => _fileManager.GetFormatFileFromPath("Template_QCAccessory.xlsx"));
+
+            if (formatFile != null)
+            {
+                _response.Data = formatFile;
+            }
+
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ImportCustomerAccessory([FromQuery] ImportRequest request)
+        {
+            _response.IsSuccess = false;
+
+            ExcelWorksheets currentSheet;
+            ExcelWorksheet workSheet;
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            int noOfCol, noOfRow;
+
+            List<string[]> data = new List<string[]>();
+            List<CustomerAccessory_ImportData> lstCustomerAccessory_ImportData = new List<CustomerAccessory_ImportData>();
+            IEnumerable<CustomerAccessory_ImportDataValidation> lstCustomerAccessory_ImportDataValidation;
+
+            if (request.FileUpload == null || request.FileUpload.Length == 0)
+            {
+                _response.Message = "Please upload an excel file";
+                return _response;
+            }
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                request.FileUpload.CopyTo(stream);
+                using ExcelPackage package = new ExcelPackage(stream);
+                currentSheet = package.Workbook.Worksheets;
+                workSheet = currentSheet.First();
+                noOfCol = workSheet.Dimension.End.Column;
+                noOfRow = workSheet.Dimension.End.Row;
+
+                if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "CustomerId", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "PartCode", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "AccessoryBOMNumber", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "DrawingNumber", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "AccessoryName", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "Quantity", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Please upload a valid excel file";
+                    return _response;
+                }
+
+                for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                {
+                    if (!string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 1].Value?.ToString()) && !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 2].Value?.ToString()))
+                    {
+                        lstCustomerAccessory_ImportData.Add(new CustomerAccessory_ImportData()
+                        {
+                            CustomerId = workSheet.Cells[rowIterator, 1].Value?.ToString(),
+                            PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString(),
+                            AccessoryBOMNumber = workSheet.Cells[rowIterator, 3].Value?.ToString(),
+                            DrawingNumber = workSheet.Cells[rowIterator, 4].Value?.ToString(),
+                            AccessoryName = workSheet.Cells[rowIterator, 5].Value?.ToString(),
+                            Quantity = workSheet.Cells[rowIterator, 6].Value?.ToString(),
+                            IsActive = workSheet.Cells[rowIterator, 7].Value?.ToString()
+                        });
+                    }
+                }
+            }
+
+            if (lstCustomerAccessory_ImportData.Count == 0)
+            {
+                _response.Message = "File does not contains any record(s)";
+                return _response;
+            }
+
+            lstCustomerAccessory_ImportDataValidation = await _ManageQCRepository.ImportAccessory(lstCustomerAccessory_ImportData);
+
+            _response.IsSuccess = true;
+            _response.Message = "Record imported successfully";
+
+            #region Generate Excel file for Invalid Data
+
+            if (lstCustomerAccessory_ImportDataValidation.ToList().Count > 0)
+            {
+                _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
+                _response.Data = GenerateInvalidImportDataFile(lstCustomerAccessory_ImportDataValidation);
+
+            }
+
+            #endregion
+
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportCustomerAccessory()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var request = new CustomerAccessory_Search();
+
+            IEnumerable<CustomerAccessory_Response> lstSizeObj = await _ManageQCRepository.GetManageQCAccessoryList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Template_QCAccessory");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Customer Name";
+                    WorkSheet1.Cells[1, 2].Value = "Part Code";
+                    WorkSheet1.Cells[1, 3].Value = "Accessory BOM Number";
+                    WorkSheet1.Cells[1, 4].Value = "Drawing Number";
+                    WorkSheet1.Cells[1, 5].Value = "Accessory Name";
+                    WorkSheet1.Cells[1, 6].Value = "Quantity";
+                    WorkSheet1.Cells[1, 7].Value = "IsActive";
+
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.CustomerName;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.PartCode;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.AccessoryBOMNumber;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.DrawingNumber;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.AccessoryName;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.Quantity;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.IsActive == true ? "Active" : "Inactive";
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Column(1).AutoFit();
+                    WorkSheet1.Column(2).AutoFit();
+                    WorkSheet1.Column(3).AutoFit();
+                    WorkSheet1.Column(4).AutoFit();
+                    WorkSheet1.Column(5).AutoFit();
+                    WorkSheet1.Column(6).AutoFit();
+                    WorkSheet1.Column(7).AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
+
+        private byte[] GenerateInvalidImportDataFile(IEnumerable<CustomerAccessory_ImportDataValidation> lstCustomerAccessory_ImportDataValidation)
+        {
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+
+            using (MemoryStream msInvalidDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelInvalidData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelInvalidData.Workbook.Worksheets.Add("Invalid_Records");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "CustomerId";
+                    WorkSheet1.Cells[1, 2].Value = "PartCode";
+                    WorkSheet1.Cells[1, 3].Value = "AccessoryBOMNumber";
+                    WorkSheet1.Cells[1, 4].Value = "DrawingNumber";
+                    WorkSheet1.Cells[1, 5].Value = "AccessoryName";
+                    WorkSheet1.Cells[1, 6].Value = "Quantity";
+                    WorkSheet1.Cells[1, 7].Value = "ErrorMessage";
+
+                    recordIndex = 2;
+
+                    foreach (CustomerAccessory_ImportDataValidation record in lstCustomerAccessory_ImportDataValidation)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = record.CustomerId;
+                        WorkSheet1.Cells[recordIndex, 2].Value = record.PartCode;
+                        WorkSheet1.Cells[recordIndex, 3].Value = record.AccessoryBOMNumber;
+                        WorkSheet1.Cells[recordIndex, 4].Value = record.DrawingNumber;
+                        WorkSheet1.Cells[recordIndex, 5].Value = record.AccessoryName;
+                        WorkSheet1.Cells[recordIndex, 6].Value = record.Quantity;
+                        WorkSheet1.Cells[recordIndex, 7].Value = record.ValidationMessage;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelInvalidData.SaveAs(msInvalidDataFile);
+                    msInvalidDataFile.Position = 0;
+                    result = msInvalidDataFile.ToArray();
+                }
+            }
+
+            return result;
+        }
+
         #endregion
     }
 }

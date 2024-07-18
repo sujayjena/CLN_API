@@ -397,6 +397,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSSP_SolutionProvider = vResultObj.TSSP_SolutionProvider;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
+                    vManageTicketDetail_Response.TSSP_Remarks = vResultObj.TSSP_Remarks;
 
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;
@@ -466,6 +467,25 @@ namespace CLN.API.Controllers
                         };
 
                         vManageTicketDetail_Response.PartDetails.Add(vManageTicketPartDetails_Response);
+                    }
+
+                    // Status Log
+                    var vTicketStatusLogListObj = await _manageTicketRepository.GetManageTicketStatusLogById(TicketId);
+                    foreach (var item in vTicketStatusLogListObj)
+                    {
+                        var vManageTicketStatusLog_Response = new ManageTicketStatusLog_Response()
+                        {
+                            TicketId = item.TicketId,
+                            StartDate = item.StartDate,
+                            EndDate = item.EndDate,
+                            StatusId = item.StatusId,
+                            TicketStatus = item.TicketStatus,
+                            PriorityId = item.PriorityId,
+                            Priority = item.Priority,
+                            Agging = item.Agging
+                        };
+
+                        vManageTicketDetail_Response.TicketStatusLog.Add(vManageTicketStatusLog_Response);
                     }
                 }
 

@@ -68,6 +68,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Warranty", parameters.Warranty);
             queryParameters.Add("@PartImage", parameters.PartImage);
             queryParameters.Add("@PartImageOriginalFileName", parameters.PartImageOriginalFileName);
+            queryParameters.Add("@Remarks", parameters.Remarks);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -110,6 +111,9 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
+            queryParameters.Add("@PartCodeId", parameters.PartCodeId);
+            queryParameters.Add("@AccessoryBOMNumber", parameters.AccessoryBOMNumber);
+            queryParameters.Add("@DrawingNumber", parameters.DrawingNumber);
             queryParameters.Add("@AccessoryName", parameters.AccessoryName);
             queryParameters.Add("@Quantity", parameters.Quantity);
             queryParameters.Add("@IsActive", parameters.IsActive);
@@ -151,6 +155,15 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
 
             return await SaveByStoredProcedure<int>("DeleteCustomerAccessory", queryParameters);
+        }
+
+        public async Task<IEnumerable<CustomerAccessory_ImportDataValidation>> ImportAccessory(List<CustomerAccessory_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<CustomerAccessory_ImportDataValidation>("ImportCustomerAccessory", queryParameters);
         }
 
         #endregion

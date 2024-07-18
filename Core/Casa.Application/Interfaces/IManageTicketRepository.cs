@@ -15,6 +15,8 @@ namespace CLN.Application.Interfaces
 
         Task<ManageTicketDetail_Response?> GetManageTicketById(int Id);
 
+        Task<IEnumerable<ManageTicketStatusLog_Response>> GetManageTicketStatusLogById(int Id);
+
 
         Task<int> SaveManageTicketPartDetail(ManageTicketPartDetails_Request parameters);
 
