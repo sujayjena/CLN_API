@@ -33,6 +33,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmailId", parameters.EmailId);
             queryParameters.Add("@Website", parameters.Website);
             queryParameters.Add("@Remark", parameters.Remark);
+            queryParameters.Add("@CustomerRemark", parameters.CustomerRemark);
             queryParameters.Add("@RefParty", parameters.RefParty);
             queryParameters.Add("@GSTImage", parameters.GSTImageFileName);
             queryParameters.Add("@GSTImageOriginalFileName", parameters.GSTImageOriginalFileName);

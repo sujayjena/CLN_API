@@ -24,6 +24,8 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<ExpenseMatrix_Response>> GetExpenseMatrixList(ExpenseMatrixSearch_Request parameters);
 
         Task<ExpenseMatrix_Response?> GetExpenseMatrixById(long Id);
+
+        Task<IEnumerable<ExpenseMatrixDataValidationErrors>> ImportExpenseMatrix(List<ImportedExpenseMatrix> parameters);
         #endregion
     }
 }

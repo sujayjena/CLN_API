@@ -161,6 +161,7 @@ namespace CLN.API.Controllers
                     vCustomerDetail_Response.EmailId = vResultObj.EmailId;
                     vCustomerDetail_Response.Website = vResultObj.Website;
                     vCustomerDetail_Response.Remark = vResultObj.Remark;
+                    vCustomerDetail_Response.CustomerRemark = vResultObj.CustomerRemark;
                     vCustomerDetail_Response.RefParty = vResultObj.RefParty;
                     vCustomerDetail_Response.GSTImage = vResultObj.GSTImage;
                     vCustomerDetail_Response.GSTImageOriginalFileName = vResultObj.GSTImageOriginalFileName;

@@ -32,6 +32,8 @@ namespace CLN.Application.Models
 
         public string? Remark { get; set; }
 
+        public string? CustomerRemark { get; set; }
+
         public string? RefParty { get; set; }
 
         [JsonIgnore]
@@ -76,6 +78,8 @@ namespace CLN.Application.Models
         public string? Website { get; set; }
 
         public string? Remark { get; set; }
+
+        public string? CustomerRemark { get; set; }
 
         public string? RefParty { get; set; }
 
@@ -137,6 +141,8 @@ namespace CLN.Application.Models
         public string? Website { get; set; }
 
         public string? Remark { get; set; }
+
+        public string? CustomerRemark { get; set; }
 
         public string? RefParty { get; set; }
 

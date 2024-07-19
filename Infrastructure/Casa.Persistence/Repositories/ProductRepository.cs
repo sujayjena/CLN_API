@@ -73,5 +73,14 @@ namespace CLN.Persistence.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<ProductDataValidationErrors>> ImportProduct(List<ImportedProduct> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<ProductDataValidationErrors>("ImportProduct", queryParameters);
+        }
     }
 }

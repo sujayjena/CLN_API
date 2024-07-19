@@ -16,5 +16,7 @@ namespace CLN.Application.Interfaces
         Task<Product_Response?> GetProductById(int Id);
 
         Task<IEnumerable<Product_Segment_SubSegment_ProductModel_Response>> GetProduct_Segment_SubSegment_ProductModel_List_ById(Product_Segment_SubSegment_ProductModel_Search parameters);
+
+        Task<IEnumerable<ProductDataValidationErrors>> ImportProduct(List<ImportedProduct> parameters);
     }
 }

@@ -57,4 +57,21 @@ namespace CLN.Application.Models
         public string? Text { get; set; }
     }
 
+    public class ProductDataValidationErrors
+    {
+        public string? ProductCategory { get; set; }
+        public string? Segment { get; set; }
+        public string? SubSegment { get; set; }
+        public string? ProductModel { get; set; }
+        public string? IsActive { get; set; }
+        public string? ValidationMessage { get; set; }
+    }
+    public class ImportedProduct
+    {
+        public string? ProductCategory { get; set; }
+        public string? Segment { get; set; }
+        public string? SubSegment { get; set; }
+        public string? ProductModel { get; set; }
+        public string? IsActive { get; set; }
+    }
 }

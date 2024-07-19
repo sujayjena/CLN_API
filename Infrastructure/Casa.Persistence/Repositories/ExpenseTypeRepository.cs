@@ -99,6 +99,15 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<ExpenseMatrix_Response>("GetExpenseMatrixById", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<IEnumerable<ExpenseMatrixDataValidationErrors>> ImportExpenseMatrix(List<ImportedExpenseMatrix> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<ExpenseMatrixDataValidationErrors>("ImportExpenseMatrix", queryParameters);
+        }
         #endregion
     }
 }

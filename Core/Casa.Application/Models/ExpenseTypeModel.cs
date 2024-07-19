@@ -57,5 +57,23 @@ namespace CLN.Application.Models
         public decimal? Amount { get; set; }
         public bool? IsActive { get; set; }
     }
+
+    public class ExpenseMatrixDataValidationErrors
+    {
+        public string? EmployeeLevel { get; set; }
+        public string? ExpenseType { get; set; }
+        public string? CityGrade { get; set; }
+        public string? Amount { get; set; }
+        public string? IsActive { get; set; }
+        public string? ValidationMessage { get; set; }
+    }
+    public class ImportedExpenseMatrix
+    {
+        public string? EmployeeLevel { get; set; }
+        public string? ExpenseType { get; set; }
+        public string? CityGrade { get; set; }
+        public string? Amount { get; set; }
+        public string? IsActive { get; set; }
+    }
     #endregion
 }
