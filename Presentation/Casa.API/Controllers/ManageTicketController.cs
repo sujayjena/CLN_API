@@ -439,7 +439,6 @@ namespace CLN.API.Controllers
 
                     vManageTicketDetail_Response.TicketStatusId = vResultObj.TicketStatusId;
                     vManageTicketDetail_Response.TicketStatus = vResultObj.TicketStatus;
-                    vManageTicketDetail_Response.IsPendingAllocateEngg = vResultObj.IsPendingAllocateEngg;
 
                     vManageTicketDetail_Response.IsActive = vResultObj.IsActive;
 

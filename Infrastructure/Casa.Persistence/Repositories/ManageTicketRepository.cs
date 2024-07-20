@@ -152,6 +152,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
             queryParameters.Add("@FilterType", parameters.FilterType);
+            queryParameters.Add("@IsPendingAllocateEngg", parameters.IsPendingAllocateEngg);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);

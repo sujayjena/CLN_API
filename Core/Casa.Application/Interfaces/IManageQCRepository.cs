@@ -26,6 +26,8 @@ namespace CLN.Application.Interfaces
 
         Task<CustomerBOM_Response?> GetCustomerBOMById(int Id);
 
+        Task<IEnumerable<CustomerBOM_ImportDataValidation>> ImportBOM(List<CustomerBOM_ImportData> parameters);
+
         #endregion
 
         #region Customer Accessory
