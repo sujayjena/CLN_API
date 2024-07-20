@@ -277,6 +277,8 @@ namespace CLN.Application.Models
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
+
+        public bool? IsPendingAllocateEngg { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -444,6 +446,7 @@ namespace CLN.Application.Models
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
+        public bool? IsPendingAllocateEngg { get; set; }
         public bool? IsActive { get; set; }
 
         public List<ManageTicketPartDetails_Response> PartDetails { get; set; }
