@@ -17,5 +17,7 @@ namespace CLN.Application.Interfaces
         Task<CustomerList_Response?> GetCustomerById(int Id);
 
         Task<int> UpdateCustomerConsigneeAddress(Customer_Request parameters);
+
+        Task<IEnumerable<Customer_ImportDataValidation>> ImportCustomer(List<Customer_ImportData> parameters);
     }
 }

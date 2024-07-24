@@ -20,6 +20,8 @@ namespace CLN.Application.Interfaces
 
         Task<IEnumerable<UserListByRole_Response>> GetUserLisByRoleIdOrRoleName(UserListByRole_Search parameters);
 
+        Task<IEnumerable<User_ImportDataValidation>> ImportUser(List<User_ImportData> parameters);
+
         #endregion
     }
 }

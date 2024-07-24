@@ -130,7 +130,8 @@ namespace CLN.API.Controllers.Admin
                    !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "Description", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "UOM", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "MinQty", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
+                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "RGP", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file. Please Download Format file for reference";
@@ -145,7 +146,8 @@ namespace CLN.API.Controllers.Admin
                         Description = workSheet.Cells[rowIterator, 2].Value?.ToString(),
                         UOM = workSheet.Cells[rowIterator, 3].Value?.ToString(),
                         MinQty = workSheet.Cells[rowIterator, 4].Value?.ToString(),
-                        IsActive = workSheet.Cells[rowIterator, 5].Value?.ToString()
+                        RGP = workSheet.Cells[rowIterator, 5].Value?.ToString(),
+                        IsActive = workSheet.Cells[rowIterator, 6].Value?.ToString()
                     });
                 }
             }
@@ -198,8 +200,9 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 2].Value = "Description";
                     WorkSheet1.Cells[1, 3].Value = "UOM";
                     WorkSheet1.Cells[1, 4].Value = "MinQty";
-                    WorkSheet1.Cells[1, 5].Value = "IsActive";
-                    WorkSheet1.Cells[1, 6].Value = "ErrorMessage";
+                    WorkSheet1.Cells[1, 5].Value = "RGP";
+                    WorkSheet1.Cells[1, 6].Value = "IsActive";
+                    WorkSheet1.Cells[1, 7].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
@@ -209,8 +212,9 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 2].Value = record.Description;
                         WorkSheet1.Cells[recordIndex, 3].Value = record.UOM;
                         WorkSheet1.Cells[recordIndex, 4].Value = record.MinQty;
-                        WorkSheet1.Cells[recordIndex, 5].Value = record.IsActive;
-                        WorkSheet1.Cells[recordIndex, 6].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 5].Value = record.RGP;
+                        WorkSheet1.Cells[recordIndex, 6].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 7].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }

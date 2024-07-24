@@ -113,6 +113,16 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
+        public async Task<IEnumerable<User_ImportDataValidation>> ImportUser(List<User_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<User_ImportDataValidation>("ImportUser", queryParameters);
+        }
+
         #endregion
     }
 }

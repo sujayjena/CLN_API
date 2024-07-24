@@ -19,9 +19,6 @@ namespace CLN.Application.Models
 
         [DefaultValue("All")]
         public string? FilterType { get; set; }
-
-        [DefaultValue(false)]
-        public bool IsPendingAllocateEngg { get; set; }
     }
 
     public class ManageTicket_Request : BaseEntity
@@ -93,6 +90,7 @@ namespace CLN.Application.Models
         public int? BD_BatteryCellChemistryId { get; set; }
         public DateTime? BD_DateofManufacturing { get; set; }
         public int? BD_ProbReportedByCustId { get; set; }
+        public string? BD_ProblemDescription { get; set; }
         public DateTime? BD_WarrantyStartDate { get; set; }
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
@@ -122,6 +120,7 @@ namespace CLN.Application.Models
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string? TSSP_Remarks { get; set; }
+        public int? TSSP_BranchId { get; set; }
 
         public int? CP_Visual { get; set; }
         public string? CP_VisualImageFileName { get; set; }
@@ -271,17 +270,24 @@ namespace CLN.Application.Models
         public string BD_CellChemistry { get; set; }
         public DateTime? BD_DateofManufacturing { get; set; }
         public int? BD_ProbReportedByCustId { get; set; }
-        public string BD_ProbReportedByCust { get; set; }
         public DateTime? BD_WarrantyStartDate { get; set; }
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
         public string BD_WarrantyStatus { get; set; }
+
+        public int? BD_TechnicalSupportEnggId { get; set; }
+        public string BD_TechnicalSupportEngg { get; set; }
+
+        public int? TSSP_AllocateToServiceEnggId { get; set; }
+        public string TSSP_AllocateToServiceEngg { get; set; }
 
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
 
         public bool? IsActive { get; set; }
+
+        public ManageTicketEngineerVisitHistory_Response manageTicketEngineerVisitHistory { get; set; }
     }
 
     public class ManageTicketDetail_Response : BaseResponseEntity
@@ -375,6 +381,7 @@ namespace CLN.Application.Models
         public DateTime? BD_DateofManufacturing { get; set; }
         public int? BD_ProbReportedByCustId { get; set; }
         public string BD_ProbReportedByCust { get; set; }
+        public string? BD_ProblemDescription { get; set; }
         public DateTime? BD_WarrantyStartDate { get; set; }
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
@@ -406,6 +413,8 @@ namespace CLN.Application.Models
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string TSSP_AllocateToServiceEngg { get; set; }
         public string? TSSP_Remarks { get; set; }
+        public int? TSSP_BranchId { get; set; }
+        public string? TSSP_BranchName { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -448,6 +457,8 @@ namespace CLN.Application.Models
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
+        public int? TicketStatusSequenceNo { get; set; }
+
         public bool? IsActive { get; set; }
 
         public List<ManageTicketPartDetails_Response> PartDetails { get; set; }
@@ -533,6 +544,39 @@ namespace CLN.Application.Models
         public string? CityName { get; set; }
 
         public bool? IsActive { get; set; }
+    }
+
+
+    public class ManageTicketEngineerVisitHistory_Search : BaseSearchEntity
+    {
+        public int? TicketId { get; set; }
+        public int? EngineerId { get; set; }
+    }
+
+    public class ManageTicketEngineerVisitHistory_Request
+    {
+        public int Id { get; set; }
+        public int? EngineerId { get; set; }
+        public DateTime? VisitDate { get; set; }
+        public int? TicketId { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
+        public string? Address { get; set; }
+        public string? Status { get; set; }
+    }
+
+    public class ManageTicketEngineerVisitHistory_Response : BaseResponseEntity
+    {
+        public int Id { get; set; }
+        public int? EngineerId { get; set; }
+        public string? EngineerName { get; set; }
+        public int? TicketId { get; set; }
+        public string? TicketNumber { get; set; }
+        public DateTime? VisitDate { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
+        public string? Address { get; set; }
+        public string? Status { get; set; }
     }
 
 }

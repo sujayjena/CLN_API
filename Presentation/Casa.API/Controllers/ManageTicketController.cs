@@ -252,9 +252,68 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
+        public async Task<ResponseModel> CreateDuplicateTicket(int TicketId)
+        {
+            // Save/Update
+            int result = await _manageTicketRepository.CreateDuplicateTicket(TicketId);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record created sucessfully";
+            }
+
+            // Add/Update Ticket Details
+            if (result > 0)
+            {
+            }
+
+            _response.Id = result;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
         public async Task<ResponseModel> GetManageTicketList(ManageTicket_Search parameters)
         {
             var objList = await _manageTicketRepository.GetManageTicketList(parameters);
+            foreach (var item in objList)
+            {
+                if (Convert.ToInt32(item.TSSP_AllocateToServiceEnggId) > 0)
+                {
+                    var vManageTicketEngineerVisitHistory_Search = new ManageTicketEngineerVisitHistory_Search()
+                    {
+                        TicketId = item.Id,
+                        EngineerId = item.TSSP_AllocateToServiceEnggId
+                    };
+
+                    var vTicketHistoryListObj = _manageTicketRepository.GetTicketVisitHistoryList(vManageTicketEngineerVisitHistory_Search).Result.ToList().OrderByDescending(x => x.VisitDate).FirstOrDefault();
+                    if (vTicketHistoryListObj != null)
+                    {
+                        item.manageTicketEngineerVisitHistory = new ManageTicketEngineerVisitHistory_Response();
+
+                        item.manageTicketEngineerVisitHistory.Id = vTicketHistoryListObj.Id;
+                        item.manageTicketEngineerVisitHistory.EngineerId = vTicketHistoryListObj.EngineerId;
+                        item.manageTicketEngineerVisitHistory.VisitDate = vTicketHistoryListObj.VisitDate;
+                        item.manageTicketEngineerVisitHistory.Latitude = vTicketHistoryListObj.Latitude;
+                        item.manageTicketEngineerVisitHistory.Longitude = vTicketHistoryListObj.Longitude;
+                        item.manageTicketEngineerVisitHistory.Address = vTicketHistoryListObj.Address;
+                        item.manageTicketEngineerVisitHistory.Status = vTicketHistoryListObj.Status;
+                    }
+                }
+            }
+
             _response.Data = objList.ToList();
             _response.Total = parameters.Total;
             return _response;
@@ -367,6 +426,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.BD_DateofManufacturing = vResultObj.BD_DateofManufacturing;
                     vManageTicketDetail_Response.BD_ProbReportedByCustId = vResultObj.BD_ProbReportedByCustId;
                     vManageTicketDetail_Response.BD_ProbReportedByCust = vResultObj.BD_ProbReportedByCust;
+                    vManageTicketDetail_Response.BD_ProblemDescription = vResultObj.BD_ProblemDescription;
+
                     vManageTicketDetail_Response.BD_WarrantyStartDate = vResultObj.BD_WarrantyStartDate;
                     vManageTicketDetail_Response.BD_WarrantyEndDate = vResultObj.BD_WarrantyEndDate;
                     vManageTicketDetail_Response.BD_WarrantyStatusId = vResultObj.BD_WarrantyStatusId;
@@ -439,6 +500,7 @@ namespace CLN.API.Controllers
 
                     vManageTicketDetail_Response.TicketStatusId = vResultObj.TicketStatusId;
                     vManageTicketDetail_Response.TicketStatus = vResultObj.TicketStatus;
+                    vManageTicketDetail_Response.TicketStatusSequenceNo = vResultObj.TicketStatusSequenceNo;
 
                     vManageTicketDetail_Response.IsActive = vResultObj.IsActive;
 
@@ -494,7 +556,70 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> DeleteManageTicketPartDetails(int Id)
+        {
+            // Save/Update
+            int result = await _manageTicketRepository.DeleteManageTicketPartDetail(Id);
 
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record deleted sucessfully";
+            }
+
+            _response.Id = result;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveTicketVisitHistory(ManageTicketEngineerVisitHistory_Request parameters)
+        {
+            //Save / Update
+            int result = await _manageTicketRepository.SaveTicketVisitHistory(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+
+            _response.Id = result;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetTicketVisitHistoryList(ManageTicketEngineerVisitHistory_Search parameters)
+        {
+            var objList = await _manageTicketRepository.GetTicketVisitHistoryList(parameters);
+            _response.Data = objList.ToList();
+            return _response;
+        }
 
         [Route("[action]")]
         [HttpPost]
@@ -551,6 +676,15 @@ namespace CLN.API.Controllers
 
                 _response.Data = vCustomerDetail_Response;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> TicketOTPGenerate(string SearchText)
+        {
+            var objList = await _manageTicketRepository.GetCustomerMobileNumberList(SearchText);
+            _response.Data = objList.ToList();
             return _response;
         }
 

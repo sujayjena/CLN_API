@@ -11,16 +11,25 @@ namespace CLN.Application.Interfaces
     {
         Task<int> SaveManageTicket(ManageTicket_Request parameters);
 
+        Task<int> CreateDuplicateTicket(int TicketId);
+
         Task<IEnumerable<ManageTicketList_Response>> GetManageTicketList(ManageTicket_Search parameters);
 
         Task<ManageTicketDetail_Response?> GetManageTicketById(int Id);
 
+
         Task<IEnumerable<ManageTicketStatusLog_Response>> GetManageTicketStatusLogById(int Id);
+
+        Task<int> SaveTicketVisitHistory(ManageTicketEngineerVisitHistory_Request parameters);
+
+        Task<IEnumerable<ManageTicketEngineerVisitHistory_Response>> GetTicketVisitHistoryList(ManageTicketEngineerVisitHistory_Search parameters);
 
 
         Task<int> SaveManageTicketPartDetail(ManageTicketPartDetails_Request parameters);
 
         Task<IEnumerable<ManageTicketPartDetails_Response>> GetManageTicketPartDetailById(int Id);
+
+        Task<int> DeleteManageTicketPartDetail(int Id);
 
 
         Task<IEnumerable<ManageTicketCustomerMobileNumber_Response>> GetCustomerMobileNumberList(string SearchText);

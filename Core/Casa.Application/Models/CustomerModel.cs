@@ -1,5 +1,6 @@
 ﻿using CLN.Domain.Entities;
 using CLN.Persistence.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -164,4 +165,65 @@ namespace CLN.Application.Models
 
         public Address_Response AddressDetail { get; set; }
     }
+
+    #region Import and Download
+
+    public class Customer_ImportRequest
+    {
+        public IFormFile FileUpload { get; set; }
+    }
+
+    public class Customer_ImportData
+    {
+        public string? CustomerType { get; set; }
+
+        public string? CustomerName { get; set; }
+
+        public string? CustomerCode { get; set; }
+
+        public string? LandLineNumber { get; set; }
+
+        public string? MobileNumber { get; set; }
+
+        public string? Email { get; set; }
+
+        public string? Website { get; set; }
+
+        public string? SpecialRemark { get; set; }
+
+        public string? CustomerRemark { get; set; }
+
+        public string? RefParty { get; set; }
+
+        public string? IsActive { get; set; }
+    }
+
+    public class Customer_ImportDataValidation
+    {
+        public string? CustomerType { get; set; }
+
+        public string? CustomerName { get; set; }
+
+        public string? CustomerCode { get; set; }
+
+        public string? LandLineNumber { get; set; }
+
+        public string? MobileNumber { get; set; }
+
+        public string? Email { get; set; }
+
+        public string? Website { get; set; }
+
+        public string? SpecialRemark { get; set; }
+
+        public string? CustomerRemark { get; set; }
+
+        public string? RefParty { get; set; }
+
+        public string? IsActive { get; set; }
+
+        public string ValidationMessage { get; set; }
+    }
+
+    #endregion
 }

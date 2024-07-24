@@ -32,7 +32,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TicketSLADays", parameters.TicketSLADays);
             queryParameters.Add("@TicketSLAHours", parameters.TicketSLAHours);
             queryParameters.Add("@TicketSLAMin", parameters.TicketSLAMin);
-        
+
             queryParameters.Add("@CD_LoggingSourceId", parameters.CD_LoggingSourceId);
             queryParameters.Add("@CD_CallerTypeId", parameters.CD_CallerTypeId);
             queryParameters.Add("@CD_CallerName", parameters.CD_CallerName);
@@ -54,7 +54,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CD_SiteContactName", parameters.CD_SiteContactName);
             queryParameters.Add("@CD_SitContactMobile", parameters.CD_SitContactMobile);
             queryParameters.Add("@CD_SiteAddressId", parameters.CD_SiteAddressId);
-          
+
             queryParameters.Add("@BD_BatteryBOMNumberId", parameters.BD_BatteryBOMNumberId);
             queryParameters.Add("@BD_BatteryProductCategoryId", parameters.BD_BatteryProductCategoryId);
             queryParameters.Add("@BD_BatterySegmentId", parameters.BD_BatterySegmentId);
@@ -63,11 +63,12 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@BD_BatteryCellChemistryId", parameters.BD_BatteryCellChemistryId);
             queryParameters.Add("@BD_DateofManufacturing", parameters.BD_DateofManufacturing);
             queryParameters.Add("@BD_ProbReportedByCustId", parameters.BD_ProbReportedByCustId);
+            queryParameters.Add("@BD_ProblemDescription", parameters.BD_ProblemDescription);
             queryParameters.Add("@BD_WarrantyStartDate", parameters.BD_WarrantyStartDate);
             queryParameters.Add("@BD_WarrantyEndDate", parameters.BD_WarrantyEndDate);
             queryParameters.Add("@BD_WarrantyStatusId", parameters.BD_WarrantyStatusId);
             queryParameters.Add("@BD_TechnicalSupportEnggId", parameters.BD_TechnicalSupportEnggId);
-          
+
             queryParameters.Add("@TSAD_Visual", parameters.TSAD_Visual);
             queryParameters.Add("@TSAD_VisualImageFileName", parameters.TSAD_VisualImageFileName);
             queryParameters.Add("@TSAD_VisualImageOriginalFileName", parameters.TSAD_VisualImageOriginalFileName);
@@ -86,6 +87,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSSP_SolutionProvider", parameters.TSSP_SolutionProvider);
             queryParameters.Add("@TSSP_AllocateToServiceEnggId", parameters.TSSP_AllocateToServiceEnggId);
             queryParameters.Add("@TSSP_Remarks", parameters.TSSP_Remarks);
+            queryParameters.Add("@TSSP_BranchId", parameters.TSSP_BranchId);
 
             queryParameters.Add("@CP_Visual", parameters.CP_Visual);
             queryParameters.Add("@CP_VisualImageFileName", parameters.CP_VisualImageFileName);
@@ -108,10 +110,10 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_BatteryTemp", parameters.CP_BatteryTemp);
             queryParameters.Add("@CP_BMSSerialNumber", parameters.CP_BMSSerialNumber);
             queryParameters.Add("@CP_ProblemObserved", parameters.CP_ProblemObserved);
-          
+
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);
             queryParameters.Add("@CC_BatteryRepairedToPlant", parameters.CC_BatteryRepairedToPlant);
-         
+
             queryParameters.Add("@OV_IsCustomerAvailable", parameters.OV_IsCustomerAvailable);
             queryParameters.Add("@OV_EngineerName", parameters.OV_EngineerName);
             queryParameters.Add("@OV_EngineerNumber", parameters.OV_EngineerNumber);
@@ -129,20 +131,16 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveTicket", queryParameters);
         }
 
-        public async Task<int> SaveManageTicketPartDetail(ManageTicketPartDetails_Request parameters)
+        public async Task<int> CreateDuplicateTicket(int TicketId)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
-            queryParameters.Add("@Id", parameters.Id);
-            queryParameters.Add("@TicketId", parameters.TicketId);
-            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
-            queryParameters.Add("@Quantity", parameters.Quantity);
-            queryParameters.Add("@PartStatusId", parameters.PartStatusId);
-
+            queryParameters.Add("@TicketId", TicketId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await SaveByStoredProcedure<int>("SaveTicketPartDetails", queryParameters);
+            return await SaveByStoredProcedure<int>("CreateDuplicateTicket", queryParameters);
         }
+
 
         public async Task<IEnumerable<ManageTicketList_Response>> GetManageTicketList(ManageTicket_Search parameters)
         {
@@ -152,7 +150,6 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
             queryParameters.Add("@FilterType", parameters.FilterType);
-            queryParameters.Add("@IsPendingAllocateEngg", parameters.IsPendingAllocateEngg);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
@@ -174,6 +171,7 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<ManageTicketDetail_Response>("GetTicketById", queryParameters)).FirstOrDefault();
         }
 
+
         public async Task<IEnumerable<ManageTicketStatusLog_Response>> GetManageTicketStatusLogById(int Id)
         {
             DynamicParameters queryParameters = new DynamicParameters();
@@ -185,6 +183,65 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
+        public async Task<int> SaveTicketVisitHistory(ManageTicketEngineerVisitHistory_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@VisitDate", parameters.VisitDate);
+            queryParameters.Add("@TicketId", parameters.TicketId);
+            queryParameters.Add("@Latitude", parameters.Latitude);
+            queryParameters.Add("@Longitude", parameters.Longitude);
+            queryParameters.Add("@Address", parameters.Address);
+            queryParameters.Add("@Status", parameters.Status);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveTicketVisitHistory", queryParameters);
+        }
+
+        public async Task<IEnumerable<ManageTicketEngineerVisitHistory_Response>> GetTicketVisitHistoryList(ManageTicketEngineerVisitHistory_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@TicketId", parameters.TicketId);
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<ManageTicketEngineerVisitHistory_Response>("GetTicketVisitHistoryList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+    
+        public async Task<int> SaveManageTicketPartDetail(ManageTicketPartDetails_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@TicketId", parameters.TicketId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@Quantity", parameters.Quantity);
+            queryParameters.Add("@PartStatusId", parameters.PartStatusId);
+
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveTicketPartDetails", queryParameters);
+        }
+
+        public async Task<int> DeleteManageTicketPartDetail(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return await SaveByStoredProcedure<int>("DeleteTicketPartDetails", queryParameters);
+        }
 
         public async Task<IEnumerable<ManageTicketPartDetails_Response>> GetManageTicketPartDetailById(int Id)
         {

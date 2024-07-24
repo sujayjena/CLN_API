@@ -1,5 +1,6 @@
 ﻿using CLN.API.CustomAttributes;
 using CLN.Application.Constants;
+using CLN.Application.Enums;
 using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
@@ -33,6 +34,58 @@ namespace CLN.API.Controllers
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ResponseModel> OTPGenerate(OTPRequestModel parameters)
+        {
+            int result = await _loginRepository.ValidateUserMobile(parameters);
+
+            if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "No record exists";
+            }
+            else
+            {
+                int iOTP = Utilities.GenerateRandomNumForOTP();
+                if(iOTP > 0)
+                {
+                    parameters.OTP = Convert.ToString(iOTP);
+                }
+
+                // Opt save
+                int resultOTP = await _loginRepository.SaveOTP(parameters);
+
+                if (resultOTP > 0)
+                {
+                    _response.Message = "OTP sent successfully.";
+                }
+            }
+
+            return _response;
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ResponseModel> OTPVerification(OTPVerifyModel parameters)
+        {
+            int result = await _loginRepository.VerifyOTP(parameters);
+            
+            if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Invalid OTP!";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "OTP timeout!";
+            }
+            else
+            {
+                _response.Message = "OTP verified sucessfully.";
+            }
+
+            return _response;
         }
 
         [HttpPost]

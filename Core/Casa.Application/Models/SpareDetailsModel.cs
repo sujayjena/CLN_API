@@ -3,6 +3,7 @@ using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace CLN.Application.Models
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
         public int? MinQty { get; set; }
+        [DefaultValue(false)]
+        public bool? RGP { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -37,6 +40,8 @@ namespace CLN.Application.Models
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
         public int? MinQty { get; set; }
+        [DefaultValue(false)]
+        public bool? RGP { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -54,6 +59,7 @@ namespace CLN.Application.Models
         public string Description { get; set; }
         public string UOM { get; set; }
         public string MinQty { get; set; }
+        public string RGP { get; set; }
         public string IsActive { get; set; }
     }
 
@@ -64,6 +70,7 @@ namespace CLN.Application.Models
         public string UOM { get; set; }
         public string MinQty { get; set; }
         public string IsActive { get; set; }
+        public string RGP { get; set; }
         public string ValidationMessage { get; set; }
     }
 

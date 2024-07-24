@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -215,4 +216,125 @@ namespace CLN.Application.Models
 
         public string? UserName { get; set; }
     }
+
+    #region Import and Download
+
+    public class User_ImportRequest
+    {
+        public IFormFile FileUpload { get; set; }
+    }
+
+    public class User_ImportData
+    {
+        public string? UserCode { get; set; }
+
+        public string? UserName { get; set; }
+
+        public string? MobileNumber { get; set; }
+
+        public string? EmailId { get; set; }
+
+        public string? Password { get; set; }
+
+        public string? Role { get; set; }
+
+        public string? ReportingTo { get; set; }
+
+        public string? Department { get; set; }
+
+        public string? Company { get; set; }
+
+        public string? Address { get; set; }
+
+        public string? Region { get; set; }
+
+        public string? State { get; set; }
+
+        public string? District { get; set; }
+
+        public string? City { get; set; }
+
+        //public string? Area { get; set; }
+
+        public string? Pincode { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
+
+        public DateTime? DateOfJoining { get; set; }
+
+        public string? EmergencyContactNumber { get; set; }
+
+        public string? BloodGroup { get; set; }
+
+        public string? AadharNumber { get; set; }
+
+        public string? PanNumber { get; set; }
+
+        public string? MobileUniqueId { get; set; }
+
+        public string? IsMobileUser { get; set; }
+
+        public string? IsWebUser { get; set; }
+
+        public string? IsActive { get; set; }
+    }
+
+    public class User_ImportDataValidation
+    {
+        public string? UserCode { get; set; }
+
+        public string? UserName { get; set; }
+
+        public string? MobileNumber { get; set; }
+
+        public string? EmailId { get; set; }
+
+        public string? Password { get; set; }
+
+        public string? Role { get; set; }
+
+        public string? ReportingTo { get; set; }
+
+        public string? Department { get; set; }
+
+        public string? Company { get; set; }
+
+        public string? Address { get; set; }
+
+        public string? Region { get; set; }
+
+        public string? State { get; set; }
+
+        public string? District { get; set; }
+
+        public string? City { get; set; }
+
+        //public string? Area { get; set; }
+
+        public string? Pincode { get; set; }
+
+        public string? DateOfBirth { get; set; }
+
+        public string? DateOfJoining { get; set; }
+
+        public string? EmergencyContactNumber { get; set; }
+
+        public string? BloodGroup { get; set; }
+
+        public string? AadharNumber { get; set; }
+
+        public string? PanNumber { get; set; }
+
+        public string? MobileUniqueId { get; set; }
+
+        public string? IsMobileUser { get; set; }
+
+        public string? IsWebUser { get; set; }
+
+        public string? IsActive { get; set; }
+
+        public string ValidationMessage { get; set; }
+    }
+
+    #endregion
 }
