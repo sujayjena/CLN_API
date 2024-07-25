@@ -66,5 +66,33 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<EmailConfig_Response>("GetEmailConfigById", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<int> SaveEmailNotification(EmailNotification_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@Module", parameters.Module);
+            queryParameters.Add("@Subject", parameters.Subject);
+            queryParameters.Add("@SendTo", parameters.SendTo);
+            queryParameters.Add("@Content", parameters.Content);
+            queryParameters.Add("@EmailTo", parameters.EmailTo);
+            queryParameters.Add("@RefValue1", parameters.RefValue1);
+            queryParameters.Add("@RefValue2", parameters.RefValue2);
+            queryParameters.Add("@IsSent", parameters.IsSent);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveEmailNotification", queryParameters);
+        }
+
+        public async Task<EmailNotification_Response?> GetEmailNotificationById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<EmailNotification_Response>("GetEmailNotificationById", queryParameters)).FirstOrDefault();
+        }
+
     }
 }

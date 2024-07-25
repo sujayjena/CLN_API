@@ -74,6 +74,7 @@ namespace CLN.Persistence
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ITatTimesRepository, TatTimesRepository>();
             services.AddScoped<IAdminDaysRepository, AdminDaysRepository>();
+            services.AddScoped<IEmailHelper, EmailHelper>();
             services.AddScoped<IEmailConfigRepository, EmailConfigRepository>();
             services.AddScoped<IConfigRefRepository, ConfigRefRepository>();
         }

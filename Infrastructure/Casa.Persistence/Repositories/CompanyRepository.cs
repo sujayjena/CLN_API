@@ -76,5 +76,22 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
             return (await ListByStoredProcedure<Company_Response>("GetCompanyById", queryParameters)).FirstOrDefault();
         }
+
+
+        public async Task<int> SaveAMCReminderEmail(CompanyAMCRminderEmail_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@AMCYear", parameters.AMCYear);
+            queryParameters.Add("@AMCRemainingDays", parameters.AMCRemainingDays);
+            queryParameters.Add("@AMCReminderCount", parameters.AMCReminderCount);
+            queryParameters.Add("@AMCPreorPostExpire", parameters.AMCPreorPostExpire);
+            queryParameters.Add("@AmcEndDate", parameters.AmcEndDate);
+            queryParameters.Add("@AmcLastEmailDate", parameters.AmcLastEmailDate);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveAMCReminderEmail", queryParameters);
+        }
+
     }
 }

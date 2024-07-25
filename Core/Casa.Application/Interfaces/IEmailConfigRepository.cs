@@ -14,5 +14,9 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<EmailConfig_Response>> GetEmailConfigList(EmailConfig_Search parameters);
 
         Task<EmailConfig_Response?> GetEmailConfigById(int Id);
+
+        Task<int> SaveEmailNotification(EmailNotification_Request parameters);
+
+        Task<EmailNotification_Response?> GetEmailNotificationById(int Id);
     }
 }

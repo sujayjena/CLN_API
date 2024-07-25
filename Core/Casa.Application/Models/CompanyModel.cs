@@ -89,4 +89,20 @@ namespace CLN.Application.Models
         public int? TotalAmcRemainingDays { get; set; }
         public bool? IsActive { get; set; }
     }
+
+    public class CompanyAMCRminderEmail_Request : BaseEntity
+    {
+        public string AMCYear { get; set; }
+
+        [DefaultValue(0)]
+        public int? AMCRemainingDays { get; set; }
+
+        [DefaultValue(0)]
+        public int? AMCReminderCount { get; set; }
+
+        [DefaultValue(false)]
+        public bool? AMCPreorPostExpire { get; set; }
+        public DateTime? AmcEndDate { get; set; }
+        public DateTime? AmcLastEmailDate { get; set; }
+    }
 }

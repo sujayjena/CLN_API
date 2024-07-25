@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 
 namespace CLN.Application.Helpers
 {
     public interface IEmailHelper
     {
-        Task<bool> SendEmail(string emailSubject, string emailContent, string receiverEmail, List<Attachment> files = null);
+        Task<bool> SendEmail(string module, string subject, string sendTo, string content, string recipientEmail , List<Attachment> files = null);
     }
 
     public class EmailHelper : IEmailHelper
@@ -25,9 +26,25 @@ namespace CLN.Application.Helpers
             _emailConfigRepository = emailConfigRepository;
         }
 
-        public async Task<bool> SendEmail(string emailSubject, string emailContent, string receiverEmail, List<Attachment> files = null)
+        public async Task<bool> SendEmail(string module, string subject, string sendTo, string content, string recipientEmail, List<Attachment> files = null)
         {
             bool result = false;
+
+            #region Email Notificaiton Save/Upate
+
+            var vEmailNotification_RequestObj = new EmailNotification_Request()
+            {
+                Module = module,
+                Subject = subject,
+                SendTo = sendTo,
+                Content = content,
+                EmailTo = recipientEmail,
+                IsSent = false,
+            };
+
+            int resultEmailNotification = await _emailConfigRepository.SaveEmailNotification(vEmailNotification_RequestObj);
+
+            #endregion
 
             try
             {
@@ -56,6 +73,7 @@ namespace CLN.Application.Helpers
                     sSmtpPassword = vEmailConfigObj.SmtpPassword;
                     bSmtpUseDefaultCredentials = vEmailConfigObj.SmtpUseDefaultCredentials;
                     bSmtpEnableSSL = vEmailConfigObj.SmtpEnableSSL;
+                    iSmtpPort = Convert.ToInt32(vEmailConfigObj.SmtpPort);
                     iSmtpTimeout = vEmailConfigObj.SmtpTimeout;
                     sFromAddress = vEmailConfigObj.FromAddress;
                     sEmailSenderName = vEmailConfigObj.EmailSenderName;
@@ -71,12 +89,12 @@ namespace CLN.Application.Helpers
                     {
                         using (MailMessage mail = new MailMessage())
                         {
-                            if (!string.IsNullOrWhiteSpace(receiverEmail))
+                            if (!string.IsNullOrWhiteSpace(recipientEmail))
                             {
                                 mail.From = new MailAddress(sFromAddress);
-                                mail.To.Add(receiverEmail);
-                                mail.Subject = emailSubject;
-                                mail.Body = emailContent;
+                                mail.To.Add(recipientEmail);
+                                mail.Subject = subject;
+                                mail.Body = content;
                                 mail.IsBodyHtml = true;
 
                                 if (files != null)
@@ -91,6 +109,7 @@ namespace CLN.Application.Helpers
                                 {
                                     smtp.Credentials = new NetworkCredential(sSmtpUsername, sSmtpPassword);
                                     smtp.EnableSsl = Convert.ToBoolean(bSmtpEnableSSL);
+                                    smtp.Port = iSmtpPort;
 
                                     //smtp.SendAsync(mail, "EmailAlert");
                                     try
@@ -108,6 +127,22 @@ namespace CLN.Application.Helpers
                         }
                     });
                 }
+
+                #region Email Notificaiton Save/Upate
+
+                if (result && resultEmailNotification > 0)
+                {
+                    var vResultObj = await _emailConfigRepository.GetEmailNotificationById(resultEmailNotification);
+                    if (vResultObj != null)
+                    {
+                        vEmailNotification_RequestObj.Id = resultEmailNotification;
+                        vEmailNotification_RequestObj.IsSent = true;
+
+                        int resultEmailNotificationUpdate = await _emailConfigRepository.SaveEmailNotification(vEmailNotification_RequestObj);
+                    }
+                }
+
+                #endregion
             }
             catch (Exception ex)
             {

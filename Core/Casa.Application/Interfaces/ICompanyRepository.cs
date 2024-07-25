@@ -13,5 +13,7 @@ namespace CLN.Application.Interfaces
         Task<int> SaveCompany(Company_Request parameters);
         Task<IEnumerable<Company_Response>> GetCompanyList(CompanySearch_Request parameters);
         Task<Company_Response?> GetCompanyById(int Id);
+
+        Task<int> SaveAMCReminderEmail(CompanyAMCRminderEmail_Request parameters);
     }
 }
