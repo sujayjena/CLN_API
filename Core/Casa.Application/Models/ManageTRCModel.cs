@@ -14,6 +14,7 @@ namespace CLN.Application.Models
 {
     public class ManageTRC_Search : BaseSearchEntity
     {
+        public int? TRCStatusId { get; set; }
     }
 
     public class ManageTRC_Request : BaseEntity

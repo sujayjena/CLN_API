@@ -481,6 +481,8 @@ namespace CLN.Application.Models
         public int? PartStatusId { get; set; }
 
         public string? PartStatus { get; set; }
+
+        public bool? RGP { get; set; }
     }
 
     public class ManageTicketStatusLog_Response

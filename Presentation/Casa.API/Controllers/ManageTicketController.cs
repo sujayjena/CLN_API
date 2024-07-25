@@ -525,7 +525,8 @@ namespace CLN.API.Controllers
                             SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
                             PartStatusId = item.PartStatusId,
-                            PartStatus = item.PartStatus
+                            PartStatus = item.PartStatus,
+                            RGP = item.RGP,
                         };
 
                         vManageTicketDetail_Response.PartDetails.Add(vManageTicketPartDetails_Response);
