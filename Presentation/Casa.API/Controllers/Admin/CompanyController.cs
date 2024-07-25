@@ -16,16 +16,28 @@ namespace CLN.API.Controllers.Admin
         private readonly ICompanyRepository _companyRepository;
         private IFileManager _fileManager;
         private IEmailHelper _emailHelper;
-        private readonly IWebHostEnvironment _environment;
+        //private readonly IWebHostEnvironment _environment;
 
         private readonly IConfigRefRepository _configRefRepository;
 
-        public CompanyController(ICompanyRepository companyRepository, IFileManager fileManager, IEmailHelper emailHelper, IWebHostEnvironment environment, IConfigRefRepository configRefRepository)
+        //public CompanyController(ICompanyRepository companyRepository, IFileManager fileManager, IEmailHelper emailHelper, IWebHostEnvironment environment, IConfigRefRepository configRefRepository)
+        //{
+        //    _companyRepository = companyRepository;
+        //    _fileManager = fileManager;
+        //    _emailHelper = emailHelper;
+        //    _environment = environment;
+
+        //    _configRefRepository = configRefRepository;
+
+        //    _response = new ResponseModel();
+        //    _response.IsSuccess = true;
+        //}
+
+        public CompanyController(ICompanyRepository companyRepository, IFileManager fileManager, IEmailHelper emailHelper, IConfigRefRepository configRefRepository)
         {
             _companyRepository = companyRepository;
             _fileManager = fileManager;
             _emailHelper = emailHelper;
-            _environment = environment;
 
             _configRefRepository = configRefRepository;
 
@@ -110,120 +122,120 @@ namespace CLN.API.Controllers.Admin
 
             var lstCompanys = await _companyRepository.GetCompanyList(vCompanySearch_Request);
 
-            foreach (var companyItem in lstCompanys.ToList())
-            {
-                string sCompanyName = companyItem.CompanyName;
-                int iCompanyId = companyItem.Id;
-                int iTotalAmcRemainingDays = Convert.ToInt32(companyItem.TotalAmcRemainingDays);
+            //foreach (var companyItem in lstCompanys.ToList())
+            //{
+            //    string sCompanyName = companyItem.CompanyName;
+            //    int iCompanyId = companyItem.Id;
+            //    int iTotalAmcRemainingDays = Convert.ToInt32(companyItem.TotalAmcRemainingDays);
 
-                if (iTotalAmcRemainingDays == 0)
-                {
-
-                }
-                else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 45 && iTotalAmcRemainingDays <= 60)
-                {
-                    var vEmailCustomer = SendAMCEmailToCustomer(companyItem);
-                    var vEmailServiceProvider = SendAMCEmailToServiceProvider(companyItem);
-                }
-                else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 30 && iTotalAmcRemainingDays <= 45)
-                {
-                    var vEmailCustomer = SendAMCEmailToCustomer(companyItem);
-                    var vEmailServiceProvider = SendAMCEmailToServiceProvider(companyItem);
-                }
-                else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 15 && iTotalAmcRemainingDays <= 30)
-                {
-                    var vEmailCustomer = SendAMCEmailToCustomer(companyItem);
-                    var vEmailServiceProvider = SendAMCEmailToServiceProvider(companyItem);
-                }
-                else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays <= 15)
-                {
-                    var vEmailCustomer = SendAMCEmailToCustomer(companyItem);
-                    var vEmailServiceProvider = SendAMCEmailToServiceProvider(companyItem);
-                }
-            }
+            //    if (iTotalAmcRemainingDays == 0 && companyItem.AmcLastEmailDate.HasValue && DateTime.Now <= companyItem.AmcLastEmailDate)
+            //    {
+            //        var vEmailCustomer = await SendAMCEmailToCustomer11(companyItem);
+            //    }
+            //    else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 45 && iTotalAmcRemainingDays <= 60)
+            //    {
+            //        var vEmailCustomer = await SendAMCEmailToCustomer11(companyItem);
+            //        var vEmailServiceProvider = await SendAMCEmailToServiceProvider(companyItem);
+            //    }
+            //    else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 30 && iTotalAmcRemainingDays <= 45)
+            //    {
+            //        var vEmailCustomer = await SendAMCEmailToCustomer11(companyItem);
+            //        var vEmailServiceProvider = await SendAMCEmailToServiceProvider(companyItem);
+            //    }
+            //    else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 15 && iTotalAmcRemainingDays <= 30)
+            //    {
+            //        var vEmailCustomer = await SendAMCEmailToCustomer11(companyItem);
+            //        var vEmailServiceProvider = await SendAMCEmailToServiceProvider(companyItem);
+            //    }
+            //    else if (iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays > 0 && iTotalAmcRemainingDays <= 15)
+            //    {
+            //        var vEmailCustomer =await SendAMCEmailToCustomer11(companyItem);
+            //        var vEmailServiceProvider = await SendAMCEmailToServiceProvider(companyItem);
+            //    }
+            //}
 
             return _response;
         }
 
-        public async Task<bool> SendAMCEmailToCustomer(Company_Response company_Response)
-        {
-            bool result = false;
-            string templateFilePath, emailTemplateContent;
+        //public async Task<bool> SendAMCEmailToCustomer11(Company_Response company_Response)
+        //{
+        //    bool result = false;
+        //    string templateFilePath = "", emailTemplateContent = "";
 
-            try
-            {
-                var vConfigRef_Search = new ConfigRef_Search()
-                {
-                    Ref_Type = "Email",
-                    Ref_Param = "AMCEmailToCustomer"
-                };
+        //    try
+        //    {
+        //        var vConfigRef_Search = new ConfigRef_Search()
+        //        {
+        //            Ref_Type = "Email",
+        //            Ref_Param = "AMCEmailToCustomer"
+        //        };
 
-                var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                if (vConfigRefObj != null)
-                {
-                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\QuotationTemplate.html";
-                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+        //        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+        //        if (vConfigRefObj != null)
+        //        {
+        //            //templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\QuotationTemplate.html";
+        //            //emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
 
-                    if (emailTemplateContent.IndexOf("[Date]", StringComparison.OrdinalIgnoreCase) > 0)
-                    {
-                        emailTemplateContent = emailTemplateContent.Replace("[Date]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
-                    }
+        //            //if (emailTemplateContent.IndexOf("[Date]", StringComparison.OrdinalIgnoreCase) > 0)
+        //            //{
+        //            //    emailTemplateContent = emailTemplateContent.Replace("[Date]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
+        //            //}
 
-                    if (emailTemplateContent.IndexOf("[SenderCompanyLogo]", StringComparison.OrdinalIgnoreCase) > 0)
-                    {
-                        emailTemplateContent = emailTemplateContent.Replace("[SenderCompanyLogo]", company_Response.CompanyLogoImageURL);
-                    }
+        //            if (emailTemplateContent.IndexOf("[SenderCompanyLogo]", StringComparison.OrdinalIgnoreCase) > 0)
+        //            {
+        //                emailTemplateContent = emailTemplateContent.Replace("[SenderCompanyLogo]", company_Response.CompanyLogoImageURL);
+        //            }
 
-                    result = await _emailHelper.SendEmail(vConfigRefObj.Ref_Value1, emailTemplateContent, vConfigRefObj.Ref_Value2, files: null);
-                }
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
+        //            result = await _emailHelper.SendEmail(vConfigRefObj.Ref_Value1, emailTemplateContent, vConfigRefObj.Ref_Value2, files: null);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result = false;
+        //    }
 
-            return result;
-        }
+        //    return result;
+       // }
 
-        public async Task<bool> SendAMCEmailToServiceProvider(Company_Response company_Response)
-        {
-            bool result = false;
-            string templateFilePath, emailTemplateContent;
+        //public async Task<bool> SendAMCEmailToServiceProvider(Company_Response company_Response)
+        //{
+        //    bool result = false;
+        //    string templateFilePath = "", emailTemplateContent="";
 
-            try
-            {
-                var vConfigRefSP_Search = new ConfigRef_Search()
-                {
-                    Ref_Type = "Email",
-                    Ref_Param = "AMCEmailToServiceProvider"
-                };
+        //    try
+        //    {
+        //        var vConfigRefSP_Search = new ConfigRef_Search()
+        //        {
+        //            Ref_Type = "Email",
+        //            Ref_Param = "AMCEmailToServiceProvider"
+        //        };
 
-                var vConfigRefSPObj = _configRefRepository.GetConfigRefList(vConfigRefSP_Search).Result.ToList().FirstOrDefault();
-                if (vConfigRefSPObj != null)
-                {
-                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\QuotationTemplate.html";
-                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+        //        var vConfigRefSPObj = _configRefRepository.GetConfigRefList(vConfigRefSP_Search).Result.ToList().FirstOrDefault();
+        //        if (vConfigRefSPObj != null)
+        //        {
+        //            //templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\QuotationTemplate.html";
+        //            //emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
 
-                    if (emailTemplateContent.IndexOf("[Date]", StringComparison.OrdinalIgnoreCase) > 0)
-                    {
-                        emailTemplateContent = emailTemplateContent.Replace("[Date]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
-                    }
+        //            //if (emailTemplateContent.IndexOf("[Date]", StringComparison.OrdinalIgnoreCase) > 0)
+        //            //{
+        //            //    emailTemplateContent = emailTemplateContent.Replace("[Date]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
+        //            //}
 
-                    if (emailTemplateContent.IndexOf("[SenderCompanyLogo]", StringComparison.OrdinalIgnoreCase) > 0)
-                    {
-                        emailTemplateContent = emailTemplateContent.Replace("[SenderCompanyLogo]", company_Response.CompanyLogoImageURL);
-                    }
+        //            //if (emailTemplateContent.IndexOf("[SenderCompanyLogo]", StringComparison.OrdinalIgnoreCase) > 0)
+        //            //{
+        //            //    emailTemplateContent = emailTemplateContent.Replace("[SenderCompanyLogo]", company_Response.CompanyLogoImageURL);
+        //            //}
 
-                    result = await _emailHelper.SendEmail(vConfigRefSPObj.Ref_Value1, emailTemplateContent, vConfigRefSPObj.Ref_Value2, files: null);
-                }
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
+        //            result = await _emailHelper.SendEmail(vConfigRefSPObj.Ref_Value1, emailTemplateContent, vConfigRefSPObj.Ref_Value2, files: null);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result = false;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         #endregion
     }

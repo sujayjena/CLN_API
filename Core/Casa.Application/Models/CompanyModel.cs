@@ -84,6 +84,7 @@ namespace CLN.Application.Models
         public int? AmcMonth { get; set; }
         public DateTime? AmcStartDate { get; set; }
         public DateTime? AmcEndDate { get; set; }
+        public DateTime? AmcLastEmailDate { get; set; }
         public int? TotalAmcDays { get; set; }
         public int? TotalAmcRemainingDays { get; set; }
         public bool? IsActive { get; set; }
