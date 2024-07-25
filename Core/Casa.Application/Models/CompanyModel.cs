@@ -10,8 +10,14 @@ using System.Threading.Tasks;
 
 namespace CLN.Application.Models
 {
-    public class CompanyModel
+    public class CompanySearch_Request : BaseSearchEntity
     {
+        public int? CompanyId { get; set; }
+    }
+
+    public class CompanyAMC_Search
+    {
+        public int? CompanyId { get; set; }
     }
 
     public class Company_Request : BaseEntity
@@ -41,16 +47,11 @@ namespace CLN.Application.Models
         public int? NoofUserAdd{ get; set; }
         public int? NoofBranchAdd{ get; set; }
 
-        //public int? AmcMonths { get; set; }
-        //public DateTime? AmcStartDate { get; set; }
-        //public DateTime? AmcEndDate { get; set; }
+        public int? AmcMonth { get; set; }
+        public DateTime? AmcStartDate { get; set; }
+        public DateTime? AmcEndDate { get; set; }
 
         public bool? IsActive { get; set; }
-    }
-
-    public class CompanySearch_Request : BaseSearchEntity
-    {
-        public int? CompanyId { get; set; }
     }
 
     public class Company_Response : BaseResponseEntity
@@ -80,11 +81,11 @@ namespace CLN.Application.Models
         public string? CompanyLogoImageURL { get; set; }
         public int? NoofUserAdd { get; set; }
         public int? NoofBranchAdd { get; set; }
-
-        //public int? AmcMonths { get; set; }
-        //public DateTime? AmcStartDate { get; set; }
-        //public DateTime? AmcEndDate { get; set; }
-
+        public int? AmcMonth { get; set; }
+        public DateTime? AmcStartDate { get; set; }
+        public DateTime? AmcEndDate { get; set; }
+        public int? TotalAmcDays { get; set; }
+        public int? TotalAmcRemainingDays { get; set; }
         public bool? IsActive { get; set; }
     }
 }

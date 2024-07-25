@@ -345,6 +345,7 @@ namespace CLN.Application.Models
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
         public int? AvailableQty { get; set; }
+        public bool? RGP { get; set; }
     }
 
     #endregion

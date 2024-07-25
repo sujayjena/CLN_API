@@ -44,6 +44,9 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@LogoImageOriginalFileName", parameters.LogoImageOriginalFileName);
             queryParameters.Add("@NoofUserAdd", parameters.NoofUserAdd);
             queryParameters.Add("@NoofBranchAdd", parameters.NoofBranchAdd);
+            queryParameters.Add("@AmcMonth", parameters.AmcMonth);
+            queryParameters.Add("@AmcStartDate", parameters.AmcStartDate);
+            queryParameters.Add("@AmcEndDate", parameters.AmcEndDate);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
