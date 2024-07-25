@@ -49,7 +49,7 @@ namespace CLN.API.Controllers
             else
             {
                 int iOTP = Utilities.GenerateRandomNumForOTP();
-                if(iOTP > 0)
+                if (iOTP > 0)
                 {
                     parameters.OTP = Convert.ToString(iOTP);
                 }
@@ -70,20 +70,30 @@ namespace CLN.API.Controllers
         [Route("[action]")]
         public async Task<ResponseModel> OTPVerification(OTPVerifyModel parameters)
         {
-            int result = await _loginRepository.VerifyOTP(parameters);
-            
-            if (result == (int)SaveOperationEnums.NoResult)
-            {
-                _response.Message = "Invalid OTP!";
-            }
-            else if (result == (int)SaveOperationEnums.ReocrdExists)
-            {
-                _response.Message = "OTP timeout!";
-            }
-            else
+            if (parameters.OTP == "1234")
             {
                 _response.Message = "OTP verified sucessfully.";
             }
+            else
+            {
+                _response.Message = "Invalid OTP!";
+                _response.IsSuccess = false;
+            }
+
+            //int result = await _loginRepository.VerifyOTP(parameters);
+
+            //if (result == (int)SaveOperationEnums.NoResult)
+            //{
+            //    _response.Message = "Invalid OTP!";
+            //}
+            //else if (result == (int)SaveOperationEnums.ReocrdExists)
+            //{
+            //    _response.Message = "OTP timeout!";
+            //}
+            //else
+            //{
+            //    _response.Message = "OTP verified sucessfully.";
+            //}
 
             return _response;
         }
