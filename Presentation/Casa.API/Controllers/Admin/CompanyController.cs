@@ -118,11 +118,14 @@ namespace CLN.API.Controllers.Admin
             {
                 string sCompanyName = companyItem.CompanyName;
                 int iCompanyId = companyItem.Id;
+                string sAMCStartDate_EndDate_LastEmailDate = (companyItem.AmcStartDate.HasValue ? companyItem.AmcStartDate.Value.Date.ToString() : "") + " - " + (companyItem.AmcEndDate.HasValue ? companyItem.AmcEndDate.Value.Date.ToString() : "") + " - " + (companyItem.AmcLastEmailDate.HasValue ? companyItem.AmcLastEmailDate.Value.Date.ToString() : "");
                 int iTotalAmcRemainingDays = Convert.ToInt32(companyItem.TotalAmcRemainingDays);
 
                 var vCompanyAMCRminderEmail_RequestObj = new CompanyAMCRminderEmail_Request()
                 {
+                    CompanyId = iCompanyId,
                     AMCYear = (companyItem.AmcStartDate.HasValue ? companyItem.AmcStartDate.Value.Date.Year.ToString() : "") + "-" + (companyItem.AmcEndDate.HasValue ? companyItem.AmcEndDate.Value.Date.Year.ToString() : ""),
+                    AMCStartDate_EndDate_LastEmailDate = sAMCStartDate_EndDate_LastEmailDate,
                     AMCRemainingDays = iTotalAmcRemainingDays,
                     AMCReminderCount = 1,
 
@@ -135,8 +138,10 @@ namespace CLN.API.Controllers.Admin
                 int result = await _companyRepository.SaveAMCReminderEmail(vCompanyAMCRminderEmail_RequestObj);
                 if (result > 0)
                 {
-                    var vEmailCustomer = await SendAMCEmailToCustomer(companyItem);
-                    var vEmailServiceProvider = await SendAMCEmailToServiceProvider(companyItem);
+                    vCompanyAMCRminderEmail_RequestObj.Id = result;
+
+                    var vEmailCustomer = await SendAMCEmailToCustomer(companyItem, vCompanyAMCRminderEmail_RequestObj);
+                    var vEmailServiceProvider = await SendAMCEmailToServiceProvider(companyItem, vCompanyAMCRminderEmail_RequestObj);
 
                     _response.Message = "AMC reminder sent sucessfully";
                 }
@@ -149,17 +154,17 @@ namespace CLN.API.Controllers.Admin
             return _response;
         }
 
-        protected async Task<bool> SendAMCEmailToCustomer(Company_Response company_Response)
+        protected async Task<bool> SendAMCEmailToCustomer(Company_Response company_Response, CompanyAMCRminderEmail_Request companyAMCRminderEmail_Request)
         {
             bool result = false;
-            string templateFilePath = "", emailTemplateContent = "";
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
 
             try
             {
                 var vConfigRef_Search = new ConfigRef_Search()
                 {
                     Ref_Type = "Email",
-                    Ref_Param = "AMCEmailToCustomer"
+                    Ref_Param = "AMCReminderEmailToCustomer"
                 };
 
                 var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
@@ -168,9 +173,14 @@ namespace CLN.API.Controllers.Admin
                     templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\AMC_Template.html";
                     emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
 
-                    if (emailTemplateContent.IndexOf("[Date]", StringComparison.OrdinalIgnoreCase) > 0)
+                    if (vConfigRefObj.Ref_Value1.IndexOf("[X]", StringComparison.OrdinalIgnoreCase) > 0)
                     {
-                        emailTemplateContent = emailTemplateContent.Replace("[Date]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
+                        sSubjectDynamicContent = vConfigRefObj.Ref_Value1.Replace("[X]", Convert.ToString(Convert.ToInt32(companyAMCRminderEmail_Request.AMCRemainingDays)));
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ExpirationDate]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ExpirationDate]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
                     }
 
                     if (emailTemplateContent.IndexOf("[SenderCompanyLogo]", StringComparison.OrdinalIgnoreCase) > 0)
@@ -178,7 +188,8 @@ namespace CLN.API.Controllers.Admin
                         emailTemplateContent = emailTemplateContent.Replace("[SenderCompanyLogo]", company_Response.CompanyLogoImageURL);
                     }
 
-                    result = await _emailHelper.SendEmail(module: vConfigRefObj.Ref_Value1, subject: "CRM Amc renewal request", sendTo: "Customer", content: emailTemplateContent, recipientEmail: vConfigRefObj.Ref_Value2, files: null);
+                    remarks = "AMC ReminderId- " + companyAMCRminderEmail_Request.Id;
+                    result = await _emailHelper.SendEmail(module: vConfigRefObj.Ref_Param, subject: sSubjectDynamicContent, sendTo: "Customer", content: emailTemplateContent, recipientEmail: vConfigRefObj.Ref_Value2, files: null, remarks: remarks);
                 }
             }
             catch (Exception ex)
@@ -189,17 +200,17 @@ namespace CLN.API.Controllers.Admin
             return result;
         }
 
-        protected async Task<bool> SendAMCEmailToServiceProvider(Company_Response company_Response)
+        protected async Task<bool> SendAMCEmailToServiceProvider(Company_Response company_Response, CompanyAMCRminderEmail_Request companyAMCRminderEmail_Request)
         {
             bool result = false;
-            string templateFilePath = "", emailTemplateContent = "";
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
 
             try
             {
                 var vConfigRefSP_Search = new ConfigRef_Search()
                 {
                     Ref_Type = "Email",
-                    Ref_Param = "AMCEmailToServiceProvider"
+                    Ref_Param = "AMCReminderEmailToVendor"
                 };
 
                 var vConfigRefSPObj = _configRefRepository.GetConfigRefList(vConfigRefSP_Search).Result.ToList().FirstOrDefault();
@@ -208,9 +219,14 @@ namespace CLN.API.Controllers.Admin
                     templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\AMC_Template.html";
                     emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
 
-                    if (emailTemplateContent.IndexOf("[Date]", StringComparison.OrdinalIgnoreCase) > 0)
+                    if (vConfigRefSPObj.Ref_Value1.IndexOf("[X]", StringComparison.OrdinalIgnoreCase) > 0)
                     {
-                        emailTemplateContent = emailTemplateContent.Replace("[Date]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
+                        sSubjectDynamicContent = vConfigRefSPObj.Ref_Value1.Replace("[X]", Convert.ToString(Convert.ToInt32(companyAMCRminderEmail_Request.AMCRemainingDays)));
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ExpirationDate]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ExpirationDate]", Convert.ToDateTime(company_Response.AmcEndDate).ToString("dd/MM/yyyy"));
                     }
 
                     if (emailTemplateContent.IndexOf("[SenderCompanyLogo]", StringComparison.OrdinalIgnoreCase) > 0)
@@ -218,7 +234,8 @@ namespace CLN.API.Controllers.Admin
                         emailTemplateContent = emailTemplateContent.Replace("[SenderCompanyLogo]", company_Response.CompanyLogoImageURL);
                     }
 
-                    result = await _emailHelper.SendEmail(module: vConfigRefSPObj.Ref_Value1, subject: "CRM Amc renewal request", sendTo: "Vendor", content: emailTemplateContent, recipientEmail: vConfigRefSPObj.Ref_Value2, files: null);
+                    remarks = "AMC ReminderId- " + companyAMCRminderEmail_Request.Id;
+                    result = await _emailHelper.SendEmail(module: vConfigRefSPObj.Ref_Param, subject: sSubjectDynamicContent, sendTo: "Vendor", content: emailTemplateContent, recipientEmail: vConfigRefSPObj.Ref_Value2, files: null, remarks: remarks);
                 }
             }
             catch (Exception ex)

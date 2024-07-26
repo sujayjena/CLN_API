@@ -14,7 +14,7 @@ namespace CLN.Application.Helpers
 {
     public interface IEmailHelper
     {
-        Task<bool> SendEmail(string module, string subject, string sendTo, string content, string recipientEmail , List<Attachment> files = null);
+        Task<bool> SendEmail(string module = "", string subject = "", string sendTo = "", string content = "", string recipientEmail = "", List<Attachment> files = null, string remarks = "");
     }
 
     public class EmailHelper : IEmailHelper
@@ -26,7 +26,7 @@ namespace CLN.Application.Helpers
             _emailConfigRepository = emailConfigRepository;
         }
 
-        public async Task<bool> SendEmail(string module, string subject, string sendTo, string content, string recipientEmail, List<Attachment> files = null)
+        public async Task<bool> SendEmail(string module = "", string subject = "", string sendTo = "", string content = "", string recipientEmail = "", List<Attachment> files = null, string remarks = "")
         {
             bool result = false;
 
@@ -39,6 +39,7 @@ namespace CLN.Application.Helpers
                 SendTo = sendTo,
                 Content = content,
                 EmailTo = recipientEmail,
+                RefValue1 = remarks,
                 IsSent = false,
             };
 

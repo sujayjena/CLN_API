@@ -92,7 +92,9 @@ namespace CLN.Application.Models
 
     public class CompanyAMCRminderEmail_Request : BaseEntity
     {
+        public int? CompanyId { get; set; }
         public string AMCYear { get; set; }
+        public string AMCStartDate_EndDate_LastEmailDate { get; set; }
 
         [DefaultValue(0)]
         public int? AMCRemainingDays { get; set; }
