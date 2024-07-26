@@ -4,6 +4,9 @@ using CLN.Application.Models;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using System.Globalization;
 
 namespace CLN.API.Controllers.Admin
 {
@@ -74,6 +77,75 @@ namespace CLN.API.Controllers.Admin
                 var vResultObj = await _productItemRepository.GetProductCategoryById(Id);
                 _response.Data = vResultObj;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportProductCategoryData()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var request = new BaseSearchEntity();
+
+            IEnumerable<ProductCategory_Response> lstSizeObj = await _productItemRepository.GetProductCategoryList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("ProductCategory");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Product Category";
+                    WorkSheet1.Cells[1, 2].Value = "Status";
+
+                    WorkSheet1.Cells[1, 3].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 4].Value = "CreatedBy";
+
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.IsActive == true ? "Active" : "Inactive";
+
+                        WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.CreatorName;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Column(1).AutoFit();
+                    WorkSheet1.Column(2).AutoFit();
+                    WorkSheet1.Column(3).AutoFit();
+                    WorkSheet1.Column(4).AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Product Category list Exported successfully";
+            }
+
             return _response;
         }
 
@@ -192,6 +264,75 @@ namespace CLN.API.Controllers.Admin
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportSegmentData()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var request = new BaseSearchEntity();
+
+            IEnumerable<Segment_Response> lstSizeObj = await _productItemRepository.GetSegmentList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Segment");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Segment";
+                    WorkSheet1.Cells[1, 2].Value = "Status";
+
+                    WorkSheet1.Cells[1, 3].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 4].Value = "CreatedBy";
+
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.IsActive == true ? "Active" : "Inactive";
+
+                        WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.CreatorName;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Column(1).AutoFit();
+                    WorkSheet1.Column(2).AutoFit();
+                    WorkSheet1.Column(3).AutoFit();
+                    WorkSheet1.Column(4).AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Segment list Exported successfully";
+            }
+
+            return _response;
+        }
+
         #endregion
 
         #region Sub Segment
@@ -246,6 +387,75 @@ namespace CLN.API.Controllers.Admin
                 var vResultObj = await _productItemRepository.GetSubSegmentById(Id);
                 _response.Data = vResultObj;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportSubSegmentData()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var request = new BaseSearchEntity();
+
+            IEnumerable<SubSegment_Response> lstSizeObj = await _productItemRepository.GetSubSegmentList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("SubSegment");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Sub Segment";
+                    WorkSheet1.Cells[1, 2].Value = "Status";
+
+                    WorkSheet1.Cells[1, 3].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 4].Value = "CreatedBy";
+
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.IsActive == true ? "Active" : "Inactive";
+
+                        WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.CreatorName;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Column(1).AutoFit();
+                    WorkSheet1.Column(2).AutoFit();
+                    WorkSheet1.Column(3).AutoFit();
+                    WorkSheet1.Column(4).AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Sub Segment list Exported successfully";
+            }
+
             return _response;
         }
 
@@ -643,6 +853,75 @@ namespace CLN.API.Controllers.Admin
                 var vResultObj = await _productItemRepository.GetProductModelById(Id);
                 _response.Data = vResultObj;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportProductModelData()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var request = new BaseSearchEntity();
+
+            IEnumerable<ProductModel_Response> lstSizeObj = await _productItemRepository.GetProductModelList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("ProductModel");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Product Model";
+                    WorkSheet1.Cells[1, 2].Value = "Status";
+
+                    WorkSheet1.Cells[1, 3].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 4].Value = "CreatedBy";
+
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.ProductModel;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.IsActive == true ? "Active" : "Inactive";
+
+                        WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.CreatorName;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Column(1).AutoFit();
+                    WorkSheet1.Column(2).AutoFit();
+                    WorkSheet1.Column(3).AutoFit();
+                    WorkSheet1.Column(4).AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Product Model list Exported successfully";
+            }
+
             return _response;
         }
 
