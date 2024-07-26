@@ -377,7 +377,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CD_ProductSerialNumber = vResultObj.CD_ProductSerialNumber;
 
                     vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
-                    vManageTicketDetail_Response.CD_CustomerTypeId = vResultObj.CD_CustomerTypeId;
+                    vManageTicketDetail_Response.CustomerType = vResultObj.CustomerType;
                     vManageTicketDetail_Response.CD_CustomerNameId = vResultObj.CD_CustomerNameId;
                     vManageTicketDetail_Response.CD_CustomerName = vResultObj.CD_CustomerName;
                     vManageTicketDetail_Response.CD_CustomerMobile = vResultObj.CD_CustomerMobile;
