@@ -83,4 +83,28 @@ namespace CLN.Application.Models
 
         public bool? IsDeleted { get; set; }
     }
+
+    public class Address_ImportData
+    {
+        public string? CustomerName { get; set; }
+        public string? Address { get; set; }
+        public string? Region { get; set; }
+        public string? State { get; set; }
+        public string? District { get; set; }
+        public string? City { get; set; }
+        public string? PinCode { get; set; }
+        public string? IsActive { get; set; }
+    }
+
+    public class Address_ImportDataValidation
+    {
+        public string? CustomerName { get; set; }
+        public string? Address { get; set; }
+        public string? Region { get; set; }
+        public string? State { get; set; }
+        public string? District { get; set; }
+        public string? City { get; set; }
+        public string? PinCode { get; set; }
+        public string ValidationMessage { get; set; }
+    }
 }

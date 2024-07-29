@@ -81,4 +81,23 @@ namespace CLN.Application.Models
 
         public bool? IsActive { get; set; }
     }
+
+
+    public class Contact_ImportData
+    {
+        public string? CustomerName { get; set; }
+        public string? ContactName { get; set; }
+        public string? MobileNumber { get; set; }
+        public string? Email { get; set; }
+        public string? IsActive { get; set; }
+    }
+
+    public class Contact_ImportDataValidation
+    {
+        public string? CustomerName { get; set; }
+        public string? ContactName { get; set; }
+        public string? MobileNumber { get; set; }
+        public string? Email { get; set; }
+        public string ValidationMessage { get; set; }
+    }
 }

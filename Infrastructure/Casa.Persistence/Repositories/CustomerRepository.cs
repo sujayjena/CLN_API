@@ -91,5 +91,25 @@ namespace CLN.Persistence.Repositories
 
             return await ListByStoredProcedure<Customer_ImportDataValidation>("ImportCustomer", queryParameters);
         }
+
+        public async Task<IEnumerable<Contact_ImportDataValidation>> ImportCustomerContact(List<Contact_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<Contact_ImportDataValidation>("ImportContact", queryParameters);
+        }
+
+        public async Task<IEnumerable<Address_ImportDataValidation>> ImportCustomerAddress(List<Address_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<Address_ImportDataValidation>("ImportAddress", queryParameters);
+        }
     }
 }
