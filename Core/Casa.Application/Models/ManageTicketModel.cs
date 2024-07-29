@@ -284,7 +284,7 @@ namespace CLN.Application.Models
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
-
+        public bool? IsDuplicateTicket { get; set; }
         public bool? IsActive { get; set; }
 
         public ManageTicketEngineerVisitHistory_Response manageTicketEngineerVisitHistory { get; set; }
