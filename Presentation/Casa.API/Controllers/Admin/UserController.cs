@@ -273,7 +273,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ImportUserUser([FromQuery] ImportRequest request)
+        public async Task<ResponseModel> ImportUser([FromQuery] ImportRequest request)
         {
             _response.IsSuccess = false;
 
@@ -395,7 +395,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportUserUser()
+        public async Task<ResponseModel> ExportUserData(bool IsActive = true)
         {
             _response.IsSuccess = false;
             byte[] result;
@@ -404,6 +404,7 @@ namespace CLN.API.Controllers.Admin
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             var request = new BaseSearchEntity();
+            request.IsActive = IsActive;
 
             IEnumerable<User_Response> lstSizeObj = await _userRepository.GetUserList(request);
 
@@ -411,7 +412,7 @@ namespace CLN.API.Controllers.Admin
             {
                 using (ExcelPackage excelExportData = new ExcelPackage())
                 {
-                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("QCProductSerialNumber");
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Employee");
                     WorkSheet1.TabColor = System.Drawing.Color.Black;
                     WorkSheet1.DefaultRowHeight = 12;
 
