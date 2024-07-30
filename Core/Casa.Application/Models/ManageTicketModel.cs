@@ -167,6 +167,7 @@ namespace CLN.Application.Models
 
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
+        public int? TRC_EngineerId { get; set; }
 
         [DefaultValue(false)]
         public bool? IsActive { get; set; }
@@ -285,6 +286,8 @@ namespace CLN.Application.Models
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
         public bool? IsDuplicateTicket { get; set; }
+        public int? TRC_EngineerId { get; set; }
+        public string TRC_Engineer { get; set; }
         public bool? IsActive { get; set; }
 
         public ManageTicketEngineerVisitHistory_Response manageTicketEngineerVisitHistory { get; set; }
@@ -458,6 +461,8 @@ namespace CLN.Application.Models
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
         public int? TicketStatusSequenceNo { get; set; }
+        public int? TRC_EngineerId { get; set; }
+        public string TRC_Engineer { get; set; }
 
         public bool? IsActive { get; set; }
 

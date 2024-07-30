@@ -230,7 +230,7 @@ namespace CLN.API.Controllers
             }
 
             // Add Move Ticket To TRC
-            if (result > 0 && parameters.TSSP_SolutionProvider == 2) // Refer To TRC
+            if (result > 0 && (parameters.TSSP_SolutionProvider == 4 || parameters.TicketStatusId == 4)) // Refer To TRC
             {
                 var vManageTRC_Request = new ManageTRC_Request()
                 {
@@ -239,7 +239,7 @@ namespace CLN.API.Controllers
                     TRCDate = DateTime.Now,
                     TRCTime = DateTime.Now.ToString("hh:mm tt"),
 
-                    TRCStatusId = 1,
+                    TRCStatusId = 4,
                     IsActive = true,
                 };
 
@@ -501,6 +501,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TicketStatusId = vResultObj.TicketStatusId;
                     vManageTicketDetail_Response.TicketStatus = vResultObj.TicketStatus;
                     vManageTicketDetail_Response.TicketStatusSequenceNo = vResultObj.TicketStatusSequenceNo;
+                    vManageTicketDetail_Response.TRC_EngineerId = vResultObj.TRC_EngineerId;
+                    vManageTicketDetail_Response.TRC_Engineer = vResultObj.TRC_Engineer;
 
                     vManageTicketDetail_Response.IsActive = vResultObj.IsActive;
 

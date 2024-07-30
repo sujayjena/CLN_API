@@ -15,6 +15,16 @@ namespace CLN.Application.Models
         public long CustomerId { get; set; }
     }
 
+    public class CustomerAccessoryDetails_Request : BaseEntity
+    {
+        public CustomerAccessoryDetails_Request()
+        {
+            AccessoryList = new List<CustomerAccessory_Request>();
+        }
+
+        public List<CustomerAccessory_Request> AccessoryList { get; set; }
+    }
+
     public class CustomerAccessory_Request : BaseEntity
     {
         public int? CustomerId { get; set; }

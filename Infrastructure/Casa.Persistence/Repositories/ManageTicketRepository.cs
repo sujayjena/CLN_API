@@ -125,6 +125,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@EnquiryId", parameters.EnquiryId);
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
+            queryParameters.Add("@TRC_EngineerId", parameters.TRC_EngineerId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

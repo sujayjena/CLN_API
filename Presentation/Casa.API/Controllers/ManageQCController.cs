@@ -919,16 +919,32 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveAccessory(CustomerAccessory_Request parameters)
+        public async Task<ResponseModel> SaveAccessory(CustomerAccessoryDetails_Request parameters)
         {
-            if (string.IsNullOrWhiteSpace(parameters.AccessoryName))
+            int result = 0;
+            foreach (var items in parameters.AccessoryList)
             {
-                _response.Message = "AccessoryName is required!";
+                //if (string.IsNullOrWhiteSpace(items.AccessoryName))
+                //{
+                //    _response.Message = "AccessoryName is required!";
 
-                return _response;
+                //    return _response;
+                //}
+
+                var vCustomerAccessory = new CustomerAccessory_Request()
+                {
+                    Id=items.Id,
+                    CustomerId=items.CustomerId,
+                    PartCodeId=items.PartCodeId,
+                    AccessoryBOMNumber=items.AccessoryBOMNumber,
+                    DrawingNumber= items.DrawingNumber,
+                    AccessoryName=items.AccessoryName,
+                    Quantity=items.Quantity,
+                    IsActive=items.IsActive,
+                };
+
+                result = await _ManageQCRepository.SaveManageQCAccessory(vCustomerAccessory);
             }
-
-            int result = await _ManageQCRepository.SaveManageQCAccessory(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {
