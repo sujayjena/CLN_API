@@ -15,12 +15,24 @@ namespace CLN.API.Controllers
         private ResponseModel _response;
         private IFileManager _fileManager;
 
-        public DashboardController(IFileManager fileManager)
+        private readonly IDashboardRepository _dashboardRepository;
+
+        public DashboardController(IFileManager fileManager, IDashboardRepository dashboardRepository)
         {
             _fileManager = fileManager;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
+            _dashboardRepository = dashboardRepository;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDashboardTicketCount(Dashboard_Search_Request parameters)
+        {
+            var objList = await _dashboardRepository.GetDashboardTicketCount(parameters);
+            _response.Data = objList.ToList();
+            return _response;
         }
     }
 }

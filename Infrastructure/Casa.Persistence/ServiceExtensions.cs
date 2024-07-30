@@ -77,6 +77,7 @@ namespace CLN.Persistence
             services.AddScoped<IEmailHelper, EmailHelper>();
             services.AddScoped<IEmailConfigRepository, EmailConfigRepository>();
             services.AddScoped<IConfigRefRepository, ConfigRefRepository>();
+            services.AddScoped<IDashboardRepository, DashboardRepository>();
         }
     }
 }
