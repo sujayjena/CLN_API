@@ -616,7 +616,9 @@ namespace CLN.API.Controllers
                    !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "ManufacturingDate", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "WarrantyStartDate", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "WarrantyEndDate", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "WarrantyStatus", StringComparison.OrdinalIgnoreCase))
+                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "WarrantyStatus", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "WarrantyType", StringComparison.OrdinalIgnoreCase))
+                        
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file";
@@ -633,9 +635,10 @@ namespace CLN.API.Controllers
                             PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString(),
                             ProductSerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString(),
                             ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 4].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
-                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 6].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
-                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 7].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 5].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 6].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
                             WarrantyStatus = workSheet.Cells[rowIterator, 7].Value?.ToString(),
+                            WarrantyType = workSheet.Cells[rowIterator, 8].Value?.ToString(),
                         });
                     }
                 }
@@ -692,7 +695,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 5].Value = "WarrantyStartDate";
                     WorkSheet1.Cells[1, 6].Value = "WarrantyEndDate";
                     WorkSheet1.Cells[1, 7].Value = "WarrantyStatus";
-                    WorkSheet1.Cells[1, 8].Value = "ErrorMessage";
+                    WorkSheet1.Cells[1, 8].Value = "WarrantyType";
+                    WorkSheet1.Cells[1, 9].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
@@ -705,7 +709,8 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 5].Value = !string.IsNullOrWhiteSpace(record.WarrantyStartDate) ? Convert.ToDateTime(record.WarrantyStartDate).ToString("dd/MM/yyyy") : "";
                         WorkSheet1.Cells[recordIndex, 6].Value = !string.IsNullOrWhiteSpace(record.WarrantyEndDate) ? Convert.ToDateTime(record.WarrantyEndDate).ToString("dd/MM/yyyy") : ""; ;
                         WorkSheet1.Cells[recordIndex, 7].Value = record.WarrantyStatus;
-                        WorkSheet1.Cells[recordIndex, 8].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 8].Value = record.WarrantyType;
+                        WorkSheet1.Cells[recordIndex, 9].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -762,8 +767,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 12].Value = "Warranty Start Date";
                     WorkSheet1.Cells[1, 13].Value = "Warranty End Date";
                     WorkSheet1.Cells[1, 14].Value = "Warranty Status";
-                    WorkSheet1.Cells[1, 15].Value = "IsActive";
-
+                    WorkSheet1.Cells[1, 15].Value = "Warranty Type";
 
                     recordIndex = 2;
 
@@ -786,7 +790,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 13].Value = items.WarrantyEndDate;
                         WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                         WorkSheet1.Cells[recordIndex, 14].Value = items.WarrantyStatus;
-                        WorkSheet1.Cells[recordIndex, 15].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.WarrantyType;
 
                         recordIndex += 1;
                     }

@@ -103,6 +103,7 @@ namespace CLN.Application.Models
         public DateTime? BD_WarrantyStartDate { get; set; }
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
+        public int? BD_WarrantyTypeId { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
 
         public int? TSAD_Visual { get; set; }
@@ -284,7 +285,8 @@ namespace CLN.Application.Models
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
         public string BD_WarrantyStatus { get; set; }
-
+        public int? BD_WarrantyTypeId { get; set; }
+        public string? BD_WarrantyType { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
         public string BD_TechnicalSupportEngg { get; set; }
 
@@ -398,6 +400,8 @@ namespace CLN.Application.Models
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
         public string BD_WarrantyStatus { get; set; }
+        public int? BD_WarrantyTypeId { get; set; }
+        public string? BD_WarrantyType { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
         public string BD_TechnicalSupportEngg { get; set; }
 
@@ -574,6 +578,8 @@ namespace CLN.Application.Models
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
         public string BD_WarrantyStatus { get; set; }
+        public int? BD_WarrantyTypeId { get; set; }
+        public string? BD_WarrantyType { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
         public string BD_TechnicalSupportEngg { get; set; }
 

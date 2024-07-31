@@ -194,6 +194,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@WarrantyStartDate", parameters.WarrantyStartDate);
             queryParameters.Add("@WarrantyEndDate", parameters.WarrantyEndDate);
             queryParameters.Add("@WarrantyStatusId", parameters.WarrantyStatusId);
+            queryParameters.Add("@WarrantyTypeId", parameters.WarrantyTypeId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

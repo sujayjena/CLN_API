@@ -33,6 +33,8 @@ namespace CLN.Application.Models
         public DateTime? WarrantyEndDate { get; set; }
         public int? WarrantyStatusId { get; set; }
 
+        public int? WarrantyTypeId { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -84,6 +86,10 @@ namespace CLN.Application.Models
 
         public string? WarrantyStatus { get; set; }
 
+        public int? WarrantyTypeId { get; set; }
+
+        public string? WarrantyType { get; set; }
+
         public bool? IsActive { get; set; }
     }
 
@@ -103,6 +109,7 @@ namespace CLN.Application.Models
         public DateTime? WarrantyStartDate { get; set; }
         public DateTime? WarrantyEndDate { get; set; }
         public string? WarrantyStatus { get; set; }
+        public string? WarrantyType { get; set; }
     }
 
     public class CustomerBattery_ImportDataValidation
@@ -114,6 +121,7 @@ namespace CLN.Application.Models
         public string? WarrantyStartDate { get; set; }
         public string? WarrantyEndDate { get; set; }
         public string? WarrantyStatus { get; set; }
+        public string? WarrantyType { get; set; }
         public string ValidationMessage { get; set; }
     }
     #endregion

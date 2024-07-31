@@ -67,6 +67,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@BD_WarrantyStartDate", parameters.BD_WarrantyStartDate);
             queryParameters.Add("@BD_WarrantyEndDate", parameters.BD_WarrantyEndDate);
             queryParameters.Add("@BD_WarrantyStatusId", parameters.BD_WarrantyStatusId);
+            queryParameters.Add("@BD_WarrantyTypeId", parameters.BD_WarrantyTypeId);
             queryParameters.Add("@BD_TechnicalSupportEnggId", parameters.BD_TechnicalSupportEnggId);
 
             queryParameters.Add("@TSAD_Visual", parameters.TSAD_Visual);
