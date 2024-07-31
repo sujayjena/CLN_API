@@ -97,11 +97,9 @@ namespace CLN.Application.Models
 
     public class CustomerBOM_ImportData
     {
-        public string? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
 
         public string? PartCode { get; set; }
-
-        public string? CustomerCode { get; set; }
 
         public string? ProductCategory { get; set; }
 
@@ -116,17 +114,13 @@ namespace CLN.Application.Models
         public string? Warranty { get; set; }
 
         public string? Remarks { get; set; }
-
-        public string? IsActive { get; set; }
     }
 
     public class CustomerBOM_ImportDataValidation
     {
-        public string? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
 
         public string? PartCode { get; set; }
-
-        public string? CustomerCode { get; set; }
 
         public string? ProductCategory { get; set; }
 
@@ -141,8 +135,6 @@ namespace CLN.Application.Models
         public string? Warranty { get; set; }
 
         public string? Remarks { get; set; }
-
-        public string? IsActive { get; set; }
 
         public string ValidationMessage { get; set; }
     }

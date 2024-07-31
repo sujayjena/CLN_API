@@ -272,5 +272,34 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<ManageTicketCustomerDetail_Response>("GetCustomerDetailByMobileNumber", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<int> SaveManageTicketLogHistory(int TicketId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@TicketId", TicketId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveTicketLogHistory", queryParameters);
+        }
+
+        public async Task<IEnumerable<ManageTicketLogHistory_Response>> GetManageTicketLogHistoryList(ManageTicketLogHistory_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@TicketId", parameters.TicketId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<ManageTicketLogHistory_Response>("GetTicketLogHistoryList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
     }
 }

@@ -35,5 +35,9 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<ManageTicketCustomerMobileNumber_Response>> GetCustomerMobileNumberList(string SearchText);
 
         Task<ManageTicketCustomerDetail_Response?> GetCustomerDetailByMobileNumber(string mobile);
+
+        Task<int> SaveManageTicketLogHistory(int TicketId);
+        Task<IEnumerable<ManageTicketLogHistory_Response>> GetManageTicketLogHistoryList(ManageTicketLogHistory_Search parameters);
+
     }
 }

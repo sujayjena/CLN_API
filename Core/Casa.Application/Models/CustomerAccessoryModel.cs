@@ -58,24 +58,22 @@ namespace CLN.Application.Models
 
     public class CustomerAccessory_ImportData
     {
-        public string? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
         public string? PartCode { get; set; }
         public string? AccessoryBOMNumber { get; set; }
         public string? DrawingNumber { get; set; }
         public string? AccessoryName { get; set; }
         public string? Quantity { get; set; }
-        public string? IsActive { get; set; }
     }
 
     public class CustomerAccessory_ImportDataValidation
     {
-        public string? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
         public string? PartCode { get; set; }
         public string? AccessoryBOMNumber { get; set; }
         public string? DrawingNumber { get; set; }
         public string? AccessoryName { get; set; }
         public string? Quantity { get; set; }
-        public string? IsActive { get; set; }
         public string ValidationMessage { get; set; }
     }
 

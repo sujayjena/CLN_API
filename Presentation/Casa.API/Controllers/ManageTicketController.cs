@@ -230,7 +230,7 @@ namespace CLN.API.Controllers
             }
 
             // Add Move Ticket To TRC
-            if (result > 0 && (parameters.TSSP_SolutionProvider == 4 || parameters.TicketStatusId == 4)) // Refer To TRC
+            if (result > 0 && (parameters.TSSP_SolutionProvider == (int)TicketStatusEnums.ReferToTRC || parameters.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)) // Refer To TRC
             {
                 var vManageTRC_Request = new ManageTRC_Request()
                 {
@@ -239,11 +239,17 @@ namespace CLN.API.Controllers
                     TRCDate = DateTime.Now,
                     TRCTime = DateTime.Now.ToString("hh:mm tt"),
 
-                    TRCStatusId = 4,
+                    TRCStatusId = (int)TicketStatusEnums.ReferToTRC,
                     IsActive = true,
                 };
 
                 int resultManageTRC = await _manageTRCRepository.SaveManageTRC(vManageTRC_Request);
+            }
+
+            // Save Ticket Log History
+            if (result > 0)
+            {
+                int resultManageTicketLog = await _manageTicketRepository.SaveManageTicketLogHistory(result);
             }
 
             _response.Id = result;
@@ -621,6 +627,225 @@ namespace CLN.API.Controllers
         {
             var objList = await _manageTicketRepository.GetTicketVisitHistoryList(parameters);
             _response.Data = objList.ToList();
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetManageTicketLogHistoryList(ManageTicketLogHistory_Search parameters)
+        {
+            var vManageTicketDetail_Response = new List<ManageTicketLogHistory_Response>();
+
+            var vResultObj = await _manageTicketRepository.GetManageTicketLogHistoryList(parameters);
+            foreach (var item in vResultObj)
+            {
+                //var vManageTicket_ResponseObj = new ManageTicketLogHistory_Response()
+                //{
+                //    Id = item.Id,
+                //    TicketId = item.TicketId,
+                //    TicketNumber = item.TicketNumber,
+                //    TicketDate = item.TicketDate,
+                //    TicketTime = item.TicketTime,
+                //    TicketPriorityId = item.TicketPriorityId,
+                //    TicketPriority = item.TicketPriority,
+                //    TicketSLADays = item.TicketSLADays,
+                //    TicketSLAHours = item.TicketSLAHours,
+                //    TicketSLAMin = item.TicketSLAMin,
+                //    SLAStatus = item.SLAStatus,
+                //    TicketAging = item.TicketAging,
+
+
+                //    CD_LoggingSourceId = item.CD_LoggingSourceId,
+                //    CD_LoggingSourceChannel = item.CD_LoggingSourceChannel,
+
+                //    CD_CallerTypeId = item.CD_CallerTypeId,
+                //    CD_CallerType = item.CD_CallerType,
+                //    CD_CallerName = item.CD_CallerName,
+                //    CD_CallerMobile = item.CD_CallerMobile,
+                //    CD_CallerEmailId = item.CD_CallerEmailId,
+
+                //    CD_CallerAddressId = item.CD_CallerAddressId,
+                //    CD_CallerAddress1 = item.CD_CallerAddress1,
+                //    CD_CallerRegionId = item.CD_CallerRegionId,
+                //    CD_CallerRegionName = item.CD_CallerRegionName,
+                //    CD_CallerStateId = item.CD_CallerStateId,
+                //    CD_CallerStateName = item.CD_CallerStateName,
+                //    CD_CallerDistrictId = item.CD_CallerDistrictId,
+                //    CD_CallerDistrictName = item.CD_CallerDistrictName,
+                //    CD_CallerCityId = item.CD_CallerCityId,
+                //    CD_CallerCityName = item.CD_CallerCityName,
+                //    CD_CallerPinCode = item.CD_CallerPinCode,
+                //    CD_CallerRemarks = item.CD_CallerRemarks,
+
+                //    CD_IsSiteAddressSameAsCaller = item.CD_IsSiteAddressSameAsCaller,
+                //    CD_ComplaintTypeId = item.CD_ComplaintTypeId,
+                //    CD_ComplaintType = item.CD_ComplaintType,
+                //    CD_IsOldProduct = item.CD_IsOldProduct,
+                //    CD_ProductSerialNumberId = item.CD_ProductSerialNumberId,
+                //    CD_ProductSerialNumber = item.CD_ProductSerialNumber,
+
+                //    CD_CustomerTypeId = item.CD_CustomerTypeId,
+                //    CustomerType = item.CustomerType,
+                //    CD_CustomerNameId = item.CD_CustomerNameId,
+                //    CD_CustomerName = item.CD_CustomerName,
+                //    CD_CustomerMobile = item.CD_CustomerMobile,
+                //    CD_CustomerEmail = item.CD_CustomerEmail,
+
+                //    CD_CustomerAddressId = item.CD_CustomerAddressId,
+                //    CD_CustomerAddress1 = item.CD_CustomerAddress1,
+                //    CD_CustomerRegionId = item.CD_CustomerRegionId,
+                //    CD_CustomerRegionName = item.CD_CustomerRegionName,
+                //    CD_CustomerStateId = item.CD_CustomerStateId,
+                //    CD_CustomerStateName = item.CD_CustomerStateName,
+                //    CD_CustomerDistrictId = item.CD_CustomerDistrictId,
+                //    CD_CustomerDistrictName = item.CD_CustomerDistrictName,
+                //    CD_CustomerCityId = item.CD_CustomerCityId,
+                //    CD_CustomerCityName = item.CD_CustomerCityName,
+                //    CD_CustomerPinCode = item.CD_CustomerPinCode,
+
+                //    CD_SiteCustomerName = item.CD_SiteCustomerName,
+                //    CD_SiteContactName = item.CD_SiteContactName,
+                //    CD_SitContactMobile = item.CD_SitContactMobile,
+
+                //    CD_SiteAddressId = item.CD_SiteAddressId,
+                //    CD_SiteCustomerAddress1 = item.CD_SiteCustomerAddress1,
+                //    CD_SiteCustomerRegionId = item.CD_SiteCustomerRegionId,
+                //    CD_SiteCustomerRegionName = item.CD_SiteCustomerRegionName,
+                //    CD_SiteCustomerStateId = item.CD_SiteCustomerStateId,
+                //    CD_SiteCustomerStateName = item.CD_SiteCustomerStateName,
+                //    CD_SiteCustomerDistrictId = item.CD_SiteCustomerDistrictId,
+                //    CD_SiteCustomerDistrictName = item.CD_SiteCustomerDistrictName,
+                //    CD_SiteCustomerCityId = item.CD_SiteCustomerCityId,
+                //    CD_SiteCustomerCityName = item.CD_SiteCustomerCityName,
+                //    CD_SiteCustomerPinCode = item.CD_SiteCustomerPinCode,
+
+                //    BD_BatteryBOMNumberId = item.BD_BatteryBOMNumberId,
+                //    BD_BatteryBOMNumber = item.BD_BatteryBOMNumber,
+                //    BD_BatteryProductCategoryId = item.BD_BatteryProductCategoryId,
+                //    BD_ProductCategory = item.BD_ProductCategory,
+                //    BD_BatterySegmentId = item.BD_BatterySegmentId,
+                //    BD_Segment = item.BD_Segment,
+                //    BD_BatterySubSegmentId = item.BD_BatterySubSegmentId,
+                //    BD_SubSegment = item.BD_SubSegment,
+                //    BD_BatteryProductModelId = item.BD_BatteryProductModelId,
+                //    BD_ProductModel = item.BD_ProductModel,
+                //    BD_BatteryCellChemistryId = item.BD_BatteryCellChemistryId,
+                //    BD_CellChemistry = item.BD_CellChemistry,
+                //    BD_DateofManufacturing = item.BD_DateofManufacturing,
+                //    BD_ProbReportedByCustId = item.BD_ProbReportedByCustId,
+                //    BD_ProbReportedByCust = item.BD_ProbReportedByCust,
+                //    BD_ProblemDescription = item.BD_ProblemDescription,
+
+                //    BD_WarrantyStartDate = item.BD_WarrantyStartDate,
+                //    BD_WarrantyEndDate = item.BD_WarrantyEndDate,
+                //    BD_WarrantyStatusId = item.BD_WarrantyStatusId,
+                //    BD_WarrantyStatus = item.BD_WarrantyStatus,
+                //    BD_TechnicalSupportEnggId = item.BD_TechnicalSupportEnggId,
+                //    BD_TechnicalSupportEngg = item.BD_TechnicalSupportEngg,
+
+                //    TSAD_Visual = item.TSAD_Visual,
+                //    TSAD_VisualImageFileName = item.TSAD_VisualImageFileName,
+                //    TSAD_VisualImageOriginalFileName = item.TSAD_VisualImageOriginalFileName,
+                //    TSAD_VisualImageURL = item.TSAD_VisualImageURL,
+                //    TSAD_BatteryTemperature = item.TSAD_BatteryTemperature,
+                //    TSAD_CurrentChargingValue = item.TSAD_CurrentChargingValue,
+                //    TSAD_CurrentDischargingValue = item.TSAD_CurrentDischargingValue,
+                //    TSAD_BatterVoltage = item.TSAD_BatterVoltage,
+                //    TSAD_CellDiffrence = item.TSAD_CellDiffrence,
+                //    TSAD_ProtectionsId = item.TSAD_ProtectionsId,
+                //    TSAD_Protections = item.TSAD_Protections,
+
+                //    TSAD_CycleCount = item.TSAD_CycleCount,
+                //    TSPD_PhysicaImageFileName = item.TSPD_PhysicaImageFileName,
+                //    TSPD_PhysicaImageOriginalFileName = item.TSPD_PhysicaImageOriginalFileName,
+                //    TSPD_PhysicaImageURL = item.TSPD_PhysicaImageURL,
+                //    TSPD_AnyPhysicalDamage = item.TSPD_AnyPhysicalDamage,
+                //    TSPD_Other = item.TSPD_Other,
+                //    TSPD_IsWarrantyVoid = item.TSPD_IsWarrantyVoid,
+                //    TSSP_SolutionProvider = item.TSSP_SolutionProvider,
+                //    TSSP_AllocateToServiceEnggId = item.TSSP_AllocateToServiceEnggId,
+                //    TSSP_AllocateToServiceEngg = item.TSSP_AllocateToServiceEngg,
+                //    TSSP_Remarks = item.TSSP_Remarks,
+
+                //    CP_Visual = item.CP_Visual,
+                //    CP_VisualImageFileName = item.CP_VisualImageFileName,
+                //    CP_VisualImageOriginalFileName = item.CP_VisualImageOriginalFileName,
+                //    CP_VisualImageURL = item.CP_VisualImageURL,
+                //    CP_TerminalVoltage = item.CP_TerminalVoltage,
+                //    CP_CommunicationWithBattery = item.CP_CommunicationWithBattery,
+                //    CP_TerminalWire = item.CP_TerminalWire,
+                //    CP_TerminalWireImageFileName = item.CP_TerminalWireImageFileName,
+                //    CP_TerminalWireImageOriginalFileName = item.CP_TerminalWireImageOriginalFileName,
+                //    CP_TerminalWireImageURL = item.CP_TerminalWireImageURL,
+                //    CP_LifeCycle = item.CP_LifeCycle,
+                //    CP_StringVoltageVariation = item.CP_StringVoltageVariation,
+                //    CP_BatteryParametersSetting = item.CP_BatteryParametersSetting,
+                //    CP_BatteryParametersSettingImageFileName = item.CP_BatteryParametersSettingImageFileName,
+                //    CP_BatteryParametersSettingImageOriginalFileName = item.CP_BatteryParametersSettingImageOriginalFileName,
+                //    CP_BatteryParametersSettingImageURL = item.CP_BatteryParametersSettingImageURL,
+                //    CP_Spare = item.CP_Spare,
+                //    CP_BMSStatus = item.CP_BMSStatus,
+                //    CP_BMSSoftwareImageFileName = item.CP_BMSSoftwareImageFileName,
+                //    CP_BMSSoftwareImageOriginalFileName = item.CP_BMSSoftwareImageOriginalFileName,
+                //    CP_BMSSoftwareImageURL = item.CP_BMSSoftwareImageURL,
+                //    CP_BMSType = item.CP_BMSType,
+                //    CP_BatteryTemp = item.CP_BatteryTemp,
+                //    CP_BMSSerialNumber = item.CP_BMSSerialNumber,
+                //    CP_ProblemObserved = item.CP_ProblemObserved,
+
+                //    CC_BatteryRepairedOnSite = item.CC_BatteryRepairedOnSite,
+                //    CC_BatteryRepairedToPlant = item.CC_BatteryRepairedToPlant,
+
+                //    OV_IsCustomerAvailable = item.OV_IsCustomerAvailable,
+                //    OV_EngineerName = item.OV_EngineerName,
+                //    OV_EngineerNumber = item.OV_EngineerNumber,
+                //    OV_CustomerName = item.OV_CustomerName,
+                //    OV_CustomerNameSecondary = item.OV_CustomerNameSecondary,
+                //    OV_CustomerMobileNumber = item.OV_CustomerMobileNumber,
+                //    OV_RequestOTP = item.OV_RequestOTP,
+                //    OV_Signature = item.OV_Signature,
+
+                //    TicketStatusId = item.TicketStatusId,
+                //    TicketStatus = item.TicketStatus,
+                //    TicketStatusSequenceNo = item.TicketStatusSequenceNo,
+                //    TRC_EngineerId = item.TRC_EngineerId,
+                //    TRC_Engineer = item.TRC_Engineer,
+
+                //    IsActive = item.IsActive,
+
+                //    CreatorName = item.CreatorName,
+                //    CreatedBy = item.CreatedBy,
+                //    CreatedDate = item.CreatedDate,
+
+                //    ModifierName = item.ModifierName,
+                //    ModifiedBy = item.ModifiedBy,
+                //    ModifiedDate = item.ModifiedDate,
+                //};
+
+                var vResultPartListObj = await _manageTicketRepository.GetManageTicketPartDetailById(Convert.ToInt32(item.TicketId));
+                foreach (var itemPart in vResultPartListObj)
+                {
+                    var vManageTicketPartDetails_Response = new ManageTicketPartDetails_Response()
+                    {
+                        Id = item.Id,
+                        TicketId = itemPart.TicketId,
+                        SpareDetailsId = itemPart.SpareDetailsId,
+                        UniqueCode = itemPart.UniqueCode,
+                        SpareDesc = itemPart.SpareDesc,
+                        Quantity = itemPart.Quantity,
+                        PartStatusId = itemPart.PartStatusId,
+                        PartStatus = itemPart.PartStatus,
+                        RGP = itemPart.RGP,
+                    };
+
+                    item.PartDetails.Add(vManageTicketPartDetails_Response);
+                }
+
+                vManageTicketDetail_Response.Add(item);
+            }
+
+            _response.Data = vManageTicketDetail_Response;
+            _response.Total = parameters.Total;
             return _response;
         }
 
