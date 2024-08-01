@@ -33,6 +33,8 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<TRCPartRequestDetails_Response>> GetTRCPartRequestDetailList(TRCPartRequestDetails_Search parameters);
         Task<TRCPartRequestDetails_Response?> GetTRCPartRequestDetailById(int Id);
 
+        Task<IEnumerable<TRCPartRequest_ImportDataValidation>> ImportTRCPartRequestDetail(List<TRCPartRequest_ImportData> parameters);
+
         #endregion
     }
 }

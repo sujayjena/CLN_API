@@ -20,17 +20,34 @@ namespace CLN.Persistence.Repositories
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<DashboardTicketCount_Response>> GetDashboardTicketCount(Dashboard_Search_Request parameters)
+        public async Task<IEnumerable<Dashboard_TicketResolvedSummary_Result>> GetDashboard_TicketResolvedSummary(Dashboard_Search_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@CompanyId", parameters.CompanyId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@FromDate", parameters.FromDate);
             queryParameters.Add("@ToDate", parameters.ToDate);
-            queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            var result = await ListByStoredProcedure<DashboardTicketCount_Response>("GetDashboardTicketCount", queryParameters);
+            var result = await ListByStoredProcedure<Dashboard_TicketResolvedSummary_Result>("GetDashboard_TicketResolvedSummary", queryParameters);
+
+            return result;
+        }
+
+        public async Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TicetStatusSummary(Dashboard_Search_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@CompanyId", parameters.CompanyId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
+            queryParameters.Add("@FilterType", parameters.FilterType);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<Dashboard_TicetStatusSummary_Result>("GetDashboard_TicetStatusSummary", queryParameters);
 
             return result;
         }

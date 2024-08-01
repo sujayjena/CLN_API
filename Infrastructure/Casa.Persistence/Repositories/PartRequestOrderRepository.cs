@@ -208,5 +208,18 @@ namespace CLN.Persistence.Repositories
         }
 
         #endregion
+
+        #region TRC Import/Export
+        public async Task<IEnumerable<TRCPartRequest_ImportDataValidation>> ImportTRCPartRequestDetail(List<TRCPartRequest_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<TRCPartRequest_ImportDataValidation>("ImportTRCPartRequest", queryParameters);
+        }
+
+        #endregion
     }
 }

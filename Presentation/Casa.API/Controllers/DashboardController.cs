@@ -28,9 +28,18 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetDashboardTicketCount(Dashboard_Search_Request parameters)
+        public async Task<ResponseModel> GetDashboard_TicketResolvedSummary(Dashboard_Search_Request parameters)
         {
-            var objList = await _dashboardRepository.GetDashboardTicketCount(parameters);
+            var objList = await _dashboardRepository.GetDashboard_TicketResolvedSummary(parameters);
+            _response.Data = objList.ToList();
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDashboard_TicetStatusSummary(Dashboard_Search_Request parameters)
+        {
+            var objList = await _dashboardRepository.GetDashboard_TicetStatusSummary(parameters);
             _response.Data = objList.ToList();
             return _response;
         }

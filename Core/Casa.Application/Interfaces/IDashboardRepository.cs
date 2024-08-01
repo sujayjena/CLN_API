@@ -9,6 +9,9 @@ namespace CLN.Application.Interfaces
 {
     public interface IDashboardRepository
     {
-        Task<IEnumerable<DashboardTicketCount_Response>> GetDashboardTicketCount(Dashboard_Search_Request parameters);
+        Task<IEnumerable<Dashboard_TicketResolvedSummary_Result>> GetDashboard_TicketResolvedSummary(Dashboard_Search_Request parameters);
+
+        Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TicetStatusSummary(Dashboard_Search_Request parameters);
+
     }
 }

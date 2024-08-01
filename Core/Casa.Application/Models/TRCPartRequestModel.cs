@@ -98,20 +98,48 @@ namespace CLN.Application.Models
 
     public class TRCPartRequestDetails_Response 
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
+        public int? EngineerId { get; set; }
+        public string EngineerName { get; set; }
         public int? RequestId { get; set; }
-        public string? RequestNumber { get; set; }
+        public string RequestNumber { get; set; }
         public int? SpareDetailsId { get; set; }
-        public string? SpareDesc { get; set; }
-        public string? UniqueCode { get; set; }
+        public string SpareDesc { get; set; }
+        public string UniqueCode { get; set; }
         public int? UOMId { get; set; }
-        public string? UOMName { get; set; }
+        public string UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
-        public string? TypeOfBMS { get; set; }
+        public string TypeOfBMS { get; set; }
         public int? AvailableQty { get; set; }
         public int? RequiredQty { get; set; }
-        public string? Remarks { get; set; }
-        [DefaultValue(false)]
+        public string Remarks { get; set; }
         public bool? RGP { get; set; }
     }
+
+    #region TRC Import/Export
+
+    public class TRCPartRequest_ImportData
+    {
+        public string? EngineerName { get; set; }
+        public string? PartCode { get; set; }
+        public string? UOM { get; set; }
+        public string? TypeOfBMS { get; set; }
+        public string? Quantity { get; set; }
+        public string? RGP { get; set; }
+        public string? Remarks { get; set; }
+    }
+
+    public class TRCPartRequest_ImportDataValidation
+    {
+        public string? EngineerName { get; set; }
+        public string? PartCode { get; set; }
+        public string? UOM { get; set; }
+        public string? TypeOfBMS { get; set; }
+        public string? Quantity { get; set; }
+        public string? RGP { get; set; }
+        public string? Remarks { get; set; }
+        public string? ValidationMessage { get; set; }
+    }
+
+    #endregion
 }
