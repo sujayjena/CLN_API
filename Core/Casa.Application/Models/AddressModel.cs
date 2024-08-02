@@ -87,6 +87,7 @@ namespace CLN.Application.Models
     public class Address_ImportData
     {
         public string? CustomerName { get; set; }
+        public string? VendorName { get; set; }
         public string? Address { get; set; }
         public string? Region { get; set; }
         public string? State { get; set; }
@@ -99,6 +100,7 @@ namespace CLN.Application.Models
     public class Address_ImportDataValidation
     {
         public string? CustomerName { get; set; }
+        public string? VendorName { get; set; }
         public string? Address { get; set; }
         public string? Region { get; set; }
         public string? State { get; set; }

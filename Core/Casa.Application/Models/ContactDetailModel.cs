@@ -86,6 +86,7 @@ namespace CLN.Application.Models
     public class Contact_ImportData
     {
         public string? CustomerName { get; set; }
+        public string? VendorName { get; set; }
         public string? ContactName { get; set; }
         public string? MobileNumber { get; set; }
         public string? Email { get; set; }
@@ -95,6 +96,7 @@ namespace CLN.Application.Models
     public class Contact_ImportDataValidation
     {
         public string? CustomerName { get; set; }
+        public string? VendorName { get; set; }
         public string? ContactName { get; set; }
         public string? MobileNumber { get; set; }
         public string? Email { get; set; }

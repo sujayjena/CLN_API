@@ -324,6 +324,7 @@ namespace CLN.API.Controllers
                     {
                         Contact_ImportData record = new Contact_ImportData();
                         record.CustomerName = workSheet.Cells[rowIterator, 1].Value.ToString();
+                        record.VendorName = string.Empty;
                         record.ContactName = workSheet.Cells[rowIterator, 2].Value.ToString();
                         record.MobileNumber = workSheet.Cells[rowIterator, 3].Value.ToString();
                         record.Email = workSheet.Cells[rowIterator, 4].Value.ToString();
@@ -343,6 +344,7 @@ namespace CLN.API.Controllers
                     {
                         Address_ImportData record = new Address_ImportData();
                         record.CustomerName = workSheet.Cells[rowIterator, 1].Value.ToString();
+                        record.VendorName = string.Empty;
                         record.Address = workSheet.Cells[rowIterator, 2].Value.ToString();
                         record.Region = workSheet.Cells[rowIterator, 3].Value.ToString();
                         record.State = workSheet.Cells[rowIterator, 4].Value.ToString();

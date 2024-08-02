@@ -5,7 +5,10 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +30,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@VendorTypeId", parameters.VendorTypeId);
             queryParameters.Add("@VendorName", parameters.VendorName);
             queryParameters.Add("@LandLineNumber", parameters.LandLineNumber);
             queryParameters.Add("@MobileNumber", parameters.MobileNumber);
@@ -68,6 +72,36 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", Id);
 
             return (await ListByStoredProcedure<VendorList_Response>("GetVendorById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<Vendor_ImportDataValidation>> ImportVendor(List<Vendor_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<Vendor_ImportDataValidation>("ImportVendor", queryParameters);
+        }
+
+        public async Task<IEnumerable<Contact_ImportDataValidation>> ImportVendorContact(List<Contact_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<Contact_ImportDataValidation>("ImportContact", queryParameters);
+        }
+
+        public async Task<IEnumerable<Address_ImportDataValidation>> ImportVendorAddress(List<Address_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<Address_ImportDataValidation>("ImportAddress", queryParameters);
         }
 
         #endregion

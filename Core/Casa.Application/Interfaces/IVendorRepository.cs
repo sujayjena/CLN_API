@@ -18,6 +18,10 @@ namespace CLN.Application.Interfaces
 
         Task<VendorList_Response?> GetVendorById(int Id);
 
+        Task<IEnumerable<Vendor_ImportDataValidation>> ImportVendor(List<Vendor_ImportData> parameters);
+        Task<IEnumerable<Contact_ImportDataValidation>> ImportVendorContact(List<Contact_ImportData> parameters);
+        Task<IEnumerable<Address_ImportDataValidation>> ImportVendorAddress(List<Address_ImportData> parameters);
+
         #endregion
 
         #region Vendor Detail

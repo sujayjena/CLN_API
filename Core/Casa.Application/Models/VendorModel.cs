@@ -1,5 +1,6 @@
 ﻿using CLN.Domain.Entities;
 using CLN.Persistence.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace CLN.Application.Models
 
     public class Vendor_Request : BaseEntity
     {
+        public int? VendorTypeId { get; set; }
         public string? VendorName { get; set; }
 
         public string? LandLineNumber { get; set; }
@@ -52,6 +54,8 @@ namespace CLN.Application.Models
 
     public class VendorList_Response : BaseResponseEntity
     {
+        public int? VendorTypeId { get; set; }
+        public string? VendorType { get; set; }
         public string? VendorName { get; set; }
         public string? LandLineNumber { get; set; }
         public string? MobileNumber { get; set; }
@@ -87,6 +91,8 @@ namespace CLN.Application.Models
             AddressDetail = new Address_Response();
         }
 
+        public int? VendorTypeId { get; set; }
+        public string? VendorType { get; set; }
         public string? VendorName { get; set; }
         public string? LandLineNumber { get; set; }
         public string? MobileNumber { get; set; }
@@ -132,4 +138,41 @@ namespace CLN.Application.Models
         public string WarrantyPeriod { get; set; }
         public string ChargerName { get; set; }
     }
+
+    #region Import and Download
+
+    public class Vendor_ImportRequest
+    {
+        public IFormFile FileUpload { get; set; }
+    }
+
+    public class Vendor_ImportData
+    {
+        public string? VendorType { get; set; }
+        public string? VendorName { get; set; }
+        public string? LandLineNumber { get; set; }
+        public string? MobileNumber { get; set; }
+        public string? Email { get; set; }
+        public string? PanCardNo { get; set; }
+        public string? GSTNo { get; set; }
+        public string? SpecialRemark { get; set; }
+        public string? IsActive { get; set; }
+    }
+
+    public class Vendor_ImportDataValidation
+    {
+        public string? VendorType { get; set; }
+        public string? VendorName { get; set; }
+        public string? LandLineNumber { get; set; }
+        public string? MobileNumber { get; set; }
+        public string? Email { get; set; }
+        public string? PanCardNo { get; set; }
+        public string? GSTNo { get; set; }
+        public string? SpecialRemark { get; set; }
+        public string? IsActive { get; set; }
+        public string ValidationMessage { get; set; }
+    }
+
+    #endregion
+
 }
