@@ -577,12 +577,12 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 8].Value = "Special Remark";
                     WorkSheet1.Cells[1, 9].Value = "Vendor Remark";
                     WorkSheet1.Cells[1, 10].Value = "Ref Party";
-                    WorkSheet1.Cells[1, 11].Value = "IsActive";
+                    //WorkSheet1.Cells[1, 11].Value = "IsActive";
 
                     recordIndex = 2;
                     foreach (var items in lstVendorListObj)
                     {
-                        WorkSheet1.Cells[recordIndex, 1].Value = items.VendorTypeId;
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.VendorType;
                         WorkSheet1.Cells[recordIndex, 2].Value = items.VendorName;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.LandLineNumber;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.MobileNumber;
@@ -590,7 +590,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 7].Value = items.PanCardNo;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.GSTNo;
                         WorkSheet1.Cells[recordIndex, 9].Value = items.SpecialRemark;
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.IsActive == true ? "Active" : "Inactive";
+                        //WorkSheet1.Cells[recordIndex, 10].Value = items.IsActive == true ? "Active" : "Inactive";
 
                         recordIndex += 1;
                     }
@@ -635,7 +635,7 @@ namespace CLN.API.Controllers
                             WorkSheet1.Cells[recordIndex, 2].Value = itemContact.ContactName;
                             WorkSheet1.Cells[recordIndex, 3].Value = itemContact.MobileNumber;
                             WorkSheet1.Cells[recordIndex, 4].Value = itemContact.EmailId;
-                            WorkSheet1.Cells[recordIndex, 11].Value = itemContact.IsActive == true ? "Active" : "Inactive";
+                            WorkSheet1.Cells[recordIndex, 5].Value = itemContact.IsActive == true ? "Active" : "Inactive";
 
                             recordIndex += 1;
                         }
