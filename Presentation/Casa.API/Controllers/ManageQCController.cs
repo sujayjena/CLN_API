@@ -618,7 +618,7 @@ namespace CLN.API.Controllers
                    !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "WarrantyEndDate", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "WarrantyStatus", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "WarrantyType", StringComparison.OrdinalIgnoreCase))
-                        
+
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file";
@@ -634,9 +634,14 @@ namespace CLN.API.Controllers
                             CustomerName = workSheet.Cells[rowIterator, 1].Value?.ToString(),
                             PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString(),
                             ProductSerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString(),
-                            ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 4].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
-                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 5].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
-                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 6].Value?.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+                            //ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 4].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+                            //WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 5].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+                            //WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 6].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
+
+                            ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 4].Value.ToString()) : null,
+                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 5].Value.ToString()) : null,
+                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 6].Value.ToString()) : null,
+
                             WarrantyStatus = workSheet.Cells[rowIterator, 7].Value?.ToString(),
                             WarrantyType = workSheet.Cells[rowIterator, 8].Value?.ToString(),
                         });
@@ -705,9 +710,9 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 1].Value = record.CustomerName;
                         WorkSheet1.Cells[recordIndex, 2].Value = record.PartCode;
                         WorkSheet1.Cells[recordIndex, 3].Value = record.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 4].Value = !string.IsNullOrWhiteSpace(record.ManufacturingDate) ? Convert.ToDateTime(record.ManufacturingDate).ToString("dd/MM/yyyy") : "";
-                        WorkSheet1.Cells[recordIndex, 5].Value = !string.IsNullOrWhiteSpace(record.WarrantyStartDate) ? Convert.ToDateTime(record.WarrantyStartDate).ToString("dd/MM/yyyy") : "";
-                        WorkSheet1.Cells[recordIndex, 6].Value = !string.IsNullOrWhiteSpace(record.WarrantyEndDate) ? Convert.ToDateTime(record.WarrantyEndDate).ToString("dd/MM/yyyy") : ""; ;
+                        WorkSheet1.Cells[recordIndex, 4].Value = !string.IsNullOrWhiteSpace(record.ManufacturingDate) ? Convert.ToDateTime(record.ManufacturingDate).ToString("yyyy-MM-dd") : "";
+                        WorkSheet1.Cells[recordIndex, 5].Value = !string.IsNullOrWhiteSpace(record.WarrantyStartDate) ? Convert.ToDateTime(record.WarrantyStartDate).ToString("yyyy-MM-dd") : "";
+                        WorkSheet1.Cells[recordIndex, 6].Value = !string.IsNullOrWhiteSpace(record.WarrantyEndDate) ? Convert.ToDateTime(record.WarrantyEndDate).ToString("yyyy-MM-dd") : "";
                         WorkSheet1.Cells[recordIndex, 7].Value = record.WarrantyStatus;
                         WorkSheet1.Cells[recordIndex, 8].Value = record.WarrantyType;
                         WorkSheet1.Cells[recordIndex, 9].Value = record.ValidationMessage;
@@ -897,14 +902,14 @@ namespace CLN.API.Controllers
 
                 var vCustomerAccessory = new CustomerAccessory_Request()
                 {
-                    Id=items.Id,
-                    CustomerId=items.CustomerId,
-                    PartCodeId=items.PartCodeId,
-                    AccessoryBOMNumber=items.AccessoryBOMNumber,
-                    DrawingNumber= items.DrawingNumber,
-                    AccessoryName=items.AccessoryName,
-                    Quantity=items.Quantity,
-                    IsActive=items.IsActive,
+                    Id = items.Id,
+                    CustomerId = items.CustomerId,
+                    PartCodeId = items.PartCodeId,
+                    AccessoryBOMNumber = items.AccessoryBOMNumber,
+                    DrawingNumber = items.DrawingNumber,
+                    AccessoryName = items.AccessoryName,
+                    Quantity = items.Quantity,
+                    IsActive = items.IsActive,
                 };
 
                 result = await _ManageQCRepository.SaveManageQCAccessory(vCustomerAccessory);
