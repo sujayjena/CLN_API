@@ -118,7 +118,6 @@ namespace CLN.API.Controllers.Admin
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.SpareCategory;
                         WorkSheet1.Cells[recordIndex, 2].Value = items.IsActive == true ? "Active" : "Inactive";
-
                         WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                         WorkSheet1.Cells[recordIndex, 3].Value = items.CreatedDate;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.CreatorName;

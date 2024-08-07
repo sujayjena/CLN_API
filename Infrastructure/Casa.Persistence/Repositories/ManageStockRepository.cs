@@ -461,6 +461,18 @@ namespace CLN.Persistence.Repositories
 
         #region Stock Master
 
+        public async Task<int> SaveStockMaster(StockMaster_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@EngineerId", parameters.EngineerId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@Quantity", parameters.Quantity);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveStockMaster", queryParameters);
+        }
+
         public async Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId)
         {
             DynamicParameters queryParameters = new DynamicParameters();

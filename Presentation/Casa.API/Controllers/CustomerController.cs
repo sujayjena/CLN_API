@@ -298,17 +298,17 @@ namespace CLN.API.Controllers
                     if (!string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 1].Value?.ToString()) && !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 2].Value?.ToString()))
                     {
                         Customer_ImportData record = new Customer_ImportData();
-                        record.CustomerType = workSheet.Cells[rowIterator, 1].Value.ToString();
-                        record.CustomerName = workSheet.Cells[rowIterator, 2].Value.ToString();
-                        record.CustomerCode = workSheet.Cells[rowIterator, 3].Value.ToString();
-                        record.LandLineNumber = workSheet.Cells[rowIterator, 4].Value.ToString();
-                        record.MobileNumber = workSheet.Cells[rowIterator, 5].Value.ToString();
-                        record.Email = workSheet.Cells[rowIterator, 6].Value.ToString();
-                        record.Website = workSheet.Cells[rowIterator, 7].Value.ToString();
-                        record.SpecialRemark = workSheet.Cells[rowIterator, 8].Value.ToString();
-                        record.CustomerRemark = workSheet.Cells[rowIterator, 9].Value.ToString();
-                        record.RefParty = workSheet.Cells[rowIterator, 10].Value.ToString();
-                        record.IsActive = workSheet.Cells[rowIterator, 11].Value.ToString();
+                        record.CustomerType = workSheet.Cells[rowIterator, 1].Value != null ? workSheet.Cells[rowIterator, 1].Value.ToString() : null;
+                        record.CustomerName = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : null;
+                        record.CustomerCode = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : null;
+                        record.LandLineNumber = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : null;
+                        record.MobileNumber = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : null;
+                        record.Email = workSheet.Cells[rowIterator, 6].Value != null ? workSheet.Cells[rowIterator, 6].Value.ToString() : null;
+                        record.Website = workSheet.Cells[rowIterator, 7].Value != null ? workSheet.Cells[rowIterator, 7].Value.ToString() : null;
+                        record.SpecialRemark = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : null;
+                        record.CustomerRemark =  workSheet.Cells[rowIterator, 9].Value != null ? workSheet.Cells[rowIterator, 9].Value.ToString() : null;
+                        record.RefParty = workSheet.Cells[rowIterator, 10].Value != null ? workSheet.Cells[rowIterator, 10].Value.ToString() : null;
+                        record.IsActive = workSheet.Cells[rowIterator, 11].Value != null ? workSheet.Cells[rowIterator, 11].Value.ToString() : null;
 
                         lstCustomerImportRequestModel.Add(record);
                     }
@@ -323,12 +323,12 @@ namespace CLN.API.Controllers
                     if (!string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 1].Value?.ToString()) && !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 2].Value?.ToString()))
                     {
                         Contact_ImportData record = new Contact_ImportData();
-                        record.CustomerName = workSheet.Cells[rowIterator, 1].Value.ToString();
+                        record.CustomerName = workSheet.Cells[rowIterator, 1].Value != null ? workSheet.Cells[rowIterator, 1].Value.ToString() : null;
                         record.VendorName = string.Empty;
-                        record.ContactName = workSheet.Cells[rowIterator, 2].Value.ToString();
-                        record.MobileNumber = workSheet.Cells[rowIterator, 3].Value.ToString();
-                        record.Email = workSheet.Cells[rowIterator, 4].Value.ToString();
-                        record.IsActive = workSheet.Cells[rowIterator, 5].Value.ToString();
+                        record.ContactName = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : null;
+                        record.MobileNumber = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : null;
+                        record.Email = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : null;
+                        record.IsActive = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : null;
 
                         lstCustomerContactImportRequestModel.Add(record);
                     }
@@ -343,21 +343,22 @@ namespace CLN.API.Controllers
                     if (!string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 1].Value?.ToString()) && !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 2].Value?.ToString()))
                     {
                         Address_ImportData record = new Address_ImportData();
-                        record.CustomerName = workSheet.Cells[rowIterator, 1].Value.ToString();
+                        record.CustomerName = workSheet.Cells[rowIterator, 1].Value != null ? workSheet.Cells[rowIterator, 1].Value.ToString() : null;
                         record.VendorName = string.Empty;
-                        record.Address = workSheet.Cells[rowIterator, 2].Value.ToString();
-                        record.Region = workSheet.Cells[rowIterator, 3].Value.ToString();
-                        record.State = workSheet.Cells[rowIterator, 4].Value.ToString();
-                        record.District = workSheet.Cells[rowIterator, 5].Value.ToString();
-                        record.City = workSheet.Cells[rowIterator, 6].Value.ToString();
-                        record.PinCode = workSheet.Cells[rowIterator, 7].Value.ToString();
-                        record.IsActive = workSheet.Cells[rowIterator, 8].Value.ToString();
+                        record.Address = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : null;
+                        record.Region = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : null;
+                        record.State = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : null;
+                        record.District = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : null;
+                        record.City = workSheet.Cells[rowIterator, 6].Value != null ? workSheet.Cells[rowIterator, 6].Value.ToString() : null;
+                        record.PinCode = workSheet.Cells[rowIterator, 7].Value != null ? workSheet.Cells[rowIterator, 7].Value.ToString() : null;
+                        record.IsActive = workSheet.Cells[rowIterator, 8].Value != null ? workSheet.Cells[rowIterator, 8].Value.ToString() : null;
+
 
                         lstCustomerAddressImportRequestModel.Add(record);
                     }
                 }
 
-                if (lstCustomerImportRequestModel.Count == 0 || lstCustomerContactImportRequestModel.Count == 0 || lstCustomerAddressImportRequestModel.Count == 0)
+                if (lstCustomerImportRequestModel.Count == 0)
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Uploaded customerfdata file does not contains any record";
@@ -408,12 +409,12 @@ namespace CLN.API.Controllers
                 }
 
 
-                if (tableHasNullCustomer || tableHasNullCustomerContact || tableHasNullCustomerAddress)
-                {
-                    _response.IsSuccess = false;
-                    _response.Message = "Please upload a valid excel file. Please Download Format file for reference.";
-                    return _response;
-                }
+                //if (tableHasNullCustomer || tableHasNullCustomerContact || tableHasNullCustomerAddress)
+                //{
+                //    _response.IsSuccess = false;
+                //    _response.Message = "Please upload a valid excel file. Please Download Format file for reference.";
+                //    return _response;
+                //}
 
                 // Import Data
                 lstCustomer_ImportDataValidation_Result = await _customerRepository.ImportCustomer(lstCustomerImportRequestModel);

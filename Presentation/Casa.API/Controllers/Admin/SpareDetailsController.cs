@@ -127,12 +127,13 @@ namespace CLN.API.Controllers.Admin
                 noOfCol = workSheet.Dimension.End.Column;
                 noOfRow = workSheet.Dimension.End.Row;
 
-                if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "PartCode", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "Description", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "UOM", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "MinQty", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "RGP", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "SpareCategory", StringComparison.OrdinalIgnoreCase) ||
+                    !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "PartCode", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "Description", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "UOM", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "MinQty", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "RGP", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file. Please Download Format file for reference";
@@ -143,12 +144,13 @@ namespace CLN.API.Controllers.Admin
                 {
                     lstSpareDetails_ImportData.Add(new SpareDetails_ImportData()
                     {
-                        PartCode = workSheet.Cells[rowIterator, 1].Value?.ToString(),
-                        Description = workSheet.Cells[rowIterator, 2].Value?.ToString(),
-                        UOM = workSheet.Cells[rowIterator, 3].Value?.ToString(),
-                        MinQty = workSheet.Cells[rowIterator, 4].Value?.ToString(),
-                        RGP = workSheet.Cells[rowIterator, 5].Value?.ToString(),
-                        IsActive = workSheet.Cells[rowIterator, 6].Value?.ToString()
+                        SpareCategory = workSheet.Cells[rowIterator, 1].Value?.ToString(),
+                        PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString(),
+                        Description = workSheet.Cells[rowIterator,3].Value?.ToString(),
+                        UOM = workSheet.Cells[rowIterator, 4].Value?.ToString(),
+                        MinQty = workSheet.Cells[rowIterator,5].Value?.ToString(),
+                        RGP = workSheet.Cells[rowIterator,6].Value?.ToString(),
+                        IsActive = workSheet.Cells[rowIterator, 7].Value?.ToString()
                     });
                 }
             }
@@ -197,25 +199,27 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
-                    WorkSheet1.Cells[1, 1].Value = "PartCode";
-                    WorkSheet1.Cells[1, 2].Value = "Description";
-                    WorkSheet1.Cells[1, 3].Value = "UOM";
-                    WorkSheet1.Cells[1, 4].Value = "MinQty";
-                    WorkSheet1.Cells[1, 5].Value = "RGP";
-                    WorkSheet1.Cells[1, 6].Value = "IsActive";
-                    WorkSheet1.Cells[1, 7].Value = "ErrorMessage";
+                    WorkSheet1.Cells[1, 1].Value = "SpareCategory";
+                    WorkSheet1.Cells[1, 2].Value = "PartCode";
+                    WorkSheet1.Cells[1, 3].Value = "Description";
+                    WorkSheet1.Cells[1, 4].Value = "UOM";
+                    WorkSheet1.Cells[1, 5].Value = "MinQty";
+                    WorkSheet1.Cells[1, 6].Value = "RGP";
+                    WorkSheet1.Cells[1, 7].Value = "IsActive";
+                    WorkSheet1.Cells[1, 8].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
                     foreach (SpareDetails_ImportDataValidation record in lstSpareDetails_ImportDataValidation)
                     {
-                        WorkSheet1.Cells[recordIndex, 1].Value = record.PartCode;
-                        WorkSheet1.Cells[recordIndex, 2].Value = record.Description;
-                        WorkSheet1.Cells[recordIndex, 3].Value = record.UOM;
-                        WorkSheet1.Cells[recordIndex, 4].Value = record.MinQty;
-                        WorkSheet1.Cells[recordIndex, 5].Value = record.RGP;
-                        WorkSheet1.Cells[recordIndex, 6].Value = record.IsActive;
-                        WorkSheet1.Cells[recordIndex, 7].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 1].Value = record.SpareCategory;
+                        WorkSheet1.Cells[recordIndex, 2].Value = record.PartCode;
+                        WorkSheet1.Cells[recordIndex, 3].Value = record.Description;
+                        WorkSheet1.Cells[recordIndex, 4].Value = record.UOM;
+                        WorkSheet1.Cells[recordIndex, 5].Value = record.MinQty;
+                        WorkSheet1.Cells[recordIndex, 6].Value = record.RGP;
+                        WorkSheet1.Cells[recordIndex, 7].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 8].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }

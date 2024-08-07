@@ -55,6 +55,7 @@ namespace CLN.Application.Models
 
     public class SpareDetails_ImportData
     {
+        public string? SpareCategory { get; set; }
         public string? PartCode { get; set; }
         public string Description { get; set; }
         public string UOM { get; set; }
@@ -65,6 +66,7 @@ namespace CLN.Application.Models
 
     public class SpareDetails_ImportDataValidation
     {
+        public string? SpareCategory { get; set; }
         public string? PartCode { get; set; }
         public string Description { get; set; }
         public string UOM { get; set; }

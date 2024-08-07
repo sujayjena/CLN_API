@@ -21,8 +21,9 @@ namespace CLN.API.Controllers
         private readonly IManageEnquiryRepository _manageEnquiryRepository;
         private readonly IManageTRCRepository _manageTRCRepository;
         private readonly ICustomerRepository _customerRepository;
+        private readonly IManageStockRepository _manageStockRepository;
 
-        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository)
+        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository, IManageStockRepository manageStockRepository)
         {
             _fileManager = fileManager;
 
@@ -31,6 +32,7 @@ namespace CLN.API.Controllers
             _manageEnquiryRepository = manageEnquiryRepository;
             _manageTRCRepository = manageTRCRepository;
             _customerRepository = customerRepository;
+            _manageStockRepository = manageStockRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -225,7 +227,23 @@ namespace CLN.API.Controllers
                         Quantity = item.Quantity,
                         PartStatusId = item.PartStatusId,
                     };
-                    int resultTechnicalSupportAddUpdate = await _manageTicketRepository.SaveManageTicketPartDetail(vManageTicketPartDetails_Request);
+                    int resultPartDetails = await _manageTicketRepository.SaveManageTicketPartDetail(vManageTicketPartDetails_Request);
+
+                    #region Engineer Inventory Master Update
+
+                    if (resultPartDetails > 0 && parameters.TSSP_AllocateToServiceEnggId > 0)
+                    {
+                        var vStockParameters = new StockMaster_Request()
+                        {
+                            EngineerId = parameters.TSSP_AllocateToServiceEnggId,
+                            SpareDetailsId = item.SpareDetailsId,
+                            Quantity = item.Quantity * -1
+                        };
+
+                        int resultInventory = await _manageStockRepository.SaveStockMaster(vStockParameters);
+                    }
+
+                    #endregion
                 }
             }
 
@@ -588,7 +606,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record deleted sucessfully";
+                _response.Message = "Record deleted sucessfully";            
             }
 
             _response.Id = result;

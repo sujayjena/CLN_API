@@ -78,6 +78,8 @@ namespace CLN.Application.Interfaces
 
         #region Stock Master
 
+        Task<int> SaveStockMaster(StockMaster_Request parameters);
+
         Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId);
 
         #endregion

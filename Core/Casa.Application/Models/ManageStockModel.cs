@@ -316,6 +316,13 @@ namespace CLN.Application.Models
 
     #region Stock Master
 
+    public class StockMaster_Request
+    {
+        public int? EngineerId { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public int? Quantity { get; set; }
+    }
+
     public class StockMaster_Response : BaseResponseEntity
     {
         public int? SpareDetailsId { get; set; }

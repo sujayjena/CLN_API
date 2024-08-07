@@ -151,6 +151,5 @@ namespace CLN.Application.Helpers
             }
             return result;
         }
-
     }
 }
