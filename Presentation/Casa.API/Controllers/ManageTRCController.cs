@@ -350,12 +350,15 @@ namespace CLN.API.Controllers
                         {
                             Id = item.Id,
                             TicketId = item.TicketId,
+                            SpareCategoryId = item.SpareCategoryId,
+                            SpareCategory = item.SpareCategory,
                             SpareDetailsId = item.SpareDetailsId,
                             UniqueCode = item.UniqueCode,
                             SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
-                            PartStatusId = item.PartStatusId,
-                            PartStatus = item.PartStatus
+                            AvailableQty = item.AvailableQty,
+                            //PartStatusId = item.PartStatusId,
+                            //PartStatus = item.PartStatus
                         };
 
                         vManageTRCDetail_Response.TicketDetail.PartDetails.Add(vManageTicketPartDetails_Response);

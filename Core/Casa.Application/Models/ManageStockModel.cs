@@ -17,6 +17,7 @@ namespace CLN.Application.Models
     #region Generate Part Request
     public class GeneratePartRequest_Request : BaseEntity
     {
+        public int? SpareCategoryId { get; set; }
         public int? SpareDetailsId { get; set; }
         public int? UOMId { get; set; }
         public int? TypeOfBMSId { get; set; }
@@ -39,6 +40,8 @@ namespace CLN.Application.Models
 
     public class GeneratePartRequest_Response : BaseResponseEntity
     {
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }

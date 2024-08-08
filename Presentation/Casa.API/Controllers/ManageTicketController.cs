@@ -223,9 +223,10 @@ namespace CLN.API.Controllers
                     {
                         Id = Convert.ToInt32(item.Id),
                         TicketId = result,
+                        SpareCategoryId = item.SpareCategoryId,
                         SpareDetailsId = item.SpareDetailsId,
                         Quantity = item.Quantity,
-                        PartStatusId = item.PartStatusId,
+                        AvailableQty = item.AvailableQty,
                     };
                     int resultPartDetails = await _manageTicketRepository.SaveManageTicketPartDetail(vManageTicketPartDetails_Request);
 
@@ -481,6 +482,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSPD_AnyPhysicalDamage = vResultObj.TSPD_AnyPhysicalDamage;
                     vManageTicketDetail_Response.TSPD_Other = vResultObj.TSPD_Other;
                     vManageTicketDetail_Response.TSPD_IsWarrantyVoid = vResultObj.TSPD_IsWarrantyVoid;
+                    vManageTicketDetail_Response.TSPD_ReasonforVoid = vResultObj.TSPD_ReasonforVoid;
                     vManageTicketDetail_Response.TSSP_SolutionProvider = vResultObj.TSSP_SolutionProvider;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
@@ -548,13 +550,16 @@ namespace CLN.API.Controllers
                         {
                             Id = item.Id,
                             TicketId = item.TicketId,
+                            SpareCategoryId = item.SpareCategoryId,
+                            SpareCategory = item.SpareCategory,
                             SpareDetailsId = item.SpareDetailsId,
                             UniqueCode = item.UniqueCode,
                             SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
-                            PartStatusId = item.PartStatusId,
-                            PartStatus = item.PartStatus,
-                            RGP = item.RGP,
+                            AvailableQty = item.AvailableQty,
+                            //PartStatusId = item.PartStatusId,
+                            //PartStatus = item.PartStatus,
+                            //RGP = item.RGP,
                         };
 
                         vManageTicketDetail_Response.PartDetails.Add(vManageTicketPartDetails_Response);
@@ -666,13 +671,16 @@ namespace CLN.API.Controllers
                     {
                         Id = item.Id,
                         TicketId = itemPart.TicketId,
+                        SpareCategoryId = itemPart.SpareCategoryId,
+                        SpareCategory = itemPart.SpareCategory,
                         SpareDetailsId = itemPart.SpareDetailsId,
                         UniqueCode = itemPart.UniqueCode,
                         SpareDesc = itemPart.SpareDesc,
                         Quantity = itemPart.Quantity,
-                        PartStatusId = itemPart.PartStatusId,
-                        PartStatus = itemPart.PartStatus,
-                        RGP = itemPart.RGP,
+                        AvailableQty = itemPart.AvailableQty,
+                        //PartStatusId = itemPart.PartStatusId,
+                        //PartStatus = itemPart.PartStatus,
+                        //RGP = itemPart.RGP,
                     };
 
                     item.PartDetails.Add(vManageTicketPartDetails_Response);

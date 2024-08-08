@@ -17,6 +17,9 @@ namespace CLN.Application.Models
         [DefaultValue(0)]
         public int? TicketStatusId { get; set; }
 
+        [DefaultValue(0)]
+        public int? Filter_TicketStatusId { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
     }
@@ -127,6 +130,7 @@ namespace CLN.Application.Models
         public string? TSPD_Other { get; set; }
         [DefaultValue(false)]
         public bool? TSPD_IsWarrantyVoid { get; set; }
+        public string? TSPD_ReasonforVoid { get; set; }
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string? TSSP_Remarks { get; set; }
@@ -190,11 +194,15 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public int? TicketId { get; set; }
 
+        public int? SpareCategoryId { get; set; }
+
         public int? SpareDetailsId { get; set; }
 
         public int? Quantity { get; set; }
 
-        public int? PartStatusId { get; set; }
+        public int? AvailableQty { get; set; }
+
+        //public int? PartStatusId { get; set; }
     }
 
     public class ManageTicketList_Response : BaseResponseEntity
@@ -424,6 +432,7 @@ namespace CLN.Application.Models
         public string TSPD_AnyPhysicalDamage { get; set; }
         public string TSPD_Other { get; set; }
         public bool? TSPD_IsWarrantyVoid { get; set; }
+        public string? TSPD_ReasonforVoid { get; set; }
 
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
@@ -602,6 +611,7 @@ namespace CLN.Application.Models
         public string TSPD_AnyPhysicalDamage { get; set; }
         public string TSPD_Other { get; set; }
         public bool? TSPD_IsWarrantyVoid { get; set; }
+        public string? TSPD_ReasonforVoid { get; set; }
 
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
@@ -668,6 +678,10 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public int? TicketId { get; set; }
 
+        public int? SpareCategoryId { get; set; }
+
+        public string? SpareCategory { get; set; }
+
         public int? SpareDetailsId { get; set; }
 
         public string? UniqueCode { get; set; }
@@ -676,11 +690,13 @@ namespace CLN.Application.Models
 
         public int? Quantity { get; set; }
 
-        public int? PartStatusId { get; set; }
+        public int? AvailableQty { get; set; }
 
-        public string? PartStatus { get; set; }
+        //public int? PartStatusId { get; set; }
 
-        public bool? RGP { get; set; }
+        //public string? PartStatus { get; set; }
+
+        //public bool? RGP { get; set; }
     }
 
     public class ManageTicketStatusLog_Response

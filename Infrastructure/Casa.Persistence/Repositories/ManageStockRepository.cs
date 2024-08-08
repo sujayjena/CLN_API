@@ -26,6 +26,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);

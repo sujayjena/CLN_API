@@ -85,6 +85,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSPD_AnyPhysicalDamage", parameters.TSPD_AnyPhysicalDamage);
             queryParameters.Add("@TSPD_Other", parameters.TSPD_Other);
             queryParameters.Add("@TSPD_IsWarrantyVoid", parameters.TSPD_IsWarrantyVoid);
+            queryParameters.Add("@TSPD_ReasonforVoid", parameters.TSPD_ReasonforVoid);
             queryParameters.Add("@TSSP_SolutionProvider", parameters.TSSP_SolutionProvider);
             queryParameters.Add("@TSSP_AllocateToServiceEnggId", parameters.TSSP_AllocateToServiceEnggId);
             queryParameters.Add("@TSSP_Remarks", parameters.TSSP_Remarks);
@@ -151,6 +152,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
+            queryParameters.Add("@Filter_TicketStatusId", parameters.Filter_TicketStatusId);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -227,9 +229,11 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TicketId", parameters.TicketId);
+            queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@Quantity", parameters.Quantity);
-            queryParameters.Add("@PartStatusId", parameters.PartStatusId);
+            queryParameters.Add("@AvailableQty", parameters.AvailableQty);
+            //queryParameters.Add("@PartStatusId", parameters.PartStatusId);
 
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
