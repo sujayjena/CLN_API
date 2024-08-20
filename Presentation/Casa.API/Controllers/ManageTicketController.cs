@@ -290,8 +290,8 @@ namespace CLN.API.Controllers
 
                 #region SMS Send
 
-                // New Tick generate : SMS send to Caller mobile
-                if (parameters.TicketStatusId == (int)TicketStatusEnums.New)
+                // New Tick generate : SMS send to Customer mobile
+                if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.New)
                 {
                     #region SMS Config
 
@@ -326,7 +326,7 @@ namespace CLN.API.Controllers
                         TemplateName = sSMSTemplateContent,
                     };
 
-                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch);
+                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
                     if (resultSMSHistoryObj == null)
                     {
                         // Send SMS
@@ -346,7 +346,7 @@ namespace CLN.API.Controllers
                 }
 
                 // New Tick generate : SMS send to Customer mobile
-                if (parameters.TicketStatusId == (int)TicketStatusEnums.New)
+                if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.New)
                 {
                     #region SMS Config
 
@@ -381,7 +381,7 @@ namespace CLN.API.Controllers
                         TemplateName = sSMSTemplateContent,
                     };
 
-                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch);
+                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
                     if (resultSMSHistoryObj == null)
                     {
                         // Send SMS
@@ -401,7 +401,7 @@ namespace CLN.API.Controllers
                 }
 
                 // New Tick Allocate To Service Engineer : SMS send to Service Engineer 
-                if (parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2)
+                if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2)
                 {
                     #region SMS Config
 
@@ -450,7 +450,7 @@ namespace CLN.API.Controllers
                 }
 
                 // Resolved Tick : SMS send to Customer mobile
-                if (parameters.TicketStatusId == (int)TicketStatusEnums.Resolved)
+                if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
                 {
                     #region SMS Config
 
@@ -485,7 +485,7 @@ namespace CLN.API.Controllers
                         TemplateName = sSMSTemplateContent,
                     };
 
-                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch);
+                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
                     if (resultSMSHistoryObj == null)
                     {
                         // Send SMS
@@ -1000,69 +1000,69 @@ namespace CLN.API.Controllers
                 MobileNumber = parameters.Mobile
             };
 
-            int result = await _loginRepository.ValidateUserMobile(vOTPRequestModelObj);
+            //int result = await _loginRepository.ValidateUserMobile(vOTPRequestModelObj);
 
-            if (result == (int)SaveOperationEnums.NoResult)
+            //if (result == (int)SaveOperationEnums.NoResult)
+            //{
+            //    _response.Message = "No record exists";
+            //}
+            //else
+            //{
+            int iOTP = Utilities.GenerateRandomNumForOTP();
+            if (iOTP > 0)
             {
-                _response.Message = "No record exists";
+                vOTPRequestModelObj.OTP = Convert.ToString(iOTP);
             }
-            else
+
+            // Opt save
+            int resultOTP = await _loginRepository.SaveOTP(vOTPRequestModelObj);
+
+            if (resultOTP > 0)
             {
-                int iOTP = Utilities.GenerateRandomNumForOTP();
-                if (iOTP > 0)
+                _response.Message = "OTP sent successfully.";
+
+                #region SMS Send
+
+                var vConfigRef_Search = new ConfigRef_Search()
                 {
-                    vOTPRequestModelObj.OTP = Convert.ToString(iOTP);
+                    Ref_Type = "SMS",
+                    Ref_Param = "OTPForTicketClosure"
+                };
+
+                string sSMSTemplateName = string.Empty;
+                string sSMSTemplateContent = string.Empty;
+                var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                if (vConfigRefObj != null)
+                {
+                    sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                    sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                    if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                    {
+                        //Replace parameter 
+                        sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", iOTP.ToString());
+                        sSMSTemplateContent = sSMSTemplateContent.Replace("{#var1#}", resultTicketSMSObj.TicketNumber);
+                    }
                 }
 
-                // Opt save
-                int resultOTP = await _loginRepository.SaveOTP(vOTPRequestModelObj);
-
-                if (resultOTP > 0)
+                if (resultTicketSMSObj != null)
                 {
-                    _response.Message = "OTP sent successfully.";
-
-                    #region SMS Send
-
-                    var vConfigRef_Search = new ConfigRef_Search()
+                    // Send SMS
+                    var vsmsRequest = new SMS_Request()
                     {
-                        Ref_Type = "SMS",
-                        Ref_Param = "OTPForTicketClosure"
+                        Ref1_OTPId = resultOTP,
+                        TemplateName = sSMSTemplateName,
+                        TemplateContent = sSMSTemplateContent,
+                        Mobile = parameters.Mobile,
                     };
+                    bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
 
-                    string sSMSTemplateName = string.Empty;
-                    string sSMSTemplateContent = string.Empty;
-                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                    if (vConfigRefObj != null)
-                    {
-                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
-                        {
-                            //Replace parameter 
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", iOTP.ToString());
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var1#}", resultTicketSMSObj.TicketNumber);
-                        }
-                    }
-
-                    if (resultCustomerObj != null) {
-                        
-                        // Send SMS
-                        var vsmsRequest = new SMS_Request()
-                        {
-                            Ref1_OTPId = resultOTP,
-                            TemplateName = sSMSTemplateName,
-                            TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CustomerMobile,
-                        };
-                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-
-                    }
-                    _response.Id = resultOTP;
-
-                    #endregion
                 }
+                _response.Id = resultOTP;
+
+                #endregion
             }
+            //}
 
             return _response;
         }

@@ -304,6 +304,8 @@ namespace CLN.Application.Models
         public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
         public int? ReceivedQty { get; set; }
+        [DefaultValue(0)]
+        public bool? RGP { get; set; }
     }
 
     public class StockAllocatedPartDetails_Response : BaseEntity
@@ -318,6 +320,7 @@ namespace CLN.Application.Models
         public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
         public int? ReceivedQty { get; set; }
+        [DefaultValue(0)]
         public bool? RGP { get; set; }
     }
 

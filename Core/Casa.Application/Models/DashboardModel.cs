@@ -42,4 +42,11 @@ namespace CLN.Application.Models
         public int? Ticket { get; set; }
     }
 
+    public class Dashboard_TicketVisitSummary_Result
+    {
+        public DateTime? VisitDate { get; set; }
+        public int? EngineerId { get; set; }
+        public string EngineerName { get; set; }
+        public int? Visit { get; set; }
+    }
 }

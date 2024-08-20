@@ -274,6 +274,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);
             queryParameters.Add("@AllocatedQty", parameters.AllocatedQty);
             queryParameters.Add("@ReceivedQty", parameters.ReceivedQty);
+            queryParameters.Add("@RGP", parameters.RGP);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveStockAllocatedPartDetails", queryParameters);

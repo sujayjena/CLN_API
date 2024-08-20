@@ -43,5 +43,14 @@ namespace CLN.API.Controllers
             _response.Data = objList.ToList();
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> Dashboard_TicketVisitSummary(Dashboard_Search_Request parameters)
+        {
+            var objList = await _dashboardRepository.GetDashboard_TicketVisitSummary(parameters);
+            _response.Data = objList.ToList();
+            return _response;
+        }
     }
 }

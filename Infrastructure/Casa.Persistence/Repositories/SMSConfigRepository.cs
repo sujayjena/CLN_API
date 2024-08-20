@@ -88,7 +88,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Ref1_OTPId", parameters.Ref1_OTPId);
             queryParameters.Add("@Ref2_Other", parameters.Ref2_Other);
-            queryParameters.Add("@TemplateName", parameters.TemplateName);
+            queryParameters.Add("@Template", parameters.TemplateName);
 
             return (await ListByStoredProcedure<SMSHistory_Response>("GetSMSHitoryById", queryParameters)).FirstOrDefault();
         }

@@ -118,24 +118,21 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Invalid OTP!";
-                _response.IsSuccess = false;
+                int result = await _loginRepository.VerifyOTP(parameters);
+
+                if (result == (int)SaveOperationEnums.NoResult)
+                {
+                    _response.Message = "Invalid OTP!";
+                }
+                else if (result == (int)SaveOperationEnums.ReocrdExists)
+                {
+                    _response.Message = "OTP timeout!";
+                }
+                else
+                {
+                    _response.Message = "OTP verified sucessfully.";
+                }
             }
-
-            //int result = await _loginRepository.VerifyOTP(parameters);
-
-            //if (result == (int)SaveOperationEnums.NoResult)
-            //{
-            //    _response.Message = "Invalid OTP!";
-            //}
-            //else if (result == (int)SaveOperationEnums.ReocrdExists)
-            //{
-            //    _response.Message = "OTP timeout!";
-            //}
-            //else
-            //{
-            //    _response.Message = "OTP verified sucessfully.";
-            //}
 
             return _response;
         }
