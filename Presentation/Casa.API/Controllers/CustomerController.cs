@@ -421,7 +421,6 @@ namespace CLN.API.Controllers
                 lstCustomerContact_ImportDataValidation_Result = await _customerRepository.ImportCustomerContact(lstCustomerContactImportRequestModel);
                 lstCustomerAddress_ImportDataValidation_Result = await _customerRepository.ImportCustomerAddress(lstCustomerAddressImportRequestModel);
 
-
                 _response.IsSuccess = true;
                 _response.Message = "Record imported successfully";
 
@@ -429,6 +428,8 @@ namespace CLN.API.Controllers
 
                 if (lstCustomer_ImportDataValidation_Result.ToList().Count > 0 || lstCustomerContact_ImportDataValidation_Result.ToList().Count > 0 || lstCustomerAddress_ImportDataValidation_Result.ToList().Count > 0)
                 {
+                    _response.IsSuccess = false;
+
                     using (MemoryStream memoryStream = new MemoryStream())
                     {
                         using (ExcelPackage excelInvalidData = new ExcelPackage())

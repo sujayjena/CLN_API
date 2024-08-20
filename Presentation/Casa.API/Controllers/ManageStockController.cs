@@ -295,6 +295,7 @@ namespace CLN.API.Controllers
                         Id = item.Id,
                         EngineerId = parameters.EngineerId,
                         StockAllocatedId = result,
+                        SpareCategoryId= item.SpareCategoryId,
                         SpareId = item.SpareId,
                         AvailableQty = item.AvailableQty,
                         RequiredQty = item.RequiredQty,
@@ -371,6 +372,8 @@ namespace CLN.API.Controllers
                             Id = item.Id,
 
                             StockAllocatedId = item.Id,
+                            SpareCategoryId = item.SpareCategoryId,
+                            SpareCategory=item.SpareCategory,
                             SpareId = item.SpareId,
                             UniqueCode = item.UniqueCode,
                             SpareDesc = item.SpareDesc,

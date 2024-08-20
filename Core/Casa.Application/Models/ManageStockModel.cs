@@ -187,15 +187,19 @@ namespace CLN.Application.Models
 
     public class StockAllocationList_Response : BaseResponseEntity
     {
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
-
+        public int? MinQty { get; set; }
         public int? BalanceQty { get; set; }
         public int? ReceivedQty { get; set; }
         public int? AvailableQty { get; set; }
+        public bool? RGP { get; set; }
+
     }
 
     #region Stock Allocate To Engineer / TRC
@@ -294,6 +298,7 @@ namespace CLN.Application.Models
     {
         public int? EngineerId { get; set; }
         public int? StockAllocatedId { get; set; }
+        public int? SpareCategoryId { get; set; }
         public int? SpareId { get; set; }
         public int? AvailableQty { get; set; }
         public int? RequiredQty { get; set; }
@@ -304,6 +309,8 @@ namespace CLN.Application.Models
     public class StockAllocatedPartDetails_Response : BaseEntity
     {
         public int? StockAllocatedId { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
         public int? SpareId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
@@ -311,6 +318,7 @@ namespace CLN.Application.Models
         public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
         public int? ReceivedQty { get; set; }
+        public bool? RGP { get; set; }
     }
 
     #endregion

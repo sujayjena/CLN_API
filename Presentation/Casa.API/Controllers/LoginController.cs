@@ -4,8 +4,11 @@ using CLN.Application.Enums;
 using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
+using CLN.Helpers;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using System.Security.Cryptography;
 
 namespace CLN.API.Controllers
 {
@@ -21,8 +24,10 @@ namespace CLN.API.Controllers
         private readonly IBranchRepository _branchRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly INotificationRepository _notificationRepository;
+        private ISMSHelper _smsHelper;
+        private readonly IConfigRefRepository _configRefRepository;
 
-        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository, IBranchRepository branchRepository, ICompanyRepository companyRepository, INotificationRepository notificationRepository)
+        public LoginController(ILoginRepository loginRepository, IJwtUtilsRepository jwt, IRolePermissionRepository rolePermissionRepository, IUserRepository userRepository, IBranchRepository branchRepository, ICompanyRepository companyRepository, INotificationRepository notificationRepository, ISMSHelper smsHelper, IConfigRefRepository configRefRepository)
         {
             _loginRepository = loginRepository;
             _jwt = jwt;
@@ -31,6 +36,8 @@ namespace CLN.API.Controllers
             _branchRepository = branchRepository;
             _companyRepository = companyRepository;
             _notificationRepository = notificationRepository;
+            _smsHelper = smsHelper;
+            _configRefRepository = configRefRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -60,6 +67,41 @@ namespace CLN.API.Controllers
                 if (resultOTP > 0)
                 {
                     _response.Message = "OTP sent successfully.";
+
+                    //#region SMS Send
+
+                    //var vConfigRef_Search = new ConfigRef_Search()
+                    //{
+                    //    Ref_Type = "SMS",
+                    //    Ref_Param = "TicketGeneration"
+                    //};
+
+                    //string sSMSTemplateName = string.Empty;
+                    //string sSMSTemplateContent = string.Empty;
+                    //var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                    //if (vConfigRefObj != null)
+                    //{
+                    //    sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                    //    sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                    //    if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                    //    {
+                    //        //Replace parameter 
+                    //        sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", parameters.MobileNumber);
+                    //    }
+                    //}
+
+                    //var vsmsRequest = new SMS_Request()
+                    //{
+                    //    OTPId = resultOTP,
+                    //    TemplateName = sSMSTemplateName,
+                    //    TemplateContent = sSMSTemplateContent,
+                    //    Mobile = parameters.MobileNumber,
+                    //};
+
+                    //bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                    //#endregion
                 }
             }
 

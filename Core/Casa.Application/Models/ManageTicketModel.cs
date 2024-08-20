@@ -795,4 +795,11 @@ namespace CLN.Application.Models
         public string? Status { get; set; }
     }
 
+    public class ManageTicketOTPVerify
+    {
+        [DefaultValue(0)]
+        public int? TicketId { get; set; }
+
+        public string? Mobile { get; set; }
+    }
 }

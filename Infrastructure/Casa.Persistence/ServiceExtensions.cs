@@ -1,5 +1,6 @@
 ﻿using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
+using CLN.Helpers;
 using CLN.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -75,9 +76,11 @@ namespace CLN.Persistence
             services.AddScoped<ITatTimesRepository, TatTimesRepository>();
             services.AddScoped<IAdminDaysRepository, AdminDaysRepository>();
             services.AddScoped<IEmailHelper, EmailHelper>();
+            services.AddScoped<ISMSHelper, SMSHelper>();
             services.AddScoped<IEmailConfigRepository, EmailConfigRepository>();
             services.AddScoped<IConfigRefRepository, ConfigRefRepository>();
             services.AddScoped<IDashboardRepository, DashboardRepository>();
+            services.AddScoped<ISMSConfigRepository, SMSConfigRepository>();
         }
     }
 }

@@ -356,6 +356,7 @@ namespace CLN.API.Controllers
 
             if (lstCustomerBOM_ImportDataValidation.ToList().Count > 0)
             {
+                _response.IsSuccess = false;
                 _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
                 _response.Data = GenerateInvalidImportDataFile(lstCustomerBOM_ImportDataValidation);
 
@@ -664,6 +665,7 @@ namespace CLN.API.Controllers
 
             if (lstCustomerBattery_ImportDataValidation.ToList().Count > 0)
             {
+                _response.IsSuccess = false;
                 _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
                 _response.Data = GenerateInvalidImportDataFile(lstCustomerBattery_ImportDataValidation);
 
@@ -1071,6 +1073,7 @@ namespace CLN.API.Controllers
 
             if (lstCustomerAccessory_ImportDataValidation.ToList().Count > 0)
             {
+                _response.IsSuccess = false;
                 _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
                 _response.Data = GenerateInvalidImportDataFile(lstCustomerAccessory_ImportDataValidation);
 
