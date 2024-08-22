@@ -304,7 +304,7 @@ namespace CLN.Application.Models
         public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
         public int? ReceivedQty { get; set; }
-        [DefaultValue(0)]
+        [DefaultValue(false)]
         public bool? RGP { get; set; }
     }
 
@@ -320,7 +320,7 @@ namespace CLN.Application.Models
         public int? RequiredQty { get; set; }
         public int? AllocatedQty { get; set; }
         public int? ReceivedQty { get; set; }
-        [DefaultValue(0)]
+        [DefaultValue(false)]
         public bool? RGP { get; set; }
     }
 
