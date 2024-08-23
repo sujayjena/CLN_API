@@ -82,6 +82,72 @@ namespace CLN.API.Controllers.Admin
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportExpenseTypeData()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var parameters = new BaseSearchEntity();
+
+            IEnumerable<ExpenseType_Response> lstObj = await _expenseTypeRepository.GetExpenseTypeList(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("TicketStatus");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Enpense Type";
+                    WorkSheet1.Cells[1, 2].Value = "Status";
+
+                    WorkSheet1.Cells[1, 3].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 4].Value = "CreatedBy";
+
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.ExpenseType;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.IsActive == true ? "Active" : "Inactive";
+
+                        WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.CreatorName;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Record Exported successfully";
+            }
+
+            return _response;
+        }
+
         #endregion
 
         #region Expense Matrix

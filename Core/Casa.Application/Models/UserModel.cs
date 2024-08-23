@@ -166,8 +166,8 @@ namespace CLN.Application.Models
 
         public string? EmergencyContactNumber { get; set; }
 
-        public string? BloodGroup { get; set; }
-
+        public int? BloodGroup { get; set; }
+        public string? BloodGroupName { get; set; }
         public string? MobileUniqueId { get; set; }
 
         public string? AadharNumber { get; set; }

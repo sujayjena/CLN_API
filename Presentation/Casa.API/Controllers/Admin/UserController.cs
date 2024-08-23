@@ -468,7 +468,7 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 15].Value = items.DateOfBirth.HasValue ? items.DateOfBirth.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 16].Value = items.DateOfJoining.HasValue ? items.DateOfJoining.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 17].Value = items.EmergencyContactNumber;
-                        WorkSheet1.Cells[recordIndex, 18].Value = items.BloodGroup;
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.BloodGroupName;
                         WorkSheet1.Cells[recordIndex, 19].Value = items.AadharNumber;
                         WorkSheet1.Cells[recordIndex, 20].Value = items.PanNumber;
                         WorkSheet1.Cells[recordIndex, 21].Value = items.MobileUniqueId;
