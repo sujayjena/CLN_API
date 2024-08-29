@@ -14,5 +14,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<TatTimes_Response>> GetTatTimesList(TatTimes_Search parameters);
 
         Task<TatTimes_Response?> GetTatTimesById(int Id);
+
+        Task<IEnumerable<TatTimes_ImportDataValidation>> ImportTatTimes(List<TatTimes_ImportData> parameters);
     }
 }

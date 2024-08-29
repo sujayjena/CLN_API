@@ -64,4 +64,19 @@ namespace CLN.Application.Models
 
         public bool? IsActive { get; set; }
     }
+
+    public class TatTimes_ImportData
+    {
+        public string HolidayName { get; set; }
+        public DateTime? HolidayDate { get; set; }
+        public string? Days { get; set; }
+    }
+
+    public class TatTimes_ImportDataValidation
+    {
+        public string HolidayName { get; set; }
+        public string? HolidayDate { get; set; }
+        public string? Days { get; set; }
+        public string ValidationMessage { get; set; }
+    }
 }

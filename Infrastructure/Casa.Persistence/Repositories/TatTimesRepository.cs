@@ -66,5 +66,14 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<TatTimes_Response>("GetTatTimesById", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<IEnumerable<TatTimes_ImportDataValidation>> ImportTatTimes(List<TatTimes_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            return await ListByStoredProcedure<TatTimes_ImportDataValidation>("ImportTatTimes", queryParameters);
+        }
     }
 }

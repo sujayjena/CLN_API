@@ -381,7 +381,8 @@ namespace CLN.API.Controllers
                             AvailableQty = item.AvailableQty,
                             RequiredQty = item.RequiredQty,
                             AllocatedQty = item.AllocatedQty,
-                            ReceivedQty = item.ReceivedQty
+                            ReceivedQty = item.ReceivedQty,
+                            RGP=item.RGP,
                         };
 
                         vStockAllocatedDetails_Response.PartList.Add(vStockAllocatedPartDetails_Response);
