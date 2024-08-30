@@ -213,6 +213,97 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportEnggPartRequest()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+
+            var request = new BaseSearchEntity();
+
+            var parameters = new EnggPartRequest_Search()
+            {
+                EngineerId = 0,
+                SearchText = string.Empty,
+                StatusId = 0,
+            };
+
+            var objList = await _partRequestOrderRepository.GetEnggPartRequestList(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    int recordIndex;
+                    ExcelWorksheet WorkSheet1 = excelExportData.Workbook.Worksheets.Add("EnggPartRequest");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Order Number";
+                    WorkSheet1.Cells[1, 2].Value = "Date";
+                    WorkSheet1.Cells[1, 3].Value = "Engineer Name";
+                    WorkSheet1.Cells[1, 4].Value = "Part Code";
+                    WorkSheet1.Cells[1, 5].Value = "Part Description";
+                    WorkSheet1.Cells[1, 6].Value = "UOM";
+                    WorkSheet1.Cells[1, 7].Value = "Type Of BMS";
+                    WorkSheet1.Cells[1, 8].Value = "Available Qty";
+                    WorkSheet1.Cells[1, 9].Value = "Order Qty";
+                    WorkSheet1.Cells[1, 10].Value = "RGP";
+                    WorkSheet1.Cells[1, 11].Value = "Remark";
+
+                    recordIndex = 2;
+                    foreach (var itemsReqList in objList)
+                    {
+                        // Accessory
+                        var vSearchObj = new EnggPartRequestDetails_Search()
+                        {
+                            RequestId = itemsReqList.Id,
+                        };
+
+                        var objReqDetailsList = await _partRequestOrderRepository.GetEnggPartRequestDetailList(vSearchObj);
+                        foreach (var itemReqDetails in objReqDetailsList)
+                        {
+                            WorkSheet1.Cells[recordIndex, 1].Value = itemsReqList.RequestNumber;
+                            WorkSheet1.Cells[recordIndex, 2].Value = itemsReqList.RequestDate;
+                            WorkSheet1.Cells[recordIndex, 3].Value = itemsReqList.EngineerName;
+                            WorkSheet1.Cells[recordIndex, 4].Value = itemReqDetails.UniqueCode;
+                            WorkSheet1.Cells[recordIndex, 5].Value = itemReqDetails.SpareDesc;
+                            WorkSheet1.Cells[recordIndex, 6].Value = itemReqDetails.UOMName;
+                            WorkSheet1.Cells[recordIndex, 7].Value = itemReqDetails.TypeOfBMS;
+                            WorkSheet1.Cells[recordIndex, 8].Value = itemReqDetails.AvailableQty;
+                            WorkSheet1.Cells[recordIndex, 9].Value = itemReqDetails.RequiredQty;
+                            WorkSheet1.Cells[recordIndex, 10].Value = itemReqDetails.RGP == true ? "True" : "False";
+                            WorkSheet1.Cells[recordIndex, 11].Value = itemReqDetails.Remarks;
+                        }
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
+
         #endregion
 
 
@@ -408,7 +499,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> DownloadBOMTemplate()
+        public async Task<ResponseModel> DownloadTRCPartRequestTemplate()
         {
             byte[]? formatFile = await Task.Run(() => _fileManager.GetFormatFileFromPath("Template_TRCPartRequest.xlsx"));
 
