@@ -173,6 +173,7 @@ namespace CLN.Application.Models
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
 
+        public int? MinQty { get; set; }
         public int? AvailableQty { get; set; }
         public int? RequiredQty { get; set; }
         public int? RequestedQty { get; set; }
