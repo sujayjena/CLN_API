@@ -179,6 +179,8 @@ namespace CLN.Application.Models
         public string? OV_RequestOTP { get; set; }
         public string? OV_Signature { get; set; }
 
+        public string? TicketRemarks { get; set; }
+
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public int? TRC_EngineerId { get; set; }
@@ -497,6 +499,7 @@ namespace CLN.Application.Models
         {
             PartDetails = new List<ManageTicketPartDetails_Response>();
             TicketStatusLog = new List<ManageTicketStatusLog_Response>();
+            TicketRemarksList = new List<ManageTicketRemarks_Response>();
         }
 
         public string TicketNumber { get; set; }
@@ -658,6 +661,7 @@ namespace CLN.Application.Models
         public string OV_RequestOTP { get; set; }
         public string OV_Signature { get; set; }
 
+        public string? TicketRemarks { get; set; }
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
@@ -669,6 +673,8 @@ namespace CLN.Application.Models
 
         public List<ManageTicketPartDetails_Response> PartDetails { get; set; }
         public List<ManageTicketStatusLog_Response> TicketStatusLog { get; set; }
+        public List<ManageTicketRemarks_Response> TicketRemarksList { get; set; }
+
     }
 
 
@@ -697,6 +703,19 @@ namespace CLN.Application.Models
         //public string? PartStatus { get; set; }
 
         //public bool? RGP { get; set; }
+    }
+
+    public class ManageTicketRemarks_Search
+    {
+        public int? TicketId { get; set; }
+    }
+
+    public class ManageTicketRemarks_Response : BaseResponseEntity
+    {
+        [JsonIgnore]
+        public int? TicketId { get; set; }
+
+        public string Remarks { get; set; }
     }
 
     public class ManageTicketStatusLog_Response

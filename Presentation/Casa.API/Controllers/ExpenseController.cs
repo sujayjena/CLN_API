@@ -5,7 +5,10 @@ using CLN.Application.Models;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace CLN.API.Controllers
 {
@@ -185,6 +188,99 @@ namespace CLN.API.Controllers
 
                 _response.Data = vExpense_Response;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportExpense()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+
+            var request = new Expense_Search()
+            {
+                EmployeeId = 0
+            };
+
+            var lstExpenseListObj = await _expenseRepository.GetExpenseList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    int recordIndex;
+                    ExcelWorksheet WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Expense");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Expense Number";
+                    WorkSheet1.Cells[1, 2].Value = "Ticket Number";
+                    WorkSheet1.Cells[1, 3].Value = "Customer Name";
+                    WorkSheet1.Cells[1, 4].Value = "From Date";
+                    WorkSheet1.Cells[1, 5].Value = "To Date";
+                    WorkSheet1.Cells[1, 6].Value = "Expense Type";
+                    WorkSheet1.Cells[1, 7].Value = "Description";
+                    WorkSheet1.Cells[1, 8].Value = "Approved Amount";
+                    WorkSheet1.Cells[1, 9].Value = "Expense Amount";
+                    WorkSheet1.Cells[1, 10].Value = "Status";
+
+                    recordIndex = 2;
+                    foreach (var items in lstExpenseListObj)
+                    {
+                        var vExpenseDetails_Search = new ExpenseDetails_Search()
+                        {
+                            SearchText = string.Empty,
+                            ExpenseId = items.Id,
+                            ExpenseDetailStatusId=0
+                        };
+
+                        var objExpenseDetailList = await _expenseRepository.GetExpenseDetailsList(vExpenseDetails_Search);
+
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.ExpenseNumber;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketNumber;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.CustomerName;
+
+                        foreach (var itemExpenseDetail in objExpenseDetailList)
+                        {
+                            WorkSheet1.Cells[recordIndex, 4].Value = itemExpenseDetail.FromDate;
+                            WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+
+                            WorkSheet1.Cells[recordIndex, 5].Value = itemExpenseDetail.ToDate;
+                            WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+
+                            WorkSheet1.Cells[recordIndex, 6].Value = itemExpenseDetail.ExpenseType;
+                            WorkSheet1.Cells[recordIndex, 7].Value = itemExpenseDetail.ExpenseDescription;
+                            WorkSheet1.Cells[recordIndex, 8].Value = itemExpenseDetail.ApprovedAmount;
+                            WorkSheet1.Cells[recordIndex, 9].Value = itemExpenseDetail.ExpenseAmount;
+                            WorkSheet1.Cells[recordIndex, 10].Value = items.StatusName;
+                        }
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
             return _response;
         }
 

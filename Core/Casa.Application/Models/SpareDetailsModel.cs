@@ -25,7 +25,10 @@ namespace CLN.Application.Models
         public int? SpareCategoryId { get; set; }
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
+        [DefaultValue(0)]
         public int? MinQty { get; set; }
+        [DefaultValue(0)]
+        public int AvailableQty { get; set; }
         [DefaultValue(false)]
         public bool? RGP { get; set; }
         public bool? IsActive { get; set; }
@@ -39,7 +42,10 @@ namespace CLN.Application.Models
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
+        [DefaultValue(0)]
         public int? MinQty { get; set; }
+        [DefaultValue(0)]
+        public int AvailableQty { get; set; }
         [DefaultValue(false)]
         public bool? RGP { get; set; }
         public bool? IsActive { get; set; }
@@ -57,11 +63,12 @@ namespace CLN.Application.Models
     {
         public string? SpareCategory { get; set; }
         public string? PartCode { get; set; }
-        public string Description { get; set; }
-        public string UOM { get; set; }
-        public string MinQty { get; set; }
-        public string RGP { get; set; }
-        public string IsActive { get; set; }
+        public string? Description { get; set; }
+        public string? UOM { get; set; }
+        public string? MinQty { get; set; }
+        public string? AvailableQty { get; set; }
+        public string? RGP { get; set; }
+        public string? IsActive { get; set; }
     }
 
     public class SpareDetails_ImportDataValidation
@@ -71,6 +78,7 @@ namespace CLN.Application.Models
         public string Description { get; set; }
         public string UOM { get; set; }
         public string MinQty { get; set; }
+        public string AvailableQty { get; set; }
         public string IsActive { get; set; }
         public string RGP { get; set; }
         public string ValidationMessage { get; set; }

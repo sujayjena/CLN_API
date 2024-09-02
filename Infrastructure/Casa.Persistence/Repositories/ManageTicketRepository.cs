@@ -125,6 +125,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@OV_RequestOTP", parameters.OV_RequestOTP);
             queryParameters.Add("@OV_Signature", parameters.OV_Signature);
 
+            queryParameters.Add("@TicketRemarks", parameters.TicketRemarks);
+
             queryParameters.Add("@EnquiryId", parameters.EnquiryId);
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
             queryParameters.Add("@TRC_EngineerId", parameters.TRC_EngineerId);
@@ -175,6 +177,17 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<ManageTicketDetail_Response>("GetTicketById", queryParameters)).FirstOrDefault();
         }
 
+
+        public async Task<IEnumerable<ManageTicketRemarks_Response>> GetTicketRemarkListById(ManageTicketRemarks_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@TicketId", parameters.TicketId);
+
+            var result = await ListByStoredProcedure<ManageTicketRemarks_Response>("GetTicketRemarksById", queryParameters);
+
+            return result;
+        }
 
         public async Task<IEnumerable<ManageTicketStatusLog_Response>> GetManageTicketStatusLogById(int Id)
         {

@@ -132,8 +132,9 @@ namespace CLN.API.Controllers.Admin
                    !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "Description", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "UOM", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "MinQty", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "RGP", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
+                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "AvailableQty", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "RGP", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file. Please Download Format file for reference";
@@ -146,11 +147,12 @@ namespace CLN.API.Controllers.Admin
                     {
                         SpareCategory = workSheet.Cells[rowIterator, 1].Value?.ToString(),
                         PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString(),
-                        Description = workSheet.Cells[rowIterator,3].Value?.ToString(),
+                        Description = workSheet.Cells[rowIterator, 3].Value?.ToString(),
                         UOM = workSheet.Cells[rowIterator, 4].Value?.ToString(),
-                        MinQty = workSheet.Cells[rowIterator,5].Value?.ToString(),
-                        RGP = workSheet.Cells[rowIterator,6].Value?.ToString(),
-                        IsActive = workSheet.Cells[rowIterator, 7].Value?.ToString()
+                        MinQty = workSheet.Cells[rowIterator, 5].Value?.ToString(),
+                        AvailableQty = workSheet.Cells[rowIterator, 6].Value?.ToString(),
+                        RGP = workSheet.Cells[rowIterator, 7].Value?.ToString(),
+                        IsActive = workSheet.Cells[rowIterator, 8].Value?.ToString()
                     });
                 }
             }
@@ -204,9 +206,10 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 3].Value = "Description";
                     WorkSheet1.Cells[1, 4].Value = "UOM";
                     WorkSheet1.Cells[1, 5].Value = "MinQty";
-                    WorkSheet1.Cells[1, 6].Value = "RGP";
-                    WorkSheet1.Cells[1, 7].Value = "IsActive";
-                    WorkSheet1.Cells[1, 8].Value = "ErrorMessage";
+                    WorkSheet1.Cells[1, 6].Value = "AvailableQty";
+                    WorkSheet1.Cells[1, 7].Value = "RGP";
+                    WorkSheet1.Cells[1, 8].Value = "IsActive";
+                    WorkSheet1.Cells[1, 9].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
@@ -217,9 +220,10 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 3].Value = record.Description;
                         WorkSheet1.Cells[recordIndex, 4].Value = record.UOM;
                         WorkSheet1.Cells[recordIndex, 5].Value = record.MinQty;
-                        WorkSheet1.Cells[recordIndex, 6].Value = record.RGP;
-                        WorkSheet1.Cells[recordIndex, 7].Value = record.IsActive;
-                        WorkSheet1.Cells[recordIndex, 8].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 6].Value = record.AvailableQty;
+                        WorkSheet1.Cells[recordIndex, 7].Value = record.RGP;
+                        WorkSheet1.Cells[recordIndex, 8].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 9].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -267,10 +271,11 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 3].Value = "Spare Description";
                     WorkSheet1.Cells[1, 4].Value = "UOM";
                     WorkSheet1.Cells[1, 5].Value = "Min Qty.";
-                    WorkSheet1.Cells[1, 6].Value = "Status";
+                    WorkSheet1.Cells[1, 6].Value = "Available Qty.";
+                    WorkSheet1.Cells[1, 7].Value = "Status";
 
-                    WorkSheet1.Cells[1, 7].Value = "CreatedDate";
-                    WorkSheet1.Cells[1, 8].Value = "CreatedBy";
+                    WorkSheet1.Cells[1, 8].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 9].Value = "CreatedBy";
 
 
                     recordIndex = 2;
@@ -282,23 +287,17 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 3].Value = items.SpareDesc;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.UOMName;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.MinQty;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.AvailableQty;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.IsActive == true ? "Active" : "Inactive";
 
-                        WorkSheet1.Cells[recordIndex, 7].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 7].Value = items.CreatedDate;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 8].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.CreatorName;
 
                         recordIndex += 1;
                     }
 
-                    WorkSheet1.Column(1).AutoFit();
-                    WorkSheet1.Column(2).AutoFit();
-                    WorkSheet1.Column(3).AutoFit();
-                    WorkSheet1.Column(4).AutoFit();
-                    WorkSheet1.Column(5).AutoFit();
-                    WorkSheet1.Column(6).AutoFit();
-                    WorkSheet1.Column(7).AutoFit();
-                    WorkSheet1.Column(8).AutoFit();
+                    WorkSheet1.Columns.AutoFit();
 
                     excelExportData.SaveAs(msExportDataFile);
                     msExportDataFile.Position = 0;

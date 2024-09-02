@@ -18,6 +18,8 @@ namespace CLN.Application.Interfaces
         Task<ManageTicketDetail_Response?> GetManageTicketById(int Id);
 
 
+        Task<IEnumerable<ManageTicketRemarks_Response>> GetTicketRemarkListById(ManageTicketRemarks_Search parameters);
+
         Task<IEnumerable<ManageTicketStatusLog_Response>> GetManageTicketStatusLogById(int Id);
 
         Task<int> SaveTicketVisitHistory(ManageTicketEngineerVisitHistory_Request parameters);

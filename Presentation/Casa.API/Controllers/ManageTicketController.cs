@@ -801,6 +801,30 @@ namespace CLN.API.Controllers
                         vManageTicketDetail_Response.PartDetails.Add(vManageTicketPartDetails_Response);
                     }
 
+                    // Remark Log
+                    var vRemarks_Search = new ManageTicketRemarks_Search() { TicketId = vResultObj.Id };
+                    var vRemarksObjList = await _manageTicketRepository.GetTicketRemarkListById(vRemarks_Search);
+
+                    foreach (var itemLog in vRemarksObjList)
+                    {
+                        var vPIIssuedLog = new ManageTicketRemarks_Response()
+                        {
+                            Id = itemLog.Id,
+                            TicketId = itemLog.TicketId,
+                            Remarks = itemLog.Remarks,
+                            CreatedBy = itemLog.CreatedBy,
+                            CreatorName = itemLog.CreatorName,
+                            CreatedDate = itemLog.CreatedDate,
+                        };
+
+                        vManageTicketDetail_Response.TicketRemarksList.Add(vPIIssuedLog);
+                    }
+                    // Added ticket remark
+                    if (vManageTicketDetail_Response.TicketRemarksList.Count > 0)
+                    {
+                        vManageTicketDetail_Response.TicketRemarks = vManageTicketDetail_Response.TicketRemarksList.FirstOrDefault().Remarks;
+                    }
+
                     // Status Log
                     var vTicketStatusLogListObj = await _manageTicketRepository.GetManageTicketStatusLogById(TicketId);
                     foreach (var item in vTicketStatusLogListObj)
