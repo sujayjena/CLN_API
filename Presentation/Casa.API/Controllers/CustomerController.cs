@@ -421,8 +421,16 @@ namespace CLN.API.Controllers
                 lstCustomerContact_ImportDataValidation_Result = await _customerRepository.ImportCustomerContact(lstCustomerContactImportRequestModel);
                 lstCustomerAddress_ImportDataValidation_Result = await _customerRepository.ImportCustomerAddress(lstCustomerAddressImportRequestModel);
 
-                _response.IsSuccess = true;
-                _response.Message = "Record imported successfully";
+                if (lstCustomer_ImportDataValidation_Result.ToList().Count == 0 && lstCustomerContact_ImportDataValidation_Result.ToList().Count == 0 && lstCustomerAddress_ImportDataValidation_Result.ToList().Count == 0)
+                {
+                    _response.IsSuccess = true;
+                    _response.Message = "Record imported successfully";
+                }
+                else
+                {
+                    _response.IsSuccess = true;
+                    _response.Message = "Invalid record exist.";
+                }
 
                 #region Generate Excel file for Invalid Data
 
