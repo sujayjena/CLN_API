@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel;
 
 namespace CLN.Domain.Entities
 {
@@ -6,10 +7,12 @@ namespace CLN.Domain.Entities
     {
         public string CreatorName { get; set; }
         public long CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         public string ModifierName { get; set; }
         public long ModifiedBy { get; set; }
-        public DateTime ModifiedDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ModifiedDate { get; set; }
     }
 }

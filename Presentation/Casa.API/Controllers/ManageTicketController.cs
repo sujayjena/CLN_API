@@ -6,7 +6,10 @@ using CLN.Helpers;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
 using System.ComponentModel;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace CLN.API.Controllers
 {
@@ -1105,6 +1108,103 @@ namespace CLN.API.Controllers
             
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportTicketData(ManageTicket_Search request)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var lstObj = await _manageTicketRepository.GetManageTicketList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Ticket");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Ticket#";
+                    WorkSheet1.Cells[1, 2].Value = "Ticket Status";
+                    WorkSheet1.Cells[1, 3].Value = "SLA Status";
+                    WorkSheet1.Cells[1, 4].Value = "Ageing";
+                    WorkSheet1.Cells[1, 5].Value = "Caller Name";
+                    WorkSheet1.Cells[1, 6].Value = "Product Serial #";
+                    WorkSheet1.Cells[1, 7].Value = "BOM #";
+                    WorkSheet1.Cells[1, 8].Value = "Segement";
+                    WorkSheet1.Cells[1, 9].Value = "Sub Segement";
+                    WorkSheet1.Cells[1, 10].Value = "Warranty Status";
+                    WorkSheet1.Cells[1, 11].Value = "Customer Name";
+                    WorkSheet1.Cells[1, 12].Value = "Customer District.";
+                    WorkSheet1.Cells[1, 13].Value = "Site Customer Name";
+                    WorkSheet1.Cells[1, 14].Value = "Site Contact Person Name";
+                    WorkSheet1.Cells[1, 15].Value = "Site Mobile #";
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketStatus;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.SLAStatus;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.TicketAging;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.CD_CallerName;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.CD_ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.BD_BatteryBOMNumber;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.BD_Segment;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.BD_SubSegment;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.BD_WarrantyStatus;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.CD_CustomerName;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.CD_CustomerDistrictName;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.CD_SiteCustomerName;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.CD_SiteContactName;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.CD_SitContactMobile;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Column(1).AutoFit();
+                    WorkSheet1.Column(2).AutoFit();
+                    WorkSheet1.Column(3).AutoFit();
+                    WorkSheet1.Column(4).AutoFit();
+                    WorkSheet1.Column(5).AutoFit();
+                    WorkSheet1.Column(6).AutoFit();
+                    WorkSheet1.Column(7).AutoFit();
+                    WorkSheet1.Column(8).AutoFit();
+                    WorkSheet1.Column(9).AutoFit();
+                    WorkSheet1.Column(10).AutoFit();
+                    WorkSheet1.Column(11).AutoFit();
+                    WorkSheet1.Column(12).AutoFit();
+                    WorkSheet1.Column(13).AutoFit();
+                    WorkSheet1.Column(14).AutoFit();
+                    WorkSheet1.Column(15).AutoFit();
+                   
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
+
         #endregion
 
         #region Manage Enquiry
