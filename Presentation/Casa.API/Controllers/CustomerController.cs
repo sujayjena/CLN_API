@@ -747,6 +747,15 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerNameForSelectList(int CustomerTypeId = 0)
+        {
+            IEnumerable<SelectListResponse> lstResponse = await _customerRepository.GetCustomerNameForSelectList(CustomerTypeId);
+            _response.Data = lstResponse.ToList();
+            return _response;
+        }
+
         #endregion
 
         #region Customer Contact Detail

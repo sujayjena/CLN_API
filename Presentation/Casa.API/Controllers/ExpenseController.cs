@@ -88,6 +88,7 @@ namespace CLN.API.Controllers
                         ExpenseImageFileName = item.ExpenseImageFileName,
                         ExpenseImageOriginalFileName = item.ExpenseImageOriginalFileName,
                         ExpenseDetailStatusId = item.ExpenseDetailStatusId,
+                        CityGradeId = item.CityGradeId,
                     };
 
                     int resultExpenseDetails = await _expenseRepository.SaveExpenseDetails(vExpenseDetails_Request);
@@ -172,6 +173,8 @@ namespace CLN.API.Controllers
                             ExpenseImageFileURL = item.ExpenseImageFileURL,
                             ExpenseDetailStatusId = item.ExpenseDetailStatusId,
                             ExpenseDeteillStatusName = item.ExpenseDeteillStatusName,
+                            CityGradeId = item.CityGradeId,
+                            CityGrade = item.CityGrade,
 
                             CreatedBy = item.CreatedBy,
                             CreatorName = item.CreatorName,

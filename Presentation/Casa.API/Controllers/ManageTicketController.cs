@@ -1091,6 +1091,20 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ValidateTicketProductSerialNumberById(string ProductSerialNumber = "", bool IsOldProduct = false, int TicketId = 0)
+        {
+            var objList = await _manageTicketRepository.ValidateTicketProductSerialNumberById(ProductSerialNumber, IsOldProduct, TicketId);
+            if (objList.ToList().Count > 0)
+            {
+                _response.Id = -1;
+                _response.IsSuccess = false;
+                _response.Message = "The Product Serial Number is already Opened for Ticket Number - " + objList.ToList().FirstOrDefault().TicketNumber;
+            }
+            
+            return _response;
+        }
         #endregion
 
         #region Manage Enquiry

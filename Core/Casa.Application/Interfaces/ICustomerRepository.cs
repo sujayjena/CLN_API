@@ -21,5 +21,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<Customer_ImportDataValidation>> ImportCustomer(List<Customer_ImportData> parameters);
         Task<IEnumerable<Contact_ImportDataValidation>> ImportCustomerContact(List<Contact_ImportData> parameters);
         Task<IEnumerable<Address_ImportDataValidation>> ImportCustomerAddress(List<Address_ImportData> parameters);
+
+        Task<IEnumerable<SelectListResponse>> GetCustomerNameForSelectList(int CustomerTypeId = 0);
     }
 }

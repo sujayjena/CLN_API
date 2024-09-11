@@ -111,5 +111,12 @@ namespace CLN.Persistence.Repositories
 
             return await ListByStoredProcedure<Address_ImportDataValidation>("ImportAddress", queryParameters);
         }
+
+        public async Task<IEnumerable<SelectListResponse>> GetCustomerNameForSelectList(int CustomerTypeId = 0)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@CustomerTypeId", CustomerTypeId);
+            return await ListByStoredProcedure<SelectListResponse>("GetCustomerNameForSelectList", queryParameters);
+        }
     }
 }

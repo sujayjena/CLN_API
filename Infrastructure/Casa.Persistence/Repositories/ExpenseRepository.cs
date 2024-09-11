@@ -84,6 +84,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@ExpenseImageFileName", parameters.ExpenseImageFileName);
             queryParameters.Add("@ExpenseImageOriginalFileName", parameters.ExpenseImageOriginalFileName);
             queryParameters.Add("@ExpenseDetailStatusId", parameters.ExpenseDetailStatusId);
+            queryParameters.Add("@CityGradeId", parameters.CityGradeId);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveExpenseDetails", queryParameters);

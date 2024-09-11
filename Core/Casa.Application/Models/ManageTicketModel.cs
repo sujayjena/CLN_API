@@ -821,4 +821,9 @@ namespace CLN.Application.Models
 
         public string? Mobile { get; set; }
     }
+
+    public class ValidateTicketProductSerialNumber_Response
+    {
+        public string? TicketNumber { get; set; }
+    }
 }

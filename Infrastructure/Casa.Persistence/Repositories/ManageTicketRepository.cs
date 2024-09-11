@@ -319,5 +319,17 @@ namespace CLN.Persistence.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<ValidateTicketProductSerialNumber_Response>> ValidateTicketProductSerialNumberById(string ProductSerialNumber, bool IsOldProduct, int TicketId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@ProductSerialNumber", ProductSerialNumber);
+            queryParameters.Add("@IsOldProduct", IsOldProduct);
+            queryParameters.Add("@TicketId", TicketId);
+
+            var result = await ListByStoredProcedure<ValidateTicketProductSerialNumber_Response>("ValidateTicketProductSerialNumberById", queryParameters);
+            return result;
+        }
     }
 }

@@ -41,5 +41,7 @@ namespace CLN.Application.Interfaces
         Task<int> SaveManageTicketLogHistory(int TicketId);
         Task<IEnumerable<ManageTicketLogHistory_Response>> GetManageTicketLogHistoryList(ManageTicketLogHistory_Search parameters);
 
+        Task<IEnumerable<ValidateTicketProductSerialNumber_Response>> ValidateTicketProductSerialNumberById(string ProductSerialNumber, bool IsOldProduct, int TicketId);
+
     }
 }

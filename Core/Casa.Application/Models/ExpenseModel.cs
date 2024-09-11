@@ -98,6 +98,8 @@ namespace CLN.Application.Models
         public string? ExpenseImageFile_Base64 { get; set; }
 
         public int? ExpenseDetailStatusId { get; set; }
+
+        public int? CityGradeId { get; set; }
     }
 
     public class ExpenseDetails_Response : BaseResponseEntity
@@ -121,6 +123,8 @@ namespace CLN.Application.Models
         public int? ExpenseDetailStatusId { get; set; }
         public string? ExpenseDeteillStatusName { get; set; }
         public string? Remarks { get; set; }
+        public int? CityGradeId { get; set; }
+        public string? CityGrade { get; set; }
         public List<ExpenseDetailsRemarks_Response> remarksList { get; set; }
     }
 
