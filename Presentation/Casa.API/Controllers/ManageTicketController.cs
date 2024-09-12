@@ -10,6 +10,7 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System.ComponentModel;
 using LicenseContext = OfficeOpenXml.LicenseContext;
+using System.Globalization;
 
 namespace CLN.API.Controllers
 {
@@ -1149,6 +1150,10 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 13].Value = "Site Customer Name";
                     WorkSheet1.Cells[1, 14].Value = "Site Contact Person Name";
                     WorkSheet1.Cells[1, 15].Value = "Site Mobile #";
+                    WorkSheet1.Cells[1, 16].Value = "Created By";
+                    WorkSheet1.Cells[1, 17].Value = "Created Date";
+                    WorkSheet1.Cells[1, 18].Value = "Modified By";
+                    WorkSheet1.Cells[1, 19].Value = "Modified Date";
 
                     recordIndex = 2;
 
@@ -1169,6 +1174,13 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 13].Value = items.CD_SiteCustomerName;
                         WorkSheet1.Cells[recordIndex, 14].Value = items.CD_SiteContactName;
                         WorkSheet1.Cells[recordIndex, 15].Value = items.CD_SitContactMobile;
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 17].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.CreatedDate;
+
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.ModifierName;
+                        WorkSheet1.Cells[recordIndex, 19].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 19].Value = items.ModifiedDate;
 
                         recordIndex += 1;
                     }
@@ -1188,6 +1200,10 @@ namespace CLN.API.Controllers
                     WorkSheet1.Column(13).AutoFit();
                     WorkSheet1.Column(14).AutoFit();
                     WorkSheet1.Column(15).AutoFit();
+                    WorkSheet1.Column(16).AutoFit();
+                    WorkSheet1.Column(17).AutoFit();
+                    WorkSheet1.Column(18).AutoFit();
+                    WorkSheet1.Column(19).AutoFit();
                    
                     excelExportData.SaveAs(msExportDataFile);
                     msExportDataFile.Position = 0;

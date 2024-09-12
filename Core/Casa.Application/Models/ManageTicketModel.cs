@@ -20,6 +20,9 @@ namespace CLN.Application.Models
         [DefaultValue(0)]
         public int? Filter_TicketStatusId { get; set; }
 
+        [DefaultValue(false)]
+        public bool? IsChangeStatus_LogTicket { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
     }
