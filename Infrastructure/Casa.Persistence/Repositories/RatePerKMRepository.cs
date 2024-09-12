@@ -28,6 +28,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Distance", parameters.Distance);
             queryParameters.Add("@Rate", parameters.Rate);
             queryParameters.Add("@VehicleTypeId", parameters.VehicleTypeId);
+            queryParameters.Add("@EmployeeLevelId", parameters.EmployeeLevelId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

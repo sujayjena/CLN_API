@@ -15,6 +15,7 @@ namespace CLN.Application.Models
         public int Distance { get; set; }
         public decimal Rate { get; set; }
         public int VehicleTypeId { get; set; }
+        public int EmployeeLevelId { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -24,6 +25,8 @@ namespace CLN.Application.Models
         public decimal Rate { get; set; }
         public int VehicleTypeId { get; set; }
         public string VehicleType { get; set; }
+        public int EmployeeLevelId { get; set; }
+        public string EmployeeLevel { get; set; }
         public bool? IsActive { get; set; }
     }
 }
