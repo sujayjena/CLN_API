@@ -137,4 +137,68 @@ namespace CLN.Application.Models
         public long CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
     }
+
+    public class DailyTravelExpense_Request : BaseEntity
+    {
+        public string? ExpenseNumber { get; set; }
+        public bool? IsTicetExpense { get; set; }
+        public int? TicketId { get; set; }
+        public DateTime? ExpenseDate { get; set; }
+        public int? ExpenseTypeId { get; set; }
+        public int? VehicleTypeId { get; set; }
+        public decimal? RatePerKm { get; set; }
+        public decimal? TotalKm { get; set; }
+        public decimal? TotalAmount { get; set; }
+        public string? Remarks { get; set; }
+        public int? StatusId { get; set; }
+
+        [JsonIgnore]
+        public string? ExpenseImageFileName { get; set; }
+        public string? ExpenseImageOriginalFileName { get; set; }
+        public string? ExpenseImageFile_Base64 { get; set; }
+
+    }
+
+    public class DailyTravelExpense_Search : BaseSearchEntity
+    {
+        public int? StatusId { get; set; }
+    }
+
+    public class DailyTravelExpense_Response : BaseResponseEntity
+    {
+        public DailyTravelExpense_Response()
+        {
+            remarksList = new List<ExpenseDetailsRemarks_Response>();
+        }
+
+        public string? ExpenseNumber { get; set; }
+        public bool? IsTicetExpense { get; set; }
+        public int? TicketId { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? CustomerName { get; set; }
+        public DateTime? ExpenseDate { get; set; }
+        public int? ExpenseTypeId { get; set; }
+        public string? ExpenseType { get; set; }
+        public int? VehicleTypeId { get; set; }
+        public string? VehicleType { get; set; }
+        public decimal? RatePerKm { get; set; }
+        public decimal? TotalKm { get; set; }
+        public decimal? TotalAmount { get; set; }
+        public string? Remarks { get; set; }
+        public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
+        public string? ExpenseImageFileName { get; set; }
+        public string? ExpenseImageOriginalFileName { get; set; }
+        public string? ExpenseImageFileURL { get; set; }
+        public List<ExpenseDetailsRemarks_Response> remarksList { get; set; }
+    }
+
+    public class DailyTravelExpense_ApproveNReject
+    {
+        public int? Id { get; set; }
+        public int? StatusId { get; set; }
+
+        [DefaultValue("")]
+        public string? Remarks { get; set; }
+    }
 }

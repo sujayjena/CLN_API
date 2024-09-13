@@ -246,26 +246,39 @@ namespace CLN.API.Controllers
 
                         var objExpenseDetailList = await _expenseRepository.GetExpenseDetailsList(vExpenseDetails_Search);
 
-                        WorkSheet1.Cells[recordIndex, 1].Value = items.ExpenseNumber;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketNumber;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.CustomerName;
-
-                        foreach (var itemExpenseDetail in objExpenseDetailList)
+                        if (objExpenseDetailList.ToList().Count > 0)
                         {
-                            WorkSheet1.Cells[recordIndex, 4].Value = itemExpenseDetail.FromDate;
-                            WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                            foreach (var itemExpenseDetail in objExpenseDetailList)
+                            {
+                                WorkSheet1.Cells[recordIndex, 1].Value = items.ExpenseNumber;
+                                WorkSheet1.Cells[recordIndex, 2].Value = items.TicketNumber;
+                                WorkSheet1.Cells[recordIndex, 3].Value = items.CustomerName;
 
-                            WorkSheet1.Cells[recordIndex, 5].Value = itemExpenseDetail.ToDate;
-                            WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                                WorkSheet1.Cells[recordIndex, 4].Value = itemExpenseDetail.FromDate;
+                                WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
 
-                            WorkSheet1.Cells[recordIndex, 6].Value = itemExpenseDetail.ExpenseType;
-                            WorkSheet1.Cells[recordIndex, 7].Value = itemExpenseDetail.ExpenseDescription;
-                            WorkSheet1.Cells[recordIndex, 8].Value = itemExpenseDetail.ApprovedAmount;
-                            WorkSheet1.Cells[recordIndex, 9].Value = itemExpenseDetail.ExpenseAmount;
-                            WorkSheet1.Cells[recordIndex, 10].Value = items.StatusName;
+                                WorkSheet1.Cells[recordIndex, 5].Value = itemExpenseDetail.ToDate;
+                                WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+
+                                WorkSheet1.Cells[recordIndex, 6].Value = itemExpenseDetail.ExpenseType;
+                                WorkSheet1.Cells[recordIndex, 7].Value = itemExpenseDetail.ExpenseDescription;
+                                WorkSheet1.Cells[recordIndex, 8].Value = itemExpenseDetail.ApprovedAmount;
+                                WorkSheet1.Cells[recordIndex, 9].Value = itemExpenseDetail.ExpenseAmount;
+                                WorkSheet1.Cells[recordIndex, 10].Value = items.StatusName;
+
+                                recordIndex += 1;
+                            }
                         }
+                        else
+                        {
+                            WorkSheet1.Cells[recordIndex, 1].Value = items.ExpenseNumber;
+                            WorkSheet1.Cells[recordIndex, 2].Value = items.TicketNumber;
+                            WorkSheet1.Cells[recordIndex, 3].Value = items.CustomerName;
 
-                        recordIndex += 1;
+                            WorkSheet1.Cells[recordIndex, 10].Value = items.StatusName;
+
+                            recordIndex += 1;
+                        }
                     }
 
                     WorkSheet1.Columns.AutoFit();
@@ -391,6 +404,122 @@ namespace CLN.API.Controllers
                     _response.Message = "Record already exists";
                 }
                 else if (resultExpenseDetails == (int)SaveOperationEnums.NoResult)
+                {
+                    _response.Message = "Something went wrong, please try again";
+                }
+                else
+                {
+                    _response.Message = "Record details saved sucessfully";
+                }
+            }
+
+            return _response;
+        }
+
+        #endregion
+
+        #region Daily Travel Expense
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveDailyTravelExpense(DailyTravelExpense_Request parameters)
+        {
+            //Image Upload
+            if (!string.IsNullOrWhiteSpace(parameters.ExpenseImageFile_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.ExpenseImageFile_Base64, "\\Uploads\\Expense\\", parameters.ExpenseImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.ExpenseImageFileName = vUploadFile;
+                }
+            }
+
+            //Save / Update
+            int result = await _expenseRepository.SaveDailyTravelExpense(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+
+            _response.Id = result;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDailyTravelExpenseList(DailyTravelExpense_Search parameters)
+        {
+            var vDailyTravelExpense_Response = new DailyTravelExpense_Response();
+
+            var objList = await _expenseRepository.GetDailyTravelExpenseList(parameters);
+            foreach (var item in objList)
+            {
+                var objDailyTravelExpenseRemarksList = await _expenseRepository.GetDailyTravelExpenseRemarksListById(item.Id);
+                item.remarksList = objDailyTravelExpenseRemarksList.ToList();
+            }
+
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDailyTravelExpenseById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _expenseRepository.GetDailyTravelExpenseById(Id);
+                if (vResultObj != null)
+                {
+                    var objDailyTravelExpenseRemarksList = await _expenseRepository.GetDailyTravelExpenseRemarksListById(vResultObj.Id);
+                    vResultObj.remarksList = objDailyTravelExpenseRemarksList.ToList();
+                }
+
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> DailyTravelExpenseApproveNReject(DailyTravelExpense_ApproveNReject parameters)
+        {
+            if (parameters.Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                int resultDailyTravelExpense = await _expenseRepository.DailyTravelExpenseApproveNReject(parameters);
+
+                if (resultDailyTravelExpense == (int)SaveOperationEnums.NoRecordExists)
+                {
+                    _response.Message = "No record exists";
+                }
+                else if (resultDailyTravelExpense == (int)SaveOperationEnums.ReocrdExists)
+                {
+                    _response.Message = "Record already exists";
+                }
+                else if (resultDailyTravelExpense == (int)SaveOperationEnums.NoResult)
                 {
                     _response.Message = "Something went wrong, please try again";
                 }

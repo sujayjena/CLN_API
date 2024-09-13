@@ -1,4 +1,5 @@
 ﻿using CLN.Domain.Entities;
+using CLN.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,12 @@ namespace CLN.Application.Models
         public int VehicleTypeId { get; set; }
         public int EmployeeLevelId { get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class RatePerKMSearch_Request : BaseSearchEntity
+    {
+        public int VehicleTypeId { get; set; }
+        public int EmployeeLevelId { get; set; }
     }
 
     public class RatePerKM_Response : BaseResponseEntity

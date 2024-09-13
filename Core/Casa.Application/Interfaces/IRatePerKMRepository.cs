@@ -12,7 +12,7 @@ namespace CLN.Application.Interfaces
     {
         Task<int> SaveRatePerKM(RatePerKM_Request parameters);
 
-        Task<IEnumerable<RatePerKM_Response>> GetRatePerKMList(BaseSearchEntity parameters);
+        Task<IEnumerable<RatePerKM_Response>> GetRatePerKMList(RatePerKMSearch_Request parameters);
 
         Task<RatePerKM_Response?> GetRatePerKMById(long Id);
     }

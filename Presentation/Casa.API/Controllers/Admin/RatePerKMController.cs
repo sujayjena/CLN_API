@@ -54,7 +54,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetRatePerKMList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetRatePerKMList(RatePerKMSearch_Request parameters)
         {
             IEnumerable<RatePerKM_Response> lstRoles = await _ratePerKMRepository.GetRatePerKMList(parameters);
             _response.Data = lstRoles.ToList();
@@ -88,7 +88,9 @@ namespace CLN.API.Controllers.Admin
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var request = new BaseSearchEntity();
+            var request = new RatePerKMSearch_Request();
+            request.VehicleTypeId = 0;
+            request.EmployeeLevelId = 0;
 
             IEnumerable<RatePerKM_Response> lstSizeObj = await _ratePerKMRepository.GetRatePerKMList(request);
 

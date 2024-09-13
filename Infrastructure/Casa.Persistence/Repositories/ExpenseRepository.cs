@@ -140,5 +140,79 @@ namespace CLN.Persistence.Repositories
         }
 
         #endregion
+
+        #region Daily Travel Expense
+
+        public async Task<int> SaveDailyTravelExpense(DailyTravelExpense_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@ExpenseNumber", parameters.ExpenseNumber);
+            queryParameters.Add("@IsTicetExpense", parameters.IsTicetExpense);
+            queryParameters.Add("@TicketId", parameters.TicketId);
+            queryParameters.Add("@ExpenseDate", parameters.ExpenseDate);
+            queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);
+            queryParameters.Add("@VehicleTypeId", parameters.VehicleTypeId);
+            queryParameters.Add("@RatePerKm", parameters.RatePerKm);
+            queryParameters.Add("@TotalKm", parameters.TotalKm);
+            queryParameters.Add("@TotalAmount", parameters.TotalAmount);
+            queryParameters.Add("@Remarks", parameters.Remarks);
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@ExpenseImageFileName", parameters.ExpenseImageFileName);
+            queryParameters.Add("@ExpenseImageOriginalFileName", parameters.ExpenseImageOriginalFileName);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveDailyTravelExpense", queryParameters);
+        }
+
+        public async Task<IEnumerable<DailyTravelExpense_Response>> GetDailyTravelExpenseList(DailyTravelExpense_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<DailyTravelExpense_Response>("GetDailyTravelExpenseList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<DailyTravelExpense_Response?> GetDailyTravelExpenseById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<DailyTravelExpense_Response>("GetDailyTravelExpenseById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<int> DailyTravelExpenseApproveNReject(DailyTravelExpense_ApproveNReject parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@Remarks", parameters.Remarks);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("DailyTravelExpenseApproveNReject", queryParameters);
+        }
+
+        public async Task<IEnumerable<ExpenseDetailsRemarks_Response>> GetDailyTravelExpenseRemarksListById(int DailyTravelExpenseId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@DailyTravelExpenseId", DailyTravelExpenseId);
+
+            var result = await ListByStoredProcedure<ExpenseDetailsRemarks_Response>("GetDailyTravelExpenseRemarksListById", queryParameters);
+            return result;
+        }
+
+        #endregion
     }
 }

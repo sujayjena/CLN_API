@@ -35,9 +35,11 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveRatePerKM", queryParameters);
         }
 
-        public async Task<IEnumerable<RatePerKM_Response>> GetRatePerKMList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<RatePerKM_Response>> GetRatePerKMList(RatePerKMSearch_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@VehicleTypeId", parameters.VehicleTypeId);
+            queryParameters.Add("@EmployeeLevelId", parameters.EmployeeLevelId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);

@@ -32,5 +32,19 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<ExpenseDetailsRemarks_Response>> GetExpenseDetailsRemarksListById(int ExpenseDetailsId);
 
         #endregion
+
+        #region Daily Travel Expense
+
+        Task<int> SaveDailyTravelExpense(DailyTravelExpense_Request parameters);
+
+        Task<IEnumerable<DailyTravelExpense_Response>> GetDailyTravelExpenseList(DailyTravelExpense_Search parameters);
+
+        Task<DailyTravelExpense_Response?> GetDailyTravelExpenseById(int Id);
+
+        Task<int> DailyTravelExpenseApproveNReject(DailyTravelExpense_ApproveNReject parameters);
+
+        Task<IEnumerable<ExpenseDetailsRemarks_Response>> GetDailyTravelExpenseRemarksListById(int DailyTravelExpenseId);
+
+        #endregion
     }
 }
