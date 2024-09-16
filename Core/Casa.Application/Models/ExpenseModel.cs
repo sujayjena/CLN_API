@@ -161,6 +161,10 @@ namespace CLN.Application.Models
 
     public class DailyTravelExpense_Search : BaseSearchEntity
     {
+        public int? EmployeeId { get; set; }
+
+        [DefaultValue("All")]
+        public string? FilterType { get; set; }
         public int? StatusId { get; set; }
     }
 
