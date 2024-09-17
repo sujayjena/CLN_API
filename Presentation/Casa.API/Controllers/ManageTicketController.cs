@@ -1142,8 +1142,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 5].Value = "Caller Name";
                     WorkSheet1.Cells[1, 6].Value = "Product Serial #";
                     WorkSheet1.Cells[1, 7].Value = "BOM #";
-                    WorkSheet1.Cells[1, 8].Value = "Segement";
-                    WorkSheet1.Cells[1, 9].Value = "Sub Segement";
+                    WorkSheet1.Cells[1, 8].Value = "Segment";
+                    WorkSheet1.Cells[1, 9].Value = "Sub Segment";
                     WorkSheet1.Cells[1, 10].Value = "Warranty Status";
                     WorkSheet1.Cells[1, 11].Value = "Customer Name";
                     WorkSheet1.Cells[1, 12].Value = "Customer District.";
