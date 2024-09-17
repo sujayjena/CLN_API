@@ -10,6 +10,7 @@ namespace CLN.Application.Enums
     {
         NoRecordExists = -1,
         ReocrdExists = -2,
+        TicketAlreadyStarted = -3,
         NoResult = 0
     }
 }

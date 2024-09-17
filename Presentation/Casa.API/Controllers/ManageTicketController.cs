@@ -131,6 +131,10 @@ namespace CLN.API.Controllers
             {
                 _response.Message = "Record already exists";
             }
+            else if (result == (int)SaveOperationEnums.TicketAlreadyStarted)
+            {
+                _response.Message = "Ticket already started by Engg. Please stop and allocate to other Engg.";
+            }
             else if (result == (int)SaveOperationEnums.NoResult)
             {
                 _response.Message = "Something went wrong, please try again";
