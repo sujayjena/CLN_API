@@ -13,6 +13,12 @@ namespace CLN.Persistence.Repositories
         [DefaultValue("")]
         public string SearchText { get; set; }
 
+        [DefaultValue("")]
+        public string SortBy { get; set; }
+
+        [DefaultValue("")]
+        public string OrderBy { get; set; }
+
         [DefaultValue(null)]
         public bool? IsActive { get; set; }
     }

@@ -158,6 +158,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@IsChangeStatus_LogTicket", parameters.IsChangeStatus_LogTicket);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
