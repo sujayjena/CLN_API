@@ -32,8 +32,11 @@ namespace CLN.API.Controllers
         private readonly ISMSConfigRepository _smsConfigRepository;
         private readonly IUserRepository _userRepository;
         private ILoginRepository _loginRepository;
+        private IEmailHelper _emailHelper;
+        private readonly IWebHostEnvironment _environment;
+        private readonly IBranchRepository _branchRepository;
 
-        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository, IManageStockRepository manageStockRepository, ISMSHelper smsHelper, IConfigRefRepository configRefRepository, ISMSConfigRepository smsConfigRepository, IUserRepository userRepository, ILoginRepository loginRepository)
+        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository, IManageStockRepository manageStockRepository, ISMSHelper smsHelper, IConfigRefRepository configRefRepository, ISMSConfigRepository smsConfigRepository, IUserRepository userRepository, ILoginRepository loginRepository, IEmailHelper emailHelper, IWebHostEnvironment environment, IBranchRepository branchRepository)
         {
             _fileManager = fileManager;
 
@@ -48,9 +51,13 @@ namespace CLN.API.Controllers
             _smsConfigRepository = smsConfigRepository;
             _userRepository = userRepository;
             _loginRepository = loginRepository;
+            _emailHelper = emailHelper;
+            _environment = environment;
+            _branchRepository = branchRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
+            
         }
 
         #region Manage Ticket
@@ -513,6 +520,29 @@ namespace CLN.API.Controllers
                 }
 
                 #endregion
+            }
+
+            //Send Email
+            if (result > 0)
+            {
+                if (parameters.Id == 0)
+                {
+                    // Ticket Generate Email
+                    var vEmailCustomer = await SendTicketGenerate_EmailToCustomer(result);
+                }
+
+                var resultTicketSMSObj = _manageTicketRepository.GetManageTicketById(result).Result;
+
+                if (parameters.Id > 0)
+                {
+                    // Refer to TRC Email
+                    if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
+                    {
+                        var vEmailCustomer = await SendReferToTRC_EmailToCustomer(result);
+                        var vEmailEmployee = await SendReferToTRC_EmailToEmployee(result);
+                    }
+                }
+                    
             }
 
             _response.Id = result;
@@ -1110,7 +1140,7 @@ namespace CLN.API.Controllers
                 _response.IsSuccess = false;
                 _response.Message = "The Product Serial Number is already Opened for Ticket Number - " + objList.ToList().FirstOrDefault().TicketNumber;
             }
-            
+
             return _response;
         }
 
@@ -1208,7 +1238,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Column(17).AutoFit();
                     WorkSheet1.Column(18).AutoFit();
                     WorkSheet1.Column(19).AutoFit();
-                   
+
                     excelExportData.SaveAs(msExportDataFile);
                     msExportDataFile.Position = 0;
                     result = msExportDataFile.ToArray();
@@ -1223,6 +1253,192 @@ namespace CLN.API.Controllers
             }
 
             return _response;
+        }
+
+        protected async Task<bool> SendTicketGenerate_EmailToCustomer(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\TicketGenerate_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[CallerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CallerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[TicketDate]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketDate]", dataObj.TicketDate.ToString());
+                    }
+
+                    if (emailTemplateContent.IndexOf("[TicketStatus]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketStatus]", dataObj.TicketStatus);
+                    }
+
+                    sSubjectDynamicContent = "Service Ticket Confirmation – " + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Ticket Generate", subject: sSubjectDynamicContent, sendTo: "Customer", content: emailTemplateContent, recipientEmail: dataObj.CD_CallerEmailId, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        protected async Task<bool> SendReferToTRC_EmailToCustomer(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\ReferToTRC_Customer_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[CallerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CallerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    sSubjectDynamicContent = "Service Ticket Update – Refer to TRC | Ticket # " + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Refer to TRC", subject: sSubjectDynamicContent, sendTo: "Customer", content: emailTemplateContent, recipientEmail: dataObj.CD_CallerEmailId, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        protected async Task<bool> SendReferToTRC_EmailToEmployee(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    string recipientEmail = "";
+                    string vReportedToEmployeeEmailId = "";
+                    string vSeniorExecEmployeeEmailId = "";
+
+                    string vloginUserName = "";
+                    string vloginUserRole = "";
+
+                    int vloginUserBrandId = 0;
+
+                    var vloginUserId = SessionManager.LoggedInUserId;
+                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vloginUserId));
+                    if (vUserDetail != null)
+                    {
+                        vloginUserName = vUserDetail.UserName;
+                        vloginUserRole = vUserDetail.RoleName;
+
+                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                        if (vReportedToUserDetail != null)
+                        {
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                        }
+
+                        var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
+                        if (vUserBranchList.ToList().Count > 0)
+                        {
+                            vloginUserBrandId = vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault() != null ? Convert.ToInt32(vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault()) : 0;
+                        }
+
+                        var vBranchUser = await _branchRepository.GetBranchMappingByEmployeeId(0, vloginUserBrandId);
+                        if (vBranchUser.ToList().Count > 0)
+                        {
+                            var searchUser = new BaseSearchEntity();
+                            var vUserList = await _userRepository.GetUserList(searchUser);
+                            if (vUserList.ToList().Count > 0)
+                            {
+                                var vSeniorExecEng = vUserList.Where(x => x.RoleName == "senior executive" && vBranchUser.Select(x => x.EmployeeId).Contains(x.Id));
+                                if (vSeniorExecEng.ToList().Count > 0)
+                                {
+                                    vSeniorExecEmployeeEmailId = string.Join(",", new List<string>(vSeniorExecEng.ToList().Select(x => x.EmailId)).ToArray());
+                                }
+                            }
+                        }
+                    }
+
+                    recipientEmail = vReportedToEmployeeEmailId + "," + vSeniorExecEmployeeEmailId;
+
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\ReferToTRC_Employee_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[CustomerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CustomerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerName]", vloginUserName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerRole]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerRole]", vloginUserRole);
+                    }
+
+                    sSubjectDynamicContent = "Ticket Refer to TRC | Ticket # " + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Refer to TRC", subject: sSubjectDynamicContent, sendTo: "Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         #endregion

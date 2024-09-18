@@ -70,6 +70,7 @@ namespace CLN.Application.Models
     public class BranchMapping_Response : BaseEntity
     {
         public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
         public int? BranchId { get; set; }
         public string? BranchName { get; set; }
     }
