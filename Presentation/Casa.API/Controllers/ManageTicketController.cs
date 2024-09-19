@@ -57,7 +57,7 @@ namespace CLN.API.Controllers
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
-            
+
         }
 
         #region Manage Ticket
@@ -529,6 +529,12 @@ namespace CLN.API.Controllers
                 {
                     // Ticket Generate Email
                     var vEmailCustomer = await SendTicketGenerate_EmailToCustomer(result);
+
+                    // Out Of Warranty Email
+                    if (parameters.BD_WarrantyStatusId == 2)
+                    {
+                        var vEmailCustomer_OW = await SendOutOfWarranty_EmailToCustomer(result);
+                    }
                 }
 
                 var resultTicketSMSObj = _manageTicketRepository.GetManageTicketById(result).Result;
@@ -541,8 +547,13 @@ namespace CLN.API.Controllers
                         var vEmailCustomer = await SendReferToTRC_EmailToCustomer(result);
                         var vEmailEmployee = await SendReferToTRC_EmailToEmployee(result);
                     }
+
+                    // Voided Warranty Email
+                    if (parameters.TSPD_IsWarrantyVoid == true)
+                    {
+                        var vEmailCustomer = await SendVoidedWarranty_EmailToCustomer(result);
+                    }
                 }
-                    
             }
 
             _response.Id = result;
@@ -1431,6 +1442,138 @@ namespace CLN.API.Controllers
 
                     sSubjectDynamicContent = "Ticket Refer to TRC | Ticket # " + dataObj.TicketNumber;
                     result = await _emailHelper.SendEmail(module: "Refer to TRC", subject: sSubjectDynamicContent, sendTo: "Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        protected async Task<bool> SendOutOfWarranty_EmailToCustomer(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    string recipientEmail = "";
+                    string vReportedToEmployeeEmailId = "";
+
+                    var vloginUserId = SessionManager.LoggedInUserId;
+                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vloginUserId));
+                    if (vUserDetail != null)
+                    {
+                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                        if (vReportedToUserDetail != null)
+                        {
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                        }
+                    }
+
+                    recipientEmail = dataObj.CD_CallerEmailId + "," + vReportedToEmployeeEmailId;
+
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\OutOfWarranty_Customer_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[CallerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CallerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ProductName_Model]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ProductName_Model]", dataObj.BD_ProductCategory + ", " + dataObj.BD_ProductModel);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[WarrantyEndDate]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[WarrantyEndDate]", dataObj.BD_WarrantyEndDate.ToString());
+                    }
+
+                    sSubjectDynamicContent = "Warranty Status Notification for Ticket #" + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Out Of Warranty", subject: sSubjectDynamicContent, sendTo: "Customer / Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        protected async Task<bool> SendVoidedWarranty_EmailToCustomer(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    string recipientEmail = "";
+                    string vReportedToEmployeeEmailId = "";
+
+                    var vloginUserId = SessionManager.LoggedInUserId;
+                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vloginUserId));
+                    if (vUserDetail != null)
+                    {
+                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                        if (vReportedToUserDetail != null)
+                        {
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                        }
+                    }
+
+                    recipientEmail = dataObj.CD_CallerEmailId + "," + vReportedToEmployeeEmailId;
+
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\VoidedWarranty_Customer_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[CallerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CallerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ProductName_Model]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ProductName_Model]", dataObj.BD_ProductCategory + ", " + dataObj.BD_ProductModel);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[Reason]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[Reason]", dataObj.TSPD_ReasonforVoid);
+                    }
+
+                    sSubjectDynamicContent = "Warranty Status Notification for Ticket #" + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Voided Warranty", subject: sSubjectDynamicContent, sendTo: "Customer / Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
                 }
             }
             catch (Exception ex)
