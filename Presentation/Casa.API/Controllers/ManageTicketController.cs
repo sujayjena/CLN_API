@@ -66,6 +66,8 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveManageTicket(ManageTicket_Request parameters)
         {
+            int tktParametersId = parameters.Id;
+
             // Image Upload
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_VisualImage_Base64))
             {
@@ -525,7 +527,7 @@ namespace CLN.API.Controllers
             //Send Email
             if (result > 0)
             {
-                if (parameters.Id == 0)
+                if (tktParametersId == 0)
                 {
                     // Ticket Generate Email
                     var vEmailCustomer = await SendTicketGenerate_EmailToCustomer(result);
@@ -1543,6 +1545,7 @@ namespace CLN.API.Controllers
                     }
 
                     recipientEmail = dataObj.CD_CallerEmailId + "," + vReportedToEmployeeEmailId;
+                    recipientEmail = recipientEmail.TrimEnd(',');
 
                     templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\VoidedWarranty_Customer_Template.html";
                     emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
