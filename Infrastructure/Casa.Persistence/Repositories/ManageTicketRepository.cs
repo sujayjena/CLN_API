@@ -80,12 +80,15 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSAD_CellDiffrence", parameters.TSAD_CellDiffrence);
             queryParameters.Add("@TSAD_ProtectionsId", parameters.TSAD_ProtectionsId);
             queryParameters.Add("@TSAD_CycleCount", parameters.TSAD_CycleCount);
+            queryParameters.Add("@TSAD_ProblemObservedByEngId", parameters.TSAD_ProblemObservedByEngId);
+            queryParameters.Add("@TSAD_ProblemObservedDesc", parameters.TSAD_ProblemObservedDesc);
             queryParameters.Add("@TSPD_PhysicaImageFileName", parameters.TSPD_PhysicaImageFileName);
             queryParameters.Add("@TSPD_PhysicaImageOriginalFileName", parameters.TSPD_PhysicaImageOriginalFileName);
             queryParameters.Add("@TSPD_AnyPhysicalDamage", parameters.TSPD_AnyPhysicalDamage);
             queryParameters.Add("@TSPD_Other", parameters.TSPD_Other);
             queryParameters.Add("@TSPD_IsWarrantyVoid", parameters.TSPD_IsWarrantyVoid);
             queryParameters.Add("@TSPD_ReasonforVoid", parameters.TSPD_ReasonforVoid);
+            queryParameters.Add("@TSPD_TypeOfBMSId", parameters.TSPD_TypeOfBMSId);
             queryParameters.Add("@TSSP_SolutionProvider", parameters.TSSP_SolutionProvider);
             queryParameters.Add("@TSSP_AllocateToServiceEnggId", parameters.TSSP_AllocateToServiceEnggId);
             queryParameters.Add("@TSSP_Remarks", parameters.TSSP_Remarks);
@@ -156,6 +159,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);
             queryParameters.Add("@Filter_TicketStatusId", parameters.Filter_TicketStatusId);
             queryParameters.Add("@IsChangeStatus_LogTicket", parameters.IsChangeStatus_LogTicket);
+            queryParameters.Add("@IsEngineerType", parameters.IsEngineerType);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@SortBy", parameters.SortBy);

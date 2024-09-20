@@ -23,6 +23,9 @@ namespace CLN.Application.Models
         [DefaultValue(false)]
         public bool? IsChangeStatus_LogTicket { get; set; }
 
+        [DefaultValue(0)]
+        public int? IsEngineerType { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
 
@@ -130,6 +133,8 @@ namespace CLN.Application.Models
         public string? TSAD_CellDiffrence { get; set; }
         public int? TSAD_ProtectionsId { get; set; }
         public string? TSAD_CycleCount { get; set; }
+        public int? TSAD_ProblemObservedByEngId { get; set; }
+        public string? TSAD_ProblemObservedDesc { get; set; }
 
         public string? TSPD_PhysicaImageFileName { get; set; }
         public string? TSPD_PhysicaImageOriginalFileName { get; set; }
@@ -140,6 +145,7 @@ namespace CLN.Application.Models
         [DefaultValue(false)]
         public bool? TSPD_IsWarrantyVoid { get; set; }
         public string? TSPD_ReasonforVoid { get; set; }
+        public int? TSPD_TypeOfBMSId { get; set; }
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string? TSSP_Remarks { get; set; }
@@ -437,6 +443,9 @@ namespace CLN.Application.Models
 
         public string TSAD_Protections { get; set; }
         public string TSAD_CycleCount { get; set; }
+        public int TSAD_ProblemObservedByEngId { get; set; }
+        public string TSAD_ProblemObservedByEng { get; set; }
+        public string TSAD_ProblemObservedDesc { get; set; }
         public string TSPD_PhysicaImageFileName { get; set; }
         public string TSPD_PhysicaImageOriginalFileName { get; set; }
         public string TSPD_PhysicaImageURL { get; set; }
@@ -444,6 +453,8 @@ namespace CLN.Application.Models
         public string TSPD_Other { get; set; }
         public bool? TSPD_IsWarrantyVoid { get; set; }
         public string? TSPD_ReasonforVoid { get; set; }
+        public int? TSPD_TypeOfBMSId { get; set; }
+        public string? TSPD_TypeOfBMS { get; set; }
 
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
@@ -617,6 +628,9 @@ namespace CLN.Application.Models
 
         public string TSAD_Protections { get; set; }
         public string TSAD_CycleCount { get; set; }
+        public int TSAD_ProblemObservedByEngId { get; set; }
+        public string TSAD_ProblemObservedByEng { get; set; }
+        public string TSAD_ProblemObservedDesc { get; set; }
         public string TSPD_PhysicaImageFileName { get; set; }
         public string TSPD_PhysicaImageOriginalFileName { get; set; }
         public string TSPD_PhysicaImageURL { get; set; }
@@ -624,6 +638,8 @@ namespace CLN.Application.Models
         public string TSPD_Other { get; set; }
         public bool? TSPD_IsWarrantyVoid { get; set; }
         public string? TSPD_ReasonforVoid { get; set; }
+        public int? TSPD_TypeOfBMSId { get; set; }
+        public string? TSPD_TypeOfBMS { get; set; }
 
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }

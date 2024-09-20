@@ -763,6 +763,9 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSAD_Protections = vResultObj.TSAD_Protections;
 
                     vManageTicketDetail_Response.TSAD_CycleCount = vResultObj.TSAD_CycleCount;
+                    vManageTicketDetail_Response.TSAD_ProblemObservedByEngId = vResultObj.TSAD_ProblemObservedByEngId;
+                    vManageTicketDetail_Response.TSAD_ProblemObservedByEng = vResultObj.TSAD_ProblemObservedByEng;
+                    vManageTicketDetail_Response.TSAD_ProblemObservedDesc = vResultObj.TSAD_ProblemObservedDesc;
                     vManageTicketDetail_Response.TSPD_PhysicaImageFileName = vResultObj.TSPD_PhysicaImageFileName;
                     vManageTicketDetail_Response.TSPD_PhysicaImageOriginalFileName = vResultObj.TSPD_PhysicaImageOriginalFileName;
                     vManageTicketDetail_Response.TSPD_PhysicaImageURL = vResultObj.TSPD_PhysicaImageURL;
@@ -770,6 +773,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSPD_Other = vResultObj.TSPD_Other;
                     vManageTicketDetail_Response.TSPD_IsWarrantyVoid = vResultObj.TSPD_IsWarrantyVoid;
                     vManageTicketDetail_Response.TSPD_ReasonforVoid = vResultObj.TSPD_ReasonforVoid;
+                    vManageTicketDetail_Response.TSPD_TypeOfBMSId = vResultObj.TSPD_TypeOfBMSId;
+                    vManageTicketDetail_Response.TSPD_TypeOfBMS = vResultObj.TSPD_TypeOfBMS;
                     vManageTicketDetail_Response.TSSP_SolutionProvider = vResultObj.TSSP_SolutionProvider;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
