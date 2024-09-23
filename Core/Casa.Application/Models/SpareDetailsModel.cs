@@ -29,6 +29,10 @@ namespace CLN.Application.Models
         public int? MinQty { get; set; }
         [DefaultValue(0)]
         public int AvailableQty { get; set; }
+
+        [DefaultValue(0)]
+        public decimal? TentativeCost { get; set; }
+
         [DefaultValue(false)]
         public bool? RGP { get; set; }
         public bool? IsActive { get; set; }
@@ -46,6 +50,9 @@ namespace CLN.Application.Models
         public int? MinQty { get; set; }
         [DefaultValue(0)]
         public int AvailableQty { get; set; }
+
+        public decimal? TentativeCost { get; set; }
+
         [DefaultValue(false)]
         public bool? RGP { get; set; }
         public bool? IsActive { get; set; }
@@ -67,6 +74,7 @@ namespace CLN.Application.Models
         public string? UOM { get; set; }
         public string? MinQty { get; set; }
         public string? AvailableQty { get; set; }
+        public string? TentativeCost { get; set; }
         public string? RGP { get; set; }
         public string? IsActive { get; set; }
     }
@@ -79,8 +87,9 @@ namespace CLN.Application.Models
         public string UOM { get; set; }
         public string MinQty { get; set; }
         public string AvailableQty { get; set; }
-        public string IsActive { get; set; }
+        public string? TentativeCost { get; set; }
         public string RGP { get; set; }
+        public string IsActive { get; set; }
         public string ValidationMessage { get; set; }
     }
 

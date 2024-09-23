@@ -93,6 +93,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSSP_AllocateToServiceEnggId", parameters.TSSP_AllocateToServiceEnggId);
             queryParameters.Add("@TSSP_Remarks", parameters.TSSP_Remarks);
             queryParameters.Add("@TSSP_BranchId", parameters.TSSP_BranchId);
+            queryParameters.Add("@TSSP_RectificationActionId", parameters.TSSP_RectificationActionId);
 
             queryParameters.Add("@CP_Visual", parameters.CP_Visual);
             queryParameters.Add("@CP_VisualImageFileName", parameters.CP_VisualImageFileName);
@@ -115,6 +116,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_BatteryTemp", parameters.CP_BatteryTemp);
             queryParameters.Add("@CP_BMSSerialNumber", parameters.CP_BMSSerialNumber);
             queryParameters.Add("@CP_ProblemObserved", parameters.CP_ProblemObserved);
+            queryParameters.Add("@CP_ProblemObservedByEngId", parameters.CP_ProblemObservedByEngId);
 
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);
             queryParameters.Add("@CC_BatteryRepairedToPlant", parameters.CC_BatteryRepairedToPlant);

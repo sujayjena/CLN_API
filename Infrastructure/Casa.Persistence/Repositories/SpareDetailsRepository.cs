@@ -30,6 +30,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@MinQty", parameters.MinQty);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
+            queryParameters.Add("@TentativeCost", parameters.TentativeCost);
             queryParameters.Add("@RGP", parameters.RGP);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);

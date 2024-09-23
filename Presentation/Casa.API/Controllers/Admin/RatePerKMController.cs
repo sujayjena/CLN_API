@@ -110,10 +110,11 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 1].Value = "Distance (KM)";
                     WorkSheet1.Cells[1, 2].Value = "Rate";
                     WorkSheet1.Cells[1, 3].Value = "Vehicle Type";
-                    WorkSheet1.Cells[1, 4].Value = "Status";
+                    WorkSheet1.Cells[1, 4].Value = "Employee Grade";
+                    WorkSheet1.Cells[1, 5].Value = "Status";
 
-                    WorkSheet1.Cells[1, 5].Value = "CreatedDate";
-                    WorkSheet1.Cells[1, 6].Value = "CreatedBy";
+                    WorkSheet1.Cells[1, 6].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 7].Value = "CreatedBy";
 
 
                     recordIndex = 2;
@@ -123,11 +124,12 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 1].Value = items.Distance;
                         WorkSheet1.Cells[recordIndex, 2].Value = items.Rate;
                         WorkSheet1.Cells[recordIndex, 3].Value = items.VehicleType;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.EmployeeLevel;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.IsActive == true ? "Active" : "Inactive";
 
-                        WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.CreatedDate;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 6].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.CreatorName;
 
                         recordIndex += 1;
                     }
@@ -138,6 +140,7 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Column(4).AutoFit();
                     WorkSheet1.Column(5).AutoFit();
                     WorkSheet1.Column(6).AutoFit();
+                    WorkSheet1.Column(7).AutoFit();
 
                     excelExportData.SaveAs(msExportDataFile);
                     msExportDataFile.Position = 0;

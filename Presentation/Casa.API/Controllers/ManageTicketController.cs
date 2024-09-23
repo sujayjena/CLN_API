@@ -779,6 +779,10 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
                     vManageTicketDetail_Response.TSSP_Remarks = vResultObj.TSSP_Remarks;
+                    vManageTicketDetail_Response.TSSP_BranchId = vResultObj.TSSP_BranchId;
+                    vManageTicketDetail_Response.TSSP_BranchName = vResultObj.TSSP_BranchName;
+                    vManageTicketDetail_Response.TSSP_RectificationActionId = vResultObj.TSSP_RectificationActionId;
+                    vManageTicketDetail_Response.TSSP_RectificationAction = vResultObj.TSSP_RectificationAction;
 
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;
@@ -805,6 +809,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CP_BatteryTemp = vResultObj.CP_BatteryTemp;
                     vManageTicketDetail_Response.CP_BMSSerialNumber = vResultObj.CP_BMSSerialNumber;
                     vManageTicketDetail_Response.CP_ProblemObserved = vResultObj.CP_ProblemObserved;
+                    vManageTicketDetail_Response.CP_ProblemObservedByEngId = vResultObj.CP_ProblemObservedByEngId;
+                    vManageTicketDetail_Response.CP_ProblemObservedByEng = vResultObj.CP_ProblemObservedByEng;
 
                     vManageTicketDetail_Response.CC_BatteryRepairedOnSite = vResultObj.CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.CC_BatteryRepairedToPlant = vResultObj.CC_BatteryRepairedToPlant;

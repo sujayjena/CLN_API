@@ -150,6 +150,7 @@ namespace CLN.Application.Models
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string? TSSP_Remarks { get; set; }
         public int? TSSP_BranchId { get; set; }
+        public int? TSSP_RectificationActionId { get; set; }
 
         public int? CP_Visual { get; set; }
         public string? CP_VisualImageFileName { get; set; }
@@ -180,6 +181,7 @@ namespace CLN.Application.Models
         public string? CP_BatteryTemp { get; set; }
         public string? CP_BMSSerialNumber { get; set; }
         public string? CP_ProblemObserved { get; set; }
+        public int? CP_ProblemObservedByEngId { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
@@ -462,6 +464,8 @@ namespace CLN.Application.Models
         public string? TSSP_Remarks { get; set; }
         public int? TSSP_BranchId { get; set; }
         public string? TSSP_BranchName { get; set; }
+        public int? TSSP_RectificationActionId { get; set; }
+        public string? TSSP_RectificationAction { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -488,6 +492,8 @@ namespace CLN.Application.Models
         public string CP_BatteryTemp { get; set; }
         public string CP_BMSSerialNumber { get; set; }
         public string CP_ProblemObserved { get; set; }
+        public int? CP_ProblemObservedByEngId { get; set; }
+        public string? CP_ProblemObservedByEng { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
@@ -647,6 +653,8 @@ namespace CLN.Application.Models
         public string? TSSP_Remarks { get; set; }
         public int? TSSP_BranchId { get; set; }
         public string? TSSP_BranchName { get; set; }
+        public int? TSSP_RectificationActionId { get; set; }
+        public string? TSSP_RectificationAction { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -673,6 +681,8 @@ namespace CLN.Application.Models
         public string CP_BatteryTemp { get; set; }
         public string CP_BMSSerialNumber { get; set; }
         public string CP_ProblemObserved { get; set; }
+        public int? CP_ProblemObservedByEngId { get; set; }
+        public string? CP_ProblemObservedByEng { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }

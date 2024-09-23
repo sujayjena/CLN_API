@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ namespace CLN.Application.Models
     {
         public long RoleId { get; set; }
         public long? RegionId { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsActive { get; set; }
     }
     public partial class EmployeesListByReportingTo_Response
     {
