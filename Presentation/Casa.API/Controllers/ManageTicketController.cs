@@ -564,10 +564,10 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> CreateDuplicateTicket(int TicketId)
+        public async Task<ResponseModel> CreateDuplicateTicket(int TicketId, int IsEngineerType=0)
         {
             // Save/Update
-            int result = await _manageTicketRepository.CreateDuplicateTicket(TicketId);
+            int result = await _manageTicketRepository.CreateDuplicateTicket(TicketId, IsEngineerType);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {

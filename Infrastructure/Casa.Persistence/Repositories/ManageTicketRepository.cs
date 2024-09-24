@@ -142,11 +142,12 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("SaveTicket", queryParameters);
         }
 
-        public async Task<int> CreateDuplicateTicket(int TicketId)
+        public async Task<int> CreateDuplicateTicket(int TicketId, int IsEngineerType = 0)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@TicketId", TicketId);
+            queryParameters.Add("@IsEngineerType", IsEngineerType);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("CreateDuplicateTicket", queryParameters);
@@ -245,7 +246,7 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
-    
+
         public async Task<int> SaveManageTicketPartDetail(ManageTicketPartDetails_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();

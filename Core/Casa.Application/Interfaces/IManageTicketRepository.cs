@@ -11,7 +11,7 @@ namespace CLN.Application.Interfaces
     {
         Task<int> SaveManageTicket(ManageTicket_Request parameters);
 
-        Task<int> CreateDuplicateTicket(int TicketId);
+        Task<int> CreateDuplicateTicket(int TicketId, int IsEngineerType = 0);
 
         Task<IEnumerable<ManageTicketList_Response>> GetManageTicketList(ManageTicket_Search parameters);
 
