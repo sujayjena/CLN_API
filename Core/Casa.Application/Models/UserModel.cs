@@ -204,10 +204,11 @@ namespace CLN.Application.Models
     public class UserListByRole_Search
     {
         public int? CompanyId { get; set; }
-
         public string? RoleId { get; set; }
-
         public string? RoleName { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsActive { get; set; }
     }
 
     public class UserListByRole_Response

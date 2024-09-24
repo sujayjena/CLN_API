@@ -107,6 +107,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CompanyId", parameters.CompanyId);
             queryParameters.Add("@RoleId", parameters.RoleId.SanitizeValue());
             queryParameters.Add("@RoleName", parameters.RoleName.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
 
             var result = await ListByStoredProcedure<UserListByRole_Response>("GetUserByRoleIdOrRoleName", queryParameters);
 
