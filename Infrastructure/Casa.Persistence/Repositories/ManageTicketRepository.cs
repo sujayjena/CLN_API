@@ -94,6 +94,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSSP_Remarks", parameters.TSSP_Remarks);
             queryParameters.Add("@TSSP_BranchId", parameters.TSSP_BranchId);
             queryParameters.Add("@TSSP_RectificationActionId", parameters.TSSP_RectificationActionId);
+            queryParameters.Add("@TSSP_ResolutionSummary", parameters.TSSP_ResolutionSummary);
 
             queryParameters.Add("@CP_Visual", parameters.CP_Visual);
             queryParameters.Add("@CP_VisualImageFileName", parameters.CP_VisualImageFileName);

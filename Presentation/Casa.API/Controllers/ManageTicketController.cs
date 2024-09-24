@@ -783,6 +783,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSSP_BranchName = vResultObj.TSSP_BranchName;
                     vManageTicketDetail_Response.TSSP_RectificationActionId = vResultObj.TSSP_RectificationActionId;
                     vManageTicketDetail_Response.TSSP_RectificationAction = vResultObj.TSSP_RectificationAction;
+                    vManageTicketDetail_Response.TSSP_ResolutionSummary = vResultObj.TSSP_ResolutionSummary;
 
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;

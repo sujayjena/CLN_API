@@ -151,6 +151,7 @@ namespace CLN.Application.Models
         public string? TSSP_Remarks { get; set; }
         public int? TSSP_BranchId { get; set; }
         public int? TSSP_RectificationActionId { get; set; }
+        public string? TSSP_ResolutionSummary { get; set; }
 
         public int? CP_Visual { get; set; }
         public string? CP_VisualImageFileName { get; set; }
@@ -466,6 +467,7 @@ namespace CLN.Application.Models
         public string? TSSP_BranchName { get; set; }
         public int? TSSP_RectificationActionId { get; set; }
         public string? TSSP_RectificationAction { get; set; }
+        public string? TSSP_ResolutionSummary { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -655,6 +657,7 @@ namespace CLN.Application.Models
         public string? TSSP_BranchName { get; set; }
         public int? TSSP_RectificationActionId { get; set; }
         public string? TSSP_RectificationAction { get; set; }
+        public string? TSSP_ResolutionSummary { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
