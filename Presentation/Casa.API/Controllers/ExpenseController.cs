@@ -82,6 +82,7 @@ namespace CLN.API.Controllers
                         FromDate = item.FromDate,
                         ToDate = item.ToDate,
                         ExpenseTypeId = item.ExpenseTypeId,
+                        VehicleTypeId = item.VehicleTypeId,
                         ExpenseDescription = item.ExpenseDescription,
                         ApprovedAmount = item.ApprovedAmount,
                         ExpenseAmount = item.ExpenseAmount,
@@ -164,6 +165,8 @@ namespace CLN.API.Controllers
                             ToDate = item.ToDate,
                             ExpenseTypeId = item.ExpenseTypeId,
                             ExpenseType = item.ExpenseType,
+                            VehicleTypeId = item.VehicleTypeId,
+                            VehicleType = item.VehicleType,
 
                             ExpenseDescription = item.ExpenseDescription,
                             ApprovedAmount = item.ApprovedAmount,
@@ -196,14 +199,16 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportExpense()
+        public async Task<ResponseModel> ExportExpense(string ExpenseId)
         {
             _response.IsSuccess = false;
             byte[] result;
 
             var request = new Expense_Search()
             {
-                EmployeeId = 0
+                EmployeeId = 0,
+                StatusId = 0,
+                ExpenseId = ExpenseId,
             };
 
             var lstExpenseListObj = await _expenseRepository.GetExpenseList(request);
@@ -229,10 +234,11 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 4].Value = "From Date";
                     WorkSheet1.Cells[1, 5].Value = "To Date";
                     WorkSheet1.Cells[1, 6].Value = "Expense Type";
-                    WorkSheet1.Cells[1, 7].Value = "Description";
-                    WorkSheet1.Cells[1, 8].Value = "Approved Amount";
-                    WorkSheet1.Cells[1, 9].Value = "Expense Amount";
-                    WorkSheet1.Cells[1, 10].Value = "Status";
+                    WorkSheet1.Cells[1, 7].Value = "Vehicle Type";
+                    WorkSheet1.Cells[1, 8].Value = "Description";
+                    WorkSheet1.Cells[1, 9].Value = "Approved Amount";
+                    WorkSheet1.Cells[1, 10].Value = "Expense Amount";
+                    WorkSheet1.Cells[1, 11].Value = "Status";
 
                     recordIndex = 2;
                     foreach (var items in lstExpenseListObj)
@@ -241,7 +247,7 @@ namespace CLN.API.Controllers
                         {
                             SearchText = string.Empty,
                             ExpenseId = items.Id,
-                            ExpenseDetailStatusId=0
+                            ExpenseDetailStatusId = 0
                         };
 
                         var objExpenseDetailList = await _expenseRepository.GetExpenseDetailsList(vExpenseDetails_Search);
@@ -261,10 +267,11 @@ namespace CLN.API.Controllers
                                 WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
 
                                 WorkSheet1.Cells[recordIndex, 6].Value = itemExpenseDetail.ExpenseType;
-                                WorkSheet1.Cells[recordIndex, 7].Value = itemExpenseDetail.ExpenseDescription;
-                                WorkSheet1.Cells[recordIndex, 8].Value = itemExpenseDetail.ApprovedAmount;
-                                WorkSheet1.Cells[recordIndex, 9].Value = itemExpenseDetail.ExpenseAmount;
-                                WorkSheet1.Cells[recordIndex, 10].Value = items.StatusName;
+                                WorkSheet1.Cells[recordIndex, 7].Value = itemExpenseDetail.VehicleType;
+                                WorkSheet1.Cells[recordIndex, 8].Value = itemExpenseDetail.ExpenseDescription;
+                                WorkSheet1.Cells[recordIndex, 9].Value = itemExpenseDetail.ApprovedAmount;
+                                WorkSheet1.Cells[recordIndex, 10].Value = itemExpenseDetail.ExpenseAmount;
+                                WorkSheet1.Cells[recordIndex, 11].Value = items.StatusName;
 
                                 recordIndex += 1;
                             }
@@ -275,7 +282,7 @@ namespace CLN.API.Controllers
                             WorkSheet1.Cells[recordIndex, 2].Value = items.TicketNumber;
                             WorkSheet1.Cells[recordIndex, 3].Value = items.CustomerName;
 
-                            WorkSheet1.Cells[recordIndex, 10].Value = items.StatusName;
+                            WorkSheet1.Cells[recordIndex, 11].Value = items.StatusName;
 
                             recordIndex += 1;
                         }
@@ -292,6 +299,18 @@ namespace CLN.API.Controllers
 
             if (result != null)
             {
+                //update IsExport
+                if (ExpenseId != "")
+                {
+                    var vUpdateIsExport = new UpdateIsExport_Request()
+                    {
+                        Id = ExpenseId,
+                        Module = "Expense"
+                    };
+
+                    int resultvUpdateIsExport = await _expenseRepository.UpdateIsExport(vUpdateIsExport);
+                }
+
                 _response.Data = result;
                 _response.IsSuccess = true;
                 _response.Message = "Exported successfully";
@@ -532,6 +551,94 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportDailyTravelExpense(string ExpenseId)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+
+            var request = new DailyTravelExpense_Search()
+            {
+                EmployeeId = 0,
+                StatusId = 0,
+                ExpenseId = ExpenseId,
+            };
+
+            var lstExpenseListObj = await _expenseRepository.GetDailyTravelExpenseList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    int recordIndex;
+                    ExcelWorksheet WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Expense");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Expense Number";
+                    WorkSheet1.Cells[1, 2].Value = "Ticket Number";
+                    WorkSheet1.Cells[1, 3].Value = "Expense Type";
+                    WorkSheet1.Cells[1, 4].Value = "Vehicle Type";
+                    WorkSheet1.Cells[1, 5].Value = "Rate Per KM";
+                    WorkSheet1.Cells[1, 6].Value = "Total KM";
+                    WorkSheet1.Cells[1, 7].Value = "Total Amount";
+                    WorkSheet1.Cells[1, 8].Value = "Status";
+
+                    recordIndex = 2;
+                    foreach (var items in lstExpenseListObj)
+                    {
+                        foreach (var itemExpenseDetail in lstExpenseListObj)
+                        {
+                            WorkSheet1.Cells[recordIndex, 1].Value = items.ExpenseNumber;
+                            WorkSheet1.Cells[recordIndex, 2].Value = items.TicketNumber;
+                            WorkSheet1.Cells[recordIndex, 3].Value = itemExpenseDetail.ExpenseType;
+                            WorkSheet1.Cells[recordIndex, 4].Value = itemExpenseDetail.VehicleType;
+                            WorkSheet1.Cells[recordIndex, 5].Value = itemExpenseDetail.RatePerKm;
+                            WorkSheet1.Cells[recordIndex, 6].Value = itemExpenseDetail.TotalKm;
+                            WorkSheet1.Cells[recordIndex, 7].Value = itemExpenseDetail.TotalAmount;
+                            WorkSheet1.Cells[recordIndex, 8].Value = items.StatusName;
+
+                            recordIndex += 1;
+                        }
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+
+            if (result != null)
+            {
+                //update IsExport
+                if (ExpenseId != "")
+                {
+                    var vUpdateIsExport = new UpdateIsExport_Request()
+                    {
+                        Id = ExpenseId,
+                        Module = "Daily Travel Expense"
+                    };
+
+                    int resultvUpdateIsExport = await _expenseRepository.UpdateIsExport(vUpdateIsExport);
+                }
+
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
         #endregion
     }
 }

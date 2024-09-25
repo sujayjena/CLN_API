@@ -18,6 +18,12 @@ namespace CLN.Application.Models
     {
         public int? EmployeeId { get; set; }
 
+        [DefaultValue(0)]
+        public int? StatusId { get; set; }
+
+        [DefaultValue("")]
+        public string? ExpenseId { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
     }
@@ -55,6 +61,7 @@ namespace CLN.Application.Models
         public DateTime? TicketCloserDate { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
+        public bool? IsExport { get; set; }
         public bool? IsActive { get; set; }
 
         public List<ExpenseDetails_Response> ExpenseDetails { get; set; }
@@ -68,6 +75,12 @@ namespace CLN.Application.Models
 
         [DefaultValue("")]
         public string? Remarks { get; set; }
+    }
+
+    public class UpdateIsExport_Request
+    {
+        public string? Id { get; set; }
+        public string? Module { get; set; }
     }
 
 
@@ -85,6 +98,8 @@ namespace CLN.Application.Models
         public DateTime? ToDate { get; set; }
 
         public int? ExpenseTypeId { get; set; }
+
+        public int? VehicleTypeId { get; set; }
 
         public string? ExpenseDescription { get; set; }
 
@@ -114,6 +129,8 @@ namespace CLN.Application.Models
         public DateTime? ToDate { get; set; }
         public int? ExpenseTypeId { get; set; }
         public string? ExpenseType { get; set; }
+        public int? VehicleTypeId { get; set; }
+        public string? VehicleType { get; set; }
         public string? ExpenseDescription { get; set; }
         public decimal? ApprovedAmount { get; set; }
         public decimal? ExpenseAmount { get; set; }
@@ -162,10 +179,14 @@ namespace CLN.Application.Models
     public class DailyTravelExpense_Search : BaseSearchEntity
     {
         public int? EmployeeId { get; set; }
+        public int? StatusId { get; set; }
+
+        [DefaultValue("")]
+        public string? ExpenseId { get; set; }
 
         [DefaultValue("All")]
         public string? FilterType { get; set; }
-        public int? StatusId { get; set; }
+        
     }
 
     public class DailyTravelExpense_Response : BaseResponseEntity
@@ -194,6 +215,7 @@ namespace CLN.Application.Models
         public string? ExpenseImageFileName { get; set; }
         public string? ExpenseImageOriginalFileName { get; set; }
         public string? ExpenseImageFileURL { get; set; }
+        public bool? IsExport { get; set; }
         public List<ExpenseDetailsRemarks_Response> remarksList { get; set; }
     }
 

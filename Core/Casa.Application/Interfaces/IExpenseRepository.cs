@@ -17,6 +17,8 @@ namespace CLN.Application.Interfaces
 
         Task<Expense_Response?> GetExpenseById(int Id);
 
+        Task<int> UpdateIsExport(UpdateIsExport_Request parameters);
+
         #endregion
 
         #region Expense Details

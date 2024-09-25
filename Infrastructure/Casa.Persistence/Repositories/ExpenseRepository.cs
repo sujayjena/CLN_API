@@ -42,6 +42,8 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@ExpenseId", parameters.ExpenseId);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
@@ -65,6 +67,17 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<Expense_Response>("GetExpenseById", queryParameters)).FirstOrDefault();
         }
 
+        public async Task<int> UpdateIsExport(UpdateIsExport_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@Module", parameters.Module);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("UpdateIsExport", queryParameters);
+        }
+
         #endregion
 
         #region Expense Details
@@ -78,6 +91,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@FromDate", parameters.FromDate);
             queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);
+            queryParameters.Add("@VehicleTypeId", parameters.VehicleTypeId);
             queryParameters.Add("@ExpenseDescription", parameters.ExpenseDescription);
             queryParameters.Add("@ApprovedAmount", parameters.ApprovedAmount);
             queryParameters.Add("@ExpenseAmount", parameters.ExpenseAmount);
@@ -171,8 +185,9 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
-            queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+            queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
