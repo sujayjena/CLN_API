@@ -134,8 +134,10 @@ namespace CLN.API.Controllers.Admin
                    !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "MinQty", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "AvailableQty", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "TentativeCost", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "RGP", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 9].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
+                   !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "ProductMake", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 9].Value.ToString(), "BMSMake", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 10].Value.ToString(), "RGP", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 11].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file. Please Download Format file for reference";
@@ -153,8 +155,10 @@ namespace CLN.API.Controllers.Admin
                         MinQty = workSheet.Cells[rowIterator, 5].Value?.ToString(),
                         AvailableQty = workSheet.Cells[rowIterator, 6].Value?.ToString(),
                         TentativeCost = workSheet.Cells[rowIterator, 7].Value?.ToString(),
-                        RGP = workSheet.Cells[rowIterator, 8].Value?.ToString(),
-                        IsActive = workSheet.Cells[rowIterator, 9].Value?.ToString()
+                        ProductMake = workSheet.Cells[rowIterator, 8].Value?.ToString(),
+                        BMSMake = workSheet.Cells[rowIterator, 9].Value?.ToString(),
+                        RGP = workSheet.Cells[rowIterator, 10].Value?.ToString(),
+                        IsActive = workSheet.Cells[rowIterator, 11].Value?.ToString()
                     });
                 }
             }
@@ -210,9 +214,11 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 5].Value = "MinQty";
                     WorkSheet1.Cells[1, 6].Value = "AvailableQty";
                     WorkSheet1.Cells[1, 7].Value = "TentativeCost";
-                    WorkSheet1.Cells[1, 8].Value = "RGP";
-                    WorkSheet1.Cells[1, 9].Value = "IsActive";
-                    WorkSheet1.Cells[1, 10].Value = "ErrorMessage";
+                    WorkSheet1.Cells[1, 8].Value = "ProductMake";
+                    WorkSheet1.Cells[1, 9].Value = "BMSMake";
+                    WorkSheet1.Cells[1, 10].Value = "RGP";
+                    WorkSheet1.Cells[1, 11].Value = "IsActive";
+                    WorkSheet1.Cells[1, 12].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
@@ -225,9 +231,11 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 5].Value = record.MinQty;
                         WorkSheet1.Cells[recordIndex, 6].Value = record.AvailableQty;
                         WorkSheet1.Cells[recordIndex, 7].Value = record.TentativeCost;
-                        WorkSheet1.Cells[recordIndex, 8].Value = record.RGP;
-                        WorkSheet1.Cells[recordIndex, 9].Value = record.IsActive;
-                        WorkSheet1.Cells[recordIndex, 10].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 8].Value = record.ProductMake;
+                        WorkSheet1.Cells[recordIndex, 9].Value = record.BMSMake;
+                        WorkSheet1.Cells[recordIndex, 10].Value = record.RGP;
+                        WorkSheet1.Cells[recordIndex, 11].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 12].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -277,10 +285,12 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 5].Value = "Min Qty.";
                     WorkSheet1.Cells[1, 6].Value = "Available Qty.";
                     WorkSheet1.Cells[1, 7].Value = "Tentative Cost";
-                    WorkSheet1.Cells[1, 8].Value = "Status";
+                    WorkSheet1.Cells[1, 8].Value = "Product Make";
+                    WorkSheet1.Cells[1, 9].Value = "BMS Make";
+                    WorkSheet1.Cells[1, 10].Value = "Status";
 
-                    WorkSheet1.Cells[1, 9].Value = "CreatedDate";
-                    WorkSheet1.Cells[1, 10].Value = "CreatedBy";
+                    WorkSheet1.Cells[1, 11].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 12].Value = "CreatedBy";
 
 
                     recordIndex = 2;
@@ -294,11 +304,13 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 5].Value = items.MinQty;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.AvailableQty;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.TentativeCost;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.ProductMake;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.BMSMake;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.IsActive == true ? "Active" : "Inactive";
 
-                        WorkSheet1.Cells[recordIndex, 9].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 9].Value = items.CreatedDate;
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.CreatorName;
 
                         recordIndex += 1;
                     }

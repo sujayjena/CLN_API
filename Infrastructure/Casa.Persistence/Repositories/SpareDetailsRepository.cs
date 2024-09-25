@@ -31,6 +31,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@MinQty", parameters.MinQty);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@TentativeCost", parameters.TentativeCost);
+            queryParameters.Add("@ProductMakeId", parameters.ProductMakeId);
+            queryParameters.Add("@BMSMakeId", parameters.BMSMakeId);
             queryParameters.Add("@RGP", parameters.RGP);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);

@@ -11,7 +11,8 @@ namespace CLN.Application.Models
 {
     public class CustomerBattery_Search : BaseSearchEntity
     {
-        public long CustomerId { get; set; }
+        public long? CustomerId { get; set; }
+        public long? ProductCategoryId { get; set; }
     }
 
     public class CustomerBattery_Request : BaseEntity
