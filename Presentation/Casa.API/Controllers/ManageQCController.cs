@@ -429,7 +429,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportCustomerBOM()
+        public async Task<ResponseModel> ExportCustomerBOM(int CustomerId = 0)
         {
             _response.IsSuccess = false;
             byte[] result;
@@ -437,7 +437,10 @@ namespace CLN.API.Controllers
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var request = new CustomerBOM_Search();
+            var request = new CustomerBOM_Search()
+            {
+                CustomerId = CustomerId
+            };
 
             IEnumerable<CustomerBOM_Response> lstSizeObj = await _ManageQCRepository.GetCustomerBOMList(request);
 
@@ -633,8 +636,8 @@ namespace CLN.API.Controllers
                         lstCustomerBattery_ImportData.Add(new CustomerBattery_ImportData()
                         {
                             CustomerName = workSheet.Cells[rowIterator, 1].Value?.ToString(),
-                            PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString(),
-                            ProductSerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString(),
+                            PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString().Trim(),
+                            ProductSerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString().Trim(),
                             //ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 4].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
                             //WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 5].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
                             //WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 6].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
@@ -735,7 +738,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportCustomerBattery()
+        public async Task<ResponseModel> ExportCustomerBattery(int CustomerId = 0)
         {
             _response.IsSuccess = false;
             byte[] result;
@@ -743,7 +746,12 @@ namespace CLN.API.Controllers
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var request = new CustomerBattery_Search();
+            var request = new CustomerBattery_Search()
+            {
+                CustomerId = CustomerId,
+                ProductCategoryId = 0,
+                SearchText = "",
+            };
 
             IEnumerable<CustomerBattery_Response> lstSizeObj = await _ManageQCRepository.GetCustomerBatteryList(request);
 
@@ -1140,7 +1148,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportCustomerAccessory()
+        public async Task<ResponseModel> ExportCustomerAccessory(int CustomerId = 0)
         {
             _response.IsSuccess = false;
             byte[] result;
@@ -1148,7 +1156,10 @@ namespace CLN.API.Controllers
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var request = new CustomerAccessory_Search();
+            var request = new CustomerAccessory_Search()
+            {
+                CustomerId = CustomerId
+            };
 
             IEnumerable<CustomerAccessory_Response> lstSizeObj = await _ManageQCRepository.GetManageQCAccessoryList(request);
 

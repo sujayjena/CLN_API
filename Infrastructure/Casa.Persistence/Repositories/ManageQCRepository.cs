@@ -187,8 +187,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
             queryParameters.Add("@PartCodeId", parameters.PartCodeId);
-            queryParameters.Add("@SerialNumber", parameters.SerialNumber);
-            queryParameters.Add("@ProductSerialNumber", parameters.ProductSerialNumber);
+            queryParameters.Add("@SerialNumber", parameters.SerialNumber.SanitizeValue());
+            queryParameters.Add("@ProductSerialNumber", parameters.ProductSerialNumber.SanitizeValue());
             queryParameters.Add("@InvoiceNumber", parameters.InvoiceNumber);
             queryParameters.Add("@ManufacturingDate", parameters.ManufacturingDate);
             queryParameters.Add("@WarrantyStartDate", parameters.WarrantyStartDate);
