@@ -27,6 +27,11 @@ namespace CLN.Application.Models
         [DefaultValue("All")]
         public string? FilterType { get; set; }
     }
+    public class ExportExpense_Request
+    {
+        [DefaultValue("")]
+        public string? ExpenseId { get; set; }
+    }
 
     public class Expense_Request : BaseEntity
     {
@@ -186,7 +191,7 @@ namespace CLN.Application.Models
 
         [DefaultValue("All")]
         public string? FilterType { get; set; }
-        
+
     }
 
     public class DailyTravelExpense_Response : BaseResponseEntity

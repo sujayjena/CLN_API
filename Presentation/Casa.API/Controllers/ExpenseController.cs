@@ -199,19 +199,19 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportExpense(string ExpenseId)
+        public async Task<ResponseModel> ExportExpense(ExportExpense_Request request)
         {
             _response.IsSuccess = false;
             byte[] result;
 
-            var request = new Expense_Search()
+            var vExpense_Search = new Expense_Search()
             {
                 EmployeeId = 0,
                 StatusId = 0,
-                ExpenseId = ExpenseId,
+                ExpenseId = request.ExpenseId,
             };
 
-            var lstExpenseListObj = await _expenseRepository.GetExpenseList(request);
+            var lstExpenseListObj = await _expenseRepository.GetExpenseList(vExpense_Search);
 
             using (MemoryStream msExportDataFile = new MemoryStream())
             {
@@ -300,11 +300,11 @@ namespace CLN.API.Controllers
             if (result != null)
             {
                 //update IsExport
-                if (ExpenseId != "")
+                if (request.ExpenseId != "")
                 {
                     var vUpdateIsExport = new UpdateIsExport_Request()
                     {
-                        Id = ExpenseId,
+                        Id = request.ExpenseId,
                         Module = "Expense"
                     };
 
@@ -553,19 +553,19 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportDailyTravelExpense(string ExpenseId)
+        public async Task<ResponseModel> ExportDailyTravelExpense(ExportExpense_Request request)
         {
             _response.IsSuccess = false;
             byte[] result;
 
-            var request = new DailyTravelExpense_Search()
+            var vDailyTravelExpense_Search = new DailyTravelExpense_Search()
             {
                 EmployeeId = 0,
                 StatusId = 0,
-                ExpenseId = ExpenseId,
+                ExpenseId = request.ExpenseId,
             };
 
-            var lstExpenseListObj = await _expenseRepository.GetDailyTravelExpenseList(request);
+            var lstExpenseListObj = await _expenseRepository.GetDailyTravelExpenseList(vDailyTravelExpense_Search);
 
             using (MemoryStream msExportDataFile = new MemoryStream())
             {
@@ -621,11 +621,11 @@ namespace CLN.API.Controllers
             if (result != null)
             {
                 //update IsExport
-                if (ExpenseId != "")
+                if (request.ExpenseId != "")
                 {
                     var vUpdateIsExport = new UpdateIsExport_Request()
                     {
-                        Id = ExpenseId,
+                        Id = request.ExpenseId,
                         Module = "Daily Travel Expense"
                     };
 
