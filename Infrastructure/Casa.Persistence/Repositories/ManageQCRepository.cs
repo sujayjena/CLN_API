@@ -58,7 +58,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
-            queryParameters.Add("@PartCode", parameters.PartCode);
+            queryParameters.Add("@PartCode", parameters.PartCode.SanitizeValue());
             queryParameters.Add("@CustomerCode", parameters.CustomerCode);
             queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
             queryParameters.Add("@SegmentId", parameters.SegmentId);
