@@ -15,6 +15,11 @@ namespace CLN.Application.Models
 
     public class Branch_Request : BaseEntity
     {
+        public Branch_Request()
+        {
+            RegionList = new List<BranchRegion_Request>();
+            StateList = new List<BranchState_Request>();
+        }
         public string? BranchName { get; set; }
         public int? CompanyId { get; set; }
         public string? EmailId { get; set; }
@@ -29,6 +34,9 @@ namespace CLN.Application.Models
         public int? Pincode { get; set; }
         public int? NoofUserAdd { get; set; }
         public bool? IsActive { get; set; }
+
+        public List<BranchRegion_Request> RegionList { get; set; }
+        public List<BranchState_Request> StateList { get; set; }
     }
 
     public class Branch_Response : BaseResponseEntity
@@ -52,6 +60,9 @@ namespace CLN.Application.Models
         public int? Pincode { get; set; }
         public int? NoofUserAdd { get; set; }
         public bool? IsActive { get; set; }
+
+        public List<BranchRegion_Response> RegionList { get; set; }
+        public List<BranchState_Response> StateList { get; set; }
     }
 
     public class BranchMapping_Request : BaseEntity
@@ -73,5 +84,45 @@ namespace CLN.Application.Models
         public int? EmployeeId { get; set; }
         public int? BranchId { get; set; }
         public string? BranchName { get; set; }
+    }
+
+    public class BranchState_Request
+    {
+        public int Id { get; set; }
+
+        [JsonIgnore]
+        public string? Action { get; set; }
+
+        [JsonIgnore]
+        public int? BranchId { get; set; }
+        public int? StateId { get; set; }
+    }
+
+    public class BranchState_Response
+    {
+        public int Id { get; set; }
+        public int? BranchId { get; set; }
+        public int? StateId { get; set; }
+        public string StateName { get; set; }
+    }
+
+    public class BranchRegion_Request
+    {
+        public int Id { get; set; }
+
+        [JsonIgnore]
+        public string? Action { get; set; }
+
+        [JsonIgnore]
+        public int? BranchId { get; set; }
+        public int? RegionId { get; set; }
+    }
+
+    public class BranchRegion_Response
+    {
+        public int Id { get; set; }
+        public int? BranchId { get; set; }
+        public int? RegionId { get; set; }
+        public string RegionName { get; set; }
     }
 }

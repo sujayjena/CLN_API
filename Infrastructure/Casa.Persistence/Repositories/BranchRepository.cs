@@ -70,6 +70,51 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<Branch_Response>("GetBranchById", queryParameters)).FirstOrDefault();
         }
 
+        public async Task<int> SaveBranchRegion(BranchRegion_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Action", parameters.Action);
+            queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@RegionId", parameters.RegionId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveBranchRegion", queryParameters);
+        }
+
+        public async Task<IEnumerable<BranchRegion_Response>> GetBranchRegionByBranchId(long BranchId, long RegionId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@BranchId", BranchId);
+            queryParameters.Add("@RegionId", RegionId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<BranchRegion_Response>("GetBranchRegionByBranchId", queryParameters);
+
+            return result;
+        }
+
+        public async Task<int> SaveBranchState(BranchState_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Action", parameters.Action);
+            queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@StateId", parameters.StateId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveBranchState", queryParameters);
+        }
+
+        public async Task<IEnumerable<BranchState_Response>> GetBranchStateByBranchId(long BranchId, long StateId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@BranchId", BranchId);
+            queryParameters.Add("@StateId", StateId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<BranchState_Response>("GetBranchStateByBranchId", queryParameters);
+
+            return result;
+        }
 
         #region Branch Mapping
 

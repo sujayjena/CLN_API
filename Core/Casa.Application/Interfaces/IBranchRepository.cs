@@ -16,6 +16,11 @@ namespace CLN.Application.Interfaces
 
         Task<Branch_Response?> GetBranchById(int Id);
 
+        Task<int> SaveBranchRegion(BranchRegion_Request parameters);
+        Task<IEnumerable<BranchRegion_Response>> GetBranchRegionByBranchId(long BranchId, long RegionId);
+
+        Task<int> SaveBranchState(BranchState_Request parameters);
+        Task<IEnumerable<BranchState_Response>> GetBranchStateByBranchId(long BranchId, long StateId);
 
 
         Task<int> SaveBranchMapping(BranchMapping_Request parameters);

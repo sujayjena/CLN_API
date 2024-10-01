@@ -78,14 +78,13 @@ namespace CLN.Application.Models
     public class SpareDetails_ImportData
     {
         public string? SpareCategory { get; set; }
-        public string? PartCode { get; set; }
-        public string? Description { get; set; }
+        public string? ProductMake { get; set; }
+        public string? SparePartCode { get; set; }
+        public string? SparePartDescription { get; set; }
         public string? UOM { get; set; }
         public string? MinQty { get; set; }
         public string? AvailableQty { get; set; }
         public string? TentativeCost { get; set; }
-        public string? ProductMake { get; set; }
-        public string? BMSMake { get; set; }
         public string? RGP { get; set; }
         public string? IsActive { get; set; }
     }
@@ -93,14 +92,13 @@ namespace CLN.Application.Models
     public class SpareDetails_ImportDataValidation
     {
         public string? SpareCategory { get; set; }
-        public string? PartCode { get; set; }
-        public string Description { get; set; }
+        public string? ProductMake { get; set; }
+        public string? SparePartCode { get; set; }
+        public string SparePartDescription { get; set; }
         public string UOM { get; set; }
         public string MinQty { get; set; }
         public string AvailableQty { get; set; }
         public string? TentativeCost { get; set; }
-        public string? ProductMake { get; set; }
-        public string? BMSMake { get; set; }
         public string RGP { get; set; }
         public string IsActive { get; set; }
         public string ValidationMessage { get; set; }

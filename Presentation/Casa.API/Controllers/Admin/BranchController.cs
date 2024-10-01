@@ -5,6 +5,7 @@ using CLN.Application.Models;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 
 namespace CLN.API.Controllers.Admin
 {
@@ -83,6 +84,60 @@ namespace CLN.API.Controllers.Admin
             else
             {
                 _response.Message = "Record details saved sucessfully";
+
+                #region // Add/Update Branch Region
+
+                // Delete Region of Branch
+                var vRegionDELETEObj = new BranchRegion_Request()
+                {
+                    Action = "DELETE",
+                    BranchId = result,
+                    RegionId = 0
+                };
+                int resultRegionMappingDELETE = await _branchRepository.SaveBranchRegion(vRegionDELETEObj);
+
+
+                // Add new mapping of Branch
+                foreach (var vRegionitem in parameters.RegionList)
+                {
+                    var vRegionMapObj = new BranchRegion_Request()
+                    {
+                        Action = "INSERT",
+                        BranchId = result,
+                        RegionId = vRegionitem.RegionId
+                    };
+
+                    int resultRegionMapping = await _branchRepository.SaveBranchRegion(vRegionMapObj);
+                }
+
+                #endregion
+
+                #region // Add/Update Branch State
+
+                // Delete state of Branch
+                var vStateDELETEObj = new BranchState_Request()
+                {
+                    Action = "DELETE",
+                    BranchId = result,
+                    StateId = 0
+                };
+                int resultStateMappingDELETE = await _branchRepository.SaveBranchState(vStateDELETEObj);
+
+
+                // Add new mapping of Branch
+                foreach (var vStateitem in parameters.StateList)
+                {
+                    var vStateMapObj = new BranchState_Request()
+                    {
+                        Action = "INSERT",
+                        BranchId = result,
+                        StateId = vStateitem.StateId
+                    };
+
+                    int resultBranchMapping = await _branchRepository.SaveBranchState(vStateMapObj);
+                }
+
+                #endregion
             }
 
             _response.Id = result;
@@ -111,6 +166,14 @@ namespace CLN.API.Controllers.Admin
             else
             {
                 var vResultObj = await _branchRepository.GetBranchById(Id);
+                if (vResultObj != null)
+                {
+                    var regionlistObj = await _branchRepository.GetBranchRegionByBranchId(vResultObj.Id, 0);
+                    var statelistObj = await _branchRepository.GetBranchStateByBranchId(vResultObj.Id, 0);
+
+                    vResultObj.RegionList = regionlistObj.ToList();
+                    vResultObj.StateList = statelistObj.ToList();
+                }
                 _response.Data = vResultObj;
             }
             return _response;
