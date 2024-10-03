@@ -206,6 +206,8 @@ namespace CLN.Application.Models
 
     public class Territories_State_Dist_City_Area_Search
     {
+        public string? MultipleRegionId { get; set; }
+
         public int? RegionId { get; set; }
 
         public int? StateId { get; set; }

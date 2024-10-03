@@ -319,6 +319,7 @@ namespace CLN.Persistence.Repositories
         public async Task<IEnumerable<Territories_State_Dist_City_Area_Response>> GetTerritories_State_Dist_City_Area_List_ById(Territories_State_Dist_City_Area_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@MultipleRegionId", parameters.MultipleRegionId);
             queryParameters.Add("@RegionId", parameters.RegionId);
             queryParameters.Add("@StateId", parameters.StateId);
             queryParameters.Add("@DistId", parameters.DistrictId);
