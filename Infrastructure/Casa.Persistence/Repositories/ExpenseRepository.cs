@@ -41,6 +41,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@ExpenseId", parameters.ExpenseId);
@@ -167,6 +169,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TicketId", parameters.TicketId);
             queryParameters.Add("@ExpenseDate", parameters.ExpenseDate);
             queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);
+            queryParameters.Add("@ExpenseDesc", parameters.ExpenseDesc);
             queryParameters.Add("@VehicleTypeId", parameters.VehicleTypeId);
             queryParameters.Add("@RatePerKm", parameters.RatePerKm);
             queryParameters.Add("@TotalKm", parameters.TotalKm);
@@ -184,6 +187,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@ExpenseId", parameters.ExpenseId);

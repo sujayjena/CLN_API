@@ -16,6 +16,12 @@ namespace CLN.Application.Models
 
     public class Expense_Search : BaseSearchEntity
     {
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
+
         public int? EmployeeId { get; set; }
 
         [DefaultValue(0)]
@@ -167,6 +173,7 @@ namespace CLN.Application.Models
         public int? TicketId { get; set; }
         public DateTime? ExpenseDate { get; set; }
         public int? ExpenseTypeId { get; set; }
+        public string? ExpenseDesc { get; set; }
         public int? VehicleTypeId { get; set; }
         public decimal? RatePerKm { get; set; }
         public decimal? TotalKm { get; set; }
@@ -183,6 +190,12 @@ namespace CLN.Application.Models
 
     public class DailyTravelExpense_Search : BaseSearchEntity
     {
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
+
         public int? EmployeeId { get; set; }
         public int? StatusId { get; set; }
 
@@ -209,6 +222,7 @@ namespace CLN.Application.Models
         public DateTime? ExpenseDate { get; set; }
         public int? ExpenseTypeId { get; set; }
         public string? ExpenseType { get; set; }
+        public string? ExpenseDesc { get; set; }
         public int? VehicleTypeId { get; set; }
         public string? VehicleType { get; set; }
         public decimal? RatePerKm { get; set; }
