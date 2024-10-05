@@ -529,7 +529,7 @@ namespace CLN.API.Controllers
             {
                 if (tktParametersId == 0)
                 {
-                    // Ticket Generate Email
+                    //Ticket Generate Email
                     var vEmailCustomer = await SendTicketGenerate_EmailToCustomer(result);
 
                     // Out Of Warranty Email
@@ -543,17 +543,24 @@ namespace CLN.API.Controllers
 
                 if (parameters.Id > 0)
                 {
-                    // Refer to TRC Email
+                    //Refer to TRC Email
                     if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
                     {
                         var vEmailCustomer = await SendReferToTRC_EmailToCustomer(result);
                         var vEmailEmployee = await SendReferToTRC_EmailToEmployee(result);
                     }
 
-                    // Voided Warranty Email
+                    //Voided Warranty Email
                     if (parameters.TSPD_IsWarrantyVoid == true)
                     {
                         var vEmailCustomer = await SendVoidedWarranty_EmailToCustomer(result);
+                    }
+
+                    //Resolved Email
+                    if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
+                    {
+                        var vEmailCustomer = await SendResolved_EmailToCustomer(result);
+                        var vEmailEmployee = await SendResolved_EmailToEmployee(result);
                     }
                 }
             }
@@ -1615,6 +1622,148 @@ namespace CLN.API.Controllers
 
                     sSubjectDynamicContent = "Warranty Status Notification for Ticket #" + dataObj.TicketNumber;
                     result = await _emailHelper.SendEmail(module: "Voided Warranty", subject: sSubjectDynamicContent, sendTo: "Customer / Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        protected async Task<bool> SendResolved_EmailToCustomer(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\Resolved_Customer_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[CallerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CallerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[RectificationAction]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[RectificationAction]", dataObj.TSSP_RectificationAction);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ResolutionDescription]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ResolutionDescription]", dataObj.TSSP_ResolutionSummary);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ResolutionDate]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ResolutionDate]", dataObj.ModifiedDate.ToString());
+                    }
+
+                    sSubjectDynamicContent = "Service Ticket Resolved – Ticket #" + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Resolved", subject: sSubjectDynamicContent, sendTo: "Customer", content: emailTemplateContent, recipientEmail: dataObj.CD_CallerEmailId, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        protected async Task<bool> SendResolved_EmailToEmployee(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    string recipientEmail = "";
+                    string vReportedToEmployeeEmailId = "";
+
+                    string vloginUserName = "";
+                    string vloginUserRole = "";
+
+                    var vloginUserId = SessionManager.LoggedInUserId;
+                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vloginUserId));
+                    if (vUserDetail != null)
+                    {
+                        vloginUserName = vUserDetail.UserName;
+                        vloginUserRole = vUserDetail.RoleName;
+
+                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                        if (vReportedToUserDetail != null)
+                        {
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                        }
+                    }
+
+                    recipientEmail = vReportedToEmployeeEmailId;
+
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\Resolved_Employee_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[CustomerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CustomerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[RectificationAction]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[RectificationAction]", dataObj.TSSP_RectificationAction);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ResolutionDescription]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ResolutionDescription]", dataObj.TSSP_ResolutionSummary);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ResolutionDate]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ResolutionDate]", dataObj.ModifiedDate.ToString());
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerName]", vloginUserName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerRole]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerRole]", vloginUserRole);
+                    }
+
+                    sSubjectDynamicContent = "Service Ticket Resolved – Ticket #" + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Resolved", subject: sSubjectDynamicContent, sendTo: "Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
                 }
             }
             catch (Exception ex)

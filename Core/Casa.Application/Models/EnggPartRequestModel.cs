@@ -47,6 +47,8 @@ namespace CLN.Application.Models
     {
         public int? RequestId { get; set; }
 
+        public int? SpareCategoryId { get; set; }
+        public int? ProductMakeId { get; set; }
         public int? SpareDetailsId { get; set; }
 
         public int? UOMId { get; set; }
@@ -103,6 +105,10 @@ namespace CLN.Application.Models
         public int? Id { get; set; }
         public int? RequestId { get; set; }
         public string? RequestNumber { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? SpareDesc { get; set; }
         public string? UniqueCode { get; set; }

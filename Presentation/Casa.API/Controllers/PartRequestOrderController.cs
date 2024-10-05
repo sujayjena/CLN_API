@@ -17,11 +17,19 @@ namespace CLN.API.Controllers
         private ResponseModel _response;
         private IFileManager _fileManager;
         private readonly IPartRequestOrderRepository _partRequestOrderRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IBranchRepository _branchRepository;
+        private IEmailHelper _emailHelper;
+        private readonly IWebHostEnvironment _environment;
 
-        public PartRequestOrderController(IFileManager fileManager, IPartRequestOrderRepository enggPartRequestOrderRepository)
+        public PartRequestOrderController(IFileManager fileManager, IPartRequestOrderRepository enggPartRequestOrderRepository, IUserRepository userRepository, IBranchRepository branchRepository, IEmailHelper emailHelper, IWebHostEnvironment environment)
         {
             _fileManager = fileManager;
             _partRequestOrderRepository = enggPartRequestOrderRepository;
+            _userRepository = userRepository;
+            _branchRepository = branchRepository;
+            _emailHelper = emailHelper;
+            _environment = environment;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -60,6 +68,8 @@ namespace CLN.API.Controllers
                     var vEnggPartRequestDetails_Response = new EnggPartRequestDetails_Request()
                     {
                         RequestId = result,
+                        SpareCategoryId = item.SpareCategoryId,
+                        ProductMakeId = item.ProductMakeId,
                         SpareDetailsId = item.SpareDetailsId,
                         UOMId = item.UOMId,
                         TypeOfBMSId = item.TypeOfBMSId,
@@ -70,6 +80,12 @@ namespace CLN.API.Controllers
                     };
 
                     int result_EnggPartRequestOrderDetails = await _partRequestOrderRepository.SaveEnggPartRequestDetail(vEnggPartRequestDetails_Response);
+                }
+
+                //Send Email
+                if (parameters.Id == 0)
+                {
+                    var vEmailEngg = await SendSparePartRequest_EmailToEmployee(result);
                 }
             }
 
@@ -136,6 +152,10 @@ namespace CLN.API.Controllers
                             Id = item.Id,
                             RequestId = item.RequestId,
                             RequestNumber = item.RequestNumber,
+                            SpareCategoryId = item.SpareCategoryId,
+                            SpareCategory = item.SpareCategory,
+                            ProductMakeId = item.ProductMakeId,
+                            ProductMake = item.ProductMake,
                             SpareDetailsId = item.SpareDetailsId,
                             SpareDesc = item.SpareDesc,
                             UniqueCode = item.UniqueCode,
@@ -304,6 +324,127 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        protected async Task<bool> SendSparePartRequest_EmailToEmployee(int RequestId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "", listContent = "";
+
+            try
+            {
+                var dataObj = await _partRequestOrderRepository.GetEnggPartRequestById(RequestId);
+                if (dataObj != null)
+                {
+                    string recipientEmail = "";
+                    string vReportedToEmployeeEmailId = "";
+                    string vStoreInchargeEmployeeEmailId = "";
+
+                    string vloginUserName = "";
+                    string vloginUserRole = "";
+
+                    int vloginUserBrandId = 0;
+
+                    var vloginUserId = SessionManager.LoggedInUserId;
+                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vloginUserId));
+                    if (vUserDetail != null)
+                    {
+                        vloginUserName = vUserDetail.UserName;
+                        vloginUserRole = vUserDetail.RoleName;
+
+                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                        if (vReportedToUserDetail != null)
+                        {
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                        }
+
+                        var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
+                        if (vUserBranchList.ToList().Count > 0)
+                        {
+                            vloginUserBrandId = vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault() != null ? Convert.ToInt32(vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault()) : 0;
+                        }
+
+                        var vBranchUser = await _branchRepository.GetBranchMappingByEmployeeId(0, vloginUserBrandId);
+                        if (vBranchUser.ToList().Count > 0)
+                        {
+                            var searchUser = new BaseSearchEntity();
+                            var vUserList = await _userRepository.GetUserList(searchUser);
+                            if (vUserList.ToList().Count > 0)
+                            {
+                                var vStoreIncharge = vUserList.Where(x => x.RoleName == "Store Incharge" && vBranchUser.Select(x => x.EmployeeId).Contains(x.Id));
+                                if (vStoreIncharge.ToList().Count > 0)
+                                {
+                                    vStoreInchargeEmployeeEmailId = string.Join(",", new List<string>(vStoreIncharge.ToList().Select(x => x.EmailId)).ToArray());
+                                }
+                            }
+                        }
+                    }
+
+                    if (vStoreInchargeEmployeeEmailId != "")
+                    {
+                        recipientEmail = vReportedToEmployeeEmailId + "," + vStoreInchargeEmployeeEmailId;
+                    }
+                    else
+                    {
+                        recipientEmail = vReportedToEmployeeEmailId;
+                    }
+
+
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\SparePartRequest_Employee_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[RequestNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[RequestNumber]", dataObj.RequestNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[PartRequestDetailsList]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        listContent = string.Empty;
+
+                        var vSearchObj = new EnggPartRequestDetails_Search()
+                        {
+                            RequestId = dataObj.Id,
+                        };
+
+                        var objDetailsList = await _partRequestOrderRepository.GetEnggPartRequestDetailList(vSearchObj);
+
+                        foreach (EnggPartRequestDetails_Response items in objDetailsList)
+                        {
+                            listContent = $@"{listContent}
+                            <li>
+                                <ul>
+                                    <li>Spare Category: {items.SpareCategory}</li>
+                                    <li>Spare Part Code: {items.UniqueCode}</li>
+                                    <li>Spare Part Description: {items.SpareDesc}</li>
+                                    <li>No of Quantity: {items.RequiredQty}</li>
+                                </ul>
+                                <br />
+                            </li>";
+                        }
+
+                        emailTemplateContent = emailTemplateContent.Replace("[PartRequestDetailsList]", listContent);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerName]", vloginUserName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerRole]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerRole]", vloginUserRole);
+                    }
+
+                    sSubjectDynamicContent = "Spare Part Request | " + dataObj.RequestNumber;
+                    result = await _emailHelper.SendEmail(module: "Spare Part Request", subject: sSubjectDynamicContent, sendTo: "Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
         #endregion
 
         #region TRC Part Request
