@@ -35,8 +35,9 @@ namespace CLN.API.Controllers
         private IEmailHelper _emailHelper;
         private readonly IWebHostEnvironment _environment;
         private readonly IBranchRepository _branchRepository;
+        private readonly INotificationRepository _notificationRepository;
 
-        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository, IManageStockRepository manageStockRepository, ISMSHelper smsHelper, IConfigRefRepository configRefRepository, ISMSConfigRepository smsConfigRepository, IUserRepository userRepository, ILoginRepository loginRepository, IEmailHelper emailHelper, IWebHostEnvironment environment, IBranchRepository branchRepository)
+        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository, IManageStockRepository manageStockRepository, ISMSHelper smsHelper, IConfigRefRepository configRefRepository, ISMSConfigRepository smsConfigRepository, IUserRepository userRepository, ILoginRepository loginRepository, IEmailHelper emailHelper, IWebHostEnvironment environment, IBranchRepository branchRepository, INotificationRepository notificationRepository)
         {
             _fileManager = fileManager;
 
@@ -54,10 +55,10 @@ namespace CLN.API.Controllers
             _emailHelper = emailHelper;
             _environment = environment;
             _branchRepository = branchRepository;
+            _notificationRepository = notificationRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
-
         }
 
         #region Manage Ticket
@@ -561,6 +562,124 @@ namespace CLN.API.Controllers
                     {
                         var vEmailCustomer = await SendResolved_EmailToCustomer(result);
                         var vEmailEmployee = await SendResolved_EmailToEmployee(result);
+                    }
+                }
+            }
+
+            //Notification
+            if (result > 0)
+            {
+                //Allocated to Technical Engg and Service Engg
+                if(parameters.BD_TechnicalSupportEnggId > 0 && parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
+                {
+                    var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
+                    if (vTicketDetails != null)
+                    {
+                        string notifyMessage = String.Format(@"Ticket No. {0} has been assigned to you.", vTicketDetails.TicketNumber);
+
+                        var vNotifyObj = new Notification_Request()
+                        {
+                            Subject = "Ticket Allocated",
+                            SendTo = "Ticket Allocated to Technical Support",
+                            //CustomerId = vWorkOrderObj.CustomerId,
+                            //CustomerMessage = NotifyMessage,
+                            EmployeeId = parameters.BD_TechnicalSupportEnggId,
+                            EmployeeMessage = notifyMessage,
+                            RefValue1 = vTicketDetails.TicketNumber,
+                            ReadUnread = false
+                        };
+
+                        int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                    }
+                }
+                else if (parameters.TSSP_AllocateToServiceEnggId > 0 && (parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                {
+                    var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
+                    if (vTicketDetails != null)
+                    {
+                        string notifyMessage = String.Format(@"Ticket No. {0} has been assigned to you.", vTicketDetails.TicketNumber);
+
+                        var vNotifyObj = new Notification_Request()
+                        {
+                            Subject = "Ticket Allocated",
+                            SendTo = "Ticket Allocated to Service Engineer",
+                            //CustomerId = vWorkOrderObj.CustomerId,
+                            //CustomerMessage = NotifyMessage,
+                            EmployeeId = parameters.TSSP_AllocateToServiceEnggId,
+                            EmployeeMessage = notifyMessage,
+                            RefValue1 = vTicketDetails.TicketNumber,
+                            ReadUnread = false
+                        };
+
+                        int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                    }
+                }
+
+                //Refer to TRC
+                if (parameters.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
+                {
+                    var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
+                    if (vTicketDetails != null)
+                    {
+                        string notifyMessage = String.Format(@"Ticket Number - {0} has been reffered to TRC.", vTicketDetails.TicketNumber);
+
+                        var vloginUserId = SessionManager.LoggedInUserId;
+                        var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
+                        if (vUserDetail != null)
+                        {
+                            //Notification to Reporting to
+                            var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                            if (vReportedToUserDetail != null)
+                            {
+                                var vNotifyObj = new Notification_Request()
+                                {
+                                    Subject = "Refer to TRC",
+                                    SendTo = "Reporting To",
+                                    //CustomerId = vWorkOrderObj.CustomerId,
+                                    //CustomerMessage = NotifyMessage,
+                                    EmployeeId = vReportedToUserDetail.Id,
+                                    EmployeeMessage = notifyMessage,
+                                    RefValue1 = vTicketDetails.TicketNumber,
+                                    ReadUnread = false
+                                };
+
+                                int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                            }
+
+                            //Notification to Senior Engineer
+                            var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
+                            if (vUserBranchList.ToList().Count > 0)
+                            {
+                                var vloginUserBrandId = vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault() != null ? Convert.ToInt32(vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault()) : 0;
+
+                                var vBranchUser = await _branchRepository.GetBranchMappingByEmployeeId(0, vloginUserBrandId);
+                                if (vBranchUser.ToList().Count > 0)
+                                {
+                                    var searchUser = new BaseSearchEntity();
+                                    var vUserList = await _userRepository.GetUserList(searchUser);
+                                    if (vUserList.ToList().Count > 0)
+                                    {
+                                        var vSeniorExecEng = vUserList.Where(x => x.RoleName == "senior executive" && vBranchUser.Select(x => x.EmployeeId).Contains(x.Id));
+                                        foreach (var itemEmployee in vSeniorExecEng)
+                                        {
+                                            var vNotifyObjSE = new Notification_Request()
+                                            {
+                                                Subject = "Refer to TRC",
+                                                SendTo = "Senior Executive",
+                                                //CustomerId = vWorkOrderObj.CustomerId,
+                                                //CustomerMessage = NotifyMessage,
+                                                EmployeeId = itemEmployee.Id,
+                                                EmployeeMessage = notifyMessage,
+                                                RefValue1 = vTicketDetails.TicketNumber,
+                                                ReadUnread = false
+                                            };
+
+                                            int resultNotificationSE = await _notificationRepository.SaveNotification(vNotifyObjSE);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -28,8 +28,6 @@ namespace CLN.Application.Models
         public string EmployeeMessage { get; set; }
         public string RefValue1 { get; set; }
         public string RefValue2 { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? CreatedDate { get; set; }
         public bool? ReadUnread { get; set; }
     }
 
@@ -43,6 +41,7 @@ namespace CLN.Application.Models
         public string Message { get; set; }
         public string RefValue1 { get; set; }
         public string RefValue2 { get; set; }
+
         [DefaultValue(false)]
         public bool? ReadUnread { get; set; }
         public DateTime? CreatedDate { get; set; }

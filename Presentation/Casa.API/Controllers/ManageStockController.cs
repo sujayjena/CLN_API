@@ -13,10 +13,12 @@ namespace CLN.API.Controllers
     {
         private ResponseModel _response;
         private readonly IManageStockRepository _manageStockRepository;
+        private readonly INotificationRepository _notificationRepository;
 
-        public ManageStockController(IManageStockRepository manageStockRepository)
+        public ManageStockController(IManageStockRepository manageStockRepository, INotificationRepository notificationRepository)
         {
             _manageStockRepository = manageStockRepository;
+            _notificationRepository = notificationRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -295,7 +297,7 @@ namespace CLN.API.Controllers
                         Id = item.Id,
                         EngineerId = parameters.EngineerId,
                         StockAllocatedId = result,
-                        SpareCategoryId= item.SpareCategoryId,
+                        SpareCategoryId = item.SpareCategoryId,
                         SpareId = item.SpareId,
                         AvailableQty = item.AvailableQty,
                         RequiredQty = item.RequiredQty,
@@ -304,6 +306,33 @@ namespace CLN.API.Controllers
                     };
 
                     int result_StockAllocatedPartDetails = await _manageStockRepository.SaveStockAllocatedPartDetails(vStockAllocatedPartDetails_Request);
+                }
+            }
+
+            //Notification
+            if (result > 0)
+            {
+                if (parameters.AllocatedType == "Engg")
+                {
+                    var vStockAllocated = await _manageStockRepository.GetStockAllocatedById(result);
+                    if (vStockAllocated != null)
+                    {
+                        string notifyMessage = String.Format(@"Part has been Allocate to you against Order Number - {0}.", vStockAllocated.RequestNumber);
+
+                        var vNotifyObj = new Notification_Request()
+                        {
+                            Subject = "Part Allocated to Engineer",
+                            SendTo = "Engineer",
+                            //CustomerId = vWorkOrderObj.CustomerId,
+                            //CustomerMessage = NotifyMessage,
+                            EmployeeId = parameters.EngineerId,
+                            EmployeeMessage = notifyMessage,
+                            RefValue1 = vStockAllocated.RequestNumber,
+                            ReadUnread = false
+                        };
+
+                        int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                    }
                 }
             }
 
@@ -373,7 +402,7 @@ namespace CLN.API.Controllers
 
                             StockAllocatedId = item.Id,
                             SpareCategoryId = item.SpareCategoryId,
-                            SpareCategory=item.SpareCategory,
+                            SpareCategory = item.SpareCategory,
                             SpareId = item.SpareId,
                             UniqueCode = item.UniqueCode,
                             SpareDesc = item.SpareDesc,
@@ -382,7 +411,7 @@ namespace CLN.API.Controllers
                             RequiredQty = item.RequiredQty,
                             AllocatedQty = item.AllocatedQty,
                             ReceivedQty = item.ReceivedQty,
-                            RGP=item.RGP,
+                            RGP = item.RGP,
                         };
 
                         vStockAllocatedDetails_Response.PartList.Add(vStockAllocatedPartDetails_Response);
