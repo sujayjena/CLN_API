@@ -12,6 +12,12 @@ namespace CLN.Application.Models
 {
     public class ManageTicket_Search : BaseSearchEntity
     {
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
+
         public int? EmployeeId { get; set; }
 
         [DefaultValue(0)]

@@ -75,6 +75,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RequestId", parameters.RequestId);
             queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
             queryParameters.Add("@ProductMakeId", parameters.ProductMakeId);
+            queryParameters.Add("@BMSMakeId", parameters.BMSMakeId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@UOMId", parameters.UOMId);
             queryParameters.Add("@TypeOfBMSId", parameters.TypeOfBMSId);

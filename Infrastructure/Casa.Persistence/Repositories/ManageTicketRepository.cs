@@ -158,6 +158,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@TicketStatusId", parameters.TicketStatusId);

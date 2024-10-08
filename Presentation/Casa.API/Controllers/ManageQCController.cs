@@ -186,6 +186,196 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportQCRecord()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+
+            var request = new CustomerBOM_Search();
+            request.CustomerId = 0;
+
+            var lstCustomerBOMListObj = await _ManageQCRepository.GetCustomerBOMList(request);
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    int recordIndex;
+                    ExcelWorksheet WorkSheet1 = excelExportData.Workbook.Worksheets.Add("BOM Details");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Customer Name";
+                    WorkSheet1.Cells[1, 2].Value = "BOM #";
+                    WorkSheet1.Cells[1, 3].Value = "Product Category";
+                    WorkSheet1.Cells[1, 4].Value = "Segment";
+                    WorkSheet1.Cells[1, 5].Value = "Sub - Segment";
+                    WorkSheet1.Cells[1, 6].Value = "Model Number";
+                    WorkSheet1.Cells[1, 7].Value = "Drawing Number";
+                    WorkSheet1.Cells[1, 8].Value = "Warranty (months)";
+                    WorkSheet1.Cells[1, 9].Value = "Status";
+                    WorkSheet1.Cells[1, 10].Value = "Created By";
+                    WorkSheet1.Cells[1, 11].Value = "Created Date";
+
+                    recordIndex = 2;
+                    foreach (var items in lstCustomerBOMListObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.CustomerName;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.PartCode;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.ProductModel;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.DrawingNumber;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.Warranty;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.CreatedDate;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+
+                    //Product Serial Number
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Product Serial Number");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Customer Name";
+                    WorkSheet1.Cells[1, 2].Value = "BOM #";
+                    WorkSheet1.Cells[1, 3].Value = "Product Category";
+                    WorkSheet1.Cells[1, 4].Value = "Segment";
+                    WorkSheet1.Cells[1, 5].Value = "Sub Segment";
+                    WorkSheet1.Cells[1, 6].Value = "Model";
+                    WorkSheet1.Cells[1, 7].Value = "Product Serial #";
+                    WorkSheet1.Cells[1, 8].Value = "Drawing Number";
+                    WorkSheet1.Cells[1, 9].Value = "Manufacturing Date";
+                    WorkSheet1.Cells[1, 10].Value = "Warranty (months)";
+                    WorkSheet1.Cells[1, 11].Value = "Warranty (Start date)";
+                    WorkSheet1.Cells[1, 12].Value = "Warranty (End date)";
+                    WorkSheet1.Cells[1, 13].Value = "Warranty Type";
+                    WorkSheet1.Cells[1, 14].Value = "Warranty Status";
+                    WorkSheet1.Cells[1, 15].Value = "Status";
+                    WorkSheet1.Cells[1, 16].Value = "Created By";
+                    WorkSheet1.Cells[1, 17].Value = "Created Date";
+
+                    recordIndex = 2;
+
+                    var requestPSN = new CustomerBattery_Search();
+                    requestPSN.CustomerId = 0;
+                    ////requestPSN.ProductCategoryId = 0;
+
+                    var lstCustomerBatteryListObj = await _ManageQCRepository.GetCustomerBatteryList(requestPSN);
+                    foreach (var items in lstCustomerBatteryListObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.CustomerName;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.PartCode;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.ProductModel;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.DrawingNumber;
+
+                        WorkSheet1.Cells[recordIndex, 9].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.ManufacturingDate;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.Warranty;
+
+                        WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.WarrantyStartDate;
+
+                        WorkSheet1.Cells[recordIndex, 12].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.WarrantyEndDate;
+
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.WarrantyType;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.WarrantyStatus;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 17].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.CreatedDate;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+
+                    // Address
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Accessories Details");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Customer Name";
+                    WorkSheet1.Cells[1, 2].Value = "BOM #";
+                    WorkSheet1.Cells[1, 3].Value = "Accessories BOM Number";
+                    WorkSheet1.Cells[1, 4].Value = "Drawing Number";
+                    WorkSheet1.Cells[1, 5].Value = "Accessories Name";
+                    WorkSheet1.Cells[1, 6].Value = "Qty";
+                    WorkSheet1.Cells[1, 7].Value = "Status";
+                    WorkSheet1.Cells[1, 8].Value = "Created By";
+                    WorkSheet1.Cells[1, 9].Value = "Created Date";
+
+                    recordIndex = 2;
+
+                    var requestAcces = new CustomerAccessory_Search();
+                    requestAcces.CustomerId = 0;
+
+                    var lstCustomerAccessoryListObj = await _ManageQCRepository.GetManageQCAccessoryList(requestAcces);
+                    foreach (var items in lstCustomerAccessoryListObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.CustomerName;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.PartCode;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.AccessoryBOMNumber;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.DrawingNumber;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.AccessoryName;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.Quantity;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 9].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.CreatedDate;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
+
         #endregion
 
         #region Cusromer BOM 

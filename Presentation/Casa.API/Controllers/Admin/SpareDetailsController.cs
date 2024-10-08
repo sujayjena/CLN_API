@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System.Drawing;
 using System.Globalization;
 
 namespace CLN.API.Controllers.Admin
@@ -311,6 +312,12 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                         WorkSheet1.Cells[recordIndex, 11].Value = items.CreatedDate;
                         WorkSheet1.Cells[recordIndex, 12].Value = items.CreatorName;
+
+                        if(items.MinQty> items.AvailableQty)
+                        {
+                            WorkSheet1.Row(recordIndex).Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            WorkSheet1.Row(recordIndex).Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Pink);
+                        }
 
                         recordIndex += 1;
                     }
