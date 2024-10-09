@@ -33,5 +33,15 @@ namespace CLN.Application.Interfaces
         Task<VendorDetailList_Response?> GetVendorDetailById(int Id);
 
         #endregion
+
+        #region Inverter Detail
+
+        Task<int> SaveInverterDetail(InverterDetail_Request parameters);
+
+        Task<IEnumerable<InverterDetailList_Response>> GetInverterDetailList(VendorDetail_Search parameters);
+
+        Task<InverterDetailList_Response?> GetInverterDetailById(int Id);
+
+        #endregion
     }
 }

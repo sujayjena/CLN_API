@@ -139,6 +139,27 @@ namespace CLN.Application.Models
         public string ChargerName { get; set; }
     }
 
+    #region Inverter Details
+    public class InverterDetail_Request : BaseEntity
+    {
+        public int? VendorId { get; set; }
+        public string InverterSerial { get; set; }
+        public string InverterModel { get; set; }
+        public string WarrantyPeriod { get; set; }
+        public string InverterName { get; set; }
+    }
+
+    public class InverterDetailList_Response : BaseResponseEntity
+    {
+        public int? VendorId { get; set; }
+        public string VendorName { get; set; }
+        public string InverterSerial { get; set; }
+        public string InverterModel { get; set; }
+        public string WarrantyPeriod { get; set; }
+        public string InverterName { get; set; }
+    }
+    #endregion
+
     #region Import and Download
 
     public class Vendor_ImportRequest

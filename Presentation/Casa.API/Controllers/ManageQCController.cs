@@ -278,7 +278,7 @@ namespace CLN.API.Controllers
 
                     var requestPSN = new CustomerBattery_Search();
                     requestPSN.CustomerId = 0;
-                    ////requestPSN.ProductCategoryId = 0;
+                    requestPSN.ProductCategoryId = 0;
 
                     var lstCustomerBatteryListObj = await _ManageQCRepository.GetCustomerBatteryList(requestPSN);
                     foreach (var items in lstCustomerBatteryListObj)

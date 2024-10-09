@@ -18,6 +18,8 @@ namespace CLN.Application.Models
     public class GeneratePartRequest_Request : BaseEntity
     {
         public int? SpareCategoryId { get; set; }
+        public int? ProductMakeId { get; set; }
+        public int? BMSMakeId { get; set; }
         public int? SpareDetailsId { get; set; }
         public int? UOMId { get; set; }
         public int? TypeOfBMSId { get; set; }
@@ -42,6 +44,10 @@ namespace CLN.Application.Models
     {
         public int? SpareCategoryId { get; set; }
         public string? SpareCategory { get; set; }
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
+        public int? BMSMakeId { get; set; }
+        public string? BMSMake { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
@@ -130,6 +136,10 @@ namespace CLN.Application.Models
     {
         public int? GenerateChallanId { get; set; }
         public string? RequestId { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
@@ -363,9 +373,16 @@ namespace CLN.Application.Models
     {
         public int? EngineerId { get; set; }
         public string? EngineerName { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
+        public int? UOMId { get; set; }
+        public string? UOMName { get; set; }
+        public int? MinQty { get; set; }
         public int? AvailableQty { get; set; }
         public bool? RGP { get; set; }
     }

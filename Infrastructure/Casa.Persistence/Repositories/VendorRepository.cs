@@ -150,5 +150,50 @@ namespace CLN.Persistence.Repositories
         }
 
         #endregion
+
+        #region Inverter Detail
+
+        public async Task<int> SaveInverterDetail(InverterDetail_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@VendorId", parameters.VendorId);
+            queryParameters.Add("@InverterSerial", parameters.InverterSerial);
+            queryParameters.Add("@InverterModel", parameters.InverterModel);
+            queryParameters.Add("@WarrantyPeriod", parameters.WarrantyPeriod);
+            queryParameters.Add("@InverterName", parameters.InverterName);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveInverterDetail", queryParameters);
+        }
+
+        public async Task<IEnumerable<InverterDetailList_Response>> GetInverterDetailList(VendorDetail_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@VendorId", parameters.VendorId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<InverterDetailList_Response>("GetInverterDetailList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<InverterDetailList_Response?> GetInverterDetailById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<InverterDetailList_Response>("GetInverterDetailById", queryParameters)).FirstOrDefault();
+        }
+
+        #endregion
     }
 }

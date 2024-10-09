@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using CLN.Application.Helpers;
+using System.Globalization;
 
 namespace CLN.API.Controllers
 {
@@ -272,14 +273,15 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 1].Value = "Order Number";
                     WorkSheet1.Cells[1, 2].Value = "Date";
                     WorkSheet1.Cells[1, 3].Value = "Engineer Name";
-                    WorkSheet1.Cells[1, 4].Value = "Part Code";
-                    WorkSheet1.Cells[1, 5].Value = "Part Description";
-                    WorkSheet1.Cells[1, 6].Value = "UOM";
-                    WorkSheet1.Cells[1, 7].Value = "Type Of BMS";
-                    WorkSheet1.Cells[1, 8].Value = "Available Qty";
-                    WorkSheet1.Cells[1, 9].Value = "Order Qty";
-                    WorkSheet1.Cells[1, 10].Value = "RGP";
-                    WorkSheet1.Cells[1, 11].Value = "Remark";
+                    WorkSheet1.Cells[1, 4].Value = "Spare Category";
+                    WorkSheet1.Cells[1, 5].Value = "Product Make";
+                    WorkSheet1.Cells[1, 6].Value = "Part Code";
+                    WorkSheet1.Cells[1, 7].Value = "Part Description";
+                    WorkSheet1.Cells[1, 8].Value = "UOM";
+                    WorkSheet1.Cells[1, 9].Value = "Available Qty";
+                    WorkSheet1.Cells[1, 10].Value = "Order Qty";
+                    WorkSheet1.Cells[1, 11].Value = "RGP";
+                    WorkSheet1.Cells[1, 12].Value = "Remark";
 
                     recordIndex = 2;
                     foreach (var itemsReqList in objList)
@@ -294,16 +296,20 @@ namespace CLN.API.Controllers
                         foreach (var itemReqDetails in objReqDetailsList)
                         {
                             WorkSheet1.Cells[recordIndex, 1].Value = itemsReqList.RequestNumber;
+
                             WorkSheet1.Cells[recordIndex, 2].Value = itemsReqList.RequestDate;
+                            WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+
                             WorkSheet1.Cells[recordIndex, 3].Value = itemsReqList.EngineerName;
-                            WorkSheet1.Cells[recordIndex, 4].Value = itemReqDetails.UniqueCode;
-                            WorkSheet1.Cells[recordIndex, 5].Value = itemReqDetails.SpareDesc;
-                            WorkSheet1.Cells[recordIndex, 6].Value = itemReqDetails.UOMName;
-                            WorkSheet1.Cells[recordIndex, 7].Value = itemReqDetails.TypeOfBMS;
-                            WorkSheet1.Cells[recordIndex, 8].Value = itemReqDetails.AvailableQty;
-                            WorkSheet1.Cells[recordIndex, 9].Value = itemReqDetails.RequiredQty;
-                            WorkSheet1.Cells[recordIndex, 10].Value = itemReqDetails.RGP == true ? "True" : "False";
-                            WorkSheet1.Cells[recordIndex, 11].Value = itemReqDetails.Remarks;
+                            WorkSheet1.Cells[recordIndex, 4].Value = itemReqDetails.SpareCategory;
+                            WorkSheet1.Cells[recordIndex, 5].Value = itemReqDetails.ProductMake;
+                            WorkSheet1.Cells[recordIndex, 6].Value = itemReqDetails.UniqueCode;
+                            WorkSheet1.Cells[recordIndex, 7].Value = itemReqDetails.SpareDesc;
+                            WorkSheet1.Cells[recordIndex, 8].Value = itemReqDetails.UOMName;
+                            WorkSheet1.Cells[recordIndex, 9].Value = itemReqDetails.AvailableQty;
+                            WorkSheet1.Cells[recordIndex, 10].Value = itemReqDetails.RequiredQty;
+                            WorkSheet1.Cells[recordIndex, 11].Value = itemReqDetails.RGP == true ? "OK" : "NOT OK";
+                            WorkSheet1.Cells[recordIndex, 12].Value = itemReqDetails.Remarks;
                         }
                         recordIndex += 1;
                     }
