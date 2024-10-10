@@ -3,6 +3,7 @@ using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,30 @@ namespace CLN.Application.Models
         public int? WarrantyStatusId { get; set; }
 
         public int? WarrantyTypeId { get; set; }
+
+        [DefaultValue(false)]
+        public bool? IsTrackingDeviceRequired { get; set; }
+
+        [DefaultValue(0)]
+        public int? TrackingDeviceId { get; set; }
+
+        [DefaultValue(0)]
+        public int? MakeId { get; set; }
+
+        [DefaultValue("")]
+        public string? DeviceID { get; set; }
+
+        [DefaultValue("")]
+        public string? IMEINo { get; set; }
+
+        [DefaultValue("")]
+        public string? SIMNo { get; set; }
+
+        [DefaultValue(0)]
+        public int? SIMProviderId { get; set; }
+
+        [DefaultValue(0)]
+        public int? PlatformId { get; set; }
 
         public bool? IsActive { get; set; }
     }
@@ -91,6 +116,26 @@ namespace CLN.Application.Models
         public int? WarrantyTypeId { get; set; }
 
         public string? WarrantyType { get; set; }
+
+        public bool? IsTrackingDeviceRequired { get; set; }
+
+        public int? TrackingDeviceId { get; set; }
+        public string? TrackingDeviceName { get; set; }
+
+        public int? MakeId { get; set; }
+        public string? MakeName { get; set; }
+
+        public string? DeviceID { get; set; }
+
+        public string? IMEINo { get; set; }
+
+        public string? SIMNo { get; set; }
+
+        public int? SIMProviderId { get; set; }
+        public string? SIMProviderName { get; set; }
+
+        public int? PlatformId { get; set; }
+        public string? PlatformName { get; set; }
 
         public bool? IsActive { get; set; }
     }

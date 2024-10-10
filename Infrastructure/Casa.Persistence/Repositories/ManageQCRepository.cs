@@ -195,6 +195,16 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@WarrantyEndDate", parameters.WarrantyEndDate);
             queryParameters.Add("@WarrantyStatusId", parameters.WarrantyStatusId);
             queryParameters.Add("@WarrantyTypeId", parameters.WarrantyTypeId);
+
+            queryParameters.Add("@IsTrackingDeviceRequired", parameters.IsTrackingDeviceRequired);
+            queryParameters.Add("@TrackingDeviceId", parameters.TrackingDeviceId);
+            queryParameters.Add("@MakeId", parameters.MakeId);
+            queryParameters.Add("@DeviceID", parameters.DeviceID);
+            queryParameters.Add("@IMEINo", parameters.IMEINo);
+            queryParameters.Add("@SIMNo", parameters.SIMNo);
+            queryParameters.Add("@SIMProviderId", parameters.SIMProviderId);
+            queryParameters.Add("@PlatformId", parameters.PlatformId);
+
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

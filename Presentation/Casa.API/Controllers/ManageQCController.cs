@@ -725,6 +725,18 @@ namespace CLN.API.Controllers
             {
                 _response.Message = "Product Serial Number already exists";
             }
+            else if (result == -4)
+            {
+                _response.Message = "Device ID already exists";
+            }
+            else if (result == -5)
+            {
+                _response.Message = "IMEI No already exists";
+            }
+            else if (result == -6)
+            {
+                _response.Message = "SIM No already exists";
+            }
             else
             {
                 _response.Message = "Record details saved sucessfully";
