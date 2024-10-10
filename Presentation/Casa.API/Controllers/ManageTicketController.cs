@@ -522,6 +522,131 @@ namespace CLN.API.Controllers
                     #endregion
                 }
 
+                //Out of Warranty : SMS send to Customer and reporting to employee mobile
+                if (tktParametersId == 0)
+                {
+                    if (parameters.BD_WarrantyStatusId == 2)
+                    {
+                        #region SMS Config
+
+                        var vConfigRef_Search = new ConfigRef_Search()
+                        {
+                            Ref_Type = "SMS",
+                            Ref_Param = "OutOfWarranty"
+                        };
+
+                        string sSMSTemplateName = string.Empty;
+                        string sSMSTemplateContent = string.Empty;
+                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                        if (vConfigRefObj != null)
+                        {
+                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                            {
+                                //Replace parameter 
+                                sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
+                            }
+                        }
+
+                        #endregion
+
+                        #region getting customer mobile and reporting to user mobile no
+
+                        string mobileNo = resultTicketSMSObj.CD_CustomerMobile;
+
+                        var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
+                        if (vUserDetail != null)
+                        {
+                            var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                            if (vReportedToUserDetail != null)
+                            {
+                                mobileNo += "," + vReportedToUserDetail.MobileNumber;
+                            }
+                        }
+
+                        #endregion
+
+                        #region SMS History Check
+
+                        // Send SMS
+                        var vsmsRequest = new SMS_Request()
+                        {
+                            Ref1_OTPId = 0,
+                            Ref2_Other = resultTicketSMSObj.TicketNumber,
+                            TemplateName = sSMSTemplateName,
+                            TemplateContent = sSMSTemplateContent,
+                            Mobile = mobileNo,
+                        };
+
+                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                        #endregion
+                    }
+                }
+
+                //Warranty Void : SMS send to Customer and reporting to employee mobile
+                if (parameters.TSPD_IsWarrantyVoid == true)
+                {
+                    #region SMS Config
+
+                    var vConfigRef_Search = new ConfigRef_Search()
+                    {
+                        Ref_Type = "SMS",
+                        Ref_Param = "WarrantyVoid"
+                    };
+
+                    string sSMSTemplateName = string.Empty;
+                    string sSMSTemplateContent = string.Empty;
+                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                    if (vConfigRefObj != null)
+                    {
+                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                        {
+                            //Replace parameter 
+                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
+                        }
+                    }
+
+                    #endregion
+
+                    #region getting customer mobile and reporting to user mobile no
+
+                    string mobileNo = resultTicketSMSObj.CD_CustomerMobile;
+
+                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
+                    if (vUserDetail != null)
+                    {
+                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                        if (vReportedToUserDetail != null)
+                        {
+                            mobileNo += "," + vReportedToUserDetail.MobileNumber;
+                        }
+                    }
+
+                    #endregion
+
+                    #region SMS History Check
+
+                    // Send SMS
+                    var vsmsRequest = new SMS_Request()
+                    {
+                        Ref1_OTPId = 0,
+                        Ref2_Other = resultTicketSMSObj.TicketNumber,
+                        TemplateName = sSMSTemplateName,
+                        TemplateContent = sSMSTemplateContent,
+                        Mobile = mobileNo,
+                    };
+
+                    bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                    #endregion
+                }
+
                 #endregion
             }
 
@@ -530,10 +655,10 @@ namespace CLN.API.Controllers
             {
                 if (tktParametersId == 0)
                 {
-                    //Ticket Generate Email
+                    //Ticket Generate
                     var vEmailCustomer = await SendTicketGenerate_EmailToCustomer(result);
 
-                    // Out Of Warranty Email
+                    // Out Of Warranty
                     if (parameters.BD_WarrantyStatusId == 2)
                     {
                         var vEmailCustomer_OW = await SendOutOfWarranty_EmailToCustomer(result);
@@ -544,20 +669,20 @@ namespace CLN.API.Controllers
 
                 if (parameters.Id > 0)
                 {
-                    //Refer to TRC Email
+                    //Refer to TRC
                     if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
                     {
                         var vEmailCustomer = await SendReferToTRC_EmailToCustomer(result);
                         var vEmailEmployee = await SendReferToTRC_EmailToEmployee(result);
                     }
 
-                    //Voided Warranty Email
+                    //Warranty Void
                     if (parameters.TSPD_IsWarrantyVoid == true)
                     {
                         var vEmailCustomer = await SendVoidedWarranty_EmailToCustomer(result);
                     }
 
-                    //Resolved Email
+                    //Resolved
                     if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
                     {
                         var vEmailCustomer = await SendResolved_EmailToCustomer(result);
@@ -570,7 +695,7 @@ namespace CLN.API.Controllers
             if (result > 0)
             {
                 //Allocated to Technical Engg and Service Engg
-                if(parameters.BD_TechnicalSupportEnggId > 0 && parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
+                if (parameters.BD_TechnicalSupportEnggId > 0 && parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
                 {
                     var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
                     if (vTicketDetails != null)
@@ -623,7 +748,6 @@ namespace CLN.API.Controllers
                     {
                         string notifyMessage = String.Format(@"Ticket Number - {0} has been reffered to TRC.", vTicketDetails.TicketNumber);
 
-                        var vloginUserId = SessionManager.LoggedInUserId;
                         var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
                         if (vUserDetail != null)
                         {
@@ -690,7 +814,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> CreateDuplicateTicket(int TicketId, int IsEngineerType=0)
+        public async Task<ResponseModel> CreateDuplicateTicket(int TicketId, int IsEngineerType = 0)
         {
             // Save/Update
             int result = await _manageTicketRepository.CreateDuplicateTicket(TicketId, IsEngineerType);
@@ -1368,7 +1492,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
                         //WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.LongTimePattern;
                         WorkSheet1.Cells[recordIndex, 2].Value = items.TicketTime.ToString();
-                        
+
 
                         WorkSheet1.Cells[recordIndex, 3].Value = items.TicketStatus;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.TicketPriority;
