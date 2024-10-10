@@ -68,6 +68,13 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@BD_WarrantyEndDate", parameters.BD_WarrantyEndDate);
             queryParameters.Add("@BD_WarrantyStatusId", parameters.BD_WarrantyStatusId);
             queryParameters.Add("@BD_WarrantyTypeId", parameters.BD_WarrantyTypeId);
+            queryParameters.Add("@BD_TrackingDeviceId", parameters.BD_TrackingDeviceId);
+            queryParameters.Add("@BD_MakeId", parameters.BD_MakeId);
+            queryParameters.Add("@BD_DeviceID", parameters.BD_DeviceID);
+            queryParameters.Add("@BD_IMEINo", parameters.BD_IMEINo);
+            queryParameters.Add("@BD_SIMNo", parameters.BD_SIMNo);
+            queryParameters.Add("@BD_SIMProviderId", parameters.BD_SIMProviderId);
+            queryParameters.Add("@BD_PlatformId", parameters.BD_PlatformId);
             queryParameters.Add("@BD_TechnicalSupportEnggId", parameters.BD_TechnicalSupportEnggId);
 
             queryParameters.Add("@TSAD_Visual", parameters.TSAD_Visual);

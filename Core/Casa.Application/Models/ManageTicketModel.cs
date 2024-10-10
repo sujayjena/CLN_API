@@ -125,6 +125,13 @@ namespace CLN.Application.Models
         public DateTime? BD_WarrantyEndDate { get; set; }
         public int? BD_WarrantyStatusId { get; set; }
         public int? BD_WarrantyTypeId { get; set; }
+        public int? BD_TrackingDeviceId { get; set; }
+        public int? BD_MakeId { get; set; }
+        public string? BD_DeviceID { get; set; }
+        public string? BD_IMEINo { get; set; }
+        public string? BD_SIMNo { get; set; }
+        public int? BD_SIMProviderId { get; set; }
+        public int? BD_PlatformId { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
 
         public int? TSAD_Visual { get; set; }
@@ -321,6 +328,17 @@ namespace CLN.Application.Models
         public string BD_WarrantyStatus { get; set; }
         public int? BD_WarrantyTypeId { get; set; }
         public string? BD_WarrantyType { get; set; }
+        public int? BD_TrackingDeviceId { get; set; }
+        public string? BD_TrackingDeviceName { get; set; }
+        public int? BD_MakeId { get; set; }
+        public string? BD_MakeName { get; set; }
+        public string? BD_DeviceID { get; set; }
+        public string? BD_IMEINo { get; set; }
+        public string? BD_SIMNo { get; set; }
+        public int? BD_SIMProviderId { get; set; }
+        public string? BD_SIMProviderName { get; set; }
+        public int? BD_PlatformId { get; set; }
+        public string? BD_PlatformName { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
         public string BD_TechnicalSupportEngg { get; set; }
 
@@ -436,6 +454,17 @@ namespace CLN.Application.Models
         public string BD_WarrantyStatus { get; set; }
         public int? BD_WarrantyTypeId { get; set; }
         public string? BD_WarrantyType { get; set; }
+        public int? BD_TrackingDeviceId { get; set; }
+        public string? BD_TrackingDeviceName { get; set; }
+        public int? BD_MakeId { get; set; }
+        public string? BD_MakeName { get; set; }
+        public string? BD_DeviceID { get; set; }
+        public string? BD_IMEINo { get; set; }
+        public string? BD_SIMNo { get; set; }
+        public int? BD_SIMProviderId { get; set; }
+        public string? BD_SIMProviderName { get; set; }
+        public int? BD_PlatformId { get; set; }
+        public string? BD_PlatformName { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
         public string BD_TechnicalSupportEngg { get; set; }
 
@@ -626,6 +655,17 @@ namespace CLN.Application.Models
         public string BD_WarrantyStatus { get; set; }
         public int? BD_WarrantyTypeId { get; set; }
         public string? BD_WarrantyType { get; set; }
+        public int? BD_TrackingDeviceId { get; set; }
+        public string? BD_TrackingDeviceName { get; set; }
+        public int? BD_MakeId { get; set; }
+        public string? BD_MakeName { get; set; }
+        public string? BD_DeviceID { get; set; }
+        public string? BD_IMEINo { get; set; }
+        public string? BD_SIMNo { get; set; }
+        public int? BD_SIMProviderId { get; set; }
+        public string? BD_SIMProviderName { get; set; }
+        public int? BD_PlatformId { get; set; }
+        public string? BD_PlatformName { get; set; }
         public int? BD_TechnicalSupportEnggId { get; set; }
         public string BD_TechnicalSupportEngg { get; set; }
 

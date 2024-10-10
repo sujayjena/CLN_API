@@ -11,6 +11,7 @@ using OfficeOpenXml;
 using System.ComponentModel;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.Globalization;
+using System.Text;
 
 namespace CLN.API.Controllers
 {
@@ -442,9 +443,14 @@ namespace CLN.API.Controllers
                             var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
 
                             //Replace parameter 
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var1#}", resultTicketSMSObj.TSSP_AllocateToServiceEngg);
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var2#}", vEnggObj.MobileNumber);
+                            //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
+                            //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var1#}", resultTicketSMSObj.TSSP_AllocateToServiceEngg);
+                            //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var2#}", vEnggObj.MobileNumber);
+
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.TSSP_AllocateToServiceEngg, vEnggObj.MobileNumber);
+
+                            sSMSTemplateContent = sb.ToString();
                         }
                     }
 
@@ -996,6 +1002,19 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.BD_WarrantyStatus = vResultObj.BD_WarrantyStatus;
                     vManageTicketDetail_Response.BD_WarrantyTypeId = vResultObj.BD_WarrantyTypeId;
                     vManageTicketDetail_Response.BD_WarrantyType = vResultObj.BD_WarrantyType;
+
+                    vManageTicketDetail_Response.BD_TrackingDeviceId = vResultObj.BD_TrackingDeviceId;
+                    vManageTicketDetail_Response.BD_TrackingDeviceName = vResultObj.BD_TrackingDeviceName;
+                    vManageTicketDetail_Response.BD_MakeId = vResultObj.BD_MakeId;
+                    vManageTicketDetail_Response.BD_MakeName = vResultObj.BD_MakeName;
+                    vManageTicketDetail_Response.BD_DeviceID = vResultObj.BD_DeviceID;
+                    vManageTicketDetail_Response.BD_IMEINo = vResultObj.BD_IMEINo;
+                    vManageTicketDetail_Response.BD_SIMNo = vResultObj.BD_SIMNo;
+                    vManageTicketDetail_Response.BD_SIMProviderId = vResultObj.BD_SIMProviderId;
+                    vManageTicketDetail_Response.BD_SIMProviderName = vResultObj.BD_SIMProviderName;
+                    vManageTicketDetail_Response.BD_PlatformId = vResultObj.BD_PlatformId;
+                    vManageTicketDetail_Response.BD_PlatformName = vResultObj.BD_PlatformName;
+
                     vManageTicketDetail_Response.BD_TechnicalSupportEnggId = vResultObj.BD_TechnicalSupportEnggId;
                     vManageTicketDetail_Response.BD_TechnicalSupportEngg = vResultObj.BD_TechnicalSupportEngg;
 
