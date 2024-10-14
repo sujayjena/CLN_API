@@ -727,13 +727,29 @@ namespace CLN.API.Controllers
             }
             else if (result == -4)
             {
-                _response.Message = "Device ID already exists";
+                _response.Message = "Device ID, IMEI No. and SIM No. already exists";
             }
             else if (result == -5)
             {
-                _response.Message = "IMEI No already exists";
+                _response.Message = "Device ID and IMEI No already exists";
             }
             else if (result == -6)
+            {
+                _response.Message = "Device ID and SIM No. already exists";
+            }
+            else if (result == -7)
+            {
+                _response.Message = "IMEI No. and SIM No. already exists";
+            }
+            else if (result == -8)
+            {
+                _response.Message = "Device ID already exists";
+            }
+            else if (result == -9)
+            {
+                _response.Message = "IMEI No already exists";
+            }
+            else if (result == -10)
             {
                 _response.Message = "SIM No already exists";
             }
