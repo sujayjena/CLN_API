@@ -46,7 +46,13 @@ namespace CLN.Application.Models
             ExpenseDetails = new List<ExpenseDetails_Request>();
         }
 
+        [DefaultValue(false)]
+        public bool? IsMySelf { get; set; }
+
         public string? ExpenseNumber { get; set; }
+
+        [DefaultValue(0)]
+        public int? EmployeeId { get; set; }
 
         public int? TicketId { get; set; }
 
@@ -64,7 +70,9 @@ namespace CLN.Application.Models
             ExpenseDetails = new List<ExpenseDetails_Response>();
         }
 
+        public bool? IsMySelf { get; set; }
         public string? ExpenseNumber { get; set; }
+        public int? EmployeeId { get; set; }
         public int? TicketId { get; set; }
         public string? TicketNumber { get; set; }
         public string? CustomerName { get; set; }

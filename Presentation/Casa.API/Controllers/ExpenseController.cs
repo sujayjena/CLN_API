@@ -126,7 +126,9 @@ namespace CLN.API.Controllers
                 if (vResultObj != null)
                 {
                     vExpense_Response.Id = vResultObj.Id;
+                    vExpense_Response.IsMySelf = vResultObj.IsMySelf;
                     vExpense_Response.ExpenseNumber = vResultObj.ExpenseNumber;
+                    vExpense_Response.EmployeeId = vResultObj.EmployeeId;
                     vExpense_Response.TicketId = vResultObj.TicketId;
 
                     vExpense_Response.TicketNumber = vResultObj.TicketNumber;

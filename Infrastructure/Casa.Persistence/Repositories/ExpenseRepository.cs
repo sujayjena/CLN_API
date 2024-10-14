@@ -28,7 +28,9 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@IsMySelf", parameters.IsMySelf);
             queryParameters.Add("@ExpenseNumber", parameters.ExpenseNumber);
+            queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@TicketId", parameters.TicketId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@IsActive", parameters.IsActive);
