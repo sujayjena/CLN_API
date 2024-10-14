@@ -309,7 +309,7 @@ namespace CLN.API.Controllers
 
                 #region SMS Send
 
-                // New Tick generate : SMS send to Customer mobile
+                // New Ticket Generation : SMS send to Customer mobile
                 if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.New)
                 {
                     #region SMS Config
@@ -318,61 +318,6 @@ namespace CLN.API.Controllers
                     {
                         Ref_Type = "SMS",
                         Ref_Param = "TicketGeneration"
-                    };
-
-                    string sSMSTemplateName = string.Empty;
-                    string sSMSTemplateContent = string.Empty;
-                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                    if (vConfigRefObj != null)
-                    {
-                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
-                        {
-                            //Replace parameter 
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
-                        }
-                    }
-
-                    #endregion
-
-                    #region SMS History Check
-
-                    var vSMSHistorySearch = new SMSHistory_Search()
-                    {
-                        Ref2_Other = resultTicketSMSObj.TicketNumber,
-                        TemplateName = sSMSTemplateContent,
-                    };
-
-                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
-                    if (resultSMSHistoryObj == null)
-                    {
-                        // Send SMS
-                        var vsmsRequest = new SMS_Request()
-                        {
-                            Ref1_OTPId = 0,
-                            Ref2_Other = resultTicketSMSObj.TicketNumber,
-                            TemplateName = sSMSTemplateName,
-                            TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CustomerMobile,
-                        };
-
-                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-                    }
-
-                    #endregion
-                }
-
-                // New Tick generate : SMS send to Customer mobile
-                if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.New)
-                {
-                    #region SMS Config
-
-                    var vConfigRef_Search = new ConfigRef_Search()
-                    {
-                        Ref_Type = "SMS",
-                        Ref_Param = "TicketIDTocustomer"
                     };
 
                     string sSMSTemplateName = string.Empty;
@@ -473,7 +418,7 @@ namespace CLN.API.Controllers
                     #endregion
                 }
 
-                // Resolved Tick : SMS send to Customer mobile
+                // Resolved Ticket : SMS send to Customer mobile
                 if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
                 {
                     #region SMS Config
@@ -481,7 +426,7 @@ namespace CLN.API.Controllers
                     var vConfigRef_Search = new ConfigRef_Search()
                     {
                         Ref_Type = "SMS",
-                        Ref_Param = "ResolveTicketNumber"
+                        Ref_Param = "TicketResolve"
                     };
 
                     string sSMSTemplateName = string.Empty;
