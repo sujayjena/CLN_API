@@ -323,7 +323,10 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
-            return await ListByStoredProcedure<EnggStockMaster_Response>("GetEnggStockMasterList", queryParameters);
+            var result = await ListByStoredProcedure<EnggStockMaster_Response>("GetEnggStockMasterList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
         }
 
         #endregion

@@ -146,6 +146,10 @@ namespace CLN.API.Controllers
             {
                 _response.Message = "Ticket already started by Engg. Please stop and allocate to other Engg.";
             }
+            else if (result == -4)
+            {
+                _response.Message = "Ticket is Started by Engg. Please stop and change ticket status.";
+            }
             else if (result == (int)SaveOperationEnums.NoResult)
             {
                 _response.Message = "Something went wrong, please try again";
