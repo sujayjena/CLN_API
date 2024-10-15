@@ -1462,6 +1462,7 @@ namespace CLN.API.Controllers
             //}
             //else
             //{
+
             int iOTP = Utilities.GenerateRandomNumForOTP();
             if (iOTP > 0)
             {
@@ -1494,8 +1495,13 @@ namespace CLN.API.Controllers
                     if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
                     {
                         //Replace parameter 
-                        sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", iOTP.ToString());
-                        sSMSTemplateContent = sSMSTemplateContent.Replace("{#var1#}", resultTicketSMSObj.TicketNumber);
+                        //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", iOTP.ToString());
+                        //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var1#}", resultTicketSMSObj.TicketNumber);
+
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendFormat(sSMSTemplateContent, iOTP.ToString(), resultTicketSMSObj.TicketNumber);
+
+                        sSMSTemplateContent = sb.ToString();
                     }
                 }
 
