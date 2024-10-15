@@ -313,7 +313,7 @@ namespace CLN.API.Controllers
 
                 #region SMS Send
 
-                // New Ticket Generation : SMS send to Customer mobile
+                // New Ticket Generation : SMS send to Caller mobile
                 if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.New)
                 {
                     #region SMS Config
@@ -359,7 +359,7 @@ namespace CLN.API.Controllers
                             Ref2_Other = resultTicketSMSObj.TicketNumber,
                             TemplateName = sSMSTemplateName,
                             TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CustomerMobile,
+                            Mobile = resultTicketSMSObj.CD_CallerMobile,
                         };
 
                         bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
@@ -368,16 +368,18 @@ namespace CLN.API.Controllers
                     #endregion
                 }
 
-                // New Tick Allocate To Service Engineer : SMS send to Service Engineer 
-                if (resultTicketSMSObj.TSSP_AllocateToServiceEnggId > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                // New Ticket Allocate To Technical Support Engineer : SMS Send to Technical Engineer
+                if (resultTicketSMSObj.BD_TechnicalSupportEnggId > 0 && resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
                 {
                     #region SMS Config
 
                     var vConfigRef_Search = new ConfigRef_Search()
                     {
                         Ref_Type = "SMS",
-                        Ref_Param = "TicketAllocateToServiceEngineer"
+                        Ref_Param = "TicketAllocateToEngineer"
                     };
+
+                    var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.BD_TechnicalSupportEnggId)).Result;
 
                     string sSMSTemplateName = string.Empty;
                     string sSMSTemplateContent = string.Empty;
@@ -389,15 +391,8 @@ namespace CLN.API.Controllers
 
                         if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
                         {
-                            var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
-
-                            //Replace parameter 
-                            //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
-                            //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var1#}", resultTicketSMSObj.TSSP_AllocateToServiceEngg);
-                            //sSMSTemplateContent = sSMSTemplateContent.Replace("{#var2#}", vEnggObj.MobileNumber);
-
                             StringBuilder sb = new StringBuilder();
-                            sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.TSSP_AllocateToServiceEngg, vEnggObj.MobileNumber);
+                            sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.CD_SiteCustomerName, resultTicketSMSObj.CD_SitContactMobile, resultTicketSMSObj.CD_SiteCustomerAddress1, resultTicketSMSObj.BD_ProbReportedByCust);
 
                             sSMSTemplateContent = sb.ToString();
                         }
@@ -414,7 +409,7 @@ namespace CLN.API.Controllers
                         Ref2_Other = resultTicketSMSObj.TicketNumber,
                         TemplateName = sSMSTemplateName,
                         TemplateContent = sSMSTemplateContent,
-                        Mobile = resultTicketSMSObj.CD_CustomerMobile,
+                        Mobile = vEnggObj.MobileNumber,
                     };
 
                     bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
@@ -422,7 +417,160 @@ namespace CLN.API.Controllers
                     #endregion
                 }
 
-                // Resolved Ticket : SMS send to Customer mobile
+                // New Ticket Allocate To Technical Support Engineer : SMS send to Caller
+                if (resultTicketSMSObj.BD_TechnicalSupportEnggId > 0 && resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
+                {
+                    if (!string.IsNullOrEmpty(resultTicketSMSObj.CD_CallerMobile))
+                    {
+                        #region SMS Config
+
+                        var vConfigRef_Search = new ConfigRef_Search()
+                        {
+                            Ref_Type = "SMS",
+                            Ref_Param = "TicketAllocateToCaller"
+                        };
+
+                        string sSMSTemplateName = string.Empty;
+                        string sSMSTemplateContent = string.Empty;
+                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                        if (vConfigRefObj != null)
+                        {
+                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                            {
+                                var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.BD_TechnicalSupportEnggId)).Result;
+
+                                StringBuilder sb = new StringBuilder();
+                                sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.BD_TechnicalSupportEngg, vEnggObj.MobileNumber);
+
+                                sSMSTemplateContent = sb.ToString();
+                            }
+                        }
+
+                        #endregion
+
+                        #region SMS History Check
+
+                        // Send SMS
+                        var vsmsRequest = new SMS_Request()
+                        {
+                            Ref1_OTPId = 0,
+                            Ref2_Other = resultTicketSMSObj.TicketNumber,
+                            TemplateName = sSMSTemplateName,
+                            TemplateContent = sSMSTemplateContent,
+                            Mobile = resultTicketSMSObj.CD_CallerMobile,
+                        };
+
+                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                        #endregion
+                    }
+                }
+
+                // New Ticket Allocate To Service Engineer : SMS send to Service Engineer
+                if (resultTicketSMSObj.TSSP_AllocateToServiceEnggId > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                {
+                    #region SMS Config
+
+                    var vConfigRef_Search = new ConfigRef_Search()
+                    {
+                        Ref_Type = "SMS",
+                        Ref_Param = "TicketAllocateToEngineer"
+                    };
+
+                    var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
+
+                    string sSMSTemplateName = string.Empty;
+                    string sSMSTemplateContent = string.Empty;
+                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                    if (vConfigRefObj != null)
+                    {
+                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.CD_SiteCustomerName, resultTicketSMSObj.CD_SitContactMobile, resultTicketSMSObj.CD_SiteCustomerAddress1, resultTicketSMSObj.BD_ProbReportedByCust);
+
+                            sSMSTemplateContent = sb.ToString();
+                        }
+                    }
+
+                    #endregion
+
+                    #region SMS History Check
+
+                    // Send SMS
+                    var vsmsRequest = new SMS_Request()
+                    {
+                        Ref1_OTPId = 0,
+                        Ref2_Other = resultTicketSMSObj.TicketNumber,
+                        TemplateName = sSMSTemplateName,
+                        TemplateContent = sSMSTemplateContent,
+                        Mobile = vEnggObj.MobileNumber,
+                    };
+
+                    bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                    #endregion
+                }
+
+                // New Ticket Allocate To Service Engineer : SMS send to Caller
+                if (resultTicketSMSObj.TSSP_AllocateToServiceEnggId > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                {
+                    if (!string.IsNullOrEmpty(resultTicketSMSObj.CD_CallerMobile))
+                    {
+                        #region SMS Config
+
+                        var vConfigRef_Search = new ConfigRef_Search()
+                        {
+                            Ref_Type = "SMS",
+                            Ref_Param = "TicketAllocateToCaller"
+                        };
+
+                        string sSMSTemplateName = string.Empty;
+                        string sSMSTemplateContent = string.Empty;
+                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                        if (vConfigRefObj != null)
+                        {
+                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                            {
+                                var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
+
+                                StringBuilder sb = new StringBuilder();
+                                sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.TSSP_AllocateToServiceEngg, vEnggObj.MobileNumber);
+
+                                sSMSTemplateContent = sb.ToString();
+                            }
+                        }
+
+                        #endregion
+
+                        #region SMS History Check
+
+                        // Send SMS
+                        var vsmsRequest = new SMS_Request()
+                        {
+                            Ref1_OTPId = 0,
+                            Ref2_Other = resultTicketSMSObj.TicketNumber,
+                            TemplateName = sSMSTemplateName,
+                            TemplateContent = sSMSTemplateContent,
+                            Mobile = resultTicketSMSObj.CD_CallerMobile,
+                        };
+
+                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                        #endregion
+                    }
+                }
+
+                // Resolved Ticket : SMS send to Caller mobile
                 if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
                 {
                     #region SMS Config
@@ -468,7 +616,7 @@ namespace CLN.API.Controllers
                             Ref2_Other = resultTicketSMSObj.TicketNumber,
                             TemplateName = sSMSTemplateName,
                             TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CustomerMobile,
+                            Mobile = resultTicketSMSObj.CD_CallerMobile,
                         };
 
                         bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
@@ -507,9 +655,9 @@ namespace CLN.API.Controllers
 
                         #endregion
 
-                        #region getting customer mobile and reporting to user mobile no
+                        #region getting caller mobile and reporting to user mobile no
 
-                        string mobileNo = resultTicketSMSObj.CD_CustomerMobile;
+                        string mobileNo = resultTicketSMSObj.CD_CallerMobile;
 
                         var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
                         if (vUserDetail != null)
@@ -569,9 +717,9 @@ namespace CLN.API.Controllers
 
                     #endregion
 
-                    #region getting customer mobile and reporting to user mobile no
+                    #region getting caller mobile and reporting to user mobile no
 
-                    string mobileNo = resultTicketSMSObj.CD_CustomerMobile;
+                    string mobileNo = resultTicketSMSObj.CD_CallerMobile;
 
                     var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
                     if (vUserDetail != null)
