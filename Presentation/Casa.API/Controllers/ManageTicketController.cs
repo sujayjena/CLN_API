@@ -948,6 +948,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.BD_WarrantyTypeId = vResultObj.BD_WarrantyTypeId;
                     vManageTicketDetail_Response.BD_WarrantyType = vResultObj.BD_WarrantyType;
 
+                    vManageTicketDetail_Response.BD_IsTrackingDeviceRequired = vResultObj.BD_IsTrackingDeviceRequired;
                     vManageTicketDetail_Response.BD_TrackingDeviceId = vResultObj.BD_TrackingDeviceId;
                     vManageTicketDetail_Response.BD_TrackingDeviceName = vResultObj.BD_TrackingDeviceName;
                     vManageTicketDetail_Response.BD_MakeId = vResultObj.BD_MakeId;
