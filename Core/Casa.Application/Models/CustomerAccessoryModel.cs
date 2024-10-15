@@ -64,6 +64,7 @@ namespace CLN.Application.Models
         public string? DrawingNumber { get; set; }
         public string? AccessoryName { get; set; }
         public string? Quantity { get; set; }
+        public string? IsActive { get; set; }
     }
 
     public class CustomerAccessory_ImportDataValidation
@@ -74,6 +75,7 @@ namespace CLN.Application.Models
         public string? DrawingNumber { get; set; }
         public string? AccessoryName { get; set; }
         public string? Quantity { get; set; }
+        public string? IsActive { get; set; }
         public string ValidationMessage { get; set; }
     }
 

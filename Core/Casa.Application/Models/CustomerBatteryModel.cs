@@ -152,11 +152,20 @@ namespace CLN.Application.Models
         public string? CustomerName { get; set; }
         public string? PartCode { get; set; }
         public string? ProductSerialNumber { get; set; }
+        public string? IsTrackingDeviceRequired { get; set; }
+        public string? TrackingDeviceName { get; set; }
+        public string? MakeName { get; set; }
+        public string? DeviceID { get; set; }
+        public string? IMEINo { get; set; }
+        public string? SIMNo { get; set; }
+        public string? SIMProviderName { get; set; }
+        public string? PlatformName { get; set; }
         public DateTime? ManufacturingDate { get; set; }
         public DateTime? WarrantyStartDate { get; set; }
         public DateTime? WarrantyEndDate { get; set; }
         public string? WarrantyStatus { get; set; }
         public string? WarrantyType { get; set; }
+        public string? IsActive { get; set; }
     }
 
     public class CustomerBattery_ImportDataValidation
@@ -164,11 +173,20 @@ namespace CLN.Application.Models
         public string? CustomerName { get; set; }
         public string? PartCode { get; set; }
         public string? ProductSerialNumber { get; set; }
+        public string? IsTrackingDeviceRequired { get; set; }
+        public string? TrackingDeviceName { get; set; }
+        public string? MakeName { get; set; }
+        public string? DeviceID { get; set; }
+        public string? IMEINo { get; set; }
+        public string? SIMNo { get; set; }
+        public string? SIMProviderName { get; set; }
+        public string? PlatformName { get; set; }
         public string? ManufacturingDate { get; set; }
         public string? WarrantyStartDate { get; set; }
         public string? WarrantyEndDate { get; set; }
         public string? WarrantyStatus { get; set; }
         public string? WarrantyType { get; set; }
+        public string? IsActive { get; set; }
         public string ValidationMessage { get; set; }
     }
     #endregion

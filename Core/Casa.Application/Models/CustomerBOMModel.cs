@@ -114,6 +114,8 @@ namespace CLN.Application.Models
         public string? Warranty { get; set; }
 
         public string? Remarks { get; set; }
+
+        public string? IsActive { get; set; }
     }
 
     public class CustomerBOM_ImportDataValidation
@@ -135,6 +137,8 @@ namespace CLN.Application.Models
         public string? Warranty { get; set; }
 
         public string? Remarks { get; set; }
+
+        public string? IsActive { get; set; }
 
         public string ValidationMessage { get; set; }
     }

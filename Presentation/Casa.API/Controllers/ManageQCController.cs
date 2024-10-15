@@ -263,16 +263,24 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 5].Value = "Sub Segment";
                     WorkSheet1.Cells[1, 6].Value = "Model";
                     WorkSheet1.Cells[1, 7].Value = "Product Serial #";
-                    WorkSheet1.Cells[1, 8].Value = "Drawing Number";
-                    WorkSheet1.Cells[1, 9].Value = "Manufacturing Date";
-                    WorkSheet1.Cells[1, 10].Value = "Warranty (months)";
-                    WorkSheet1.Cells[1, 11].Value = "Warranty (Start date)";
-                    WorkSheet1.Cells[1, 12].Value = "Warranty (End date)";
-                    WorkSheet1.Cells[1, 13].Value = "Warranty Type";
-                    WorkSheet1.Cells[1, 14].Value = "Warranty Status";
-                    WorkSheet1.Cells[1, 15].Value = "Status";
-                    WorkSheet1.Cells[1, 16].Value = "Created By";
-                    WorkSheet1.Cells[1, 17].Value = "Created Date";
+                    WorkSheet1.Cells[1, 8].Value = "Tracking Device Required";
+                    WorkSheet1.Cells[1, 9].Value = "Tracking Device";
+                    WorkSheet1.Cells[1, 10].Value = "Make";
+                    WorkSheet1.Cells[1, 11].Value = "Device ID";
+                    WorkSheet1.Cells[1, 12].Value = "IMEI No";
+                    WorkSheet1.Cells[1, 13].Value = "SIM No";
+                    WorkSheet1.Cells[1, 14].Value = "SIM Provider";
+                    WorkSheet1.Cells[1, 15].Value = "Platform";
+                    WorkSheet1.Cells[1, 16].Value = "Drawing Number";
+                    WorkSheet1.Cells[1, 17].Value = "Manufacturing Date";
+                    WorkSheet1.Cells[1, 18].Value = "Warranty (months)";
+                    WorkSheet1.Cells[1, 19].Value = "Warranty (Start date)";
+                    WorkSheet1.Cells[1, 20].Value = "Warranty (End date)";
+                    WorkSheet1.Cells[1, 21].Value = "Warranty Type";
+                    WorkSheet1.Cells[1, 22].Value = "Warranty Status";
+                    WorkSheet1.Cells[1, 23].Value = "Status";
+                    WorkSheet1.Cells[1, 24].Value = "Created By";
+                    WorkSheet1.Cells[1, 25].Value = "Created Date";
 
                     recordIndex = 2;
 
@@ -290,24 +298,35 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 5].Value = items.SubSegment;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.ProductModel;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.DrawingNumber;
 
-                        WorkSheet1.Cells[recordIndex, 9].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 9].Value = items.ManufacturingDate;
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.Warranty;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.IsTrackingDeviceRequired;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.TrackingDeviceName;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.MakeName;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.DeviceID;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.IMEINo;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.SIMNo;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.SIMProviderName;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.PlatformName;
 
-                        WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 11].Value = items.WarrantyStartDate;
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.DrawingNumber;
 
-                        WorkSheet1.Cells[recordIndex, 12].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 12].Value = items.WarrantyEndDate;
-
-                        WorkSheet1.Cells[recordIndex, 13].Value = items.WarrantyType;
-                        WorkSheet1.Cells[recordIndex, 14].Value = items.WarrantyStatus;
-                        WorkSheet1.Cells[recordIndex, 15].Value = items.IsActive == true ? "Active" : "Inactive";
-                        WorkSheet1.Cells[recordIndex, 16].Value = items.CreatorName;
                         WorkSheet1.Cells[recordIndex, 17].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 17].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.ManufacturingDate;
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.Warranty;
+
+                        WorkSheet1.Cells[recordIndex, 19].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 19].Value = items.WarrantyStartDate;
+
+                        WorkSheet1.Cells[recordIndex, 20].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 20].Value = items.WarrantyEndDate;
+
+                        WorkSheet1.Cells[recordIndex, 21].Value = items.WarrantyType;
+                        WorkSheet1.Cells[recordIndex, 22].Value = items.WarrantyStatus;
+
+                        WorkSheet1.Cells[recordIndex, 23].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 24].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 25].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 25].Value = items.CreatedDate;
 
                         recordIndex += 1;
                     }
@@ -315,7 +334,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Columns.AutoFit();
 
 
-                    // Address
+                    // Accessories
                     WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Accessories Details");
                     WorkSheet1.TabColor = System.Drawing.Color.Black;
                     WorkSheet1.DefaultRowHeight = 12;
@@ -504,7 +523,8 @@ namespace CLN.API.Controllers
                    !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "ProductModel", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "DrawingNumber", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "Warranty", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 9].Value.ToString(), "Remarks", StringComparison.OrdinalIgnoreCase))
+                   !string.Equals(workSheet.Cells[1, 9].Value.ToString(), "Remarks", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 10].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file";
@@ -526,6 +546,7 @@ namespace CLN.API.Controllers
                             DrawingNumber = workSheet.Cells[rowIterator, 7].Value?.ToString(),
                             Warranty = workSheet.Cells[rowIterator, 8].Value?.ToString(),
                             Remarks = workSheet.Cells[rowIterator, 9].Value?.ToString(),
+                            IsActive = workSheet.Cells[rowIterator, 10].Value?.ToString(),
                         });
                     }
                 }
@@ -549,7 +570,6 @@ namespace CLN.API.Controllers
                 _response.IsSuccess = false;
                 _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
                 _response.Data = GenerateInvalidImportDataFile(lstCustomerBOM_ImportDataValidation);
-
             }
 
             #endregion
@@ -585,7 +605,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 7].Value = "DrawingNumber";
                     WorkSheet1.Cells[1, 8].Value = "Warranty";
                     WorkSheet1.Cells[1, 9].Value = "Remarks";
-                    WorkSheet1.Cells[1, 10].Value = "ErrorMessage";
+                    WorkSheet1.Cells[1, 10].Value = "IsActive";
+                    WorkSheet1.Cells[1, 11].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
@@ -600,7 +621,8 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 7].Value = record.DrawingNumber;
                         WorkSheet1.Cells[recordIndex, 8].Value = record.Warranty;
                         WorkSheet1.Cells[recordIndex, 9].Value = record.Remarks;
-                        WorkSheet1.Cells[recordIndex, 10].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 10].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 11].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -638,7 +660,7 @@ namespace CLN.API.Controllers
             {
                 using (ExcelPackage excelExportData = new ExcelPackage())
                 {
-                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("QCProductSerialNumber");
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("QCBOMDetails");
                     WorkSheet1.TabColor = System.Drawing.Color.Black;
                     WorkSheet1.DefaultRowHeight = 12;
 
@@ -656,6 +678,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 7].Value = "Drawing Number";
                     WorkSheet1.Cells[1, 8].Value = "Warranty";
                     WorkSheet1.Cells[1, 9].Value = "Remarks";
+                    WorkSheet1.Cells[1, 10].Value = "Status";
 
                     recordIndex = 2;
 
@@ -670,6 +693,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 7].Value = items.DrawingNumber;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.Warranty;
                         WorkSheet1.Cells[recordIndex, 9].Value = items.Remarks;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.IsActive == true ? "Active" : "Inactive";
 
                         recordIndex += 1;
                     }
@@ -835,11 +859,22 @@ namespace CLN.API.Controllers
                 if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "CustomerName", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "PartCode", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "ProductSerialNumber", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "ManufacturingDate", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "WarrantyStartDate", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "WarrantyEndDate", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "WarrantyStatus", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "WarrantyType", StringComparison.OrdinalIgnoreCase))
+                  
+                   !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "IsTrackingDeviceRequired", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "TrackingDeviceName", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "MakeName", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "DeviceID", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 8].Value.ToString(), "IMEINo", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 9].Value.ToString(), "SIMNo", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 10].Value.ToString(), "SIMProviderName", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 11].Value.ToString(), "PlatformName", StringComparison.OrdinalIgnoreCase) ||
+
+                   !string.Equals(workSheet.Cells[1, 12].Value.ToString(), "ManufacturingDate", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 13].Value.ToString(), "WarrantyStartDate", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 14].Value.ToString(), "WarrantyEndDate", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 15].Value.ToString(), "WarrantyStatus", StringComparison.OrdinalIgnoreCase) ||
+                    !string.Equals(workSheet.Cells[1,16].Value.ToString(), "WarrantyType", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 17].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
 
                 {
                     _response.IsSuccess = false;
@@ -856,16 +891,27 @@ namespace CLN.API.Controllers
                             CustomerName = workSheet.Cells[rowIterator, 1].Value?.ToString(),
                             PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString().Trim(),
                             ProductSerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString().Trim(),
+                            IsTrackingDeviceRequired = workSheet.Cells[rowIterator, 4].Value?.ToString().Trim(),
+                            TrackingDeviceName = workSheet.Cells[rowIterator, 5].Value?.ToString().Trim(),
+                            MakeName = workSheet.Cells[rowIterator, 6].Value?.ToString().Trim(),
+                            DeviceID = workSheet.Cells[rowIterator, 7].Value?.ToString().Trim(),
+                            IMEINo = workSheet.Cells[rowIterator, 8].Value?.ToString().Trim(),
+                            SIMNo = workSheet.Cells[rowIterator, 9].Value?.ToString().Trim(),
+                            SIMProviderName = workSheet.Cells[rowIterator, 10].Value?.ToString().Trim(),
+                            PlatformName = workSheet.Cells[rowIterator, 11].Value?.ToString().Trim(),
+
+
                             //ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 4].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
                             //WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 5].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
                             //WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? DateTime.ParseExact(workSheet.Cells[rowIterator, 6].Value?.ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat) : null,
 
-                            ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 4].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 4].Value.ToString()) : null,
-                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 5].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 5].Value.ToString()) : null,
-                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 6].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 6].Value.ToString()) : null,
+                            ManufacturingDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 12].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 12].Value.ToString()) : null,
+                            WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 13].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 13].Value.ToString()) : null,
+                            WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 14].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 14].Value.ToString()) : null,
 
-                            WarrantyStatus = workSheet.Cells[rowIterator, 7].Value?.ToString(),
-                            WarrantyType = workSheet.Cells[rowIterator, 8].Value?.ToString(),
+                            WarrantyStatus = workSheet.Cells[rowIterator, 15].Value?.ToString(),
+                            WarrantyType = workSheet.Cells[rowIterator, 16].Value?.ToString(),
+                            IsActive = workSheet.Cells[rowIterator, 17].Value?.ToString(),
                         });
                     }
                 }
@@ -889,7 +935,6 @@ namespace CLN.API.Controllers
                 _response.IsSuccess = false;
                 _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
                 _response.Data = GenerateInvalidImportDataFile(lstCustomerBattery_ImportDataValidation);
-
             }
 
             #endregion
@@ -919,12 +964,23 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 1].Value = "CustomerName";
                     WorkSheet1.Cells[1, 2].Value = "PartCode";
                     WorkSheet1.Cells[1, 3].Value = "ProductSerialNumber";
-                    WorkSheet1.Cells[1, 4].Value = "ManufacturingDate";
-                    WorkSheet1.Cells[1, 5].Value = "WarrantyStartDate";
-                    WorkSheet1.Cells[1, 6].Value = "WarrantyEndDate";
-                    WorkSheet1.Cells[1, 7].Value = "WarrantyStatus";
-                    WorkSheet1.Cells[1, 8].Value = "WarrantyType";
-                    WorkSheet1.Cells[1, 9].Value = "ErrorMessage";
+
+                    WorkSheet1.Cells[1, 4].Value = "IsTrackingDeviceRequired";
+                    WorkSheet1.Cells[1, 5].Value = "TrackingDeviceName";
+                    WorkSheet1.Cells[1, 6].Value = "MakeName";
+                    WorkSheet1.Cells[1, 7].Value = "DeviceID";
+                    WorkSheet1.Cells[1, 8].Value = "IMEINo";
+                    WorkSheet1.Cells[1, 9].Value = "SIMNo";
+                    WorkSheet1.Cells[1, 10].Value = "SIMProviderName";
+                    WorkSheet1.Cells[1, 11].Value = "PlatformName";
+
+                    WorkSheet1.Cells[1, 12].Value = "ManufacturingDate";
+                    WorkSheet1.Cells[1, 13].Value = "WarrantyStartDate";
+                    WorkSheet1.Cells[1, 14].Value = "WarrantyEndDate";
+                    WorkSheet1.Cells[1, 15].Value = "WarrantyStatus";
+                    WorkSheet1.Cells[1, 16].Value = "WarrantyType";
+                    WorkSheet1.Cells[1, 17].Value = "Status";
+                    WorkSheet1.Cells[1, 18].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
@@ -933,12 +989,23 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 1].Value = record.CustomerName;
                         WorkSheet1.Cells[recordIndex, 2].Value = record.PartCode;
                         WorkSheet1.Cells[recordIndex, 3].Value = record.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 4].Value = !string.IsNullOrWhiteSpace(record.ManufacturingDate) ? Convert.ToDateTime(record.ManufacturingDate).ToString("yyyy-MM-dd") : "";
-                        WorkSheet1.Cells[recordIndex, 5].Value = !string.IsNullOrWhiteSpace(record.WarrantyStartDate) ? Convert.ToDateTime(record.WarrantyStartDate).ToString("yyyy-MM-dd") : "";
-                        WorkSheet1.Cells[recordIndex, 6].Value = !string.IsNullOrWhiteSpace(record.WarrantyEndDate) ? Convert.ToDateTime(record.WarrantyEndDate).ToString("yyyy-MM-dd") : "";
-                        WorkSheet1.Cells[recordIndex, 7].Value = record.WarrantyStatus;
-                        WorkSheet1.Cells[recordIndex, 8].Value = record.WarrantyType;
-                        WorkSheet1.Cells[recordIndex, 9].Value = record.ValidationMessage;
+
+                        WorkSheet1.Cells[recordIndex, 4].Value = record.IsTrackingDeviceRequired;
+                        WorkSheet1.Cells[recordIndex, 5].Value = record.TrackingDeviceName;
+                        WorkSheet1.Cells[recordIndex, 6].Value = record.MakeName;
+                        WorkSheet1.Cells[recordIndex, 7].Value = record.DeviceID;
+                        WorkSheet1.Cells[recordIndex, 8].Value = record.IMEINo;
+                        WorkSheet1.Cells[recordIndex, 9].Value = record.SIMNo;
+                        WorkSheet1.Cells[recordIndex, 10].Value = record.SIMProviderName;
+                        WorkSheet1.Cells[recordIndex, 11].Value = record.PlatformName;
+
+                        WorkSheet1.Cells[recordIndex, 12].Value = !string.IsNullOrWhiteSpace(record.ManufacturingDate) ? Convert.ToDateTime(record.ManufacturingDate).ToString("yyyy-MM-dd") : "";
+                        WorkSheet1.Cells[recordIndex, 13].Value = !string.IsNullOrWhiteSpace(record.WarrantyStartDate) ? Convert.ToDateTime(record.WarrantyStartDate).ToString("yyyy-MM-dd") : "";
+                        WorkSheet1.Cells[recordIndex, 14].Value = !string.IsNullOrWhiteSpace(record.WarrantyEndDate) ? Convert.ToDateTime(record.WarrantyEndDate).ToString("yyyy-MM-dd") : "";
+                        WorkSheet1.Cells[recordIndex, 15].Value = record.WarrantyStatus;
+                        WorkSheet1.Cells[recordIndex, 16].Value = record.WarrantyType;
+                        WorkSheet1.Cells[recordIndex, 17].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 18].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -990,17 +1057,26 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 2].Value = "Part Code";
                     WorkSheet1.Cells[1, 3].Value = "Customer Code";
                     WorkSheet1.Cells[1, 4].Value = "Product Serial Number";
-                    WorkSheet1.Cells[1, 5].Value = "Product Category";
-                    WorkSheet1.Cells[1, 6].Value = "Segment";
-                    WorkSheet1.Cells[1, 7].Value = "Sub Segment";
-                    WorkSheet1.Cells[1, 8].Value = "Product Model";
-                    WorkSheet1.Cells[1, 9].Value = "Drawing Number";
-                    WorkSheet1.Cells[1, 10].Value = "Manufacturing Date";
-                    WorkSheet1.Cells[1, 11].Value = "Warranty";
-                    WorkSheet1.Cells[1, 12].Value = "Warranty Start Date";
-                    WorkSheet1.Cells[1, 13].Value = "Warranty End Date";
-                    WorkSheet1.Cells[1, 14].Value = "Warranty Status";
-                    WorkSheet1.Cells[1, 15].Value = "Warranty Type";
+                    WorkSheet1.Cells[1, 5].Value = "Tracking Device Required";
+                    WorkSheet1.Cells[1, 6].Value = "Tracking Device";
+                    WorkSheet1.Cells[1, 7].Value = "Make";
+                    WorkSheet1.Cells[1, 8].Value = "Device ID";
+                    WorkSheet1.Cells[1, 9].Value = "IMEI No";
+                    WorkSheet1.Cells[1, 10].Value = "SIM No";
+                    WorkSheet1.Cells[1, 11].Value = "SIM Provider";
+                    WorkSheet1.Cells[1, 12].Value = "Platform";
+                    WorkSheet1.Cells[1, 13].Value = "Product Category";
+                    WorkSheet1.Cells[1, 14].Value = "Segment";
+                    WorkSheet1.Cells[1, 15].Value = "Sub Segment";
+                    WorkSheet1.Cells[1, 16].Value = "Product Model";
+                    WorkSheet1.Cells[1, 17].Value = "Drawing Number";
+                    WorkSheet1.Cells[1, 18].Value = "Manufacturing Date";
+                    WorkSheet1.Cells[1, 19].Value = "Warranty";
+                    WorkSheet1.Cells[1, 20].Value = "Warranty Start Date";
+                    WorkSheet1.Cells[1, 21].Value = "Warranty End Date";
+                    WorkSheet1.Cells[1, 22].Value = "Warranty Type";
+                    WorkSheet1.Cells[1, 23].Value = "Warranty Status";
+                    WorkSheet1.Cells[1, 24].Value = "Status";
 
                     recordIndex = 2;
 
@@ -1010,20 +1086,29 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 2].Value = items.PartCode;
                         WorkSheet1.Cells[recordIndex, 3].Value = items.CustomerCode;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.ProductCategory;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.Segment;
-                        WorkSheet1.Cells[recordIndex, 7].Value = items.SubSegment;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.ProductModel;
-                        WorkSheet1.Cells[recordIndex, 9].Value = items.DrawingNumber;
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.ManufacturingDate;
-                        WorkSheet1.Cells[recordIndex, 10].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 11].Value = items.Warranty;
-                        WorkSheet1.Cells[recordIndex, 12].Value = items.WarrantyStartDate;
-                        WorkSheet1.Cells[recordIndex, 12].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 13].Value = items.WarrantyEndDate;
-                        WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 14].Value = items.WarrantyStatus;
-                        WorkSheet1.Cells[recordIndex, 15].Value = items.WarrantyType;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.IsTrackingDeviceRequired;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.TrackingDeviceName;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.MakeName;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.DeviceID;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.IMEINo;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.SIMNo;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.SIMProviderName;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.PlatformName;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.ProductModel;
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.DrawingNumber;
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.ManufacturingDate;
+                        WorkSheet1.Cells[recordIndex, 18].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 19].Value = items.Warranty;
+                        WorkSheet1.Cells[recordIndex, 20].Value = items.WarrantyStartDate;
+                        WorkSheet1.Cells[recordIndex, 20].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 21].Value = items.WarrantyEndDate;
+                        WorkSheet1.Cells[recordIndex, 21].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 22].Value = items.WarrantyType;
+                        WorkSheet1.Cells[recordIndex, 23].Value = items.WarrantyStatus;
+                        WorkSheet1.Cells[recordIndex, 24].Value = items.IsActive == true ? "Active" : "Inactive";
 
                         recordIndex += 1;
                     }
@@ -1260,7 +1345,8 @@ namespace CLN.API.Controllers
                    !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "AccessoryBOMNumber", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "DrawingNumber", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "AccessoryName", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "Quantity", StringComparison.OrdinalIgnoreCase))
+                   !string.Equals(workSheet.Cells[1, 6].Value.ToString(), "Quantity", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 7].Value.ToString(), "IsActive", StringComparison.OrdinalIgnoreCase))
                 {
                     _response.IsSuccess = false;
                     _response.Message = "Please upload a valid excel file";
@@ -1279,6 +1365,7 @@ namespace CLN.API.Controllers
                             DrawingNumber = workSheet.Cells[rowIterator, 4].Value?.ToString(),
                             AccessoryName = workSheet.Cells[rowIterator, 5].Value?.ToString(),
                             Quantity = workSheet.Cells[rowIterator, 6].Value?.ToString(),
+                            IsActive = workSheet.Cells[rowIterator, 7].Value?.ToString(),
                         });
                     }
                 }
@@ -1302,7 +1389,6 @@ namespace CLN.API.Controllers
                 _response.IsSuccess = false;
                 _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
                 _response.Data = GenerateInvalidImportDataFile(lstCustomerAccessory_ImportDataValidation);
-
             }
 
             #endregion
@@ -1335,7 +1421,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 4].Value = "DrawingNumber";
                     WorkSheet1.Cells[1, 5].Value = "AccessoryName";
                     WorkSheet1.Cells[1, 6].Value = "Quantity";
-                    WorkSheet1.Cells[1, 7].Value = "ErrorMessage";
+                    WorkSheet1.Cells[1, 7].Value = "IsActive";
+                    WorkSheet1.Cells[1, 8].Value = "ErrorMessage";
 
                     recordIndex = 2;
 
@@ -1347,7 +1434,8 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 4].Value = record.DrawingNumber;
                         WorkSheet1.Cells[recordIndex, 5].Value = record.AccessoryName;
                         WorkSheet1.Cells[recordIndex, 6].Value = record.Quantity;
-                        WorkSheet1.Cells[recordIndex, 7].Value = record.ValidationMessage;
+                        WorkSheet1.Cells[recordIndex, 7].Value = record.IsActive;
+                        WorkSheet1.Cells[recordIndex, 8].Value = record.ValidationMessage;
 
                         recordIndex += 1;
                     }
@@ -1400,6 +1488,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 4].Value = "Drawing Number";
                     WorkSheet1.Cells[1, 5].Value = "Accessory Name";
                     WorkSheet1.Cells[1, 6].Value = "Quantity";
+                    WorkSheet1.Cells[1, 7].Value = "Status";
 
                     recordIndex = 2;
 
@@ -1411,6 +1500,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 4].Value = items.DrawingNumber;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.AccessoryName;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.Quantity;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.IsActive == true ? "Active" : "Inactive";
 
                         recordIndex += 1;
                     }
