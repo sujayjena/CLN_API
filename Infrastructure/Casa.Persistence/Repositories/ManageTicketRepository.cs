@@ -175,8 +175,9 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Filter_TicketStatusId", parameters.Filter_TicketStatusId);
             queryParameters.Add("@IsChangeStatus_LogTicket", parameters.IsChangeStatus_LogTicket);
             queryParameters.Add("@IsEngineerType", parameters.IsEngineerType);
-            queryParameters.Add("@BranchRegionId", parameters.BranchRegionId);
-            queryParameters.Add("@BranchStateId", parameters.BranchStateId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
+            //queryParameters.Add("@BranchRegionId", parameters.BranchRegionId);
+            //queryParameters.Add("@BranchStateId", parameters.BranchStateId);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@SortBy", parameters.SortBy);
