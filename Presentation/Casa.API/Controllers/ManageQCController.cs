@@ -516,7 +516,7 @@ namespace CLN.API.Controllers
                 noOfRow = workSheet.Dimension.End.Row;
 
                 if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "CustomerName", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "PartCode", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "BOM#", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "ProductCategory", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "Segment", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "SubSegment", StringComparison.OrdinalIgnoreCase) ||
@@ -597,7 +597,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
                     WorkSheet1.Cells[1, 1].Value = "CustomerName";
-                    WorkSheet1.Cells[1, 2].Value = "PartCode";
+                    WorkSheet1.Cells[1, 2].Value = "BOM#";
                     WorkSheet1.Cells[1, 3].Value = "ProductCategory";
                     WorkSheet1.Cells[1, 4].Value = "Segment";
                     WorkSheet1.Cells[1, 5].Value = "SubSegment";
@@ -670,7 +670,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
                     WorkSheet1.Cells[1, 1].Value = "Customer Name";
-                    WorkSheet1.Cells[1, 2].Value = "Part Code";
+                    WorkSheet1.Cells[1, 2].Value = "BOM #";
                     WorkSheet1.Cells[1, 3].Value = "Product Category";
                     WorkSheet1.Cells[1, 4].Value = "Segment";
                     WorkSheet1.Cells[1, 5].Value = "Sub Segment";
@@ -857,7 +857,7 @@ namespace CLN.API.Controllers
                 noOfRow = workSheet.Dimension.End.Row;
 
                 if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "CustomerName", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "PartCode", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "BOM#", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "ProductSerialNumber", StringComparison.OrdinalIgnoreCase) ||
                   
                    !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "IsTrackingDeviceRequired", StringComparison.OrdinalIgnoreCase) ||
@@ -962,7 +962,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
                     WorkSheet1.Cells[1, 1].Value = "CustomerName";
-                    WorkSheet1.Cells[1, 2].Value = "PartCode";
+                    WorkSheet1.Cells[1, 2].Value = "BOM#";
                     WorkSheet1.Cells[1, 3].Value = "ProductSerialNumber";
 
                     WorkSheet1.Cells[1, 4].Value = "IsTrackingDeviceRequired";
@@ -1054,7 +1054,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
                     WorkSheet1.Cells[1, 1].Value = "Customer Name";
-                    WorkSheet1.Cells[1, 2].Value = "Part Code";
+                    WorkSheet1.Cells[1, 2].Value = "BOM #";
                     WorkSheet1.Cells[1, 3].Value = "Customer Code";
                     WorkSheet1.Cells[1, 4].Value = "Product Serial Number";
                     WorkSheet1.Cells[1, 5].Value = "Tracking Device Required";
@@ -1341,7 +1341,7 @@ namespace CLN.API.Controllers
                 noOfRow = workSheet.Dimension.End.Row;
 
                 if (!string.Equals(workSheet.Cells[1, 1].Value.ToString(), "CustomerName", StringComparison.OrdinalIgnoreCase) ||
-                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "PartCode", StringComparison.OrdinalIgnoreCase) ||
+                   !string.Equals(workSheet.Cells[1, 2].Value.ToString(), "BOM#", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 3].Value.ToString(), "AccessoryBOMNumber", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 4].Value.ToString(), "DrawingNumber", StringComparison.OrdinalIgnoreCase) ||
                    !string.Equals(workSheet.Cells[1, 5].Value.ToString(), "AccessoryName", StringComparison.OrdinalIgnoreCase) ||
@@ -1416,7 +1416,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
                     WorkSheet1.Cells[1, 1].Value = "CustomerName";
-                    WorkSheet1.Cells[1, 2].Value = "PartCode";
+                    WorkSheet1.Cells[1, 2].Value = "BOM#";
                     WorkSheet1.Cells[1, 3].Value = "AccessoryBOMNumber";
                     WorkSheet1.Cells[1, 4].Value = "DrawingNumber";
                     WorkSheet1.Cells[1, 5].Value = "AccessoryName";
@@ -1483,7 +1483,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
                     WorkSheet1.Cells[1, 1].Value = "Customer Name";
-                    WorkSheet1.Cells[1, 2].Value = "Part Code";
+                    WorkSheet1.Cells[1, 2].Value = "BOM #";
                     WorkSheet1.Cells[1, 3].Value = "Accessory BOM Number";
                     WorkSheet1.Cells[1, 4].Value = "Drawing Number";
                     WorkSheet1.Cells[1, 5].Value = "Accessory Name";
