@@ -92,6 +92,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+            queryParameters.Add("@IsSingleDayExpense", parameters.IsSingleDayExpense);
             queryParameters.Add("@FromDate", parameters.FromDate);
             queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);

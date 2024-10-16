@@ -79,6 +79,7 @@ namespace CLN.API.Controllers
                     {
                         Id = item.Id,
                         ExpenseId = result,
+                        IsSingleDayExpense = item.IsSingleDayExpense,
                         FromDate = item.FromDate,
                         ToDate = item.ToDate,
                         ExpenseTypeId = item.ExpenseTypeId,
@@ -163,6 +164,7 @@ namespace CLN.API.Controllers
                             ExpenseId = vResultObj.Id,
                             ExpenseNumber = item.ExpenseNumber,
 
+                            IsSingleDayExpense = item.IsSingleDayExpense,
                             FromDate = item.FromDate,
                             ToDate = item.ToDate,
                             ExpenseTypeId = item.ExpenseTypeId,

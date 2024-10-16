@@ -113,6 +113,8 @@ namespace CLN.Application.Models
     {
         public int? ExpenseId { get; set; }
 
+        [DefaultValue(false)]
+        public bool? IsSingleDayExpense { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
 
@@ -144,6 +146,7 @@ namespace CLN.Application.Models
         }
         public int? ExpenseId { get; set; }
         public string? ExpenseNumber { get; set; }
+        public bool? IsSingleDayExpense { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public int? ExpenseTypeId { get; set; }

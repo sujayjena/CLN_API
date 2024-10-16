@@ -115,6 +115,8 @@ namespace CLN.Application.Models
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string BranchId { get; set; }
+        public string BranchRegionId { get; set; }
+        public string BranchStateId { get; set; }
         public int BranchCanAdd { get; set; }
         public int UserCanAdd { get; set; }
         public bool IsWebUser { get; set; }

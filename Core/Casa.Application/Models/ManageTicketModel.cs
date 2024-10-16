@@ -32,6 +32,12 @@ namespace CLN.Application.Models
         [DefaultValue(0)]
         public int? IsEngineerType { get; set; }
 
+        [DefaultValue("")]
+        public string? BranchRegionId { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchStateId { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
 

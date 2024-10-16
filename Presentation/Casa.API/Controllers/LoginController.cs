@@ -8,6 +8,7 @@ using CLN.Helpers;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
 namespace CLN.API.Controllers
@@ -177,6 +178,8 @@ namespace CLN.API.Controllers
                     if (loginResponse.UserId != null)
                     {
                         string strBrnachIdList = string.Empty;
+                        string strBrnachRegionIdList = string.Empty;
+                        string strBrnachStateIdList = string.Empty;
 
                         var vRoleList = await _rolePermissionRepository.GetRoleMasterEmployeePermissionById(Convert.ToInt64(loginResponse.UserId));
 
@@ -193,6 +196,23 @@ namespace CLN.API.Controllers
                         if (vUserBranchMappingDetail.ToList().Count > 0)
                         {
                             strBrnachIdList = string.Join(",", vUserBranchMappingDetail.ToList().OrderBy(x => x.BranchId).Select(x => x.BranchId));
+
+                            foreach(var vBranchId in vUserBranchMappingDetail)
+                            {
+                                //Region List
+                                var vBranchRegionDetails = await _branchRepository.GetBranchRegionByBranchId(BranchId: Convert.ToInt32(vBranchId.BranchId), RegionId: 0);
+                                if (vBranchRegionDetails.ToList().Count > 0)
+                                {
+                                    strBrnachRegionIdList += string.Join(",", vBranchRegionDetails.ToList().OrderBy(x => x.RegionId).Select(x => x.RegionId));
+                                }
+
+                                //State List
+                                var vBranchStateDetails = await _branchRepository.GetBranchStateByBranchId(BranchId: Convert.ToInt32(vBranchId.BranchId), StateId: 0);
+                                if (vBranchStateDetails.ToList().Count > 0)
+                                {
+                                    strBrnachStateIdList += string.Join(",", vBranchStateDetails.ToList().OrderBy(x => x.StateId).Select(x => x.StateId));
+                                }
+                            }
                         }
 
                         int iBranchCanAdd = 0;
@@ -226,6 +246,8 @@ namespace CLN.API.Controllers
                             EmployeeLevelId = vUserDetail != null ? Convert.ToInt32(vUserDetail.EmployeeLevelId) : 0,
                             EmployeeLevel = vUserDetail != null ? vUserDetail.EmployeeLevel : String.Empty,
                             BranchId = strBrnachIdList,
+                            BranchRegionId = strBrnachRegionIdList,
+                            BranchStateId = strBrnachStateIdList,
                             BranchCanAdd = iBranchCanAdd,
                             UserCanAdd = iUserCanAdd,
 
