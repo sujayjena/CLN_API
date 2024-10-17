@@ -204,6 +204,9 @@ namespace CLN.Application.Models
     public class UserListByRole_Search
     {
         public int? CompanyId { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchId { get; set; }
         public string? RoleId { get; set; }
         public string? RoleName { get; set; }
 

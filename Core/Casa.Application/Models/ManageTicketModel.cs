@@ -929,4 +929,24 @@ namespace CLN.Application.Models
     {
         public string? TicketNumber { get; set; }
     }
+
+    public class FeedbackQuestionAnswer_Request
+    {
+        public int Id { get; set; }
+        public int? TicketId { get; set; }
+        public string? Question_Answer_Json_Format { get; set; }
+    }
+
+    public class FeedbackQuestionAnswerSearch_Request: BaseSearchEntity
+    {
+        public int? TicketId { get; set; }
+    }
+
+    public class FeedbackQuestionAnswer_Response : BaseResponseEntity
+    {
+        public int Id { get; set; }
+        public int? TicketId { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? Question_Answer_Json_Format { get; set; }
+    }
 }

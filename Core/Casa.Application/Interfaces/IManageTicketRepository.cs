@@ -43,5 +43,8 @@ namespace CLN.Application.Interfaces
 
         Task<IEnumerable<ValidateTicketProductSerialNumber_Response>> ValidateTicketProductSerialNumberById(string ProductSerialNumber, bool IsOldProduct, int TicketId);
 
+        Task<int> SaveFeedbackQuestionAnswer(FeedbackQuestionAnswer_Request parameters);
+
+        Task<IEnumerable<FeedbackQuestionAnswer_Response>> GetFeedbackQuestionAnswerList(FeedbackQuestionAnswerSearch_Request parameters);
     }
 }

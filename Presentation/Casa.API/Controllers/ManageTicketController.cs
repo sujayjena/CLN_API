@@ -1685,6 +1685,43 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> SaveFeedbackQuestionAnswer(FeedbackQuestionAnswer_Request parameters)
+        {
+            //Save / Update
+            int result = await _manageTicketRepository.SaveFeedbackQuestionAnswer(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record details saved sucessfully";
+            }
+
+            _response.Id = result;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetFeedbackQuestionAnswerList(FeedbackQuestionAnswerSearch_Request parameters)
+        {
+            var objList = await _manageTicketRepository.GetFeedbackQuestionAnswerList(parameters);
+            _response.Data = objList.ToList();
+            return _response;
+        }
+
         protected async Task<bool> SendTicketGenerate_EmailToCustomer(int TicketId)
         {
             bool result = false;
