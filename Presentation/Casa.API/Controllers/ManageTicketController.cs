@@ -963,18 +963,24 @@ namespace CLN.API.Controllers
                         EngineerId = item.TSSP_AllocateToServiceEnggId
                     };
 
-                    var vTicketHistoryListObj = _manageTicketRepository.GetTicketVisitHistoryList(vManageTicketEngineerVisitHistory_Search).Result.ToList().OrderByDescending(x => x.VisitDate).FirstOrDefault();
+                    //var vTicketHistoryListObj = _manageTicketRepository.GetTicketVisitHistoryList(vManageTicketEngineerVisitHistory_Search).Result.ToList().OrderByDescending(x => x.VisitDate).FirstOrDefault();
+                    var vTicketHistoryListObj = _manageTicketRepository.GetTicketVisitHistoryList(vManageTicketEngineerVisitHistory_Search).Result.ToList().FirstOrDefault();
                     if (vTicketHistoryListObj != null)
                     {
                         item.manageTicketEngineerVisitHistory = new ManageTicketEngineerVisitHistory_Response();
 
                         item.manageTicketEngineerVisitHistory.Id = vTicketHistoryListObj.Id;
                         item.manageTicketEngineerVisitHistory.EngineerId = vTicketHistoryListObj.EngineerId;
-                        item.manageTicketEngineerVisitHistory.VisitDate = vTicketHistoryListObj.VisitDate;
+                        item.manageTicketEngineerVisitHistory.EngineerName = vTicketHistoryListObj.EngineerName;
+                        item.manageTicketEngineerVisitHistory.TicketId = vTicketHistoryListObj.TicketId;
+                        item.manageTicketEngineerVisitHistory.TicketNumber = vTicketHistoryListObj.TicketNumber;
                         item.manageTicketEngineerVisitHistory.Latitude = vTicketHistoryListObj.Latitude;
                         item.manageTicketEngineerVisitHistory.Longitude = vTicketHistoryListObj.Longitude;
                         item.manageTicketEngineerVisitHistory.Address = vTicketHistoryListObj.Address;
-                        item.manageTicketEngineerVisitHistory.Status = vTicketHistoryListObj.Status;
+                        item.manageTicketEngineerVisitHistory.StartDateTime = vTicketHistoryListObj.StartDateTime;
+                        item.manageTicketEngineerVisitHistory.StartStatus = vTicketHistoryListObj.StartStatus;
+                        item.manageTicketEngineerVisitHistory.StopDateTime = vTicketHistoryListObj.StopDateTime;
+                        item.manageTicketEngineerVisitHistory.StopStatus = vTicketHistoryListObj.StopStatus;
                     }
                 }
             }

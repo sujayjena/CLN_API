@@ -908,11 +908,13 @@ namespace CLN.Application.Models
         public string? EngineerName { get; set; }
         public int? TicketId { get; set; }
         public string? TicketNumber { get; set; }
-        public DateTime? VisitDate { get; set; }
         public string? Latitude { get; set; }
         public string? Longitude { get; set; }
         public string? Address { get; set; }
-        public string? Status { get; set; }
+        public DateTime? StartDateTime { get; set; }
+        public string? StartStatus { get; set; }
+        public DateTime? StopDateTime { get; set; }
+        public string? StopStatus { get; set; }
     }
 
     public class ManageTicketOTPVerify
