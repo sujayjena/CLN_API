@@ -419,15 +419,12 @@ namespace CLN.API.Controllers
                         foreach (EnggPartRequestDetails_Response items in objDetailsList)
                         {
                             listContent = $@"{listContent}
-                            <li>
-                                <ul>
-                                    <li>Spare Category: {items.SpareCategory}</li>
-                                    <li>Spare Part Code: {items.UniqueCode}</li>
-                                    <li>Spare Part Description: {items.SpareDesc}</li>
-                                    <li>No of Quantity: {items.RequiredQty}</li>
-                                </ul>
-                                <br />
-                            </li>";
+                            <tr style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>
+                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.SpareCategory}</td>
+                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.UniqueCode}</td>
+                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.SpareDesc}</td>
+                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.RequiredQty}</td>
+                            </tr>";
                         }
 
                         emailTemplateContent = emailTemplateContent.Replace("[PartRequestDetailsList]", listContent);

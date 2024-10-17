@@ -5,6 +5,10 @@ using CLN.Application.Models;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using System.Globalization;
+using System;
 
 namespace CLN.API.Controllers
 {
@@ -109,6 +113,112 @@ namespace CLN.API.Controllers
 
                 _response.Data = vResultObj;
             }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportNotificationData()
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var searchRequest = new Notification_Search();
+
+            var lstObj = await _notificationRepository.GetNotificationList(searchRequest);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("Notification");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "No";
+                    WorkSheet1.Cells[1, 2].Value = "Time Ago";
+                    WorkSheet1.Cells[1, 3].Value = "Notification";
+
+                    recordIndex = 2;
+
+                    int rowNo = 1;
+
+                    foreach (var items in lstObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = rowNo;
+
+                        string vTimeAgo = string.Empty;
+                        DateTime notificationDate = Convert.ToDateTime(items.CreatedDate);
+                        TimeSpan vdiff = DateTime.Now - notificationDate;
+
+                        if (vdiff.Days > 0)
+                        {
+                            if (vdiff.Days == 1)
+                            {
+                                if (vdiff.Hours == 0)
+                                {
+                                    vTimeAgo = vdiff.Days + " Day Ago";
+                                }
+                                else
+                                {
+                                    vTimeAgo = vdiff.Days + " Day and " + vdiff.Hours + " Hr Ago";
+                                }
+                            }
+                            else
+                            {
+                                if (vdiff.Hours == 0)
+                                {
+                                    vTimeAgo = vdiff.Days + " Days Ago";
+                                }
+                                else
+                                {
+                                    vTimeAgo = vdiff.Days + " Days and " + vdiff.Hours + " Hr Ago";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (vdiff.Hours == 0)
+                            {
+                                vTimeAgo = "Just Now";
+                            }
+                            else
+                            {
+                                vTimeAgo = vdiff.Hours + " Hr Ago";
+                            }
+                        }
+
+                        WorkSheet1.Cells[recordIndex, 2].Value = vTimeAgo;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.Message;
+
+                        rowNo++;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
             return _response;
         }
     }
