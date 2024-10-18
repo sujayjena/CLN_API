@@ -4,21 +4,25 @@
     <p>Dear [CallerName],</p>
 
     <p>
-        We are writing to inform you that upon reviewing your service request, it has been determined that the issue related to ticket #[TicketNumber] is Out of Warranty.
+        We are writing to inform you that upon reviewing your service request, it has been determined that the issue related to ticket #<b>[TicketNumber]</b> is Out of Warranty.
     </p>
 
     <p>
-        Ticket Number: [TicketNumber]
-        <br />
-        Product/Service: [ProductName_Model]
-        <br />
-        Issue Summary: [IssueSummary]
-    </p>
+        <table style="width: 100%">
+            <tr style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Ticket Number</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Product/Service</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Issue Summary</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Reason for Out of Warranty</th>
+            </tr>
 
-    <p>
-        <b>Reason for Out of Warranty:</b>
-        <br/>
-        <b>The product's warranty expired on [WarrantyEndDate]</b>
+            <tr style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">[TicketNumber]</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">[ProductName_Model]</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">[IssueSummary]</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">The product's warranty expired on [WarrantyEndDate].</td>
+            </tr>
+        </table>
     </p>
 
     <p>
