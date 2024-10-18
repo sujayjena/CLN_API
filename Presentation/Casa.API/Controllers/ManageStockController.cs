@@ -14,11 +14,13 @@ namespace CLN.API.Controllers
         private ResponseModel _response;
         private readonly IManageStockRepository _manageStockRepository;
         private readonly INotificationRepository _notificationRepository;
+        private readonly IPartRequestOrderRepository _partRequestOrderRepository;
 
-        public ManageStockController(IManageStockRepository manageStockRepository, INotificationRepository notificationRepository)
+        public ManageStockController(IManageStockRepository manageStockRepository, INotificationRepository notificationRepository, IPartRequestOrderRepository partRequestOrderRepository)
         {
             _manageStockRepository = manageStockRepository;
             _notificationRepository = notificationRepository;
+            _partRequestOrderRepository = partRequestOrderRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -268,6 +270,49 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveStockAllocated_Engineer_N_TRC(StockAllocated_Request parameters)
         {
+            //check if requestId = 0 then create new order for this engineer
+            if(parameters.RequestId == 0)
+            {
+                var vEnggPartRequest = new EnggPartRequest_Request()
+                {
+                    Id = 0,
+                    RequestDate = DateTime.Now,
+                    EngineerId = parameters.EngineerId,
+                    Remarks = "",
+                    StatusId = 1,
+                    IsActive = true
+                };
+
+                var vresult = await _partRequestOrderRepository.SaveEnggPartRequest(vEnggPartRequest);
+
+                parameters.RequestId = vresult;
+
+                if (vresult > 0)
+                {
+                    foreach(var items in parameters.PartList)
+                    {
+                        var vEnggPartRequestDetails = new EnggPartRequestDetails_Request()
+                        {
+                            Id = 0,
+                            RequestId = vresult,
+                            SpareCategoryId = items.SpareCategoryId,
+                            ProductMakeId = items.ProductMakeId,
+                            BMSMakeId = items.BMSMakeId,
+                            SpareDetailsId = items.SpareId,
+                            UOMId = 0,
+                            TypeOfBMSId = 0,
+                            AvailableQty = items.AvailableQty,
+                            RequiredQty = items.RequiredQty,
+                            Remarks = "",
+                            RGP = items.RGP
+                        };
+
+                        int result_EnggPartRequestOrderDetails = await _partRequestOrderRepository.SaveEnggPartRequestDetail(vEnggPartRequestDetails);
+                    }
+                    
+                }
+            }
+
             int result = await _manageStockRepository.SaveStockAllocated(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
@@ -298,6 +343,8 @@ namespace CLN.API.Controllers
                         EngineerId = parameters.EngineerId,
                         StockAllocatedId = result,
                         SpareCategoryId = item.SpareCategoryId,
+                        ProductMakeId = item.ProductMakeId,
+                        BMSMakeId = item.BMSMakeId,
                         SpareId = item.SpareId,
                         AvailableQty = item.AvailableQty,
                         RequiredQty = item.RequiredQty,
@@ -403,6 +450,10 @@ namespace CLN.API.Controllers
                             StockAllocatedId = item.Id,
                             SpareCategoryId = item.SpareCategoryId,
                             SpareCategory = item.SpareCategory,
+                            ProductMakeId = item.ProductMakeId,
+                            ProductMake = item.ProductMake,
+                            BMSMakeId = item.BMSMakeId,
+                            BMSMake = item.BMSMake,
                             SpareId = item.SpareId,
                             UniqueCode = item.UniqueCode,
                             SpareDesc = item.SpareDesc,

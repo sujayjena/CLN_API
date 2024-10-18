@@ -803,7 +803,7 @@ namespace CLN.Application.Models
 
         //public string? PartStatus { get; set; }
 
-        //public bool? RGP { get; set; }
+        public bool? RGP { get; set; }
     }
 
     public class ManageTicketRemarks_Search

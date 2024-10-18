@@ -271,6 +271,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StockAllocatedId", parameters.StockAllocatedId);
             queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
+            queryParameters.Add("@ProductMakeId", parameters.ProductMakeId);
+            queryParameters.Add("@BMSMakeId", parameters.BMSMakeId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareId);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);

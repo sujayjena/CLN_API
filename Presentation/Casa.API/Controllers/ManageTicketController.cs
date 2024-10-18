@@ -791,6 +791,12 @@ namespace CLN.API.Controllers
                         var vEmailCustomer = await SendResolved_EmailToCustomer(result);
                         var vEmailEmployee = await SendResolved_EmailToEmployee(result);
                     }
+
+                    //Part Request For Ticket
+                    if (parameters.PartDetail.Count > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                    {
+                        var vEmailEmployee = await SendPartRequestForTicket_EmailToEmployee(result);
+                    }
                 }
             }
 
@@ -1231,7 +1237,7 @@ namespace CLN.API.Controllers
                             AvailableQty = item.AvailableQty,
                             //PartStatusId = item.PartStatusId,
                             //PartStatus = item.PartStatus,
-                            //RGP = item.RGP,
+                            RGP = item.RGP,
                         };
 
                         vManageTicketDetail_Response.PartDetails.Add(vManageTicketPartDetails_Response);
@@ -1376,7 +1382,7 @@ namespace CLN.API.Controllers
                         AvailableQty = itemPart.AvailableQty,
                         //PartStatusId = itemPart.PartStatusId,
                         //PartStatus = itemPart.PartStatus,
-                        //RGP = itemPart.RGP,
+                        RGP = itemPart.RGP,
                     };
 
                     item.PartDetails.Add(vManageTicketPartDetails_Response);
@@ -2183,6 +2189,142 @@ namespace CLN.API.Controllers
             return result;
         }
 
+        protected async Task<bool> SendPartRequestForTicket_EmailToEmployee(int TicketId)
+        {
+            bool result = false;
+            string templateFilePath = "", emailTemplateContent = "", remarks = "", sSubjectDynamicContent = "", listContent = "";
+
+            try
+            {
+                var dataObj = await _manageTicketRepository.GetManageTicketById(TicketId);
+                if (dataObj != null)
+                {
+                    string recipientEmail = "";
+                    string vReportedToEmployeeEmailId = "";
+                    string vStoreInchargeEmployeeEmailId = "";
+
+                    string vloginUserName = "";
+                    string vloginUserRole = "";
+
+                    int vloginUserBrandId = 0;
+
+                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
+                    if (vUserDetail != null)
+                    {
+                        vloginUserName = vUserDetail.UserName;
+                        vloginUserRole = vUserDetail.RoleName;
+
+                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                        if (vReportedToUserDetail != null)
+                        {
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                        }
+
+                        var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
+                        if (vUserBranchList.ToList().Count > 0)
+                        {
+                            vloginUserBrandId = vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault() != null ? Convert.ToInt32(vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault()) : 0;
+                        }
+
+                        var vBranchUser = await _branchRepository.GetBranchMappingByEmployeeId(0, vloginUserBrandId);
+                        if (vBranchUser.ToList().Count > 0)
+                        {
+                            var searchUser = new BaseSearchEntity();
+                            var vUserList = await _userRepository.GetUserList(searchUser);
+                            if (vUserList.ToList().Count > 0)
+                            {
+                                var vStoreIncharge = vUserList.Where(x => x.RoleName == "Store Incharge" && vBranchUser.Select(x => x.EmployeeId).Contains(x.Id));
+                                if (vStoreIncharge.ToList().Count > 0)
+                                {
+                                    vStoreInchargeEmployeeEmailId = string.Join(",", new List<string>(vStoreIncharge.ToList().Select(x => x.EmailId)).ToArray());
+                                }
+                            }
+                        }
+                    }
+
+                    if (vStoreInchargeEmployeeEmailId != "")
+                    {
+                        recipientEmail = vReportedToEmployeeEmailId + "," + vStoreInchargeEmployeeEmailId;
+                    }
+                    else
+                    {
+                        recipientEmail = vReportedToEmployeeEmailId;
+                    }
+
+
+                    templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\PartRequestForTicket_Employee_Template.html";
+                    emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
+
+                    if (emailTemplateContent.IndexOf("[TicketNumber]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[TicketNumber]", dataObj.TicketNumber);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[CustomerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[CustomerName]", dataObj.CD_CallerName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[IssueSummary]", dataObj.BD_ProbReportedByCust + ", " + dataObj.BD_ProblemDescription);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[ProductDetails]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[ProductDetails]", dataObj.BD_ProductCategory + ", " + dataObj.BD_Segment + ", " + dataObj.BD_SubSegment + ", " + dataObj.BD_ProductModel);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[SymptomsDiagnosis]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[SymptomsDiagnosis]", dataObj.TSAD_ProblemObservedByEng + ", " + dataObj.TSAD_ProblemObservedDesc);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[PartRequestDetailsList]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        listContent = string.Empty;
+
+                        var objDetailsList = await _manageTicketRepository.GetManageTicketPartDetailById(TicketId);
+
+                        int rowNo = 1;
+                        foreach (var items in objDetailsList)
+                        {
+                            listContent = $@"{listContent}
+                            <tr style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{rowNo}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.SpareCategory}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.UniqueCode}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.SpareDesc}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.Quantity}</td>
+                            </tr>";
+
+                            rowNo++;
+                        }
+
+                        emailTemplateContent = emailTemplateContent.Replace("[PartRequestDetailsList]", listContent);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerName]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerName]", vloginUserName);
+                    }
+
+                    if (emailTemplateContent.IndexOf("[EngineerRole]", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        emailTemplateContent = emailTemplateContent.Replace("[EngineerRole]", vloginUserRole);
+                    }
+
+                    sSubjectDynamicContent = "Spare Part Request | " + dataObj.TicketNumber;
+                    result = await _emailHelper.SendEmail(module: "Part Request For Ticket", subject: sSubjectDynamicContent, sendTo: "Employee", content: emailTemplateContent, recipientEmail: recipientEmail, files: null, remarks: remarks);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
         #endregion
 
         #region Manage Enquiry

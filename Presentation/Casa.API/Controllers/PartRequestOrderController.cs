@@ -416,15 +416,19 @@ namespace CLN.API.Controllers
 
                         var objDetailsList = await _partRequestOrderRepository.GetEnggPartRequestDetailList(vSearchObj);
 
+                        int rowNo = 1;
                         foreach (EnggPartRequestDetails_Response items in objDetailsList)
                         {
                             listContent = $@"{listContent}
                             <tr style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>
-                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.SpareCategory}</td>
-                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.UniqueCode}</td>
-                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.SpareDesc}</td>
-                                <td style='border: 1px solid #dddddd;text-align: left;padding: 8px;'>{items.RequiredQty}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{rowNo}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.SpareCategory}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.UniqueCode}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.SpareDesc}</td>
+                                <td style='border: 1px solid #dddddd;text-align: center;padding: 8px;'>{items.RequiredQty}</td>
                             </tr>";
+
+                            rowNo++;
                         }
 
                         emailTemplateContent = emailTemplateContent.Replace("[PartRequestDetailsList]", listContent);
