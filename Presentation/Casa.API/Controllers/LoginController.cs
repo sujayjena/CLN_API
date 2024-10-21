@@ -123,10 +123,12 @@ namespace CLN.API.Controllers
 
                 if (result == (int)SaveOperationEnums.NoResult)
                 {
+                    _response.Id = -1;
                     _response.Message = "Invalid OTP!";
                 }
                 else if (result == (int)SaveOperationEnums.ReocrdExists)
                 {
+                    _response.Id = -1;
                     _response.Message = "OTP timeout!";
                 }
                 else
