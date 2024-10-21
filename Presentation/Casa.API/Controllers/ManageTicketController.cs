@@ -1145,6 +1145,23 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSAD_ProblemObservedByEngId = vResultObj.TSAD_ProblemObservedByEngId;
                     vManageTicketDetail_Response.TSAD_ProblemObservedByEng = vResultObj.TSAD_ProblemObservedByEng;
                     vManageTicketDetail_Response.TSAD_ProblemObservedDesc = vResultObj.TSAD_ProblemObservedDesc;
+
+                    vManageTicketDetail_Response.TSAD_Gravity = vResultObj.TSAD_Gravity;
+                    vManageTicketDetail_Response.TSAD_IP_VoltageAC = vResultObj.TSAD_IP_VoltageAC;
+                    vManageTicketDetail_Response.TSAD_IP_VoltageDC = vResultObj.TSAD_IP_VoltageDC;
+                    vManageTicketDetail_Response.TSAD_OutputAC = vResultObj.TSAD_OutputAC;
+                    vManageTicketDetail_Response.TSAD_Protection = vResultObj.TSAD_Protection;
+                    vManageTicketDetail_Response.TSAD_AttachPhotoFileName = vResultObj.TSAD_AttachPhotoFileName;
+                    vManageTicketDetail_Response.TSAD_AttachPhotoOriginalFileName = vResultObj.TSAD_AttachPhotoOriginalFileName;
+                    vManageTicketDetail_Response.TSAD_AttachPhotoURL = vResultObj.TSAD_AttachPhotoURL;
+                    vManageTicketDetail_Response.TSAD_FanStatus = vResultObj.TSAD_FanStatus;
+                    vManageTicketDetail_Response.TSAD_PhysicalPhotoFileName = vResultObj.TSAD_PhysicalPhotoFileName;
+                    vManageTicketDetail_Response.TSAD_PhysicalPhotoOriginalFileName = vResultObj.TSAD_PhysicalPhotoOriginalFileName;
+                    vManageTicketDetail_Response.TSAD_PhysicalPhotoURL = vResultObj.TSAD_PhysicalPhotoURL;
+                    vManageTicketDetail_Response.TSAD_IssueImageFileName = vResultObj.TSAD_IssueImageFileName;
+                    vManageTicketDetail_Response.TSAD_IssueImageOriginalFileName = vResultObj.TSAD_IssueImageOriginalFileName;
+                    vManageTicketDetail_Response.TSAD_IssueImageURL = vResultObj.TSAD_IssueImageURL;
+
                     vManageTicketDetail_Response.TSPD_PhysicaImageFileName = vResultObj.TSPD_PhysicaImageFileName;
                     vManageTicketDetail_Response.TSPD_PhysicaImageOriginalFileName = vResultObj.TSPD_PhysicaImageOriginalFileName;
                     vManageTicketDetail_Response.TSPD_PhysicaImageURL = vResultObj.TSPD_PhysicaImageURL;
@@ -1955,7 +1972,7 @@ namespace CLN.API.Controllers
 
                     if (emailTemplateContent.IndexOf("[ProductName_Model]", StringComparison.OrdinalIgnoreCase) > 0)
                     {
-                        emailTemplateContent = emailTemplateContent.Replace("[ProductName_Model]", dataObj.BD_ProductCategory + ", " + dataObj.BD_ProductModel);
+                        emailTemplateContent = emailTemplateContent.Replace("[ProductName_Model]", dataObj.BD_ProductCategory + ", " + dataObj.BD_Segment + ", " + dataObj.BD_SubSegment + ", " + dataObj.BD_ProductModel);
                     }
 
                     if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)
@@ -2022,7 +2039,7 @@ namespace CLN.API.Controllers
 
                     if (emailTemplateContent.IndexOf("[ProductName_Model]", StringComparison.OrdinalIgnoreCase) > 0)
                     {
-                        emailTemplateContent = emailTemplateContent.Replace("[ProductName_Model]", dataObj.BD_ProductCategory + ", " + dataObj.BD_ProductModel);
+                        emailTemplateContent = emailTemplateContent.Replace("[ProductName_Model]", dataObj.BD_ProductCategory + ", " + dataObj.BD_Segment + ", " + dataObj.BD_SubSegment + ", " + dataObj.BD_ProductModel);
                     }
 
                     if (emailTemplateContent.IndexOf("[IssueSummary]", StringComparison.OrdinalIgnoreCase) > 0)

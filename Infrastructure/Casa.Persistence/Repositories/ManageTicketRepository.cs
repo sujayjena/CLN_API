@@ -91,6 +91,20 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSAD_CycleCount", parameters.TSAD_CycleCount);
             queryParameters.Add("@TSAD_ProblemObservedByEngId", parameters.TSAD_ProblemObservedByEngId);
             queryParameters.Add("@TSAD_ProblemObservedDesc", parameters.TSAD_ProblemObservedDesc);
+
+            queryParameters.Add("@TSAD_Gravity", parameters.TSAD_Gravity);
+            queryParameters.Add("@TSAD_IP_VoltageAC", parameters.TSAD_IP_VoltageAC);
+            queryParameters.Add("@TSAD_IP_VoltageDC", parameters.TSAD_IP_VoltageDC);
+            queryParameters.Add("@TSAD_OutputAC", parameters.TSAD_OutputAC);
+            queryParameters.Add("@TSAD_Protection", parameters.TSAD_Protection);
+            queryParameters.Add("@TSAD_AttachPhotoFileName", parameters.TSAD_AttachPhotoFileName);
+            queryParameters.Add("@TSAD_AttachPhotoOriginalFileName", parameters.TSAD_AttachPhotoOriginalFileName);
+            queryParameters.Add("@TSAD_FanStatus", parameters.TSAD_FanStatus);
+            queryParameters.Add("@TSAD_PhysicalPhotoFileName", parameters.TSAD_PhysicalPhotoFileName);
+            queryParameters.Add("@TSAD_PhysicalPhotoOriginalFileName", parameters.TSAD_PhysicalPhotoOriginalFileName);
+            queryParameters.Add("@TSAD_IssueImageFileName", parameters.TSAD_IssueImageFileName);
+            queryParameters.Add("@TSAD_IssueImageOriginalFileName", parameters.TSAD_IssueImageOriginalFileName);
+
             queryParameters.Add("@TSPD_PhysicaImageFileName", parameters.TSPD_PhysicaImageFileName);
             queryParameters.Add("@TSPD_PhysicaImageOriginalFileName", parameters.TSPD_PhysicaImageOriginalFileName);
             queryParameters.Add("@TSPD_AnyPhysicalDamage", parameters.TSPD_AnyPhysicalDamage);

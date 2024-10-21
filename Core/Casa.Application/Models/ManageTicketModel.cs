@@ -160,6 +160,23 @@ namespace CLN.Application.Models
         public int? TSAD_ProblemObservedByEngId { get; set; }
         public string? TSAD_ProblemObservedDesc { get; set; }
 
+        public string? TSAD_Gravity { get; set; }
+        public string? TSAD_IP_VoltageAC { get; set; }
+        public string? TSAD_IP_VoltageDC { get; set; }
+        public string? TSAD_OutputAC { get; set; }
+        public string? TSAD_Protection { get; set; }
+        public string? TSAD_AttachPhotoFileName { get; set; }
+        public string? TSAD_AttachPhotoOriginalFileName { get; set; }
+        public string? TSAD_AttachPhoto_Base64 { get; set; }
+        public int? TSAD_FanStatus { get; set; }
+        public string? TSAD_PhysicalPhotoFileName { get; set; }
+        public string? TSAD_PhysicalPhotoOriginalFileName { get; set; }
+        public string? TSAD_PhysicalPhoto_Base64 { get; set; }
+        public string? TSAD_IssueImageFileName { get; set; }
+        public string? TSAD_IssueImageOriginalFileName { get; set; }
+        public string? TSAD_IssueImage_Base64 { get; set; }
+
+
         public string? TSPD_PhysicaImageFileName { get; set; }
         public string? TSPD_PhysicaImageOriginalFileName { get; set; }
         public string? TSPD_PhysicaImage_Base64 { get; set; }
@@ -499,6 +516,23 @@ namespace CLN.Application.Models
         public int TSAD_ProblemObservedByEngId { get; set; }
         public string TSAD_ProblemObservedByEng { get; set; }
         public string TSAD_ProblemObservedDesc { get; set; }
+
+        public string? TSAD_Gravity { get; set; }
+        public string? TSAD_IP_VoltageAC { get; set; }
+        public string? TSAD_IP_VoltageDC { get; set; }
+        public string? TSAD_OutputAC { get; set; }
+        public string? TSAD_Protection { get; set; }
+        public string? TSAD_AttachPhotoFileName { get; set; }
+        public string? TSAD_AttachPhotoOriginalFileName { get; set; }
+        public string? TSAD_AttachPhotoURL { get; set; }
+        public int? TSAD_FanStatus { get; set; }
+        public string? TSAD_PhysicalPhotoFileName { get; set; }
+        public string? TSAD_PhysicalPhotoOriginalFileName { get; set; }
+        public string? TSAD_PhysicalPhotoURL { get; set; }
+        public string? TSAD_IssueImageFileName { get; set; }
+        public string? TSAD_IssueImageOriginalFileName { get; set; }
+        public string? TSAD_IssueImageURL { get; set; }
+
         public string TSPD_PhysicaImageFileName { get; set; }
         public string TSPD_PhysicaImageOriginalFileName { get; set; }
         public string TSPD_PhysicaImageURL { get; set; }
@@ -702,6 +736,23 @@ namespace CLN.Application.Models
         public int TSAD_ProblemObservedByEngId { get; set; }
         public string TSAD_ProblemObservedByEng { get; set; }
         public string TSAD_ProblemObservedDesc { get; set; }
+
+        public string? TSAD_Gravity { get; set; }
+        public string? TSAD_IP_VoltageAC { get; set; }
+        public string? TSAD_IP_VoltageDC { get; set; }
+        public string? TSAD_OutputAC { get; set; }
+        public string? TSAD_Protection { get; set; }
+        public string? TSAD_AttachPhotoFileName { get; set; }
+        public string? TSAD_AttachPhotoOriginalFileName { get; set; }
+        public string? TSAD_AttachPhotoURL { get; set; }
+        public int? TSAD_FanStatus { get; set; }
+        public string? TSAD_PhysicalPhotoFileName { get; set; }
+        public string? TSAD_PhysicalPhotoOriginalFileName { get; set; }
+        public string? TSAD_PhysicalPhotoURL { get; set; }
+        public string? TSAD_IssueImageFileName { get; set; }
+        public string? TSAD_IssueImageOriginalFileName { get; set; }
+        public string? TSAD_IssueImageURL { get; set; }
+
         public string TSPD_PhysicaImageFileName { get; set; }
         public string TSPD_PhysicaImageOriginalFileName { get; set; }
         public string TSPD_PhysicaImageURL { get; set; }
