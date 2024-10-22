@@ -91,6 +91,36 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_AttachPhoto_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_AttachPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_AttachPhotoOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TSAD_AttachPhotoFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_PhysicalPhoto_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_PhysicalPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_PhysicalPhotoOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TSAD_PhysicalPhotoFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_IssueImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_IssueImage_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_IssueImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TSAD_IssueImageFileName = vUploadFile;
+                }
+            }
+
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSPD_PhysicaImage_Base64))
             {
                 var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.TSPD_PhysicaImageOriginalFileName);
@@ -573,56 +603,67 @@ namespace CLN.API.Controllers
                 // Resolved Ticket : SMS send to Caller mobile
                 if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
                 {
-                    #region SMS Config
-
-                    var vConfigRef_Search = new ConfigRef_Search()
+                    var vSMSHistory_Search = new SMSHistory_Search()
                     {
-                        Ref_Type = "SMS",
-                        Ref_Param = "TicketResolve"
-                    };
-
-                    string sSMSTemplateName = string.Empty;
-                    string sSMSTemplateContent = string.Empty;
-                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                    if (vConfigRefObj != null)
-                    {
-                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
-                        {
-                            //Replace parameter 
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
-                        }
-                    }
-
-                    #endregion
-
-                    #region SMS History Check
-
-                    var vSMSHistorySearch = new SMSHistory_Search()
-                    {
+                        Ref1_OTPId = 0,
                         Ref2_Other = resultTicketSMSObj.TicketNumber,
-                        TemplateName = sSMSTemplateContent,
+                        TemplateName = "Ticket Resolve"
                     };
 
-                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
-                    if (resultSMSHistoryObj == null)
+                    var resultSmsHistory = await _smsConfigRepository.GetSMSHistoryById(vSMSHistory_Search);
+                    if (resultSmsHistory == null || (resultSmsHistory != null && resultSmsHistory.Status == "failure"))
                     {
-                        // Send SMS
-                        var vsmsRequest = new SMS_Request()
+                        #region SMS Config
+
+                        var vConfigRef_Search = new ConfigRef_Search()
                         {
-                            Ref1_OTPId = 0,
-                            Ref2_Other = resultTicketSMSObj.TicketNumber,
-                            TemplateName = sSMSTemplateName,
-                            TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CallerMobile,
+                            Ref_Type = "SMS",
+                            Ref_Param = "TicketResolve"
                         };
 
-                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-                    }
+                        string sSMSTemplateName = string.Empty;
+                        string sSMSTemplateContent = string.Empty;
+                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                        if (vConfigRefObj != null)
+                        {
+                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
 
-                    #endregion
+                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                            {
+                                //Replace parameter 
+                                sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
+                            }
+                        }
+
+                        #endregion
+
+                        #region SMS History Check
+
+                        var vSMSHistorySearch = new SMSHistory_Search()
+                        {
+                            Ref2_Other = resultTicketSMSObj.TicketNumber,
+                            TemplateName = sSMSTemplateContent,
+                        };
+
+                        var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
+                        if (resultSMSHistoryObj == null)
+                        {
+                            // Send SMS
+                            var vsmsRequest = new SMS_Request()
+                            {
+                                Ref1_OTPId = 0,
+                                Ref2_Other = resultTicketSMSObj.TicketNumber,
+                                TemplateName = sSMSTemplateName,
+                                TemplateContent = sSMSTemplateContent,
+                                Mobile = resultTicketSMSObj.CD_CallerMobile,
+                            };
+
+                            bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+                        }
+
+                        #endregion
+                    }
                 }
 
                 //Out of Warranty : SMS send to Customer and reporting to employee mobile
