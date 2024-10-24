@@ -37,5 +37,14 @@ namespace CLN.API.Controllers
             _response.Data = lstResponse.ToList();
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetTicketListForSelectList(TicketListForSelect_Search parameters)
+        {
+            IEnumerable<SelectListResponse> lstResponse = await _masterDataRepository.GetTicketListForSelectList(parameters);
+            _response.Data = lstResponse.ToList();
+            return _response;
+        }
     }
 }

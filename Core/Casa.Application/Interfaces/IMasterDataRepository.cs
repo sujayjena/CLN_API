@@ -12,5 +12,6 @@ namespace CLN.Application.Interfaces
     {
         Task<IEnumerable<SelectListResponse>> GetReportingToEmployeeForSelectList(ReportingToEmpListParameters parameters);
         Task<IEnumerable<EmployeesListByReportingTo_Response>> GetEmployeesListByReportingTo(int EmployeeId);
+        Task<IEnumerable<SelectListResponse>> GetTicketListForSelectList(TicketListForSelect_Search parameters);
     }
 }

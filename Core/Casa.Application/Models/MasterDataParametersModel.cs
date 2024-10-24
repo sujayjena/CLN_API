@@ -33,4 +33,15 @@ namespace CLN.Application.Models
     {
         public int? StatusId { get; set; }
     }
+
+    public partial class TicketListForSelect_Search
+    {
+        public int? EmployeeId { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchId { get; set; }
+
+        [DefaultValue("All")]
+        public string? FilterType { get; set; }
+    }
 }
