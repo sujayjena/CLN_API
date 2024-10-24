@@ -30,6 +30,9 @@ namespace CLN.Application.Models
         [DefaultValue("")]
         public string? ExpenseId { get; set; }
 
+        [DefaultValue(false)]
+        public bool? IsDownloded { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
     }
@@ -81,6 +84,7 @@ namespace CLN.Application.Models
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
         public bool? IsExport { get; set; }
+        public bool? IsDownloded { get; set; }
         public bool? IsActive { get; set; }
 
         public List<ExpenseDetails_Response> ExpenseDetails { get; set; }
@@ -102,6 +106,11 @@ namespace CLN.Application.Models
         public string? Module { get; set; }
     }
 
+    public class UpdateDownloadedExpense_Request
+    {
+        [DefaultValue("")]
+        public string? ExpenseId { get; set; }
+    }
 
     public class ExpenseDetails_Search : BaseSearchEntity
     {

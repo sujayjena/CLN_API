@@ -48,6 +48,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+            queryParameters.Add("@IsDownloded", parameters.IsDownloded);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
@@ -80,6 +81,15 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("UpdateIsExport", queryParameters);
+        }
+
+        public async Task<int> UpdateDownloadedExpense(UpdateDownloadedExpense_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+
+            return await SaveByStoredProcedure<int>("UpdateDownloadedExpense", queryParameters);
         }
 
         #endregion

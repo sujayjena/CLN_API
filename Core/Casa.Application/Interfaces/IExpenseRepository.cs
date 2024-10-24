@@ -19,6 +19,8 @@ namespace CLN.Application.Interfaces
 
         Task<int> UpdateIsExport(UpdateIsExport_Request parameters);
 
+        Task<int> UpdateDownloadedExpense(UpdateDownloadedExpense_Request parameters);
+
         #endregion
 
         #region Expense Details
