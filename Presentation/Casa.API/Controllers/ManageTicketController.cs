@@ -1268,6 +1268,9 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TRC_EngineerId = vResultObj.TRC_EngineerId;
                     vManageTicketDetail_Response.TRC_Engineer = vResultObj.TRC_Engineer;
 
+                    vManageTicketDetail_Response.IsResolvedWithoutOTP = vResultObj.IsResolvedWithoutOTP;
+                    vManageTicketDetail_Response.IsClosedWithoutOTP = vResultObj.IsClosedWithoutOTP;
+
                     vManageTicketDetail_Response.IsActive = vResultObj.IsActive;
 
                     vManageTicketDetail_Response.CreatorName = vResultObj.CreatorName;

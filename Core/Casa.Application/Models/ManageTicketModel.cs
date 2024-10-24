@@ -244,6 +244,12 @@ namespace CLN.Application.Models
         public int? TicketStatusId { get; set; }
         public int? TRC_EngineerId { get; set; }
 
+        [DefaultValue(null)]
+        public bool? IsResolvedWithoutOTP { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsClosedWithoutOTP { get; set; }
+
         [DefaultValue(false)]
         public bool? IsActive { get; set; }
 
@@ -381,6 +387,10 @@ namespace CLN.Application.Models
         public bool? IsDuplicateTicket { get; set; }
         public int? TRC_EngineerId { get; set; }
         public string TRC_Engineer { get; set; }
+
+        public bool? IsResolvedWithoutOTP { get; set; }
+        public bool? IsClosedWithoutOTP { get; set; }
+
         public bool? IsActive { get; set; }
 
         public ManageTicketEngineerVisitHistory_Response manageTicketEngineerVisitHistory { get; set; }
@@ -599,6 +609,9 @@ namespace CLN.Application.Models
         public int? TicketStatusSequenceNo { get; set; }
         public int? TRC_EngineerId { get; set; }
         public string TRC_Engineer { get; set; }
+
+        public bool? IsResolvedWithoutOTP { get; set; }
+        public bool? IsClosedWithoutOTP { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -820,6 +833,9 @@ namespace CLN.Application.Models
         public int? TicketStatusSequenceNo { get; set; }
         public int? TRC_EngineerId { get; set; }
         public string TRC_Engineer { get; set; }
+
+        public bool? IsResolvedWithoutOTP { get; set; }
+        public bool? IsClosedWithoutOTP { get; set; }
 
         public bool? IsActive { get; set; }
 
