@@ -11,7 +11,7 @@ namespace CLN.Application.Interfaces
     {
         Task<IEnumerable<Dashboard_TicketResolvedSummary_Result>> GetDashboard_TicketResolvedSummary(Dashboard_Search_Request parameters);
 
-        Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TicetStatusSummary(Dashboard_Search_Request parameters);
+        Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TicetStatusSummary(Dashboard_TicetStatusSummary_Search_Request parameters);
 
         Task<IEnumerable<Dashboard_TicketVisitSummary_Result>> GetDashboard_TicketVisitSummary(Dashboard_Search_Request parameters);
     }

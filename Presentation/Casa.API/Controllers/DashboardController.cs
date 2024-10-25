@@ -37,7 +37,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetDashboard_TicetStatusSummary(Dashboard_Search_Request parameters)
+        public async Task<ResponseModel> GetDashboard_TicetStatusSummary(Dashboard_TicetStatusSummary_Search_Request parameters)
         {
             var objList = await _dashboardRepository.GetDashboard_TicetStatusSummary(parameters);
             _response.Data = objList.ToList();

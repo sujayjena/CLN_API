@@ -36,7 +36,7 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TicetStatusSummary(Dashboard_Search_Request parameters)
+        public async Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TicetStatusSummary(Dashboard_TicetStatusSummary_Search_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -46,6 +46,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@FilterType", parameters.FilterType);
+            queryParameters.Add("@IsFiveDaysFilter", parameters.IsFiveDaysFilter);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             var result = await ListByStoredProcedure<Dashboard_TicetStatusSummary_Result>("GetDashboard_TicetStatusSummary", queryParameters);

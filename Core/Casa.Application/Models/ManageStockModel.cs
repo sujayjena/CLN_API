@@ -399,6 +399,8 @@ namespace CLN.Application.Models
 
     public class OrderReceivedEngineer_Search : BaseSearchEntity
     {
+        [DefaultValue(0)]
+        public int? EngineerId { get; set; }
     }
 
     public class OrderReceivedEngineer_Response

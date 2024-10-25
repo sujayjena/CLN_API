@@ -35,6 +35,26 @@ namespace CLN.Application.Models
         public int? Ticket { get; set; }
     }
 
+    public class Dashboard_TicetStatusSummary_Search_Request
+    {
+        [DefaultValue(0)]
+        public int CompanyId { get; set; }
+
+        [DefaultValue("")]
+        public string BranchId { get; set; }
+
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+
+        [DefaultValue(0)]
+        public int EmployeeId { get; set; }
+
+        [DefaultValue("All")]
+        public string FilterType { get; set; }
+
+        [DefaultValue(true)]
+        public bool? IsFiveDaysFilter { get; set; }
+    }
     public class Dashboard_TicetStatusSummary_Result
     {
         public int Id { get; set; }
