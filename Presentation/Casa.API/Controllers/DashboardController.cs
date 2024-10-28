@@ -52,5 +52,24 @@ namespace CLN.API.Controllers
             _response.Data = objList.ToList();
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDashboard_SurveyNPSSummary(DashboardNPS_Search_Request parameters)
+        {
+            var objList = await _dashboardRepository.GetDashboard_SurveyNPSSummary(parameters);
+
+            decimal vAverageCount = 0;
+
+            if (objList.ToList().Count > 0)
+            {
+                vAverageCount = objList.ToList().Sum(x => Convert.ToDecimal(x.NPS_Without_Perct)) / objList.ToList().Count();
+            }
+
+            _response.Data = objList.ToList();
+            _response.Id = Convert.ToInt32(vAverageCount);
+
+            return _response;
+        }
     }
 }

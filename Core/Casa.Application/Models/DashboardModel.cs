@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CLN.Application.Models
@@ -68,5 +69,20 @@ namespace CLN.Application.Models
         public int? EngineerId { get; set; }
         public string EngineerName { get; set; }
         public int? Visit { get; set; }
+    }
+
+    public class DashboardNPS_Search_Request
+    {
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+    }
+
+    public class Dashboard_SurveyNPSSummary_Response
+    {
+        public string? QuestionName { get; set; }
+
+        [JsonIgnore]
+        public long? NPS_Without_Perct { get; set; }
+        public string? NPS { get; set; }
     }
 }
