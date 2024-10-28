@@ -162,6 +162,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@IsResolvedWithoutOTP", parameters.IsResolvedWithoutOTP);
             queryParameters.Add("@IsClosedWithoutOTP", parameters.IsClosedWithoutOTP);
+            queryParameters.Add("@IsReopen", parameters.IsReopen);
 
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);

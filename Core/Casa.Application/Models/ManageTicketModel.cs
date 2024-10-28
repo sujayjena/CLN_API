@@ -251,6 +251,9 @@ namespace CLN.Application.Models
         public bool? IsClosedWithoutOTP { get; set; }
 
         [DefaultValue(false)]
+        public bool? IsReopen { get; set; }
+
+        [DefaultValue(false)]
         public bool? IsActive { get; set; }
 
         public List<ManageTicketPartDetails_Request> PartDetail { get; set; }
@@ -390,6 +393,7 @@ namespace CLN.Application.Models
 
         public bool? IsResolvedWithoutOTP { get; set; }
         public bool? IsClosedWithoutOTP { get; set; }
+        public bool? IsReopen { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -612,6 +616,7 @@ namespace CLN.Application.Models
 
         public bool? IsResolvedWithoutOTP { get; set; }
         public bool? IsClosedWithoutOTP { get; set; }
+        public bool? IsReopen { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -836,6 +841,7 @@ namespace CLN.Application.Models
 
         public bool? IsResolvedWithoutOTP { get; set; }
         public bool? IsClosedWithoutOTP { get; set; }
+        public bool? IsReopen { get; set; }
 
         public bool? IsActive { get; set; }
 

@@ -1270,6 +1270,7 @@ namespace CLN.API.Controllers
 
                     vManageTicketDetail_Response.IsResolvedWithoutOTP = vResultObj.IsResolvedWithoutOTP;
                     vManageTicketDetail_Response.IsClosedWithoutOTP = vResultObj.IsClosedWithoutOTP;
+                    vManageTicketDetail_Response.IsReopen = vResultObj.IsReopen;
 
                     vManageTicketDetail_Response.IsActive = vResultObj.IsActive;
 
