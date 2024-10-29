@@ -176,6 +176,34 @@ namespace CLN.Application.Models
         public string? TSAD_IssueImageOriginalFileName { get; set; }
         public string? TSAD_IssueImage_Base64 { get; set; }
 
+        public int? RO_TSAD_Visual { get; set; }
+        public string? RO_TSAD_VisualImageFileName { get; set; }
+        public string? RO_TSAD_VisualImageOriginalFileName { get; set; }
+        public string? RO_TSAD_VisualImage_Base64 { get; set; }
+        public string? RO_TSAD_CurrentChargingValue { get; set; }
+        public string? RO_TSAD_CurrentDischargingValue { get; set; }
+        public string? RO_TSAD_BatteryTemperature { get; set; }
+        public string? RO_TSAD_BatterVoltage { get; set; }
+        public string? RO_TSAD_CellDiffrence { get; set; }
+        public int? RO_TSAD_ProtectionsId { get; set; }
+        public string? RO_TSAD_CycleCount { get; set; }
+        public int? RO_TSAD_ProblemObservedByEngId { get; set; }
+        public string? RO_TSAD_ProblemObservedDesc { get; set; }
+        public string? RO_TSAD_Gravity { get; set; }
+        public string? RO_TSAD_IP_VoltageAC { get; set; }
+        public string? RO_TSAD_IP_VoltageDC { get; set; }
+        public string? RO_TSAD_OutputAC { get; set; }
+        public string? RO_TSAD_Protection { get; set; }
+        public string? RO_TSAD_AttachPhotoFileName { get; set; }
+        public string? RO_TSAD_AttachPhotoOriginalFileName { get; set; }
+        public string? RO_TSAD_AttachPhoto_Base64 { get; set; }
+        public int? RO_TSAD_FanStatus { get; set; }
+        public string? RO_TSAD_PhysicalPhotoFileName { get; set; }
+        public string? RO_TSAD_PhysicalPhotoOriginalFileName { get; set; }
+        public string? RO_TSAD_PhysicalPhoto_Base64 { get; set; }
+        public string? RO_TSAD_IssueImageFileName { get; set; }
+        public string? RO_TSAD_IssueImageOriginalFileName { get; set; }
+        public string? RO_TSAD_IssueImage_Base64 { get; set; }
 
         public string? TSPD_PhysicaImageFileName { get; set; }
         public string? TSPD_PhysicaImageOriginalFileName { get; set; }
@@ -187,12 +215,30 @@ namespace CLN.Application.Models
         public bool? TSPD_IsWarrantyVoid { get; set; }
         public string? TSPD_ReasonforVoid { get; set; }
         public int? TSPD_TypeOfBMSId { get; set; }
+
+        public string? RO_TSPD_PhysicaImageFileName { get; set; }
+        public string? RO_TSPD_PhysicaImageOriginalFileName { get; set; }
+        public string? RO_TSPD_PhysicaImage_Base64 { get; set; }
+        public string? RO_TSPD_AnyPhysicalDamage { get; set; }
+        public string? RO_TSPD_Other { get; set; }
+        [DefaultValue(false)]
+        public bool? RO_TSPD_IsWarrantyVoid { get; set; }
+        public string? RO_TSPD_ReasonforVoid { get; set; }
+        public int? RO_TSPD_TypeOfBMSId { get; set; }
+
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string? TSSP_Remarks { get; set; }
         public int? TSSP_BranchId { get; set; }
         public int? TSSP_RectificationActionId { get; set; }
         public string? TSSP_ResolutionSummary { get; set; }
+
+        public int? RO_TSSP_SolutionProvider { get; set; }
+        public int? RO_TSSP_AllocateToServiceEnggId { get; set; }
+        public string? RO_TSSP_Remarks { get; set; }
+        public int? RO_TSSP_BranchId { get; set; }
+        public int? RO_TSSP_RectificationActionId { get; set; }
+        public string? RO_TSSP_ResolutionSummary { get; set; }
 
         public int? CP_Visual { get; set; }
         public string? CP_VisualImageFileName { get; set; }
@@ -225,8 +271,38 @@ namespace CLN.Application.Models
         public string? CP_ProblemObserved { get; set; }
         public int? CP_ProblemObservedByEngId { get; set; }
 
+        public int? RO_CP_Visual { get; set; }
+        public string? RO_CP_VisualImageFileName { get; set; }
+        public string? RO_CP_VisualImageOriginalFileName { get; set; }
+        public string? RO_CP_VisualImage_Base64 { get; set; }
+        public string? RO_CP_TerminalVoltage { get; set; }
+        public int? RO_CP_CommunicationWithBattery { get; set; }
+        public int? RO_CP_TerminalWire { get; set; }
+        public string? RO_CP_TerminalWireImageFileName { get; set; }
+        public string? RO_CP_TerminalWireImageOriginalFileName { get; set; }
+        public string? RO_CP_TerminalWireImage_Base64 { get; set; }
+        public string? RO_CP_LifeCycle { get; set; }
+        public string? RO_CP_StringVoltageVariation { get; set; }
+        public int? RO_CP_BatteryParametersSetting { get; set; }
+        public string? RO_CP_BatteryParametersSettingImageFileName { get; set; }
+        public string? RO_CP_BatteryParametersSettingImageOriginalFileName { get; set; }
+        public string? RO_CP_BatteryParametersSettingImage_Base64 { get; set; }
+        public int? RO_CP_Spare { get; set; }
+        public int? RO_CP_BMSStatus { get; set; }
+        public string? RO_CP_BMSSoftwareImageFileName { get; set; }
+        public string? RO_CP_BMSSoftwareImageOriginalFileName { get; set; }
+        public string? RO_CP_BMSSoftwareImage_Base64 { get; set; }
+        public int? RO_CP_BMSType { get; set; }
+        public string? RO_CP_BatteryTemp { get; set; }
+        public string? RO_CP_BMSSerialNumber { get; set; }
+        public string? RO_CP_ProblemObserved { get; set; }
+        public int? RO_CP_ProblemObservedByEngId { get; set; }
+
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
+
+        public int? RO_CC_BatteryRepairedOnSite { get; set; }
+        public int? RO_CC_BatteryRepairedToPlant { get; set; }
 
         [DefaultValue(false)]
         public bool? OV_IsCustomerAvailable { get; set; }
@@ -237,6 +313,16 @@ namespace CLN.Application.Models
         public string? OV_CustomerMobileNumber { get; set; }
         public string? OV_RequestOTP { get; set; }
         public string? OV_Signature { get; set; }
+
+        [DefaultValue(false)]
+        public bool? RO_OV_IsCustomerAvailable { get; set; }
+        public string? RO_OV_EngineerName { get; set; }
+        public string? RO_OV_EngineerNumber { get; set; }
+        public string? RO_OV_CustomerName { get; set; }
+        public string? RO_OV_CustomerNameSecondary { get; set; }
+        public string? RO_OV_CustomerMobileNumber { get; set; }
+        public string? RO_OV_RequestOTP { get; set; }
+        public string? RO_OV_Signature { get; set; }
 
         public string? TicketRemarks { get; set; }
 
@@ -547,6 +633,37 @@ namespace CLN.Application.Models
         public string? TSAD_IssueImageOriginalFileName { get; set; }
         public string? TSAD_IssueImageURL { get; set; }
 
+        public int? RO_TSAD_Visual { get; set; }
+        public string RO_TSAD_VisualImageFileName { get; set; }
+        public string RO_TSAD_VisualImageOriginalFileName { get; set; }
+        public string RO_TSAD_VisualImageURL { get; set; }
+        public string RO_TSAD_CurrentChargingValue { get; set; }
+        public string RO_TSAD_CurrentDischargingValue { get; set; }
+        public string RO_TSAD_BatteryTemperature { get; set; }
+        public string RO_TSAD_BatterVoltage { get; set; }
+        public string RO_TSAD_CellDiffrence { get; set; }
+        public int? RO_TSAD_ProtectionsId { get; set; }
+        public string RO_TSAD_Protections { get; set; }
+        public string RO_TSAD_CycleCount { get; set; }
+        public int RO_TSAD_ProblemObservedByEngId { get; set; }
+        public string RO_TSAD_ProblemObservedByEng { get; set; }
+        public string RO_TSAD_ProblemObservedDesc { get; set; }
+        public string? RO_TSAD_Gravity { get; set; }
+        public string? RO_TSAD_IP_VoltageAC { get; set; }
+        public string? RO_TSAD_IP_VoltageDC { get; set; }
+        public string? RO_TSAD_OutputAC { get; set; }
+        public string? RO_TSAD_Protection { get; set; }
+        public string? RO_TSAD_AttachPhotoFileName { get; set; }
+        public string? RO_TSAD_AttachPhotoOriginalFileName { get; set; }
+        public string? RO_TSAD_AttachPhotoURL { get; set; }
+        public int? RO_TSAD_FanStatus { get; set; }
+        public string? RO_TSAD_PhysicalPhotoFileName { get; set; }
+        public string? RO_TSAD_PhysicalPhotoOriginalFileName { get; set; }
+        public string? RO_TSAD_PhysicalPhotoURL { get; set; }
+        public string? RO_TSAD_IssueImageFileName { get; set; }
+        public string? RO_TSAD_IssueImageOriginalFileName { get; set; }
+        public string? RO_TSAD_IssueImageURL { get; set; }
+
         public string TSPD_PhysicaImageFileName { get; set; }
         public string TSPD_PhysicaImageOriginalFileName { get; set; }
         public string TSPD_PhysicaImageURL { get; set; }
@@ -557,6 +674,17 @@ namespace CLN.Application.Models
         public int? TSPD_TypeOfBMSId { get; set; }
         public string? TSPD_TypeOfBMS { get; set; }
 
+        public string RO_TSPD_PhysicaImageFileName { get; set; }
+        public string RO_TSPD_PhysicaImageOriginalFileName { get; set; }
+        public string RO_TSPD_PhysicaImageURL { get; set; }
+        public string RO_TSPD_AnyPhysicalDamage { get; set; }
+        public string RO_TSPD_Other { get; set; }
+        public bool? RO_TSPD_IsWarrantyVoid { get; set; }
+        public string? RO_TSPD_ReasonforVoid { get; set; }
+        public int? RO_TSPD_TypeOfBMSId { get; set; }
+        public string? RO_TSPD_TypeOfBMS { get; set; }
+
+
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string TSSP_AllocateToServiceEngg { get; set; }
@@ -566,6 +694,16 @@ namespace CLN.Application.Models
         public int? TSSP_RectificationActionId { get; set; }
         public string? TSSP_RectificationAction { get; set; }
         public string? TSSP_ResolutionSummary { get; set; }
+
+        public int? RO_TSSP_SolutionProvider { get; set; }
+        public int? RO_TSSP_AllocateToServiceEnggId { get; set; }
+        public string RO_TSSP_AllocateToServiceEngg { get; set; }
+        public string? RO_TSSP_Remarks { get; set; }
+        public int? RO_TSSP_BranchId { get; set; }
+        public string? RO_TSSP_BranchName { get; set; }
+        public int? RO_TSSP_RectificationActionId { get; set; }
+        public string? RO_TSSP_RectificationAction { get; set; }
+        public string? RO_TSSP_ResolutionSummary { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -595,8 +733,39 @@ namespace CLN.Application.Models
         public int? CP_ProblemObservedByEngId { get; set; }
         public string? CP_ProblemObservedByEng { get; set; }
 
+        public int? RO_CP_Visual { get; set; }
+        public string RO_CP_VisualImageFileName { get; set; }
+        public string RO_CP_VisualImageOriginalFileName { get; set; }
+        public string RO_CP_VisualImageURL { get; set; }
+        public string RO_CP_TerminalVoltage { get; set; }
+        public int? RO_CP_CommunicationWithBattery { get; set; }
+        public int? RO_CP_TerminalWire { get; set; }
+        public string RO_CP_TerminalWireImageOriginalFileName { get; set; }
+        public string RO_CP_TerminalWireImageFileName { get; set; }
+        public string RO_CP_TerminalWireImageURL { get; set; }
+        public string RO_CP_LifeCycle { get; set; }
+        public string RO_CP_StringVoltageVariation { get; set; }
+        public int? RO_CP_BatteryParametersSetting { get; set; }
+        public string RO_CP_BatteryParametersSettingImageFileName { get; set; }
+        public string RO_CP_BatteryParametersSettingImageOriginalFileName { get; set; }
+        public string RO_CP_BatteryParametersSettingImageURL { get; set; }
+        public int? RO_CP_Spare { get; set; }
+        public int? RO_CP_BMSStatus { get; set; }
+        public string RO_CP_BMSSoftwareImageFileName { get; set; }
+        public string RO_CP_BMSSoftwareImageOriginalFileName { get; set; }
+        public string RO_CP_BMSSoftwareImageURL { get; set; }
+        public int? RO_CP_BMSType { get; set; }
+        public string RO_CP_BatteryTemp { get; set; }
+        public string RO_CP_BMSSerialNumber { get; set; }
+        public string RO_CP_ProblemObserved { get; set; }
+        public int? RO_CP_ProblemObservedByEngId { get; set; }
+        public string? RO_CP_ProblemObservedByEng { get; set; }
+
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
+
+        public int? RO_CC_BatteryRepairedOnSite { get; set; }
+        public int? RO_CC_BatteryRepairedToPlant { get; set; }
 
         public bool? OV_IsCustomerAvailable { get; set; }
         public string OV_EngineerName { get; set; }
@@ -606,6 +775,15 @@ namespace CLN.Application.Models
         public string OV_CustomerMobileNumber { get; set; }
         public string OV_RequestOTP { get; set; }
         public string OV_Signature { get; set; }
+
+        public bool? RO_OV_IsCustomerAvailable { get; set; }
+        public string RO_OV_EngineerName { get; set; }
+        public string RO_OV_EngineerNumber { get; set; }
+        public string RO_OV_CustomerName { get; set; }
+        public string RO_OV_CustomerNameSecondary { get; set; }
+        public string RO_OV_CustomerMobileNumber { get; set; }
+        public string RO_OV_RequestOTP { get; set; }
+        public string RO_OV_Signature { get; set; }
 
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
@@ -771,6 +949,37 @@ namespace CLN.Application.Models
         public string? TSAD_IssueImageOriginalFileName { get; set; }
         public string? TSAD_IssueImageURL { get; set; }
 
+        public int? RO_TSAD_Visual { get; set; }
+        public string RO_TSAD_VisualImageFileName { get; set; }
+        public string RO_TSAD_VisualImageOriginalFileName { get; set; }
+        public string RO_TSAD_VisualImageURL { get; set; }
+        public string RO_TSAD_CurrentChargingValue { get; set; }
+        public string RO_TSAD_CurrentDischargingValue { get; set; }
+        public string RO_TSAD_BatteryTemperature { get; set; }
+        public string RO_TSAD_BatterVoltage { get; set; }
+        public string RO_TSAD_CellDiffrence { get; set; }
+        public int? RO_TSAD_ProtectionsId { get; set; }
+        public string RO_TSAD_Protections { get; set; }
+        public string RO_TSAD_CycleCount { get; set; }
+        public int RO_TSAD_ProblemObservedByEngId { get; set; }
+        public string RO_TSAD_ProblemObservedByEng { get; set; }
+        public string RO_TSAD_ProblemObservedDesc { get; set; }
+        public string? RO_TSAD_Gravity { get; set; }
+        public string? RO_TSAD_IP_VoltageAC { get; set; }
+        public string? RO_TSAD_IP_VoltageDC { get; set; }
+        public string? RO_TSAD_OutputAC { get; set; }
+        public string? RO_TSAD_Protection { get; set; }
+        public string? RO_TSAD_AttachPhotoFileName { get; set; }
+        public string? RO_TSAD_AttachPhotoOriginalFileName { get; set; }
+        public string? RO_TSAD_AttachPhotoURL { get; set; }
+        public int? RO_TSAD_FanStatus { get; set; }
+        public string? RO_TSAD_PhysicalPhotoFileName { get; set; }
+        public string? RO_TSAD_PhysicalPhotoOriginalFileName { get; set; }
+        public string? RO_TSAD_PhysicalPhotoURL { get; set; }
+        public string? RO_TSAD_IssueImageFileName { get; set; }
+        public string? RO_TSAD_IssueImageOriginalFileName { get; set; }
+        public string? RO_TSAD_IssueImageURL { get; set; }
+
         public string TSPD_PhysicaImageFileName { get; set; }
         public string TSPD_PhysicaImageOriginalFileName { get; set; }
         public string TSPD_PhysicaImageURL { get; set; }
@@ -781,6 +990,16 @@ namespace CLN.Application.Models
         public int? TSPD_TypeOfBMSId { get; set; }
         public string? TSPD_TypeOfBMS { get; set; }
 
+        public string RO_TSPD_PhysicaImageFileName { get; set; }
+        public string RO_TSPD_PhysicaImageOriginalFileName { get; set; }
+        public string RO_TSPD_PhysicaImageURL { get; set; }
+        public string RO_TSPD_AnyPhysicalDamage { get; set; }
+        public string RO_TSPD_Other { get; set; }
+        public bool? RO_TSPD_IsWarrantyVoid { get; set; }
+        public string? RO_TSPD_ReasonforVoid { get; set; }
+        public int? RO_TSPD_TypeOfBMSId { get; set; }
+        public string? RO_TSPD_TypeOfBMS { get; set; }
+
         public int? TSSP_SolutionProvider { get; set; }
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string TSSP_AllocateToServiceEngg { get; set; }
@@ -790,6 +1009,16 @@ namespace CLN.Application.Models
         public int? TSSP_RectificationActionId { get; set; }
         public string? TSSP_RectificationAction { get; set; }
         public string? TSSP_ResolutionSummary { get; set; }
+
+        public int? RO_TSSP_SolutionProvider { get; set; }
+        public int? RO_TSSP_AllocateToServiceEnggId { get; set; }
+        public string RO_TSSP_AllocateToServiceEngg { get; set; }
+        public string? RO_TSSP_Remarks { get; set; }
+        public int? RO_TSSP_BranchId { get; set; }
+        public string? RO_TSSP_BranchName { get; set; }
+        public int? RO_TSSP_RectificationActionId { get; set; }
+        public string? RO_TSSP_RectificationAction { get; set; }
+        public string? RO_TSSP_ResolutionSummary { get; set; }
 
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
@@ -819,8 +1048,39 @@ namespace CLN.Application.Models
         public int? CP_ProblemObservedByEngId { get; set; }
         public string? CP_ProblemObservedByEng { get; set; }
 
+        public int? RO_CP_Visual { get; set; }
+        public string RO_CP_VisualImageFileName { get; set; }
+        public string RO_CP_VisualImageOriginalFileName { get; set; }
+        public string RO_CP_VisualImageURL { get; set; }
+        public string RO_CP_TerminalVoltage { get; set; }
+        public int? RO_CP_CommunicationWithBattery { get; set; }
+        public int? RO_CP_TerminalWire { get; set; }
+        public string RO_CP_TerminalWireImageOriginalFileName { get; set; }
+        public string RO_CP_TerminalWireImageFileName { get; set; }
+        public string RO_CP_TerminalWireImageURL { get; set; }
+        public string RO_CP_LifeCycle { get; set; }
+        public string RO_CP_StringVoltageVariation { get; set; }
+        public int? RO_CP_BatteryParametersSetting { get; set; }
+        public string RO_CP_BatteryParametersSettingImageFileName { get; set; }
+        public string RO_CP_BatteryParametersSettingImageOriginalFileName { get; set; }
+        public string RO_CP_BatteryParametersSettingImageURL { get; set; }
+        public int? RO_CP_Spare { get; set; }
+        public int? RO_CP_BMSStatus { get; set; }
+        public string RO_CP_BMSSoftwareImageFileName { get; set; }
+        public string RO_CP_BMSSoftwareImageOriginalFileName { get; set; }
+        public string RO_CP_BMSSoftwareImageURL { get; set; }
+        public int? RO_CP_BMSType { get; set; }
+        public string RO_CP_BatteryTemp { get; set; }
+        public string RO_CP_BMSSerialNumber { get; set; }
+        public string RO_CP_ProblemObserved { get; set; }
+        public int? RO_CP_ProblemObservedByEngId { get; set; }
+        public string? RO_CP_ProblemObservedByEng { get; set; }
+
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
+
+        public int? RO_CC_BatteryRepairedOnSite { get; set; }
+        public int? RO_CC_BatteryRepairedToPlant { get; set; }
 
         public bool? OV_IsCustomerAvailable { get; set; }
         public string OV_EngineerName { get; set; }
@@ -830,6 +1090,15 @@ namespace CLN.Application.Models
         public string OV_CustomerMobileNumber { get; set; }
         public string OV_RequestOTP { get; set; }
         public string OV_Signature { get; set; }
+
+        public bool? RO_OV_IsCustomerAvailable { get; set; }
+        public string RO_OV_EngineerName { get; set; }
+        public string RO_OV_EngineerNumber { get; set; }
+        public string RO_OV_CustomerName { get; set; }
+        public string RO_OV_CustomerNameSecondary { get; set; }
+        public string RO_OV_CustomerMobileNumber { get; set; }
+        public string RO_OV_RequestOTP { get; set; }
+        public string RO_OV_Signature { get; set; }
 
         public string? TicketRemarks { get; set; }
         public int? EnquiryId { get; set; }
