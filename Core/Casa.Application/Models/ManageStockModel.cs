@@ -393,6 +393,11 @@ namespace CLN.Application.Models
         public bool? RGP { get; set; }
     }
 
+    public class EnggStockMaster_Request : BaseEntity
+    {
+        public int? MinQty { get; set; }
+    }
+
     #endregion
 
     #region Order Received Engineer

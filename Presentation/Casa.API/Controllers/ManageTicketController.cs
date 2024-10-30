@@ -162,89 +162,6 @@ namespace CLN.API.Controllers
                 }
             }
 
-            //Reopen image upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_VisualImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_VisualImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_VisualImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_AttachPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_AttachPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_AttachPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_AttachPhotoFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_PhysicalPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_PhysicalPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_PhysicalPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_PhysicalPhotoFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_IssueImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_IssueImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_IssueImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_IssueImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSPD_PhysicaImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSPD_PhysicaImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSPD_PhysicaImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_TerminalWireImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_TerminalWireImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_TerminalWireImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_CP_TerminalWireImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_BatteryParametersSettingImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_BatteryParametersSettingImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_BatteryParametersSettingImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_CP_BatteryParametersSettingImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_BMSSoftwareImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_BMSSoftwareImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_BMSSoftwareImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_CP_BMSSoftwareImageFileName = vUploadFile;
-                }
-            }
-
-            //reopen end
-
 
             // Save/Update
             int result = await _manageTicketRepository.SaveManageTicket(parameters);
@@ -1288,40 +1205,6 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSAD_IssueImageOriginalFileName = vResultObj.TSAD_IssueImageOriginalFileName;
                     vManageTicketDetail_Response.TSAD_IssueImageURL = vResultObj.TSAD_IssueImageURL;
 
-                    vManageTicketDetail_Response.RO_TSAD_Visual = vResultObj.RO_TSAD_Visual;
-                    vManageTicketDetail_Response.RO_TSAD_VisualImageFileName = vResultObj.RO_TSAD_VisualImageFileName;
-                    vManageTicketDetail_Response.RO_TSAD_VisualImageOriginalFileName = vResultObj.RO_TSAD_VisualImageOriginalFileName;
-                    vManageTicketDetail_Response.RO_TSAD_VisualImageURL = vResultObj.RO_TSAD_VisualImageURL;
-                    vManageTicketDetail_Response.RO_TSAD_BatteryTemperature = vResultObj.RO_TSAD_BatteryTemperature;
-                    vManageTicketDetail_Response.RO_TSAD_CurrentChargingValue = vResultObj.RO_TSAD_CurrentChargingValue;
-                    vManageTicketDetail_Response.RO_TSAD_CurrentDischargingValue = vResultObj.RO_TSAD_CurrentDischargingValue;
-                    vManageTicketDetail_Response.RO_TSAD_BatteryTemperature = vResultObj.RO_TSAD_BatteryTemperature;
-                    vManageTicketDetail_Response.RO_TSAD_BatterVoltage = vResultObj.RO_TSAD_BatterVoltage;
-                    vManageTicketDetail_Response.RO_TSAD_CellDiffrence = vResultObj.RO_TSAD_CellDiffrence;
-                    vManageTicketDetail_Response.RO_TSAD_ProtectionsId = vResultObj.RO_TSAD_ProtectionsId;
-                    vManageTicketDetail_Response.RO_TSAD_Protections = vResultObj.RO_TSAD_Protections;
-
-                    vManageTicketDetail_Response.RO_TSAD_CycleCount = vResultObj.RO_TSAD_CycleCount;
-                    vManageTicketDetail_Response.RO_TSAD_ProblemObservedByEngId = vResultObj.RO_TSAD_ProblemObservedByEngId;
-                    vManageTicketDetail_Response.RO_TSAD_ProblemObservedByEng = vResultObj.RO_TSAD_ProblemObservedByEng;
-                    vManageTicketDetail_Response.RO_TSAD_ProblemObservedDesc = vResultObj.RO_TSAD_ProblemObservedDesc;
-
-                    vManageTicketDetail_Response.RO_TSAD_Gravity = vResultObj.RO_TSAD_Gravity;
-                    vManageTicketDetail_Response.RO_TSAD_IP_VoltageAC = vResultObj.RO_TSAD_IP_VoltageAC;
-                    vManageTicketDetail_Response.RO_TSAD_IP_VoltageDC = vResultObj.RO_TSAD_IP_VoltageDC;
-                    vManageTicketDetail_Response.RO_TSAD_OutputAC = vResultObj.RO_TSAD_OutputAC;
-                    vManageTicketDetail_Response.RO_TSAD_Protection = vResultObj.RO_TSAD_Protection;
-                    vManageTicketDetail_Response.RO_TSAD_AttachPhotoFileName = vResultObj.RO_TSAD_AttachPhotoFileName;
-                    vManageTicketDetail_Response.RO_TSAD_AttachPhotoOriginalFileName = vResultObj.RO_TSAD_AttachPhotoOriginalFileName;
-                    vManageTicketDetail_Response.RO_TSAD_AttachPhotoURL = vResultObj.RO_TSAD_AttachPhotoURL;
-                    vManageTicketDetail_Response.RO_TSAD_FanStatus = vResultObj.RO_TSAD_FanStatus;
-                    vManageTicketDetail_Response.RO_TSAD_PhysicalPhotoFileName = vResultObj.RO_TSAD_PhysicalPhotoFileName;
-                    vManageTicketDetail_Response.RO_TSAD_PhysicalPhotoOriginalFileName = vResultObj.RO_TSAD_PhysicalPhotoOriginalFileName;
-                    vManageTicketDetail_Response.RO_TSAD_PhysicalPhotoURL = vResultObj.RO_TSAD_PhysicalPhotoURL;
-                    vManageTicketDetail_Response.RO_TSAD_IssueImageFileName = vResultObj.RO_TSAD_IssueImageFileName;
-                    vManageTicketDetail_Response.RO_TSAD_IssueImageOriginalFileName = vResultObj.RO_TSAD_IssueImageOriginalFileName;
-                    vManageTicketDetail_Response.RO_TSAD_IssueImageURL = vResultObj.RO_TSAD_IssueImageURL;
-
                     vManageTicketDetail_Response.TSPD_PhysicaImageFileName = vResultObj.TSPD_PhysicaImageFileName;
                     vManageTicketDetail_Response.TSPD_PhysicaImageOriginalFileName = vResultObj.TSPD_PhysicaImageOriginalFileName;
                     vManageTicketDetail_Response.TSPD_PhysicaImageURL = vResultObj.TSPD_PhysicaImageURL;
@@ -1332,16 +1215,6 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSPD_TypeOfBMSId = vResultObj.TSPD_TypeOfBMSId;
                     vManageTicketDetail_Response.TSPD_TypeOfBMS = vResultObj.TSPD_TypeOfBMS;
 
-                    vManageTicketDetail_Response.RO_TSPD_PhysicaImageFileName = vResultObj.RO_TSPD_PhysicaImageFileName;
-                    vManageTicketDetail_Response.RO_TSPD_PhysicaImageOriginalFileName = vResultObj.RO_TSPD_PhysicaImageOriginalFileName;
-                    vManageTicketDetail_Response.RO_TSPD_PhysicaImageURL = vResultObj.RO_TSPD_PhysicaImageURL;
-                    vManageTicketDetail_Response.RO_TSPD_AnyPhysicalDamage = vResultObj.RO_TSPD_AnyPhysicalDamage;
-                    vManageTicketDetail_Response.RO_TSPD_Other = vResultObj.RO_TSPD_Other;
-                    vManageTicketDetail_Response.RO_TSPD_IsWarrantyVoid = vResultObj.RO_TSPD_IsWarrantyVoid;
-                    vManageTicketDetail_Response.RO_TSPD_ReasonforVoid = vResultObj.RO_TSPD_ReasonforVoid;
-                    vManageTicketDetail_Response.RO_TSPD_TypeOfBMSId = vResultObj.RO_TSPD_TypeOfBMSId;
-                    vManageTicketDetail_Response.RO_TSPD_TypeOfBMS = vResultObj.RO_TSPD_TypeOfBMS;
-
                     vManageTicketDetail_Response.TSSP_SolutionProvider = vResultObj.TSSP_SolutionProvider;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEnggId = vResultObj.TSSP_AllocateToServiceEnggId;
                     vManageTicketDetail_Response.TSSP_AllocateToServiceEngg = vResultObj.TSSP_AllocateToServiceEngg;
@@ -1351,16 +1224,6 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSSP_RectificationActionId = vResultObj.TSSP_RectificationActionId;
                     vManageTicketDetail_Response.TSSP_RectificationAction = vResultObj.TSSP_RectificationAction;
                     vManageTicketDetail_Response.TSSP_ResolutionSummary = vResultObj.TSSP_ResolutionSummary;
-
-                    vManageTicketDetail_Response.RO_TSSP_SolutionProvider = vResultObj.RO_TSSP_SolutionProvider;
-                    vManageTicketDetail_Response.RO_TSSP_AllocateToServiceEnggId = vResultObj.RO_TSSP_AllocateToServiceEnggId;
-                    vManageTicketDetail_Response.RO_TSSP_AllocateToServiceEngg = vResultObj.RO_TSSP_AllocateToServiceEngg;
-                    vManageTicketDetail_Response.RO_TSSP_Remarks = vResultObj.RO_TSSP_Remarks;
-                    vManageTicketDetail_Response.RO_TSSP_BranchId = vResultObj.RO_TSSP_BranchId;
-                    vManageTicketDetail_Response.RO_TSSP_BranchName = vResultObj.RO_TSSP_BranchName;
-                    vManageTicketDetail_Response.RO_TSSP_RectificationActionId = vResultObj.RO_TSSP_RectificationActionId;
-                    vManageTicketDetail_Response.RO_TSSP_RectificationAction = vResultObj.RO_TSSP_RectificationAction;
-                    vManageTicketDetail_Response.RO_TSSP_ResolutionSummary = vResultObj.RO_TSSP_ResolutionSummary;
 
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;

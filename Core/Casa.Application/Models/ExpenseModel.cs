@@ -173,6 +173,7 @@ namespace CLN.Application.Models
         public string? Remarks { get; set; }
         public int? CityGradeId { get; set; }
         public string? CityGrade { get; set; }
+        public bool? IsApprovedDisabled { get; set; }
         public List<ExpenseDetailsRemarks_Response> remarksList { get; set; }
     }
 
@@ -255,6 +256,7 @@ namespace CLN.Application.Models
         public string? ExpenseImageOriginalFileName { get; set; }
         public string? ExpenseImageFileURL { get; set; }
         public bool? IsExport { get; set; }
+        public bool? IsApprovedDisabled { get; set; }
         public List<ExpenseDetailsRemarks_Response> remarksList { get; set; }
     }
 

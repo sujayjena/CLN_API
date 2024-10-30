@@ -40,6 +40,7 @@ namespace CLN.Application.Models
         public string? Reason { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
+        public bool? IsApprovedDisabled { get; set; }
         public bool? IsActive { get; set; }
     }
 

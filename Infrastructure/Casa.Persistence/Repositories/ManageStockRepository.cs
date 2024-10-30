@@ -331,6 +331,25 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
+        public async Task<EnggStockMaster_Response?> GetEnggStockMasterById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<EnggStockMaster_Response>("GetEnggStockMasterById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<int> UpdateEnggStockMaster(EnggStockMaster_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@MinQty", parameters.MinQty);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("UpdateEnggStockMaster", queryParameters);
+        }
+
         #endregion
 
         #region Engineer Part Return
@@ -491,6 +510,23 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<StockMaster_Response>("GetStockMasterBySpareDetailsId", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<IEnumerable<StockMaster_Response>> GetStockMasterList(BaseSearchEntity parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<StockMaster_Response>("GetStockMasterList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
 
         public Task<IEnumerable<OrderReceivedEngineer_Response>> GetOrderReceivedEngineerList(EnggPartsReturn_Search parameters)
         {

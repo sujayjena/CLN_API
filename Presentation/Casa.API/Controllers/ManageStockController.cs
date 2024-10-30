@@ -552,6 +552,50 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetEnggStockMasterById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageStockRepository.GetEnggStockMasterById(Id);
+                
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> UpdateEnggStockMaster(EnggStockMaster_Request parameters)
+        {
+            int result = await _manageStockRepository.UpdateEnggStockMaster(parameters);
+
+            if (result == (int)SaveOperationEnums.NoRecordExists)
+            {
+                _response.Message = "No record exists";
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "Record already exists";
+            }
+            else if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Something went wrong, please try again";
+            }
+            else
+            {
+                _response.Message = "Record saved sucessfully";
+            }
+
+            _response.Id = result;
+            return _response;
+        }
+
         #endregion
 
         #region Engineer Part Return
@@ -741,6 +785,17 @@ namespace CLN.API.Controllers
         #endregion
 
         #region Stock Master
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetStockMasterList(BaseSearchEntity parameters)
+        {
+            var objList = await _manageStockRepository.GetStockMasterList(parameters);
+            _response.Data = objList.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
 
         //[Route("[action]")]
         //[HttpPost]
