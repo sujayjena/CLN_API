@@ -55,6 +55,9 @@ namespace CLN.Application.Models
 
         [DefaultValue(true)]
         public bool? IsFiveDaysFilter { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsReopen { get; set; }
     }
     public class Dashboard_TicetStatusSummary_Result
     {

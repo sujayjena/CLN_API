@@ -47,6 +47,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@IsFiveDaysFilter", parameters.IsFiveDaysFilter);
+            queryParameters.Add("@IsReopen", parameters.IsReopen);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             var result = await ListByStoredProcedure<Dashboard_TicetStatusSummary_Result>("GetDashboard_TicetStatusSummary", queryParameters);
