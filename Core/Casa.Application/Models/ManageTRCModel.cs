@@ -139,27 +139,37 @@ namespace CLN.Application.Models
 
         public int? BD_TechnicalSupportEnggId { get; set; }
 
-
-
         // TRC Detail
-        public string? DA_DefectObserved { get; set; }
+        public int? ATE_AssignedToEngineerId { get; set; }
+        public int? DA_ProblemObservedByEngId { get; set; }
+        public string? DA_ProblemObservedDesc { get; set; }
+        public int? DA_RectificationActionId { get; set; }
+        public string? DA_ResolutionSummary { get; set; }
 
-        public string? DA_ActionTaken { get; set; }
-
-        public string? DA_Remarks { get; set; }
-
+        public int? ATEFP_AssignedToEngineerId { get; set; }
 
         public DateTime? PI_BatteryReceivedDate { get; set; }
-
         public string? PI_BatteryReceivedTime { get; set; }
-
         public DateTime? PI_PDIDoneDate { get; set; }
-
         public string? PI_PDIDoneTime { get; set; }
-
         public int? PI_PDIDoneById { get; set; }
 
-        public string? PI_Note { get; set; }
+        public string? PI_SOCPercentageOriginalFileName { get; set; }
+        public string? PI_SOCPercentageFileName { get; set; }
+        public string? PI_SOCPercentage_Base64 { get; set; }
+
+        public string? PI_VoltageDifference { get; set; }
+        public string? PI_FinalVoltageOriginalFileName { get; set; }
+        public string? PI_FinalVoltageFileName { get; set; }
+        public string? PI_FinalVoltage_Base64 { get; set; }
+
+        public string? PIDD_DispatchedDeliveryChallan { get; set; }
+        public DateTime? PIDD_DispatchedDate { get; set; }
+        public string? PIDD_DispatchedCity { get; set; }
+        public string? DDB_DispatchedDoneBy { get; set; }
+        public string? DDB_DocketDetails { get; set; }
+        public string? DDB_CourierName { get; set; }
+        public DateTime? CRD_CustomerReceivingDate { get; set; }
 
 
         //public int? TS_Visual { get; set; }
@@ -318,9 +328,17 @@ namespace CLN.Application.Models
         public DateTime? TRCDate { get; set; }
         public TimeSpan? TRCTime { get; set; }
 
-        public string? DA_DefectObserved { get; set; }
-        public string? DA_ActionTaken { get; set; }
-        public string? DA_Remarks { get; set; }
+        public int? ATE_AssignedToEngineerId { get; set; }
+        public string? ATE_AssignedToEngineer { get; set; }
+        public int? DA_ProblemObservedByEngId { get; set; }
+        public string? DA_ProblemObservedByEng { get; set; }
+        public string? DA_ProblemObservedDesc { get; set; }
+        public int? DA_RectificationActionId { get; set; }
+        public string? DA_RectificationAction { get; set; }
+        public string? DA_ResolutionSummary { get; set; }
+
+        public int? ATEFP_AssignedToEngineerId { get; set; }
+        public string? ATEFP_AssignedToEngineer { get; set; }
 
         public DateTime? PI_BatteryReceivedDate { get; set; }
         public TimeSpan? PI_BatteryReceivedTime { get; set; }
@@ -328,7 +346,23 @@ namespace CLN.Application.Models
         public TimeSpan? PI_PDIDoneTime { get; set; }
         public int? PI_PDIDoneById { get; set; }
         public string? PI_PDIDoneByEngg { get; set; }
-        public string? PI_Note { get; set; }
+
+        public string? PI_SOCPercentageOriginalFileName { get; set; }
+        public string? PI_SOCPercentageFileName { get; set; }
+        public string PI_SOCPercentageURL { get; set; }
+
+        public string? PI_VoltageDifference { get; set; }
+        public string? PI_FinalVoltageOriginalFileName { get; set; }
+        public string? PI_FinalVoltageFileName { get; set; }
+        public string? PI_FinalVoltageURL { get; set; }
+
+        public string? PIDD_DispatchedDeliveryChallan { get; set; }
+        public DateTime? PIDD_DispatchedDate { get; set; }
+        public string? PIDD_DispatchedCity { get; set; }
+        public string? DDB_DispatchedDoneBy { get; set; }
+        public string? DDB_DocketDetails { get; set; }
+        public string? DDB_CourierName { get; set; }
+        public DateTime? CRD_CustomerReceivingDate { get; set; }
 
         public int? TRCStatusId { get; set; }
         public string? TRCSStatus { get; set; }

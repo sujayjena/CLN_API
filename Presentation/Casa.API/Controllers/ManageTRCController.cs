@@ -38,6 +38,27 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveManageTRC(ManageTRC_Request parameters)
         {
+            // Image Upload
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PI_SOCPercentage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PI_SOCPercentage_Base64, "\\Uploads\\Ticket\\", parameters.PI_SOCPercentageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.PI_SOCPercentageFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PI_FinalVoltage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PI_FinalVoltage_Base64, "\\Uploads\\Ticket\\", parameters.PI_FinalVoltageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.PI_FinalVoltageFileName = vUploadFile;
+                }
+            }
+
             // Save/Update
             int result = await _manageTRCRepository.SaveManageTRC(parameters);
 
@@ -114,9 +135,18 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.TRCDate = vResultObj.TRCDate;
                     vManageTRCDetail_Response.TRCTime = vResultObj.TRCTime;
 
-                    vManageTRCDetail_Response.DA_DefectObserved = vResultObj.DA_DefectObserved;
-                    vManageTRCDetail_Response.DA_ActionTaken = vResultObj.DA_ActionTaken;
-                    vManageTRCDetail_Response.DA_Remarks = vResultObj.DA_Remarks;
+                    vManageTRCDetail_Response.ATE_AssignedToEngineerId = vResultObj.ATE_AssignedToEngineerId;
+                    vManageTRCDetail_Response.ATE_AssignedToEngineer = vResultObj.ATE_AssignedToEngineer;
+
+                    vManageTRCDetail_Response.DA_ProblemObservedByEngId = vResultObj.DA_ProblemObservedByEngId;
+                    vManageTRCDetail_Response.DA_ProblemObservedByEng = vResultObj.DA_ProblemObservedByEng;
+                    vManageTRCDetail_Response.DA_ProblemObservedDesc = vResultObj.DA_ProblemObservedDesc;
+                    vManageTRCDetail_Response.DA_RectificationActionId = vResultObj.DA_RectificationActionId;
+                    vManageTRCDetail_Response.DA_RectificationAction = vResultObj.DA_RectificationAction;
+                    vManageTRCDetail_Response.DA_ResolutionSummary = vResultObj.DA_ResolutionSummary;
+
+                    vManageTRCDetail_Response.ATEFP_AssignedToEngineerId = vResultObj.ATEFP_AssignedToEngineerId;
+                    vManageTRCDetail_Response.ATEFP_AssignedToEngineer = vResultObj.ATEFP_AssignedToEngineer;
 
                     vManageTRCDetail_Response.PI_BatteryReceivedDate = vResultObj.PI_BatteryReceivedDate;
                     vManageTRCDetail_Response.PI_BatteryReceivedTime = vResultObj.PI_BatteryReceivedTime;
@@ -124,7 +154,23 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.PI_PDIDoneTime = vResultObj.PI_PDIDoneTime;
                     vManageTRCDetail_Response.PI_PDIDoneById = vResultObj.PI_PDIDoneById;
                     vManageTRCDetail_Response.PI_PDIDoneByEngg = vResultObj.PI_PDIDoneByEngg;
-                    vManageTRCDetail_Response.PI_Note = vResultObj.PI_Note;
+                    vManageTRCDetail_Response.PI_SOCPercentageOriginalFileName = vResultObj.PI_SOCPercentageOriginalFileName;
+                    vManageTRCDetail_Response.PI_SOCPercentageFileName = vResultObj.PI_SOCPercentageFileName;
+                    vManageTRCDetail_Response.PI_SOCPercentageURL = vResultObj.PI_SOCPercentageURL;
+                    vManageTRCDetail_Response.PI_VoltageDifference = vResultObj.PI_VoltageDifference;
+                    vManageTRCDetail_Response.PI_FinalVoltageOriginalFileName = vResultObj.PI_FinalVoltageOriginalFileName;
+                    vManageTRCDetail_Response.PI_FinalVoltageFileName = vResultObj.PI_FinalVoltageFileName;
+                    vManageTRCDetail_Response.PI_FinalVoltageURL = vResultObj.PI_FinalVoltageURL;
+
+                    vManageTRCDetail_Response.PIDD_DispatchedDeliveryChallan = vResultObj.PIDD_DispatchedDeliveryChallan;
+                    vManageTRCDetail_Response.PIDD_DispatchedDate = vResultObj.PIDD_DispatchedDate;
+                    vManageTRCDetail_Response.PIDD_DispatchedCity = vResultObj.PIDD_DispatchedCity;
+                   
+                    vManageTRCDetail_Response.DDB_DispatchedDoneBy = vResultObj.DDB_DispatchedDoneBy;
+                    vManageTRCDetail_Response.DDB_DocketDetails = vResultObj.DDB_DocketDetails;
+                    vManageTRCDetail_Response.DDB_CourierName = vResultObj.DDB_CourierName;
+
+                    vManageTRCDetail_Response.CRD_CustomerReceivingDate = vResultObj.CRD_CustomerReceivingDate;
 
                     vManageTRCDetail_Response.TRCStatusId = vResultObj.TRCStatusId;
                     vManageTRCDetail_Response.TRCSStatus = vResultObj.TRCSStatus;

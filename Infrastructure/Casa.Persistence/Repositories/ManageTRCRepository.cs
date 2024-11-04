@@ -30,16 +30,35 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TRCDate", parameters.TRCDate);
             queryParameters.Add("@TRCTime", parameters.TRCTime);
 
-            queryParameters.Add("@DA_DefectObserved", parameters.DA_DefectObserved);
-            queryParameters.Add("@DA_ActionTaken", parameters.DA_ActionTaken);
-            queryParameters.Add("@DA_Remarks", parameters.DA_Remarks);
+            queryParameters.Add("@ATE_AssignedToEngineerId", parameters.ATE_AssignedToEngineerId);
+
+            queryParameters.Add("@DA_ProblemObservedByEngId", parameters.DA_ProblemObservedByEngId);
+            queryParameters.Add("@DA_ProblemObservedDesc", parameters.DA_ProblemObservedDesc);
+            queryParameters.Add("@DA_RectificationActionId", parameters.DA_RectificationActionId);
+            queryParameters.Add("@DA_ResolutionSummary", parameters.DA_ResolutionSummary);
+
+            queryParameters.Add("@ATEFP_AssignedToEngineerId", parameters.ATEFP_AssignedToEngineerId);
 
             queryParameters.Add("@PI_BatteryReceivedDate", parameters.PI_BatteryReceivedDate);
             queryParameters.Add("@PI_BatteryReceivedTime", parameters.PI_BatteryReceivedTime);
             queryParameters.Add("@PI_PDIDoneDate", parameters.PI_PDIDoneDate);
             queryParameters.Add("@PI_PDIDoneTime", parameters.PI_PDIDoneTime);
             queryParameters.Add("@PI_PDIDoneById", parameters.PI_PDIDoneById);
-            queryParameters.Add("@PI_Note", parameters.PI_Note);
+            queryParameters.Add("@PI_SOCPercentageOriginalFileName", parameters.PI_SOCPercentageOriginalFileName);
+            queryParameters.Add("@PI_SOCPercentageFileName", parameters.PI_SOCPercentageFileName);
+            queryParameters.Add("@PI_VoltageDifference", parameters.PI_VoltageDifference);
+            queryParameters.Add("@PI_FinalVoltageOriginalFileName", parameters.PI_FinalVoltageOriginalFileName);
+            queryParameters.Add("@PI_FinalVoltageFileName", parameters.PI_FinalVoltageFileName);
+          
+            queryParameters.Add("@PIDD_DispatchedDeliveryChallan", parameters.PIDD_DispatchedDeliveryChallan);
+            queryParameters.Add("@PIDD_DispatchedDate", parameters.PIDD_DispatchedDate);
+            queryParameters.Add("@PIDD_DispatchedCity", parameters.PIDD_DispatchedCity);
+          
+            queryParameters.Add("@DDB_DispatchedDoneBy", parameters.DDB_DispatchedDoneBy);
+            queryParameters.Add("@DDB_DocketDetails", parameters.DDB_DocketDetails);
+            queryParameters.Add("@DDB_CourierName", parameters.DDB_CourierName);
+           
+            queryParameters.Add("@CRD_CustomerReceivingDate", parameters.CRD_CustomerReceivingDate);
 
             queryParameters.Add("@TRCStatusId", parameters.TRCStatusId);
             queryParameters.Add("@IsActive", parameters.IsActive);
