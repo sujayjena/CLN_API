@@ -140,7 +140,52 @@ namespace CLN.Application.Models
         public int? BD_TechnicalSupportEnggId { get; set; }
 
         // TRC Detail
+        public int? RP_IsCLNOrCustomer { get; set; }
+        public int? RP_ProblemReportedByCustId { get; set; }
+        public string? RP_ProblemDecription { get; set; }
+        public string? RP_ProductPackingPhotoOriginalFileName1 { get; set; }
+        public string? RP_ProductPackingPhotoFileName1 { get; set; }
+        public string? RP_ProductPackingPhoto1_Base64 { get; set; }
+
+        public string? RP_ProductPackingPhotoOriginalFileName2 { get; set; }
+        public string? RP_ProductPackingPhotoFileName2 { get; set; }
+        public string? RP_ProductPackingPhoto2_Base64 { get; set; }
+
+        public string? RP_ProductPackingPhotoOriginalFileName3 { get; set; }
+        public string? RP_ProductPackingPhotoFileName3 { get; set; }
+        public string? RP_ProductPackingPhoto3_Base64 { get; set; }
+
+        public string? RP_DeliveryChallanPhotoOriginalFileName { get; set; }
+        public string? RP_DeliveryChallanPhotoFileName { get; set; }
+        public string? RP_DeliveryChallanPhoto_Base64 { get; set; }
+
+        public string? RP_ReservePickupFormatOriginalFileName { get; set; }
+        public string? RP_ReservePickupFormatFileName { get; set; }
+        public string? RP_ReservePickupFormat_Base64 { get; set; }
+
+        public bool? RP_IsReservePickupMailToLogistic { get; set; }
+        public string? RP_DocketDetails { get; set; }
+        public bool? RP_IsBatteryInTransit { get; set; }
+
+        public string? DNV_DeliveryChallanPhotoOriginalFileName { get; set; }
+        public string? DNV_DeliveryChallanPhotoFileName { get; set; }
+        public string? DNV_DeliveryChallanPhoto_Base64 { get; set; }
+
+        public string? DNV_DebitNote { get; set; }
+        public bool? DNV_IsHandoverToMainStore { get; set; }
+        public string DNV_DeliveryChallanNumber { get; set; }
+        public bool? DNV_IsBatteryReceivedInTRC { get; set; }
+
         public int? ATE_AssignedToEngineerId { get; set; }
+
+        public int? WS_IsWarrantyStatus { get; set; }
+        public bool? WS_IsInformedToCustomerByEmail { get; set; }
+        public bool? WS_IsCustomerAcceptance { get; set; }
+        public bool? WS_IsPaymentClearance { get; set; }
+        public string? WS_InvoiceOriginalFileName { get; set; }
+        public string? WS_InvoiceFileName { get; set; }
+        public string? WS_Invoice_Base64 { get; set; }
+
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedDesc { get; set; }
         public int? DA_RectificationActionId { get; set; }
@@ -328,8 +373,54 @@ namespace CLN.Application.Models
         public DateTime? TRCDate { get; set; }
         public TimeSpan? TRCTime { get; set; }
 
+        public int? RP_IsCLNOrCustomer { get; set; }
+        public int? RP_ProblemReportedByCustId { get; set; }
+        public string? RP_ProblemReportedByCust { get; set; }
+        public string? RP_ProblemDecription { get; set; }
+        public string? RP_ProductPackingPhotoOriginalFileName1 { get; set; }
+        public string? RP_ProductPackingPhotoFileName1 { get; set; }
+        public string? RP_ProductPackingPhotoURL1 { get; set; }
+
+        public string? RP_ProductPackingPhotoOriginalFileName2 { get; set; }
+        public string? RP_ProductPackingPhotoFileName2 { get; set; }
+        public string? RP_ProductPackingPhotoURL2 { get; set; }
+
+        public string? RP_ProductPackingPhotoOriginalFileName3 { get; set; }
+        public string? RP_ProductPackingPhotoFileName3 { get; set; }
+        public string? RP_ProductPackingPhotoURL3 { get; set; }
+
+        public string? RP_DeliveryChallanPhotoOriginalFileName { get; set; }
+        public string? RP_DeliveryChallanPhotoFileName { get; set; }
+        public string? RP_DeliveryChallanPhotoURL { get; set; }
+
+        public string? RP_ReservePickupFormatOriginalFileName { get; set; }
+        public string? RP_ReservePickupFormatFileName { get; set; }
+        public string? RP_ReservePickupFormatURL { get; set; }
+
+        public bool? RP_IsReservePickupMailToLogistic { get; set; }
+        public string? RP_DocketDetails { get; set; }
+        public bool? RP_IsBatteryInTransit { get; set; }
+
+        public string? DNV_DeliveryChallanPhotoOriginalFileName { get; set; }
+        public string? DNV_DeliveryChallanPhotoFileName { get; set; }
+        public string? DNV_DeliveryChallanPhotoURL { get; set; }
+
+        public string? DNV_DebitNote { get; set; }
+        public bool? DNV_IsHandoverToMainStore { get; set; }
+        public string DNV_DeliveryChallanNumber { get; set; }
+        public bool? DNV_IsBatteryReceivedInTRC { get; set; }
+
         public int? ATE_AssignedToEngineerId { get; set; }
         public string? ATE_AssignedToEngineer { get; set; }
+
+        public int? WS_IsWarrantyStatus { get; set; }
+        public bool? WS_IsInformedToCustomerByEmail { get; set; }
+        public bool? WS_IsCustomerAcceptance { get; set; }
+        public bool? WS_IsPaymentClearance { get; set; }
+        public string? WS_InvoiceOriginalFileName { get; set; }
+        public string? WS_InvoiceFileName { get; set; }
+        public string? WS_InvoiceURL { get; set; }
+
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedByEng { get; set; }
         public string? DA_ProblemObservedDesc { get; set; }

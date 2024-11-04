@@ -38,7 +38,80 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveManageTRC(ManageTRC_Request parameters)
         {
-            // Image Upload
+            //Reserve Pickup >> image upload
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RP_ProductPackingPhoto1_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RP_ProductPackingPhoto1_Base64, "\\Uploads\\Ticket\\", parameters.RP_ProductPackingPhotoOriginalFileName1);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RP_ProductPackingPhotoFileName1 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RP_ProductPackingPhoto2_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RP_ProductPackingPhoto2_Base64, "\\Uploads\\Ticket\\", parameters.RP_ProductPackingPhotoOriginalFileName2);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RP_ProductPackingPhotoFileName2 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RP_ProductPackingPhoto3_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RP_ProductPackingPhoto3_Base64, "\\Uploads\\Ticket\\", parameters.RP_ProductPackingPhotoOriginalFileName3);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RP_ProductPackingPhotoFileName3 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RP_DeliveryChallanPhoto_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RP_DeliveryChallanPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RP_DeliveryChallanPhotoOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RP_DeliveryChallanPhotoFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RP_ReservePickupFormat_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RP_ReservePickupFormat_Base64, "\\Uploads\\Ticket\\", parameters.RP_ReservePickupFormatOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RP_ReservePickupFormatFileName = vUploadFile;
+                }
+            }
+
+            //Document Number and Varification
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.DNV_DeliveryChallanPhoto_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.DNV_DeliveryChallanPhoto_Base64, "\\Uploads\\Ticket\\", parameters.DNV_DeliveryChallanPhotoOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.DNV_DeliveryChallanPhotoFileName = vUploadFile;
+                }
+            }
+
+            //Warranty Status
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.WS_Invoice_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.WS_Invoice_Base64, "\\Uploads\\Ticket\\", parameters.WS_InvoiceOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.WS_InvoiceFileName = vUploadFile;
+                }
+            }
+
+            //PDI Inspection
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PI_SOCPercentage_Base64))
             {
                 var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.PI_SOCPercentage_Base64, "\\Uploads\\Ticket\\", parameters.PI_SOCPercentageOriginalFileName);
@@ -134,6 +207,42 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.TRCNumber = vResultObj.TRCNumber;
                     vManageTRCDetail_Response.TRCDate = vResultObj.TRCDate;
                     vManageTRCDetail_Response.TRCTime = vResultObj.TRCTime;
+
+                    vManageTRCDetail_Response.RP_IsCLNOrCustomer = vResultObj.RP_IsCLNOrCustomer;
+                    vManageTRCDetail_Response.RP_ProblemReportedByCustId= vResultObj.RP_ProblemReportedByCustId;
+                    vManageTRCDetail_Response.RP_ProblemReportedByCust = vResultObj.RP_ProblemReportedByCust;
+                    vManageTRCDetail_Response.RP_ProblemDecription= vResultObj.RP_ProblemDecription;
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoOriginalFileName1= vResultObj.RP_ProductPackingPhotoOriginalFileName1;
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoFileName1= vResultObj.RP_ProductPackingPhotoFileName1;
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoURL1 = vResultObj.RP_ProductPackingPhotoURL1;
+
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoOriginalFileName2= vResultObj.RP_ProductPackingPhotoOriginalFileName2;
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoFileName2= vResultObj.RP_ProductPackingPhotoFileName2;
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoURL2 = vResultObj.RP_ProductPackingPhotoURL2;
+
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoOriginalFileName3= vResultObj.RP_ProductPackingPhotoOriginalFileName3;
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoFileName3= vResultObj.RP_ProductPackingPhotoFileName3;
+                    vManageTRCDetail_Response.RP_ProductPackingPhotoURL3 = vResultObj.RP_ProductPackingPhotoURL3;
+
+                    vManageTRCDetail_Response.RP_DeliveryChallanPhotoOriginalFileName= vResultObj.RP_DeliveryChallanPhotoOriginalFileName;
+                    vManageTRCDetail_Response.RP_DeliveryChallanPhotoFileName= vResultObj.RP_DeliveryChallanPhotoFileName;
+                    vManageTRCDetail_Response.RP_DeliveryChallanPhotoURL = vResultObj.RP_DeliveryChallanPhotoURL;
+
+                    vManageTRCDetail_Response.RP_ReservePickupFormatOriginalFileName= vResultObj.RP_ReservePickupFormatOriginalFileName;
+                    vManageTRCDetail_Response.RP_ReservePickupFormatFileName= vResultObj.RP_ReservePickupFormatFileName;
+                    vManageTRCDetail_Response.RP_ReservePickupFormatURL = vResultObj.RP_ReservePickupFormatURL;
+
+                    vManageTRCDetail_Response.RP_IsReservePickupMailToLogistic= vResultObj.RP_IsReservePickupMailToLogistic;
+                    vManageTRCDetail_Response.RP_DocketDetails= vResultObj.RP_DocketDetails;
+                    vManageTRCDetail_Response.RP_IsBatteryInTransit= vResultObj.RP_IsBatteryInTransit;
+                    vManageTRCDetail_Response.DNV_DeliveryChallanPhotoOriginalFileName= vResultObj.DNV_DeliveryChallanPhotoOriginalFileName;
+                    vManageTRCDetail_Response.DNV_DeliveryChallanPhotoFileName= vResultObj.DNV_DeliveryChallanPhotoFileName;
+                    vManageTRCDetail_Response.DNV_DeliveryChallanPhotoURL = vResultObj.DNV_DeliveryChallanPhotoURL;
+
+                    vManageTRCDetail_Response.DNV_DebitNote= vResultObj.DNV_DebitNote;
+                    vManageTRCDetail_Response.DNV_IsHandoverToMainStore= vResultObj.DNV_IsHandoverToMainStore;
+                    vManageTRCDetail_Response.DNV_DeliveryChallanNumber= vResultObj.DNV_DeliveryChallanNumber;
+                    vManageTRCDetail_Response.DNV_IsBatteryReceivedInTRC= vResultObj.DNV_IsBatteryReceivedInTRC;
 
                     vManageTRCDetail_Response.ATE_AssignedToEngineerId = vResultObj.ATE_AssignedToEngineerId;
                     vManageTRCDetail_Response.ATE_AssignedToEngineer = vResultObj.ATE_AssignedToEngineer;

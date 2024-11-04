@@ -30,7 +30,37 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TRCDate", parameters.TRCDate);
             queryParameters.Add("@TRCTime", parameters.TRCTime);
 
+            queryParameters.Add("@RP_IsCLNOrCustomer", parameters.RP_IsCLNOrCustomer);
+            queryParameters.Add("@RP_ProblemReportedByCustId", parameters.RP_ProblemReportedByCustId);
+            queryParameters.Add("@RP_ProblemDecription", parameters.RP_ProblemDecription);
+            queryParameters.Add("@RP_ProductPackingPhotoOriginalFileName1", parameters.RP_ProductPackingPhotoOriginalFileName1);
+            queryParameters.Add("@RP_ProductPackingPhotoFileName1", parameters.RP_ProductPackingPhotoFileName1);
+            queryParameters.Add("@RP_ProductPackingPhotoOriginalFileName2", parameters.RP_ProductPackingPhotoOriginalFileName2);
+            queryParameters.Add("@RP_ProductPackingPhotoFileName2", parameters.RP_ProductPackingPhotoFileName2);
+            queryParameters.Add("@RP_ProductPackingPhotoOriginalFileName3", parameters.RP_ProductPackingPhotoOriginalFileName3);
+            queryParameters.Add("@RP_ProductPackingPhotoFileName3", parameters.RP_ProductPackingPhotoFileName3);
+            queryParameters.Add("@RP_DeliveryChallanPhotoOriginalFileName", parameters.RP_DeliveryChallanPhotoOriginalFileName);
+            queryParameters.Add("@RP_DeliveryChallanPhotoFileName", parameters.RP_DeliveryChallanPhotoFileName);
+            queryParameters.Add("@RP_ReservePickupFormatOriginalFileName", parameters.RP_ReservePickupFormatOriginalFileName);
+            queryParameters.Add("@RP_ReservePickupFormatFileName", parameters.RP_ReservePickupFormatFileName);
+            queryParameters.Add("@RP_IsReservePickupMailToLogistic", parameters.RP_IsReservePickupMailToLogistic);
+            queryParameters.Add("@RP_DocketDetails", parameters.RP_DocketDetails);
+            queryParameters.Add("@RP_IsBatteryInTransit", parameters.RP_IsBatteryInTransit);
+            queryParameters.Add("@DNV_DeliveryChallanPhotoOriginalFileName", parameters.DNV_DeliveryChallanPhotoOriginalFileName);
+            queryParameters.Add("@DNV_DeliveryChallanPhotoFileName", parameters.DNV_DeliveryChallanPhotoFileName);
+            queryParameters.Add("@DNV_DebitNote", parameters.DNV_DebitNote);
+            queryParameters.Add("@DNV_IsHandoverToMainStore", parameters.DNV_IsHandoverToMainStore);
+            queryParameters.Add("@DNV_DeliveryChallanNumber", parameters.DNV_DeliveryChallanNumber);
+            queryParameters.Add("@DNV_IsBatteryReceivedInTRC", parameters.DNV_IsBatteryReceivedInTRC);
+
             queryParameters.Add("@ATE_AssignedToEngineerId", parameters.ATE_AssignedToEngineerId);
+
+            queryParameters.Add("@WS_IsWarrantyStatus", parameters.WS_IsWarrantyStatus);
+            queryParameters.Add("@WS_IsInformedToCustomerByEmail", parameters.WS_IsInformedToCustomerByEmail);
+            queryParameters.Add("@WS_IsCustomerAcceptance", parameters.WS_IsCustomerAcceptance);
+            queryParameters.Add("@WS_IsPaymentClearance", parameters.WS_IsPaymentClearance);
+            queryParameters.Add("@WS_InvoiceOriginalFileName", parameters.WS_InvoiceOriginalFileName);
+            queryParameters.Add("@WS_InvoiceFileName", parameters.WS_InvoiceFileName);
 
             queryParameters.Add("@DA_ProblemObservedByEngId", parameters.DA_ProblemObservedByEngId);
             queryParameters.Add("@DA_ProblemObservedDesc", parameters.DA_ProblemObservedDesc);
