@@ -21,6 +21,8 @@ namespace CLN.Application.Interfaces
 
         Task<int> UpdateDownloadedExpense(UpdateDownloadedExpense_Request parameters);
 
+        Task<IEnumerable<ExpenseForPDF_Response>> GetExpenseForPDF(UpdateDownloadedExpense_Request parameters);
+
         #endregion
 
         #region Expense Details

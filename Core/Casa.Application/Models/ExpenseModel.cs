@@ -111,6 +111,60 @@ namespace CLN.Application.Models
         [DefaultValue("")]
         public string? ExpenseId { get; set; }
     }
+    public class ExpenseForPDF_Response
+    {
+        public int Id { get; set; }
+        public string? EmployeeName { get; set; }
+        public string? HODName { get; set; }
+        public DateTime? DateOfClaim { get; set; }
+        public string? Department { get; set; }
+        public string? EmployeeID { get; set; }
+
+        public bool? IsSingleDayExpense { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public string? ExpenseNumber { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? ExpenseDescription { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CityGrade { get; set; }
+        public string? ExpenseType { get; set; }
+        public decimal? ExpenseAmount { get; set; }
+        public decimal? ApprovedAmount { get; set; }
+        public string? VehicleType { get; set; }
+    }
+    public class ExpenseForPDFList_Response
+    {
+        public ExpenseForPDFList_Response()
+        {
+            ExpenseDetails = new List<ExpenseDetailsForPDF_Response>();
+        }
+
+        public string? EmployeeName { get; set; }
+        public string? HODName { get; set; }
+        public DateTime? DateOfClaim { get; set; }
+        public string? Department { get; set; }
+        public string? EmployeeID { get; set; }
+
+        public List<ExpenseDetailsForPDF_Response> ExpenseDetails { get; set; }
+    }
+    public class ExpenseDetailsForPDF_Response
+    {
+        public int Id { get; set; }
+        public bool? IsSingleDayExpense { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public string? ExpenseNumber { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? ExpenseDescription { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CityGrade { get; set; }
+        public string? ExpenseType { get; set; }
+        public decimal? ExpenseAmount { get; set; }
+        public decimal? ApprovedAmount { get; set; }
+        public string? VehicleType { get; set; }
+       
+    }
 
     public class ExpenseDetails_Search : BaseSearchEntity
     {
@@ -189,8 +243,13 @@ namespace CLN.Application.Models
 
     public class DailyTravelExpense_Request : BaseEntity
     {
+        [DefaultValue(false)]
+        public bool? IsMySelf { get; set; }
         public string? ExpenseNumber { get; set; }
         public bool? IsTicetExpense { get; set; }
+
+        [DefaultValue(0)]
+        public int? EmployeeId { get; set; }
         public int? TicketId { get; set; }
         public DateTime? ExpenseDate { get; set; }
         public int? ExpenseTypeId { get; set; }
@@ -235,8 +294,10 @@ namespace CLN.Application.Models
             remarksList = new List<ExpenseDetailsRemarks_Response>();
         }
 
+        public bool? IsMySelf { get; set; }
         public string? ExpenseNumber { get; set; }
         public bool? IsTicetExpense { get; set; }
+        public int? EmployeeId { get; set; }
         public int? TicketId { get; set; }
         public string? TicketNumber { get; set; }
         public string? CustomerName { get; set; }

@@ -356,6 +356,59 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        {
+            var vExpenseForPDFList_Response = new ExpenseForPDFList_Response();
+
+            if (parameters.ExpenseId == "")
+            {
+                _response.Message = "Expense Id is required";
+            }
+            else
+            {
+                var vResultObj = await _expenseRepository.GetExpenseForPDF(parameters);
+                if (vResultObj != null)
+                {
+                    var vExpense = vResultObj.FirstOrDefault();
+                    if (vExpense != null)
+                    {
+                        vExpenseForPDFList_Response.EmployeeName = vExpense.EmployeeName;
+                        vExpenseForPDFList_Response.HODName = vExpense.HODName;
+                        vExpenseForPDFList_Response.DateOfClaim = vExpense.DateOfClaim;
+                        vExpenseForPDFList_Response.Department = vExpense.Department;
+                        vExpenseForPDFList_Response.EmployeeID = vExpense.EmployeeID;
+                    }
+
+                    foreach (var item in vResultObj)
+                    {
+                        var vExpenseDetailsForPDF_Response = new ExpenseDetailsForPDF_Response()
+                        {
+                            Id = item.Id,
+                            IsSingleDayExpense = item.IsSingleDayExpense,
+                            FromDate = item.FromDate,
+                            ToDate = item.ToDate,
+                            ExpenseNumber = item.ExpenseNumber,
+                            TicketNumber = item.TicketNumber,
+                            ExpenseDescription = item.ExpenseDescription,
+                            CustomerName = item.CustomerName,
+                            CityGrade = item.CityGrade,
+                            ExpenseType = item.ExpenseType,
+
+                            ExpenseAmount = item.ExpenseAmount,
+                            ApprovedAmount = item.ApprovedAmount,
+                            VehicleType = item.VehicleType,
+                        };
+
+                        vExpenseForPDFList_Response.ExpenseDetails.Add(vExpenseDetailsForPDF_Response);
+                    }
+                }
+
+                _response.Data = vExpenseForPDFList_Response;
+            }
+            return _response;
+        }
         #endregion
 
         #region Expense Details

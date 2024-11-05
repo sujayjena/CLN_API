@@ -92,6 +92,17 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("UpdateDownloadedExpense", queryParameters);
         }
 
+        public async Task<IEnumerable<ExpenseForPDF_Response>> GetExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+
+            var result = await ListByStoredProcedure<ExpenseForPDF_Response>("GetExpenseForPDF", queryParameters);
+
+            return result;
+        }
+
         #endregion
 
         #region Expense Details
@@ -177,8 +188,10 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@IsMySelf", parameters.IsMySelf);
             queryParameters.Add("@ExpenseNumber", parameters.ExpenseNumber);
             queryParameters.Add("@IsTicetExpense", parameters.IsTicetExpense);
+            queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@TicketId", parameters.TicketId);
             queryParameters.Add("@ExpenseDate", parameters.ExpenseDate);
             queryParameters.Add("@ExpenseTypeId", parameters.ExpenseTypeId);
