@@ -55,6 +55,32 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@ATE_AssignedToEngineerId", parameters.ATE_AssignedToEngineerId);
 
+            queryParameters.Add("@II_Visual", parameters.II_Visual);
+            queryParameters.Add("@II_IsIntact", parameters.II_IsIntact);
+            queryParameters.Add("@II_IsTempered", parameters.II_IsTempered);
+            queryParameters.Add("@II_TemperedOriginalFileName1", parameters.II_TemperedOriginalFileName1);
+            queryParameters.Add("@II_TemperedFileName1", parameters.II_TemperedFileName1);
+            queryParameters.Add("@II_TemperedOriginalFileName2", parameters.II_TemperedOriginalFileName2);
+            queryParameters.Add("@II_TemperedFileName2", parameters.II_TemperedFileName2);
+            queryParameters.Add("@II_TemperedOriginalFileName3", parameters.II_TemperedOriginalFileName3);
+            queryParameters.Add("@II_TemperedFileName3", parameters.II_TemperedFileName3);
+            queryParameters.Add("@II_PhysicallyDamageOriginalFileName1", parameters.II_PhysicallyDamageOriginalFileName1);
+            queryParameters.Add("@II_PhysicallyDamageFileName1", parameters.II_PhysicallyDamageFileName1);
+            queryParameters.Add("@II_PhysicallyDamageOriginalFileName2", parameters.II_PhysicallyDamageOriginalFileName2);
+            queryParameters.Add("@II_PhysicallyDamageFileName2", parameters.II_PhysicallyDamageFileName2);
+            queryParameters.Add("@II_PhysicallyDamageOriginalFileName3", parameters.II_PhysicallyDamageOriginalFileName3);
+            queryParameters.Add("@II_PhysicallyDamageFileName3", parameters.II_PhysicallyDamageFileName3);
+            queryParameters.Add("@II_StringVoltageVariation", parameters.II_StringVoltageVariation);
+            queryParameters.Add("@II_BatteryTerminalVoltage", parameters.II_BatteryTerminalVoltage);
+            queryParameters.Add("@II_LifeCycle", parameters.II_LifeCycle);
+            queryParameters.Add("@II_BatteryTemperature", parameters.II_BatteryTemperature);
+            queryParameters.Add("@II_BMSSpecification", parameters.II_BMSSpecification);
+            queryParameters.Add("@II_BMSBrand", parameters.II_BMSBrand);
+            queryParameters.Add("@II_CellSpecification", parameters.II_CellSpecification);
+            queryParameters.Add("@II_CellBrand", parameters.II_CellBrand);
+            queryParameters.Add("@II_BMSSerialNumber", parameters.II_BMSSerialNumber);
+            queryParameters.Add("@II_CellChemistryId", parameters.II_CellChemistryId);
+
             queryParameters.Add("@WS_IsWarrantyStatus", parameters.WS_IsWarrantyStatus);
             queryParameters.Add("@WS_IsInformedToCustomerByEmail", parameters.WS_IsInformedToCustomerByEmail);
             queryParameters.Add("@WS_IsCustomerAcceptance", parameters.WS_IsCustomerAcceptance);

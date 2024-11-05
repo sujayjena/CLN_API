@@ -100,6 +100,67 @@ namespace CLN.API.Controllers
                 }
             }
 
+            //Initial Inspection
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Tempered1_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_Tempered1_Base64, "\\Uploads\\Ticket\\", parameters.II_TemperedOriginalFileName1);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_TemperedFileName1 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Tempered2_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_Tempered2_Base64, "\\Uploads\\Ticket\\", parameters.II_TemperedOriginalFileName2);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_TemperedFileName2 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Tempered3_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_Tempered3_Base64, "\\Uploads\\Ticket\\", parameters.II_TemperedOriginalFileName3);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_TemperedFileName3 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_PhysicallyDamage1_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_PhysicallyDamage1_Base64, "\\Uploads\\Ticket\\", parameters.II_PhysicallyDamageOriginalFileName1);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_PhysicallyDamageFileName1 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_PhysicallyDamage2_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_PhysicallyDamage2_Base64, "\\Uploads\\Ticket\\", parameters.II_PhysicallyDamageOriginalFileName2);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_PhysicallyDamageFileName2 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_PhysicallyDamage3_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_PhysicallyDamage3_Base64, "\\Uploads\\Ticket\\", parameters.II_PhysicallyDamageOriginalFileName3);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_PhysicallyDamageFileName3 = vUploadFile;
+                }
+            }
+
             //Warranty Status
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.WS_Invoice_Base64))
             {
@@ -246,6 +307,47 @@ namespace CLN.API.Controllers
 
                     vManageTRCDetail_Response.ATE_AssignedToEngineerId = vResultObj.ATE_AssignedToEngineerId;
                     vManageTRCDetail_Response.ATE_AssignedToEngineer = vResultObj.ATE_AssignedToEngineer;
+
+                    vManageTRCDetail_Response.II_Visual = vResultObj.II_Visual;
+                    vManageTRCDetail_Response.II_IsIntact = vResultObj.II_IsIntact;
+                    vManageTRCDetail_Response.II_IsTempered = vResultObj.II_IsTempered;
+                    vManageTRCDetail_Response.II_TemperedOriginalFileName1 = vResultObj.II_TemperedOriginalFileName1;
+                    vManageTRCDetail_Response.II_TemperedFileName1 = vResultObj.II_TemperedFileName1;
+                    vManageTRCDetail_Response.II_TemperedURL1 = vResultObj.II_TemperedURL1;
+                    vManageTRCDetail_Response.II_TemperedOriginalFileName2 = vResultObj.II_TemperedOriginalFileName2;
+                    vManageTRCDetail_Response.II_TemperedFileName2 = vResultObj.II_TemperedFileName2;
+                    vManageTRCDetail_Response.II_TemperedURL2 = vResultObj.II_TemperedURL2;
+                    vManageTRCDetail_Response.II_TemperedOriginalFileName3 = vResultObj.II_TemperedOriginalFileName3;
+                    vManageTRCDetail_Response.II_TemperedFileName3 = vResultObj.II_TemperedFileName3;
+                    vManageTRCDetail_Response.II_TemperedURL3 = vResultObj.II_TemperedURL3;
+                    vManageTRCDetail_Response.II_PhysicallyDamageOriginalFileName1 = vResultObj.II_PhysicallyDamageOriginalFileName1;
+                    vManageTRCDetail_Response.II_PhysicallyDamageFileName1 = vResultObj.II_PhysicallyDamageFileName1;
+                    vManageTRCDetail_Response.II_PhysicallyDamageURL1 = vResultObj.II_PhysicallyDamageURL1;
+                    vManageTRCDetail_Response.II_PhysicallyDamageOriginalFileName2 = vResultObj.II_PhysicallyDamageOriginalFileName2;
+                    vManageTRCDetail_Response.II_PhysicallyDamageFileName2 = vResultObj.II_PhysicallyDamageFileName2;
+                    vManageTRCDetail_Response.II_PhysicallyDamageURL2 = vResultObj.II_PhysicallyDamageURL2;
+                    vManageTRCDetail_Response.II_PhysicallyDamageOriginalFileName3 = vResultObj.II_PhysicallyDamageOriginalFileName3;
+                    vManageTRCDetail_Response.II_PhysicallyDamageFileName3 = vResultObj.II_PhysicallyDamageFileName3;
+                    vManageTRCDetail_Response.II_PhysicallyDamageURL3 = vResultObj.II_PhysicallyDamageURL3;
+                    vManageTRCDetail_Response.II_StringVoltageVariation = vResultObj.II_StringVoltageVariation;
+                    vManageTRCDetail_Response.II_BatteryTerminalVoltage = vResultObj.II_BatteryTerminalVoltage;
+                    vManageTRCDetail_Response.II_LifeCycle = vResultObj.II_LifeCycle;
+                    vManageTRCDetail_Response.II_BatteryTemperature = vResultObj.II_BatteryTemperature;
+                    vManageTRCDetail_Response.II_BMSSpecification = vResultObj.II_BMSSpecification;
+                    vManageTRCDetail_Response.II_BMSBrand = vResultObj.II_BMSBrand;
+                    vManageTRCDetail_Response.II_CellSpecification = vResultObj.II_CellSpecification;
+                    vManageTRCDetail_Response.II_CellBrand = vResultObj.II_CellBrand;
+                    vManageTRCDetail_Response.II_BMSSerialNumber = vResultObj.II_BMSSerialNumber;
+                    vManageTRCDetail_Response.II_CellChemistryId = vResultObj.II_CellChemistryId;
+                    vManageTRCDetail_Response.II_CellChemistry = vResultObj.II_CellChemistry;
+
+                    vManageTRCDetail_Response.WS_IsWarrantyStatus = vResultObj.WS_IsWarrantyStatus;
+                    vManageTRCDetail_Response.WS_IsInformedToCustomerByEmail = vResultObj.WS_IsInformedToCustomerByEmail;
+                    vManageTRCDetail_Response.WS_IsCustomerAcceptance = vResultObj.WS_IsCustomerAcceptance;
+                    vManageTRCDetail_Response.WS_IsPaymentClearance = vResultObj.WS_IsPaymentClearance;
+                    vManageTRCDetail_Response.WS_InvoiceOriginalFileName = vResultObj.WS_InvoiceOriginalFileName;
+                    vManageTRCDetail_Response.WS_InvoiceFileName = vResultObj.WS_InvoiceFileName;
+                    vManageTRCDetail_Response.WS_InvoiceURL = vResultObj.WS_InvoiceURL;
 
                     vManageTRCDetail_Response.DA_ProblemObservedByEngId = vResultObj.DA_ProblemObservedByEngId;
                     vManageTRCDetail_Response.DA_ProblemObservedByEng = vResultObj.DA_ProblemObservedByEng;

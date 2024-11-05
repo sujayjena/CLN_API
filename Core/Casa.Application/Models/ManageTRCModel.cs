@@ -178,6 +178,38 @@ namespace CLN.Application.Models
 
         public int? ATE_AssignedToEngineerId { get; set; }
 
+        public int? II_Visual { get; set; }
+        public bool? II_IsIntact { get; set; }
+        public bool? II_IsTempered { get; set; }
+        public string? II_TemperedOriginalFileName1 { get; set; }
+        public string? II_TemperedFileName1 { get; set; }
+        public string? II_Tempered1_Base64 { get; set; }
+        public string? II_TemperedOriginalFileName2 { get; set; }
+        public string? II_TemperedFileName2 { get; set; }
+        public string? II_Tempered2_Base64 { get; set; }
+        public string? II_TemperedOriginalFileName3 { get; set; }
+        public string? II_TemperedFileName3 { get; set; }
+        public string? II_Tempered3_Base64 { get; set; }
+        public string? II_PhysicallyDamageOriginalFileName1 { get; set; }
+        public string? II_PhysicallyDamageFileName1 { get; set; }
+        public string? II_PhysicallyDamage1_Base64 { get; set; }
+        public string? II_PhysicallyDamageOriginalFileName2 { get; set; }
+        public string? II_PhysicallyDamageFileName2 { get; set; }
+        public string? II_PhysicallyDamage2_Base64 { get; set; }
+        public string? II_PhysicallyDamageOriginalFileName3 { get; set; }
+        public string? II_PhysicallyDamageFileName3 { get; set; }
+        public string? II_PhysicallyDamage3_Base64 { get; set; }
+        public string? II_StringVoltageVariation { get; set; }
+        public string? II_BatteryTerminalVoltage { get; set; }
+        public string? II_LifeCycle { get; set; }
+        public string? II_BatteryTemperature { get; set; }
+        public string? II_BMSSpecification { get; set; }
+        public string? II_BMSBrand { get; set; }
+        public string? II_CellSpecification { get; set; }
+        public string? II_CellBrand { get; set; }
+        public string? II_BMSSerialNumber { get; set; }
+        public int? II_CellChemistryId { get; set; }
+
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }
         public bool? WS_IsCustomerAcceptance { get; set; }
@@ -412,6 +444,39 @@ namespace CLN.Application.Models
 
         public int? ATE_AssignedToEngineerId { get; set; }
         public string? ATE_AssignedToEngineer { get; set; }
+
+        public int? II_Visual { get; set; }
+        public bool? II_IsIntact { get; set; }
+        public bool? II_IsTempered { get; set; }
+        public string? II_TemperedOriginalFileName1 { get; set; }
+        public string? II_TemperedFileName1 { get; set; }
+        public string? II_TemperedURL1 { get; set; }
+        public string? II_TemperedOriginalFileName2 { get; set; }
+        public string? II_TemperedFileName2 { get; set; }
+        public string? II_TemperedURL2 { get; set; }
+        public string? II_TemperedOriginalFileName3 { get; set; }
+        public string? II_TemperedFileName3 { get; set; }
+        public string? II_TemperedURL3 { get; set; }
+        public string? II_PhysicallyDamageOriginalFileName1 { get; set; }
+        public string? II_PhysicallyDamageFileName1 { get; set; }
+        public string? II_PhysicallyDamageURL1 { get; set; }
+        public string? II_PhysicallyDamageOriginalFileName2 { get; set; }
+        public string? II_PhysicallyDamageFileName2 { get; set; }
+        public string? II_PhysicallyDamageURL2 { get; set; }
+        public string? II_PhysicallyDamageOriginalFileName3 { get; set; }
+        public string? II_PhysicallyDamageFileName3 { get; set; }
+        public string? II_PhysicallyDamageURL3 { get; set; }
+        public string? II_StringVoltageVariation { get; set; }
+        public string? II_BatteryTerminalVoltage { get; set; }
+        public string? II_LifeCycle { get; set; }
+        public string? II_BatteryTemperature { get; set; }
+        public string? II_BMSSpecification { get; set; }
+        public string? II_BMSBrand { get; set; }
+        public string? II_CellSpecification { get; set; }
+        public string? II_CellBrand { get; set; }
+        public string? II_BMSSerialNumber { get; set; }
+        public int? II_CellChemistryId { get; set; }
+        public string? II_CellChemistry { get; set; }
 
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }
