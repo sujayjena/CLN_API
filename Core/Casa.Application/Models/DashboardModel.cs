@@ -82,6 +82,7 @@ namespace CLN.Application.Models
 
     public class Dashboard_SurveyNPSSummary_Response
     {
+        public string? types { get; set; }
         public string? QuestionName { get; set; }
 
         [JsonIgnore]
