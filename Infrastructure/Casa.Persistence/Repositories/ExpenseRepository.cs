@@ -261,6 +261,17 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
+        public async Task<IEnumerable<DailyTravelExpenseForPDF_Response>> GetDailyTravelExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+
+            var result = await ListByStoredProcedure<DailyTravelExpenseForPDF_Response>("GetDailyTravelExpenseForPDF", queryParameters);
+
+            return result;
+        }
+
         #endregion
     }
 }

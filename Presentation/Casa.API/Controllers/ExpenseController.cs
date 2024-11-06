@@ -729,6 +729,58 @@ namespace CLN.API.Controllers
 
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDailyTravelExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        {
+            var vDailyTravelExpenseForPDFList_Response = new DailyTravelExpenseForPDFList_Response();
+
+            if (parameters.ExpenseId == "")
+            {
+                _response.Message = "Expense Id is required";
+            }
+            else
+            {
+                var vResultObj = await _expenseRepository.GetDailyTravelExpenseForPDF(parameters);
+                if (vResultObj != null)
+                {
+                    var vExpense = vResultObj.FirstOrDefault();
+                    if (vExpense != null)
+                    {
+                        vDailyTravelExpenseForPDFList_Response.EmployeeName = vExpense.EmployeeName;
+                        vDailyTravelExpenseForPDFList_Response.HODName = vExpense.HODName;
+                        vDailyTravelExpenseForPDFList_Response.DateOfClaim = vExpense.DateOfClaim;
+                        vDailyTravelExpenseForPDFList_Response.Department = vExpense.Department;
+                        vDailyTravelExpenseForPDFList_Response.EmployeeID = vExpense.EmployeeID;
+                    }
+
+                    foreach (var item in vResultObj)
+                    {
+                        var vDailyTravelExpenseDetailsForPDF_Response = new DailyTravelExpenseDetailsForPDF_Response()
+                        {
+                            Id = item.Id,
+                            IsTicetExpense = item.IsTicetExpense,
+                            ExpenseNumber = item.ExpenseNumber,
+                            TicketNumber = item.TicketNumber,
+                            CustomerName = item.CustomerName,
+                            ExpenseDate = item.ExpenseDate,
+                            ExpenseType = item.ExpenseType,
+                            VehicleType = item.VehicleType,
+                            ExpenseDesc = item.ExpenseDesc,
+                            RatePerKm = item.RatePerKm,
+                            TotalKm = item.TotalKm,
+                            TotalAmount = item.TotalAmount,
+                        };
+
+                        vDailyTravelExpenseForPDFList_Response.ExpenseDetails.Add(vDailyTravelExpenseDetailsForPDF_Response);
+                    }
+                }
+
+                _response.Data = vDailyTravelExpenseForPDFList_Response;
+            }
+            return _response;
+        }
         #endregion
     }
 }

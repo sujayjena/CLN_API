@@ -51,6 +51,8 @@ namespace CLN.Application.Interfaces
 
         Task<IEnumerable<ExpenseDetailsRemarks_Response>> GetDailyTravelExpenseRemarksListById(int DailyTravelExpenseId);
 
+        Task<IEnumerable<DailyTravelExpenseForPDF_Response>> GetDailyTravelExpenseForPDF(UpdateDownloadedExpense_Request parameters);
+
         #endregion
     }
 }

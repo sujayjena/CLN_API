@@ -329,4 +329,58 @@ namespace CLN.Application.Models
         [DefaultValue("")]
         public string? Remarks { get; set; }
     }
+
+    public class DailyTravelExpenseForPDF_Response
+    {
+        public int Id { get; set; }
+        public string? EmployeeName { get; set; }
+        public string? HODName { get; set; }
+        public DateTime? DateOfClaim { get; set; }
+        public string? Department { get; set; }
+        public string? EmployeeID { get; set; }
+
+        public bool? IsTicetExpense { get; set; }
+        public string? ExpenseNumber { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? CustomerName { get; set; }
+        public DateTime? ExpenseDate { get; set; }
+        public string? ExpenseType { get; set; }
+        public string? VehicleType { get; set; }
+        public string? ExpenseDesc { get; set; }
+        public decimal? RatePerKm { get; set; }
+        public decimal? TotalKm { get; set; }
+        public decimal? TotalAmount { get; set; }
+    }
+
+    public class DailyTravelExpenseForPDFList_Response
+    {
+        public DailyTravelExpenseForPDFList_Response()
+        {
+            ExpenseDetails = new List<DailyTravelExpenseDetailsForPDF_Response>();
+        }
+
+        public string? EmployeeName { get; set; }
+        public string? HODName { get; set; }
+        public DateTime? DateOfClaim { get; set; }
+        public string? Department { get; set; }
+        public string? EmployeeID { get; set; }
+
+        public List<DailyTravelExpenseDetailsForPDF_Response> ExpenseDetails { get; set; }
+    }
+    public class DailyTravelExpenseDetailsForPDF_Response
+    {
+        public int Id { get; set; }
+        public bool? IsTicetExpense { get; set; }
+        public string? ExpenseNumber { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? CustomerName { get; set; }
+        public DateTime? ExpenseDate { get; set; }
+        public string? ExpenseType { get; set; }
+        public string? VehicleType { get; set; }
+        public string? ExpenseDesc { get; set; }
+        public decimal? RatePerKm { get; set; }
+        public decimal? TotalKm { get; set; }
+        public decimal? TotalAmount { get; set; }
+
+    }
 }
