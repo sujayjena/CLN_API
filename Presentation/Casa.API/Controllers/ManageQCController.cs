@@ -888,7 +888,7 @@ namespace CLN.API.Controllers
                     {
                         lstCustomerBattery_ImportData.Add(new CustomerBattery_ImportData()
                         {
-                            CustomerName = workSheet.Cells[rowIterator, 1].Value?.ToString(),
+                            CustomerName = workSheet.Cells[rowIterator, 1].Value?.ToString().Trim(),
                             PartCode = workSheet.Cells[rowIterator, 2].Value?.ToString().Trim(),
                             ProductSerialNumber = workSheet.Cells[rowIterator, 3].Value?.ToString().Trim(),
                             IsTrackingDeviceRequired = workSheet.Cells[rowIterator, 4].Value?.ToString().Trim(),
@@ -909,9 +909,9 @@ namespace CLN.API.Controllers
                             WarrantyStartDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 13].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 13].Value.ToString()) : null,
                             WarrantyEndDate = !string.IsNullOrWhiteSpace(workSheet.Cells[rowIterator, 14].Value?.ToString()) ? Convert.ToDateTime(workSheet.Cells[rowIterator, 14].Value.ToString()) : null,
 
-                            WarrantyStatus = workSheet.Cells[rowIterator, 15].Value?.ToString(),
-                            WarrantyType = workSheet.Cells[rowIterator, 16].Value?.ToString(),
-                            IsActive = workSheet.Cells[rowIterator, 17].Value?.ToString(),
+                            WarrantyStatus = workSheet.Cells[rowIterator, 15].Value?.ToString().Trim(),
+                            WarrantyType = workSheet.Cells[rowIterator, 16].Value?.ToString().Trim(),
+                            IsActive = workSheet.Cells[rowIterator, 17].Value?.ToString().Trim(),
                         });
                     }
                 }
