@@ -178,9 +178,9 @@ namespace CLN.API.Controllers.Admin
 
             if (lstSpareDetails_ImportDataValidation.ToList().Count > 0)
             {
+                _response.IsSuccess = false;
                 _response.Message = "Uploaded file contains invalid records, please check downloaded file for more details";
                 _response.Data = GenerateInvalidImportDataFile(lstSpareDetails_ImportDataValidation);
-
             }
 
             #endregion
