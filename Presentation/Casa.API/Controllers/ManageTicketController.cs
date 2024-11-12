@@ -907,19 +907,22 @@ namespace CLN.API.Controllers
                             var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
                             if (vReportedToUserDetail != null)
                             {
-                                var vNotifyObj = new Notification_Request()
+                                if (vReportedToUserDetail.IsActive == true)
                                 {
-                                    Subject = "Refer to TRC",
-                                    SendTo = "Reporting To",
-                                    //CustomerId = vWorkOrderObj.CustomerId,
-                                    //CustomerMessage = NotifyMessage,
-                                    EmployeeId = vReportedToUserDetail.Id,
-                                    EmployeeMessage = notifyMessage,
-                                    RefValue1 = vTicketDetails.TicketNumber,
-                                    ReadUnread = false
-                                };
+                                    var vNotifyObj = new Notification_Request()
+                                    {
+                                        Subject = "Refer to TRC",
+                                        SendTo = "Reporting To",
+                                        //CustomerId = vWorkOrderObj.CustomerId,
+                                        //CustomerMessage = NotifyMessage,
+                                        EmployeeId = vReportedToUserDetail.Id,
+                                        EmployeeMessage = notifyMessage,
+                                        RefValue1 = vTicketDetails.TicketNumber,
+                                        ReadUnread = false
+                                    };
 
-                                int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                                    int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                                }
                             }
 
                             //Notification to Senior Engineer
@@ -932,6 +935,8 @@ namespace CLN.API.Controllers
                                 if (vBranchUser.ToList().Count > 0)
                                 {
                                     var searchUser = new BaseSearchEntity();
+                                    searchUser.IsActive = true;
+
                                     var vUserList = await _userRepository.GetUserList(searchUser);
                                     if (vUserList.ToList().Count > 0)
                                     {
@@ -1912,7 +1917,7 @@ namespace CLN.API.Controllers
                         var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
                         if (vReportedToUserDetail != null)
                         {
-                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.IsActive == true ? vReportedToUserDetail.EmailId : string.Empty;
                         }
 
                         var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
@@ -1925,6 +1930,8 @@ namespace CLN.API.Controllers
                         if (vBranchUser.ToList().Count > 0)
                         {
                             var searchUser = new BaseSearchEntity();
+                            searchUser.IsActive = true;
+
                             var vUserList = await _userRepository.GetUserList(searchUser);
                             if (vUserList.ToList().Count > 0)
                             {
@@ -1999,11 +2006,12 @@ namespace CLN.API.Controllers
                         var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
                         if (vReportedToUserDetail != null)
                         {
-                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.IsActive == true ? vReportedToUserDetail.EmailId : string.Empty;
                         }
                     }
 
                     recipientEmail = dataObj.CD_CallerEmailId + "," + vReportedToEmployeeEmailId;
+                    recipientEmail = recipientEmail.TrimEnd(',');
 
                     templateFilePath = _environment.ContentRootPath + "\\EmailTemplates\\OutOfWarranty_Customer_Template.html";
                     emailTemplateContent = System.IO.File.ReadAllText(templateFilePath);
@@ -2065,7 +2073,7 @@ namespace CLN.API.Controllers
                         var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
                         if (vReportedToUserDetail != null)
                         {
-                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.IsActive == true ? vReportedToUserDetail.EmailId : string.Empty;
                         }
                     }
 
@@ -2193,7 +2201,7 @@ namespace CLN.API.Controllers
                         var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
                         if (vReportedToUserDetail != null)
                         {
-                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.IsActive == true ? vReportedToUserDetail.EmailId : string.Empty;
                         }
                     }
 
@@ -2282,7 +2290,7 @@ namespace CLN.API.Controllers
                         var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
                         if (vReportedToUserDetail != null)
                         {
-                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.IsActive == true ? vReportedToUserDetail.EmailId : string.Empty;
                         }
 
                         var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
@@ -2295,6 +2303,8 @@ namespace CLN.API.Controllers
                         if (vBranchUser.ToList().Count > 0)
                         {
                             var searchUser = new BaseSearchEntity();
+                            searchUser.IsActive = true;
+
                             var vUserList = await _userRepository.GetUserList(searchUser);
                             if (vUserList.ToList().Count > 0)
                             {

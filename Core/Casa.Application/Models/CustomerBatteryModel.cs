@@ -15,6 +15,12 @@ namespace CLN.Application.Models
         public long? CustomerId { get; set; }
 
         public long? ProductCategoryId { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsAssign { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsHold { get; set; }
     }
 
     public class CustomerBattery_Request : BaseEntity
@@ -62,6 +68,8 @@ namespace CLN.Application.Models
         [DefaultValue(0)]
         public int? PlatformId { get; set; }
 
+        [DefaultValue(false)]
+        public bool? IsHold { get; set; }
         public bool? IsActive { get; set; }
     }
 
@@ -137,7 +145,14 @@ namespace CLN.Application.Models
         public int? PlatformId { get; set; }
         public string? PlatformName { get; set; }
 
+        public bool? IsHold { get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class AssignBattery_Request
+    {
+        public string? BatteryId { get; set; }
+        public int? CustomerId { get; set; }
     }
 
     #region Import and Download

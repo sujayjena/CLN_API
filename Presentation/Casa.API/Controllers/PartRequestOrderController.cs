@@ -362,7 +362,7 @@ namespace CLN.API.Controllers
                         var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
                         if (vReportedToUserDetail != null)
                         {
-                            vReportedToEmployeeEmailId = vReportedToUserDetail.EmailId;
+                            vReportedToEmployeeEmailId = vReportedToUserDetail.IsActive == true ? vReportedToUserDetail.EmailId : string.Empty;
                         }
 
                         var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
@@ -375,6 +375,8 @@ namespace CLN.API.Controllers
                         if (vBranchUser.ToList().Count > 0)
                         {
                             var searchUser = new BaseSearchEntity();
+                            searchUser.IsActive = true;
+
                             var vUserList = await _userRepository.GetUserList(searchUser);
                             if (vUserList.ToList().Count > 0)
                             {

@@ -54,6 +54,8 @@ namespace CLN.Application.Interfaces
 
         Task<IEnumerable<CustomerBattery_ImportDataValidation>> ImportBattery(List<CustomerBattery_ImportData> parameters);
 
+        Task<int> AssignBatteryToCustomer(AssignBattery_Request parameters);
+
         #endregion
 
         #region Customer Charger

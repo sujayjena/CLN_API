@@ -205,6 +205,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@SIMProviderId", parameters.SIMProviderId);
             queryParameters.Add("@PlatformId", parameters.PlatformId);
 
+            queryParameters.Add("@IsHold", parameters.IsHold);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
@@ -217,6 +218,8 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@CustomerId", parameters.CustomerId);
             queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
+            queryParameters.Add("@IsAssign", parameters.IsAssign);
+            queryParameters.Add("@IsHold", parameters.IsHold);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -245,6 +248,17 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@XmlData", xmlData);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
             return await ListByStoredProcedure<CustomerBattery_ImportDataValidation>("ImportCustomerBattery", queryParameters);
+        }
+
+        public async Task<int> AssignBatteryToCustomer(AssignBattery_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@BatteryId", parameters.BatteryId);
+            queryParameters.Add("@CustomerId", parameters.CustomerId);
+            //queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("AssignBatteryToCustomer", queryParameters);
         }
 
         #endregion
