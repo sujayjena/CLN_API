@@ -342,6 +342,7 @@ namespace CLN.Application.Models
 
         //public int? EnquiryId { get; set; }
 
+        public int? TRCBranchId { get; set; }
         public int? TRCStatusId { get; set; }
 
         public bool? IsActive { get; set; }
@@ -519,6 +520,9 @@ namespace CLN.Application.Models
         public string? DDB_DocketDetails { get; set; }
         public string? DDB_CourierName { get; set; }
         public DateTime? CRD_CustomerReceivingDate { get; set; }
+
+        public int? TRCBranchId { get; set; }
+        public string? TRCBranchName { get; set; }
 
         public int? TRCStatusId { get; set; }
         public string? TRCSStatus { get; set; }

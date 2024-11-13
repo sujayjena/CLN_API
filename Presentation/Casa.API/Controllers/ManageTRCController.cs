@@ -383,6 +383,9 @@ namespace CLN.API.Controllers
 
                     vManageTRCDetail_Response.CRD_CustomerReceivingDate = vResultObj.CRD_CustomerReceivingDate;
 
+                    vManageTRCDetail_Response.TRCBranchId = vResultObj.TRCBranchId;
+                    vManageTRCDetail_Response.TRCBranchName = vResultObj.TRCBranchName;
+
                     vManageTRCDetail_Response.TRCStatusId = vResultObj.TRCStatusId;
                     vManageTRCDetail_Response.TRCSStatus = vResultObj.TRCSStatus;
 

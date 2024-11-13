@@ -116,6 +116,8 @@ namespace CLN.Persistence.Repositories
            
             queryParameters.Add("@CRD_CustomerReceivingDate", parameters.CRD_CustomerReceivingDate);
 
+            queryParameters.Add("@TRCBranchId", parameters.TRCBranchId);
+
             queryParameters.Add("@TRCStatusId", parameters.TRCStatusId);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
