@@ -84,6 +84,7 @@ namespace CLN.Persistence
             services.AddScoped<ITechSupportRepository, TechSupportRepository>();
             services.AddScoped<ICategoryIOTRepository, CategoryIOTRepository>();
             services.AddScoped<IBOMRepository, BOMRepository>();
+            services.AddScoped<IManageReportRepository, ManageReportRepository>();
         }
     }
 }
