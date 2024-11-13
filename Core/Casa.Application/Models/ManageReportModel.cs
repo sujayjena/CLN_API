@@ -52,4 +52,16 @@ namespace CLN.Application.Models
         public DateTime? CSATDate { get; set; }
         public DateTime? ClosureDate { get; set; }
     }
+
+    public class CustomerWiseReport_Response
+    {
+        public int? Id { get; set; }
+        public string? CustomerName { get; set; }
+        public string? ProductCategory { get; set; }
+        public string? Segment { get; set; }
+        public string? SubSegment { get; set; }
+        public long? NoofIssue { get; set; }
+        public long? OpenIssue { get; set; }
+        public long? CloseIssue { get; set; }
+    }
 }

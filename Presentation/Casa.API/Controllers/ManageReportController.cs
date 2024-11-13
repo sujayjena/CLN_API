@@ -29,5 +29,15 @@ namespace CLN.API.Controllers
             _response.Total = parameters.Total;
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerWiseReport(ManageReport_Search parameters)
+        {
+            IEnumerable<CustomerWiseReport_Response> lstRoles = await _manageReportRepository.GetCustomerWiseReport(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
     }
 }

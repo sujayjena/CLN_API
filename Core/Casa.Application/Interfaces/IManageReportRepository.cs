@@ -10,5 +10,6 @@ namespace CLN.Application.Interfaces
     public interface IManageReportRepository
     {
         Task<IEnumerable<Ticket_TRC_Report_Response>> GetTicket_TRC_Report(ManageReport_Search parameters);
+        Task<IEnumerable<CustomerWiseReport_Response>> GetCustomerWiseReport(ManageReport_Search parameters);
     }
 }
