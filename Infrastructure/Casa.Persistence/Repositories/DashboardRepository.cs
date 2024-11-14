@@ -83,5 +83,22 @@ namespace CLN.Persistence.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<Dashboard_TicketTRCSummary_Response>> GetDashboard_TicketTRCSummary(Dashboard_Search_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@CompanyId", parameters.CompanyId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
+            queryParameters.Add("@EmployeeId", parameters.EmployeeId);
+            queryParameters.Add("@FilterType", parameters.FilterType);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<Dashboard_TicketTRCSummary_Response>("GetDashboard_TicketTRCSummary", queryParameters);
+
+            return result;
+        }
     }
 }

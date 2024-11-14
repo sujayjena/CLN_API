@@ -89,4 +89,15 @@ namespace CLN.Application.Models
         public long? NPS_Without_Perct { get; set; }
         public string? NPS { get; set; }
     }
+
+    public class Dashboard_TicketTRCSummary_Response
+    {
+        public int? TotalCustomer { get; set; }
+        public int? TotalTicket { get; set; }
+        public int? OpenTicket { get; set; }
+        public int? ClosedTicket { get; set; }
+        public int? TotalTRC { get; set; }
+        public int? OpenTRC { get; set; }
+        public int? ClosedTRC { get; set; }
+    }
 }

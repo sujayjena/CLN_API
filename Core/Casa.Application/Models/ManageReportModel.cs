@@ -64,4 +64,19 @@ namespace CLN.Application.Models
         public long? OpenIssue { get; set; }
         public long? CloseIssue { get; set; }
     }
+
+    public class CustomerSatisfactionReport_Response
+    {
+        public int? Id { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? TRCNumber { get; set; }
+        public string? ClosedBy { get; set; }
+        public DateTime? ClosedDate { get; set; }
+        public DateTime? CSATDate { get; set; }
+        public string? OverallExperience { get; set; }
+        public string? Satisfaction { get; set; }
+        public string? CustomerService { get; set; }
+        public string? Timeliness { get; set; }
+        public string? Resolution { get; set; }
+    }
 }

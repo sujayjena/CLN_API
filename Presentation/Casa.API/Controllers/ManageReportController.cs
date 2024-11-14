@@ -39,5 +39,15 @@ namespace CLN.API.Controllers
             _response.Total = parameters.Total;
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetCustomerSatisfactionReport(ManageReport_Search parameters)
+        {
+            IEnumerable<CustomerSatisfactionReport_Response> lstRoles = await _manageReportRepository.GetCustomerSatisfactionReport(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
     }
 }

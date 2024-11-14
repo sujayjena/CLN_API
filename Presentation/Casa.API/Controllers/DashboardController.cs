@@ -71,5 +71,15 @@ namespace CLN.API.Controllers
 
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDashboard_TicketTRCSummary(Dashboard_Search_Request parameters)
+        {
+            var objList = await _dashboardRepository.GetDashboard_TicketTRCSummary(parameters);
+            _response.Data = objList.ToList();
+            return _response;
+        }
+
     }
 }
