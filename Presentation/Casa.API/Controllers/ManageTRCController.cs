@@ -222,11 +222,15 @@ namespace CLN.API.Controllers
                     {
                         Id = Convert.ToInt32(item.Id),
                         TRCId = result,
-                        SparePartNo = item.SparePartNo,
-                        PartDescription = item.PartDescription,
+                        SpareCategoryId = item.SpareCategoryId,
+                        SpareDetailsId = item.SpareDetailsId,
                         Quantity = item.Quantity,
-                        Remarks = item.Remarks,
-                        PartStatusId = item.PartStatusId,
+                        AvailableQty = item.AvailableQty,
+                        //SparePartNo = item.SparePartNo,
+                        //PartDescription = item.PartDescription,
+                        //Quantity = item.Quantity,
+                        //Remarks = item.Remarks,
+                        //PartStatusId = item.PartStatusId,
                     };
                     int resultTechnicalSupportAddUpdate = await _manageTRCRepository.SaveManageTRCPartDetail(vManageTRCPartDetails_Request);
                 }
@@ -407,11 +411,21 @@ namespace CLN.API.Controllers
                         {
                             Id = item.Id,
                             TRCId = item.TRCId,
-                            SparePartNo = item.SparePartNo,
-                            PartDescription = item.PartDescription,
+                            SpareCategoryId = item.SpareCategoryId,
+                            SpareCategory = item.SpareCategory,
+                            SpareDetailsId = item.SpareDetailsId,
+                            UniqueCode = item.UniqueCode,
+                            SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
-                            Remarks = item.Remarks,
-                            PartStatusId = item.PartStatusId
+                            AvailableQty = item.AvailableQty,
+                            //PartStatusId = item.PartStatusId,
+                            //PartStatus = item.PartStatus,
+                            RGP = item.RGP,
+                            //SparePartNo = item.SparePartNo,
+                            //PartDescription = item.PartDescription,
+                            //Quantity = item.Quantity,
+                            //Remarks = item.Remarks,
+                            //PartStatusId = item.PartStatusId
                         };
 
                         vManageTRCDetail_Response.PartDetails.Add(vManageTRCPartDetails_Response);

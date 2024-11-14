@@ -131,11 +131,10 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TRCId", parameters.TRCId);
-            queryParameters.Add("@SparePartNo", parameters.SparePartNo);
-            queryParameters.Add("@PartDescription", parameters.PartDescription);
+            queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@Quantity", parameters.Quantity);
-            queryParameters.Add("@Remarks", parameters.Remarks);
-            queryParameters.Add("@PartStatusId", parameters.PartStatusId);
+            queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveTRCPartDetails", queryParameters);

@@ -355,15 +355,23 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public int? TRCId { get; set; }
 
-        public string? SparePartNo { get; set; }
+        public int? SpareCategoryId { get; set; }
 
-        public string? PartDescription { get; set; }
+        public int? SpareDetailsId { get; set; }
 
         public int? Quantity { get; set; }
 
-        public string? Remarks { get; set; }
+        public int? AvailableQty { get; set; }
 
-        public int? PartStatusId { get; set; }
+        //public string? SparePartNo { get; set; }
+
+        //public string? PartDescription { get; set; }
+
+        //public int? Quantity { get; set; }
+
+        //public string? Remarks { get; set; }
+
+        //public int? PartStatusId { get; set; }
     }
 
     public class ManageTRCList_Response : BaseResponseEntity
@@ -538,15 +546,33 @@ namespace CLN.Application.Models
     {
         [JsonIgnore]
         public int? TRCId { get; set; }
+        public int? SpareCategoryId { get; set; }
 
-        public string? SparePartNo { get; set; }
+        public string? SpareCategory { get; set; }
 
-        public string? PartDescription { get; set; }
+        public int? SpareDetailsId { get; set; }
+
+        public string? UniqueCode { get; set; }
+
+        public string? SpareDesc { get; set; }
 
         public int? Quantity { get; set; }
 
-        public string? Remarks { get; set; }
+        public int? AvailableQty { get; set; }
 
-        public int? PartStatusId { get; set; }
+        //public int? PartStatusId { get; set; }
+
+        //public string? PartStatus { get; set; }
+
+        public bool? RGP { get; set; }
+        //public string? SparePartNo { get; set; }
+
+        //public string? PartDescription { get; set; }
+
+        //public int? Quantity { get; set; }
+
+        //public string? Remarks { get; set; }
+
+        //public int? PartStatusId { get; set; }
     }
 }
