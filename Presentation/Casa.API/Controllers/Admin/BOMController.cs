@@ -1,4 +1,5 @@
 ﻿using CLN.Application.Enums;
+using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
 using CLN.Persistence.Repositories;
@@ -12,10 +13,12 @@ namespace CLN.API.Controllers.Admin
     public class BOMController : CustomBaseController
     {
         private ResponseModel _response;
+        private IFileManager _fileManager;
         private readonly IBOMRepository _bomRepository;
 
-        public BOMController(IBOMRepository bomRepository)
+        public BOMController(IFileManager fileManager, IBOMRepository bomRepository)
         {
+            _fileManager = fileManager;
             _bomRepository = bomRepository;
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -25,6 +28,17 @@ namespace CLN.API.Controllers.Admin
         [HttpPost]
         public async Task<ResponseModel> SaveBOM(BOM_Request parameters)
         {
+            // Image Upload
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.PartImage_Base64))
+            {
+                var vUploadFile_AadharCardImage = _fileManager.UploadDocumentsBase64ToFile(parameters.PartImage_Base64, "\\Uploads\\Customer\\QC\\", parameters.PartImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile_AadharCardImage))
+                {
+                    parameters.PartImage = vUploadFile_AadharCardImage;
+                }
+            }
+
             int result = await _bomRepository.SaveBOM(parameters);
 
             if (result == (int)SaveOperationEnums.NoRecordExists)

@@ -236,6 +236,12 @@ namespace CLN.API.Controllers
                 }
             }
 
+            // Save Ticket Log History
+            if (parameters.TicketId > 0)
+            {
+                int resultManageTicketLog = await _manageTicketRepository.SaveManageTicketLogHistory(Convert.ToInt32(parameters.TicketId));
+            }
+
             _response.Id = result;
             return _response;
         }
