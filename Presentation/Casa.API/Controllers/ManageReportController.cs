@@ -49,5 +49,15 @@ namespace CLN.API.Controllers
             _response.Total = parameters.Total;
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetFTFReport(ManageReport_Search parameters)
+        {
+            IEnumerable<FTFReport_Response> lstRoles = await _manageReportRepository.GetFTFReport(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
     }
 }

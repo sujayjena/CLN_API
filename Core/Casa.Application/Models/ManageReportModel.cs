@@ -21,9 +21,8 @@ namespace CLN.Application.Models
         public string? TicketType { get; set; }
     }
 
-    public class Ticket_TRC_Report_Response
+    public class Ticket_TRC_Report_Response : BaseEntity
     {
-        public int? Id { get; set; }
         public string? TicketType { get; set; }
         public string? TRCLocation { get; set; }
         public DateTime? TicketDate { get; set; }
@@ -53,9 +52,8 @@ namespace CLN.Application.Models
         public DateTime? ClosureDate { get; set; }
     }
 
-    public class CustomerWiseReport_Response
+    public class CustomerWiseReport_Response : BaseEntity
     {
-        public int? Id { get; set; }
         public string? CustomerName { get; set; }
         public string? ProductCategory { get; set; }
         public string? Segment { get; set; }
@@ -65,9 +63,8 @@ namespace CLN.Application.Models
         public long? CloseIssue { get; set; }
     }
 
-    public class CustomerSatisfactionReport_Response
+    public class CustomerSatisfactionReport_Response : BaseEntity
     {
-        public int? Id { get; set; }
         public string? TicketNumber { get; set; }
         public string? TRCNumber { get; set; }
         public string? ClosedBy { get; set; }
@@ -78,5 +75,14 @@ namespace CLN.Application.Models
         public string? CustomerService { get; set; }
         public string? Timeliness { get; set; }
         public string? Resolution { get; set; }
+    }
+
+    public class FTFReport_Response : BaseEntity
+    {
+        public DateTime? TicketDate { get; set; }
+        public long? TotalRequest { get; set; }
+        public long? ResolvedTickets { get; set; }
+        public long? FTFRatePerct { get; set; }
+        public long? CSATScore { get; set; }
     }
 }
