@@ -213,6 +213,16 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_VisualImage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_VisualImageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RO_CP_VisualImageFileName = vUploadFile;
+                }
+            }
+
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_TerminalWireImage_Base64))
             {
                 var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_TerminalWireImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_TerminalWireImageOriginalFileName);
