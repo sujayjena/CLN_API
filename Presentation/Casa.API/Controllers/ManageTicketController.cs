@@ -1407,6 +1407,10 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.RO_TSPD_TypeOfBMSId = vResultObj.RO_TSPD_TypeOfBMSId;
                     vManageTicketDetail_Response.RO_TSPD_TypeOfBMS = vResultObj.RO_TSPD_TypeOfBMS;
 
+
+                    vManageTicketDetail_Response.RO_BD_TechnicalSupportEnggId = vResultObj.RO_BD_TechnicalSupportEnggId;
+                    vManageTicketDetail_Response.RO_BD_TechnicalSupportEngg = vResultObj.RO_BD_TechnicalSupportEngg;
+
                     vManageTicketDetail_Response.RO_TSSP_SolutionProvider = vResultObj.RO_TSSP_SolutionProvider;
                     vManageTicketDetail_Response.RO_TSSP_AllocateToServiceEnggId = vResultObj.RO_TSSP_AllocateToServiceEnggId;
                     vManageTicketDetail_Response.RO_TSSP_AllocateToServiceEngg = vResultObj.RO_TSSP_AllocateToServiceEngg;
