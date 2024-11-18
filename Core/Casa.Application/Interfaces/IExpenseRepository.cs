@@ -21,7 +21,7 @@ namespace CLN.Application.Interfaces
 
         Task<int> UpdateDownloadedExpense(UpdateDownloadedExpense_Request parameters);
 
-        Task<IEnumerable<ExpenseForPDF_Response>> GetExpenseForPDF(UpdateDownloadedExpense_Request parameters);
+        Task<IEnumerable<ExpenseForPDF_Response>> GetExpenseForPDF(ExpenseForPDF_Search_Request parameters);
 
         #endregion
 
@@ -51,7 +51,7 @@ namespace CLN.Application.Interfaces
 
         Task<IEnumerable<ExpenseDetailsRemarks_Response>> GetDailyTravelExpenseRemarksListById(int DailyTravelExpenseId);
 
-        Task<IEnumerable<DailyTravelExpenseForPDF_Response>> GetDailyTravelExpenseForPDF(UpdateDownloadedExpense_Request parameters);
+        Task<IEnumerable<DailyTravelExpenseForPDF_Response>> GetDailyTravelExpenseForPDF(ExpenseForPDF_Search_Request parameters);
 
         #endregion
     }

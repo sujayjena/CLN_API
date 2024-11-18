@@ -110,7 +110,17 @@ namespace CLN.Application.Models
     {
         [DefaultValue("")]
         public string? ExpenseId { get; set; }
+
+        [DefaultValue("Regular")]
+        public string? ExpenseType { get; set; }
     }
+
+    public class ExpenseForPDF_Search_Request
+    {
+        [DefaultValue("")]
+        public string? ExpenseId { get; set; }
+    }
+
     public class ExpenseForPDF_Response
     {
         public int Id { get; set; }
@@ -282,6 +292,9 @@ namespace CLN.Application.Models
         [DefaultValue("")]
         public string? ExpenseId { get; set; }
 
+        [DefaultValue(false)]
+        public bool? IsDownloded { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
 
@@ -317,6 +330,7 @@ namespace CLN.Application.Models
         public string? ExpenseImageOriginalFileName { get; set; }
         public string? ExpenseImageFileURL { get; set; }
         public bool? IsExport { get; set; }
+        public bool? IsDownloded { get; set; }
         public bool? IsApprovedDisabled { get; set; }
         public List<ExpenseDetailsRemarks_Response> remarksList { get; set; }
     }

@@ -88,11 +88,12 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+            queryParameters.Add("@ExpenseType", parameters.ExpenseType);
 
             return await SaveByStoredProcedure<int>("UpdateDownloadedExpense", queryParameters);
         }
 
-        public async Task<IEnumerable<ExpenseForPDF_Response>> GetExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        public async Task<IEnumerable<ExpenseForPDF_Response>> GetExpenseForPDF(ExpenseForPDF_Search_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
@@ -218,6 +219,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@ExpenseId", parameters.ExpenseId);
+            queryParameters.Add("@IsDownloded", parameters.IsDownloded);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -261,7 +263,7 @@ namespace CLN.Persistence.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<DailyTravelExpenseForPDF_Response>> GetDailyTravelExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        public async Task<IEnumerable<DailyTravelExpenseForPDF_Response>> GetDailyTravelExpenseForPDF(ExpenseForPDF_Search_Request parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 

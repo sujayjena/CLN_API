@@ -358,7 +358,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        public async Task<ResponseModel> GetExpenseForPDF(ExpenseForPDF_Search_Request parameters)
         {
             var vExpenseForPDFList_Response = new ExpenseForPDFList_Response();
 
@@ -732,7 +732,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetDailyTravelExpenseForPDF(UpdateDownloadedExpense_Request parameters)
+        public async Task<ResponseModel> GetDailyTravelExpenseForPDF(ExpenseForPDF_Search_Request parameters)
         {
             var vDailyTravelExpenseForPDFList_Response = new DailyTravelExpenseForPDFList_Response();
 
