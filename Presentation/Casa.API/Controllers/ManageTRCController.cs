@@ -385,6 +385,7 @@ namespace CLN.API.Controllers
 
                     vManageTRCDetail_Response.PIDD_DispatchedDeliveryChallan = vResultObj.PIDD_DispatchedDeliveryChallan;
                     vManageTRCDetail_Response.PIDD_DispatchedDate = vResultObj.PIDD_DispatchedDate;
+                    vManageTRCDetail_Response.PIDD_DispatchedCityId = vResultObj.PIDD_DispatchedCityId;
                     vManageTRCDetail_Response.PIDD_DispatchedCity = vResultObj.PIDD_DispatchedCity;
                    
                     vManageTRCDetail_Response.DDB_DispatchedDoneBy = vResultObj.DDB_DispatchedDoneBy;

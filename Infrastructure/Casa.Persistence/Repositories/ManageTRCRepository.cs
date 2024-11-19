@@ -108,7 +108,7 @@ namespace CLN.Persistence.Repositories
           
             queryParameters.Add("@PIDD_DispatchedDeliveryChallan", parameters.PIDD_DispatchedDeliveryChallan);
             queryParameters.Add("@PIDD_DispatchedDate", parameters.PIDD_DispatchedDate);
-            queryParameters.Add("@PIDD_DispatchedCity", parameters.PIDD_DispatchedCity);
+            queryParameters.Add("@PIDD_DispatchedCityId", parameters.PIDD_DispatchedCityId);
           
             queryParameters.Add("@DDB_DispatchedDoneBy", parameters.DDB_DispatchedDoneBy);
             queryParameters.Add("@DDB_DocketDetails", parameters.DDB_DocketDetails);

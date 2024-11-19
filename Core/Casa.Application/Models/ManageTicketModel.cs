@@ -1364,7 +1364,8 @@ namespace CLN.Application.Models
         public string? TicketNumber { get; set; }
         public string? Latitude { get; set; }
         public string? Longitude { get; set; }
-        public string? Address { get; set; }
+        public string? StartLocation { get; set; }
+        public string? StopLocation { get; set; }
         public DateTime? StartDateTime { get; set; }
         public string? StartStatus { get; set; }
         public DateTime? StopDateTime { get; set; }

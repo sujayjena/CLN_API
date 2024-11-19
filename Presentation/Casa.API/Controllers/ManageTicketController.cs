@@ -1123,7 +1123,8 @@ namespace CLN.API.Controllers
                         item.manageTicketEngineerVisitHistory.TicketNumber = vTicketHistoryListObj.TicketNumber;
                         item.manageTicketEngineerVisitHistory.Latitude = vTicketHistoryListObj.Latitude;
                         item.manageTicketEngineerVisitHistory.Longitude = vTicketHistoryListObj.Longitude;
-                        item.manageTicketEngineerVisitHistory.Address = vTicketHistoryListObj.Address;
+                        item.manageTicketEngineerVisitHistory.StartLocation = vTicketHistoryListObj.StartLocation;
+                        item.manageTicketEngineerVisitHistory.StopLocation = vTicketHistoryListObj.StopLocation;
                         item.manageTicketEngineerVisitHistory.StartDateTime = vTicketHistoryListObj.StartDateTime;
                         item.manageTicketEngineerVisitHistory.StartStatus = vTicketHistoryListObj.StartStatus;
                         item.manageTicketEngineerVisitHistory.StopDateTime = vTicketHistoryListObj.StopDateTime;
