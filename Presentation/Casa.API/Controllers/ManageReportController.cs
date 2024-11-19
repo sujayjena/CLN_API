@@ -59,5 +59,25 @@ namespace CLN.API.Controllers
             _response.Total = parameters.Total;
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetLogisticSummaryReport(ManageReport_Search parameters)
+        {
+            IEnumerable<LogisticSummaryReport_Response> lstRoles = await _manageReportRepository.GetLogisticSummaryReport(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetExpenseReport(ManageReport_Search parameters)
+        {
+            IEnumerable<ExpenseReport_Response> lstRoles = await _manageReportRepository.GetExpenseReport(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<CustomerWiseReport_Response>> GetCustomerWiseReport(ManageReport_Search parameters);
         Task<IEnumerable<CustomerSatisfactionReport_Response>> GetCustomerSatisfactionReport(ManageReport_Search parameters);
         Task<IEnumerable<FTFReport_Response>> GetFTFReport(ManageReport_Search parameters);
+        Task<IEnumerable<LogisticSummaryReport_Response>> GetLogisticSummaryReport(ManageReport_Search parameters);
+        Task<IEnumerable<ExpenseReport_Response>> GetExpenseReport(ManageReport_Search parameters);
     }
 }

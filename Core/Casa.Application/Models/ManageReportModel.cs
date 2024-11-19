@@ -85,4 +85,50 @@ namespace CLN.Application.Models
         public long? FTFRatePerct { get; set; }
         public long? CSATScore { get; set; }
     }
+
+    public class LogisticSummaryReport_Response : BaseEntity
+    {
+        public string? TicketNumber { get; set; }
+        public DateTime? TicketDate { get; set; }
+        public string? TRCNumber { get; set; }
+        public DateTime? TRCDate { get; set; }
+        public DateTime? ReceivedDate { get; set; }
+        public string? ReceiveMode { get; set; }
+        public string? DocumentNo { get; set; }
+        public string? RegionName { get; set; }
+        public string? StateName { get; set; }
+        public string? DistrictName { get; set; }
+        public string? CityName { get; set; }
+        public string? CustomerName { get; set; }
+        public string? ProductCategory { get; set; }
+        public string? Segment { get; set; }
+        public string? SubSegment { get; set; }
+        public string? ProductModel { get; set; }
+        public string? ProductSerialNumber { get; set; }
+        public DateTime? DispatchedDate { get; set; }
+        public string? DispatchStatus { get; set; }
+        public string? DispatchAddress { get; set; }
+        public string? DispatchChallanNo { get; set; }
+        public string? DispatchedDocketNo { get; set; }
+        public string? CourierName { get; set; }
+        public DateTime? CustomerReceivingDate { get; set; }
+    }
+
+    public class ExpenseReport_Response : BaseEntity
+    {
+        public string? TicketNumber { get; set; }
+        public DateTime? TicketDate { get; set; }
+        public string? TRCNumber { get; set; }
+        public DateTime? TRCDate { get; set; }
+        public string? TicketType { get; set; }
+        public string? TRCLocation { get; set; }
+        public string? ProductCategory { get; set; }
+        public string? Segment { get; set; }
+        public string? SubSegment { get; set; }
+        public string? ProductModel { get; set; }
+        public string? ProductSerialNumber { get; set; }
+        public decimal? TotalPartPrice { get; set; }
+        public decimal? TotalExpense { get; set; }
+        public decimal? TotalCost { get; set; }
+    }
 }
