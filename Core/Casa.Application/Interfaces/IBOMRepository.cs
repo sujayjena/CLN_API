@@ -15,5 +15,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<BOM_Response>> GetBOMList(BaseSearchEntity parameters);
 
         Task<BOM_Response?> GetBOMById(int Id);
+
+        Task<IEnumerable<BOM_ImportDataValidation>> ImportBOM(List<BOM_ImportData> parameters);
     }
 }

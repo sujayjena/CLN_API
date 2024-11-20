@@ -897,6 +897,7 @@ namespace CLN.Application.Models
         public string? PI_FinalVoltageURL { get; set; }
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }
+        public int? PIDD_DispatchedCityId { get; set; }
         public string? PIDD_DispatchedCity { get; set; }
         public string? DDB_DispatchedDoneBy { get; set; }
         public string? DDB_DocketDetails { get; set; }

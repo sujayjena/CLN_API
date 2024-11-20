@@ -1,5 +1,6 @@
 ﻿using CLN.Domain.Entities;
 using CLN.Persistence.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,4 +73,52 @@ namespace CLN.Application.Models
 
         public bool? IsActive { get; set; }
     }
+
+    #region Import and Download
+
+    public class BOM_ImportData
+    {
+        public string? PartCode { get; set; }
+
+        public string? ProductCategory { get; set; }
+
+        public string? Segment { get; set; }
+
+        public string? SubSegment { get; set; }
+
+        public string? ProductModel { get; set; }
+
+        public string? DrawingNumber { get; set; }
+
+        public string? Warranty { get; set; }
+
+        public string? Remarks { get; set; }
+
+        public string? IsActive { get; set; }
+    }
+
+    public class BOM_ImportDataValidation
+    {
+        public string? PartCode { get; set; }
+
+        public string? ProductCategory { get; set; }
+
+        public string? Segment { get; set; }
+
+        public string? SubSegment { get; set; }
+
+        public string? ProductModel { get; set; }
+
+        public string? DrawingNumber { get; set; }
+
+        public string? Warranty { get; set; }
+
+        public string? Remarks { get; set; }
+
+        public string? IsActive { get; set; }
+
+        public string? ValidationMessage { get; set; }
+    }
+
+    #endregion
 }

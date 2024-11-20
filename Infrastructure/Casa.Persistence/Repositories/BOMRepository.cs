@@ -66,5 +66,15 @@ namespace CLN.Persistence.Repositories
 
             return (await ListByStoredProcedure<BOM_Response>("GetBOMById", queryParameters)).FirstOrDefault();
         }
+
+        public async Task<IEnumerable<BOM_ImportDataValidation>> ImportBOM(List<BOM_ImportData> parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            string xmlData = ConvertListToXml(parameters);
+            queryParameters.Add("@XmlData", xmlData);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await ListByStoredProcedure<BOM_ImportDataValidation>("ImportBOM", queryParameters);
+        }
     }
 }
