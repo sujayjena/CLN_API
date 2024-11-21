@@ -19,6 +19,9 @@ namespace CLN.Application.Models
 
         [DefaultValue("")]
         public string? TicketType { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchId { get; set; }
     }
 
     public class Ticket_TRC_Report_Response : BaseEntity
