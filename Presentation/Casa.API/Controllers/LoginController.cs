@@ -113,12 +113,12 @@ namespace CLN.API.Controllers
         [Route("[action]")]
         public async Task<ResponseModel> OTPVerification(OTPVerifyModel parameters)
         {
-            if (parameters.OTP == "1234")
-            {
-                _response.Message = "OTP verified sucessfully.";
-            }
-            else
-            {
+            //if (parameters.OTP == "1234")
+            //{
+            //    _response.Message = "OTP verified sucessfully.";
+            //}
+            //else
+            //{
                 int result = await _loginRepository.VerifyOTP(parameters);
 
                 if (result == (int)SaveOperationEnums.NoResult)
@@ -135,7 +135,7 @@ namespace CLN.API.Controllers
                 {
                     _response.Message = "OTP verified sucessfully.";
                 }
-            }
+            //}
 
             return _response;
         }
