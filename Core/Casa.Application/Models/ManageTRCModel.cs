@@ -167,6 +167,7 @@ namespace CLN.Application.Models
         public string? RP_DocketDetails { get; set; }
         public bool? RP_IsBatteryInTransit { get; set; }
 
+        public int? DNV_IsDeliveryChallanOrDebitNote { get; set; }
         public string? DNV_DeliveryChallanPhotoOriginalFileName { get; set; }
         public string? DNV_DeliveryChallanPhotoFileName { get; set; }
         public string? DNV_DeliveryChallanPhoto_Base64 { get; set; }
@@ -442,6 +443,7 @@ namespace CLN.Application.Models
         public string? RP_DocketDetails { get; set; }
         public bool? RP_IsBatteryInTransit { get; set; }
 
+        public int? DNV_IsDeliveryChallanOrDebitNote { get; set; }
         public string? DNV_DeliveryChallanPhotoOriginalFileName { get; set; }
         public string? DNV_DeliveryChallanPhotoFileName { get; set; }
         public string? DNV_DeliveryChallanPhotoURL { get; set; }

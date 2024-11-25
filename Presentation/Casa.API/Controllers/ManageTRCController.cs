@@ -306,6 +306,8 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.RP_IsReservePickupMailToLogistic= vResultObj.RP_IsReservePickupMailToLogistic;
                     vManageTRCDetail_Response.RP_DocketDetails= vResultObj.RP_DocketDetails;
                     vManageTRCDetail_Response.RP_IsBatteryInTransit= vResultObj.RP_IsBatteryInTransit;
+
+                    vManageTRCDetail_Response.DNV_IsDeliveryChallanOrDebitNote = vResultObj.DNV_IsDeliveryChallanOrDebitNote;
                     vManageTRCDetail_Response.DNV_DeliveryChallanPhotoOriginalFileName= vResultObj.DNV_DeliveryChallanPhotoOriginalFileName;
                     vManageTRCDetail_Response.DNV_DeliveryChallanPhotoFileName= vResultObj.DNV_DeliveryChallanPhotoFileName;
                     vManageTRCDetail_Response.DNV_DeliveryChallanPhotoURL = vResultObj.DNV_DeliveryChallanPhotoURL;

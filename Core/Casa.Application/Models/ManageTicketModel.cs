@@ -826,6 +826,7 @@ namespace CLN.Application.Models
         public bool? RP_IsReservePickupMailToLogistic { get; set; }
         public string? RP_DocketDetails { get; set; }
         public bool? RP_IsBatteryInTransit { get; set; }
+        public int? DNV_IsDeliveryChallanOrDebitNote { get; set; }
         public string? DNV_DeliveryChallanPhotoOriginalFileName { get; set; }
         public string? DNV_DeliveryChallanPhotoFileName { get; set; }
         public string? DNV_DeliveryChallanPhotoURL { get; set; }

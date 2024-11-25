@@ -46,6 +46,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RP_IsReservePickupMailToLogistic", parameters.RP_IsReservePickupMailToLogistic);
             queryParameters.Add("@RP_DocketDetails", parameters.RP_DocketDetails);
             queryParameters.Add("@RP_IsBatteryInTransit", parameters.RP_IsBatteryInTransit);
+            queryParameters.Add("@DNV_IsDeliveryChallanOrDebitNote", parameters.DNV_IsDeliveryChallanOrDebitNote);
             queryParameters.Add("@DNV_DeliveryChallanPhotoOriginalFileName", parameters.DNV_DeliveryChallanPhotoOriginalFileName);
             queryParameters.Add("@DNV_DeliveryChallanPhotoFileName", parameters.DNV_DeliveryChallanPhotoFileName);
             queryParameters.Add("@DNV_DebitNote", parameters.DNV_DebitNote);
