@@ -875,6 +875,9 @@ namespace CLN.Application.Models
         public string? WS_InvoiceOriginalFileName { get; set; }
         public string? WS_InvoiceFileName { get; set; }
         public string? WS_InvoiceURL { get; set; }
+        public bool? WS_IsReplacement { get; set; }
+        public int? WS_NewProductSerialNumberId { get; set; }
+        public string? WS_NewProductSerialNumber { get; set; }
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedByEng { get; set; }
         public string? DA_ProblemObservedDesc { get; set; }

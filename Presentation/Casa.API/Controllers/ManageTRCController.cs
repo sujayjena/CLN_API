@@ -360,6 +360,9 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.WS_InvoiceOriginalFileName = vResultObj.WS_InvoiceOriginalFileName;
                     vManageTRCDetail_Response.WS_InvoiceFileName = vResultObj.WS_InvoiceFileName;
                     vManageTRCDetail_Response.WS_InvoiceURL = vResultObj.WS_InvoiceURL;
+                    vManageTRCDetail_Response.WS_IsReplacement = vResultObj.WS_IsReplacement;
+                    vManageTRCDetail_Response.WS_NewProductSerialNumberId = vResultObj.WS_NewProductSerialNumberId;
+                    vManageTRCDetail_Response.WS_NewProductSerialNumber = vResultObj.WS_NewProductSerialNumber;
 
                     vManageTRCDetail_Response.DA_ProblemObservedByEngId = vResultObj.DA_ProblemObservedByEngId;
                     vManageTRCDetail_Response.DA_ProblemObservedByEng = vResultObj.DA_ProblemObservedByEng;

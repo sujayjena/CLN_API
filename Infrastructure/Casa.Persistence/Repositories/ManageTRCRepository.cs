@@ -88,6 +88,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@WS_IsPaymentClearance", parameters.WS_IsPaymentClearance);
             queryParameters.Add("@WS_InvoiceOriginalFileName", parameters.WS_InvoiceOriginalFileName);
             queryParameters.Add("@WS_InvoiceFileName", parameters.WS_InvoiceFileName);
+            queryParameters.Add("@WS_IsReplacement", parameters.WS_IsReplacement);
+            queryParameters.Add("@WS_NewProductSerialNumberId", parameters.WS_NewProductSerialNumberId);
 
             queryParameters.Add("@DA_ProblemObservedByEngId", parameters.DA_ProblemObservedByEngId);
             queryParameters.Add("@DA_ProblemObservedDesc", parameters.DA_ProblemObservedDesc);
