@@ -142,6 +142,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_BMSSerialNumber", parameters.CP_BMSSerialNumber);
             queryParameters.Add("@CP_ProblemObserved", parameters.CP_ProblemObserved);
             queryParameters.Add("@CP_ProblemObservedByEngId", parameters.CP_ProblemObservedByEngId);
+            queryParameters.Add("@CP_IsWarrantyVoid", parameters.CP_IsWarrantyVoid);
+            queryParameters.Add("@CP_ReasonForVoid", parameters.CP_ReasonForVoid);
 
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);
             queryParameters.Add("@CC_BatteryRepairedToPlant", parameters.CC_BatteryRepairedToPlant);
@@ -225,6 +227,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RO_CP_BMSSerialNumber", parameters.RO_CP_BMSSerialNumber);
             queryParameters.Add("@RO_CP_ProblemObserved", parameters.RO_CP_ProblemObserved);
             queryParameters.Add("@RO_CP_ProblemObservedByEngId", parameters.RO_CP_ProblemObservedByEngId);
+            queryParameters.Add("@RO_CP_IsWarrantyVoid", parameters.RO_CP_IsWarrantyVoid);
+            queryParameters.Add("@RO_CP_ReasonForVoid", parameters.RO_CP_ReasonForVoid);
             queryParameters.Add("@RO_CC_BatteryRepairedOnSite", parameters.RO_CC_BatteryRepairedOnSite);
             queryParameters.Add("@RO_CC_BatteryRepairedToPlant", parameters.RO_CC_BatteryRepairedToPlant);
             queryParameters.Add("@RO_OV_IsCustomerAvailable", parameters.RO_OV_IsCustomerAvailable);

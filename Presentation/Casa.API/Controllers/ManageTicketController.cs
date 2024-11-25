@@ -1351,6 +1351,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CP_ProblemObserved = vResultObj.CP_ProblemObserved;
                     vManageTicketDetail_Response.CP_ProblemObservedByEngId = vResultObj.CP_ProblemObservedByEngId;
                     vManageTicketDetail_Response.CP_ProblemObservedByEng = vResultObj.CP_ProblemObservedByEng;
+                    vManageTicketDetail_Response.CP_IsWarrantyVoid = vResultObj.CP_IsWarrantyVoid;
+                    vManageTicketDetail_Response.CP_ReasonForVoid = vResultObj.CP_ReasonForVoid;
 
                     vManageTicketDetail_Response.CC_BatteryRepairedOnSite = vResultObj.CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.CC_BatteryRepairedToPlant = vResultObj.CC_BatteryRepairedToPlant;
@@ -1459,6 +1461,8 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.RO_CP_ProblemObserved = vResultObj.RO_CP_ProblemObserved;
                     vManageTicketDetail_Response.RO_CP_ProblemObservedByEngId = vResultObj.RO_CP_ProblemObservedByEngId;
                     vManageTicketDetail_Response.RO_CP_ProblemObservedByEng = vResultObj.RO_CP_ProblemObservedByEng;
+                    vManageTicketDetail_Response.CP_IsWarrantyVoid = vResultObj.RO_CP_IsWarrantyVoid;
+                    vManageTicketDetail_Response.CP_ReasonForVoid = vResultObj.RO_CP_ReasonForVoid;
 
                     vManageTicketDetail_Response.RO_CC_BatteryRepairedOnSite = vResultObj.RO_CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.RO_CC_BatteryRepairedToPlant = vResultObj.RO_CC_BatteryRepairedToPlant;

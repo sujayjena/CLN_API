@@ -228,6 +228,10 @@ namespace CLN.Application.Models
         public string? CP_ProblemObserved { get; set; }
         public int? CP_ProblemObservedByEngId { get; set; }
 
+        [DefaultValue(false)]
+        public bool? CP_IsWarrantyVoid { get; set; }
+        public string? CP_ReasonForVoid { get; set; }
+
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
 
@@ -329,6 +333,10 @@ namespace CLN.Application.Models
         public string? RO_CP_BMSSerialNumber { get; set; }
         public string? RO_CP_ProblemObserved { get; set; }
         public int? RO_CP_ProblemObservedByEngId { get; set; }
+
+        [DefaultValue(false)]
+        public bool? RO_CP_IsWarrantyVoid { get; set; }
+        public string? RO_CP_ReasonForVoid { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }
@@ -685,6 +693,8 @@ namespace CLN.Application.Models
         public string CP_ProblemObserved { get; set; }
         public int? CP_ProblemObservedByEngId { get; set; }
         public string? CP_ProblemObservedByEng { get; set; }
+        public bool? CP_IsWarrantyVoid { get; set; }
+        public string? CP_ReasonForVoid { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
@@ -788,6 +798,8 @@ namespace CLN.Application.Models
         public string RO_CP_ProblemObserved { get; set; }
         public int? RO_CP_ProblemObservedByEngId { get; set; }
         public string? RO_CP_ProblemObservedByEng { get; set; }
+        public bool? RO_CP_IsWarrantyVoid { get; set; }
+        public string? RO_CP_ReasonForVoid { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }
@@ -1112,6 +1124,8 @@ namespace CLN.Application.Models
         public string CP_ProblemObserved { get; set; }
         public int? CP_ProblemObservedByEngId { get; set; }
         public string? CP_ProblemObservedByEng { get; set; }
+        public bool? CP_IsWarrantyVoid { get; set; }
+        public string? CP_ReasonForVoid { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
@@ -1216,6 +1230,8 @@ namespace CLN.Application.Models
         public string RO_CP_ProblemObserved { get; set; }
         public int? RO_CP_ProblemObservedByEngId { get; set; }
         public string? RO_CP_ProblemObservedByEng { get; set; }
+        public bool? RO_CP_IsWarrantyVoid { get; set; }
+        public string? RO_CP_ReasonForVoid { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }
