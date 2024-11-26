@@ -162,6 +162,46 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_ConnectorDamage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_ConnectorDamage_Base64, "\\Uploads\\Ticket\\", parameters.TS_ConnectorDamageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TS_ConnectorDamageFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_AnyBrunt_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_AnyBrunt_Base64, "\\Uploads\\Ticket\\", parameters.TS_AnyBruntOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TS_AnyBruntFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_PhysicalDamage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_PhysicalDamage_Base64, "\\Uploads\\Ticket\\", parameters.TS_PhysicalDamageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TS_PhysicalDamageFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_DisplayPhoto_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_DisplayPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TS_DisplayPhotoOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.TS_DisplayPhotoFileName = vUploadFile;
+                }
+            }
+
             //Reopen image upload
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_VisualImage_Base64))
             {
@@ -250,6 +290,46 @@ namespace CLN.API.Controllers
                 if (!string.IsNullOrWhiteSpace(vUploadFile))
                 {
                     parameters.RO_CP_BMSSoftwareImageFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_ConnectorDamage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_ConnectorDamage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_ConnectorDamageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RO_TS_ConnectorDamageFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_AnyBrunt_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_AnyBrunt_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_AnyBruntOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RO_TS_AnyBruntFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_PhysicalDamage_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_PhysicalDamage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_PhysicalDamageOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RO_TS_PhysicalDamageFileName = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_DisplayPhoto_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_DisplayPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_DisplayPhotoOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.RO_TS_DisplayPhotoFileName = vUploadFile;
                 }
             }
 
@@ -1324,6 +1404,37 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.TSSP_RectificationAction = vResultObj.TSSP_RectificationAction;
                     vManageTicketDetail_Response.TSSP_ResolutionSummary = vResultObj.TSSP_ResolutionSummary;
 
+                    vManageTicketDetail_Response.TS_AbnormalNoise = vResultObj.TS_AbnormalNoise;
+                    vManageTicketDetail_Response.TS_ConnectorDamage = vResultObj.TS_ConnectorDamage;
+                    vManageTicketDetail_Response.TS_ConnectorDamageFileName = vResultObj.TS_ConnectorDamageFileName;
+                    vManageTicketDetail_Response.TS_ConnectorDamageOriginalFileName = vResultObj.TS_ConnectorDamageOriginalFileName;
+                    vManageTicketDetail_Response.TS_ConnectorDamageURL = vResultObj.TS_ConnectorDamageURL;
+                    vManageTicketDetail_Response.TS_AnyBrunt = vResultObj.TS_AnyBrunt;
+                    vManageTicketDetail_Response.TS_AnyBruntFileName = vResultObj.TS_AnyBruntFileName;
+                    vManageTicketDetail_Response.TS_AnyBruntOriginalFileName = vResultObj.TS_AnyBruntOriginalFileName;
+                    vManageTicketDetail_Response.TS_AnyBruntURL = vResultObj.TS_AnyBruntURL;
+                    vManageTicketDetail_Response.TS_PhysicalDamage = vResultObj.TS_PhysicalDamage;
+                    vManageTicketDetail_Response.TS_PhysicalDamageFileName = vResultObj.TS_PhysicalDamageFileName;
+                    vManageTicketDetail_Response.TS_PhysicalDamageOriginalFileName = vResultObj.TS_PhysicalDamageOriginalFileName;
+                    vManageTicketDetail_Response.TS_PhysicalDamageURL = vResultObj.TS_PhysicalDamageURL;
+                    vManageTicketDetail_Response.TS_ProblemRemark = vResultObj.TS_ProblemRemark;
+                    vManageTicketDetail_Response.TS_IPCurrentAC_A = vResultObj.TS_IPCurrentAC_A;
+                    vManageTicketDetail_Response.TS_OutputCurrentDC_A = vResultObj.TS_OutputCurrentDC_A;
+                    vManageTicketDetail_Response.TS_OutputVoltageDC_V = vResultObj.TS_OutputVoltageDC_V;
+                    vManageTicketDetail_Response.TS_Type = vResultObj.TS_Type;
+                    vManageTicketDetail_Response.TS_Heating = vResultObj.TS_Heating;
+                    vManageTicketDetail_Response.TS_DisplayPhotoFileName = vResultObj.TS_DisplayPhotoFileName;
+                    vManageTicketDetail_Response.TS_DisplayPhotoOriginalFileName = vResultObj.TS_DisplayPhotoOriginalFileName;
+                    vManageTicketDetail_Response.TS_DisplayPhotoURL = vResultObj.TS_DisplayPhotoURL;
+                    vManageTicketDetail_Response.TS_OutputVoltageAC_V = vResultObj.TS_OutputVoltageAC_V;
+                    vManageTicketDetail_Response.TS_OutputCurrentAC_A = vResultObj.TS_OutputCurrentAC_A;
+                    vManageTicketDetail_Response.TS_IPCurrentDC_A = vResultObj.TS_IPCurrentDC_A;
+                    vManageTicketDetail_Response.TS_SpecificGravityC2 = vResultObj.TS_SpecificGravityC2;
+                    vManageTicketDetail_Response.TS_SpecificGravityC3 = vResultObj.TS_SpecificGravityC3;
+                    vManageTicketDetail_Response.TS_SpecificGravityC4 = vResultObj.TS_SpecificGravityC4;
+                    vManageTicketDetail_Response.TS_SpecificGravityC5 = vResultObj.TS_SpecificGravityC5;
+                    vManageTicketDetail_Response.TS_SpecificGravityC6 = vResultObj.TS_SpecificGravityC6;
+
                     vManageTicketDetail_Response.CP_Visual = vResultObj.CP_Visual;
                     vManageTicketDetail_Response.CP_VisualImageFileName = vResultObj.CP_VisualImageFileName;
                     vManageTicketDetail_Response.CP_VisualImageOriginalFileName = vResultObj.CP_VisualImageOriginalFileName;
@@ -1420,7 +1531,6 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.RO_TSPD_TypeOfBMSId = vResultObj.RO_TSPD_TypeOfBMSId;
                     vManageTicketDetail_Response.RO_TSPD_TypeOfBMS = vResultObj.RO_TSPD_TypeOfBMS;
 
-
                     vManageTicketDetail_Response.RO_BD_TechnicalSupportEnggId = vResultObj.RO_BD_TechnicalSupportEnggId;
                     vManageTicketDetail_Response.RO_BD_TechnicalSupportEngg = vResultObj.RO_BD_TechnicalSupportEngg;
 
@@ -1433,6 +1543,37 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.RO_TSSP_RectificationActionId = vResultObj.RO_TSSP_RectificationActionId;
                     vManageTicketDetail_Response.RO_TSSP_RectificationAction = vResultObj.RO_TSSP_RectificationAction;
                     vManageTicketDetail_Response.RO_TSSP_ResolutionSummary = vResultObj.RO_TSSP_ResolutionSummary;
+
+                    vManageTicketDetail_Response.RO_TS_AbnormalNoise = vResultObj.RO_TS_AbnormalNoise;
+                    vManageTicketDetail_Response.RO_TS_ConnectorDamage = vResultObj.RO_TS_ConnectorDamage;
+                    vManageTicketDetail_Response.RO_TS_ConnectorDamageFileName = vResultObj.RO_TS_ConnectorDamageFileName;
+                    vManageTicketDetail_Response.RO_TS_ConnectorDamageOriginalFileName = vResultObj.RO_TS_ConnectorDamageOriginalFileName;
+                    vManageTicketDetail_Response.RO_TS_ConnectorDamageURL = vResultObj.RO_TS_ConnectorDamageURL;
+                    vManageTicketDetail_Response.RO_TS_AnyBrunt = vResultObj.RO_TS_AnyBrunt;
+                    vManageTicketDetail_Response.RO_TS_AnyBruntFileName = vResultObj.RO_TS_AnyBruntFileName;
+                    vManageTicketDetail_Response.RO_TS_AnyBruntOriginalFileName = vResultObj.RO_TS_AnyBruntOriginalFileName;
+                    vManageTicketDetail_Response.RO_TS_AnyBruntURL = vResultObj.RO_TS_AnyBruntURL;
+                    vManageTicketDetail_Response.RO_TS_PhysicalDamage = vResultObj.RO_TS_PhysicalDamage;
+                    vManageTicketDetail_Response.RO_TS_PhysicalDamageFileName = vResultObj.RO_TS_PhysicalDamageFileName;
+                    vManageTicketDetail_Response.RO_TS_PhysicalDamageOriginalFileName = vResultObj.RO_TS_PhysicalDamageOriginalFileName;
+                    vManageTicketDetail_Response.RO_TS_PhysicalDamageURL = vResultObj.RO_TS_PhysicalDamageURL;
+                    vManageTicketDetail_Response.RO_TS_ProblemRemark = vResultObj.RO_TS_ProblemRemark;
+                    vManageTicketDetail_Response.RO_TS_IPCurrentAC_A = vResultObj.RO_TS_IPCurrentAC_A;
+                    vManageTicketDetail_Response.RO_TS_OutputCurrentDC_A = vResultObj.RO_TS_OutputCurrentDC_A;
+                    vManageTicketDetail_Response.RO_TS_OutputVoltageDC_V = vResultObj.RO_TS_OutputVoltageDC_V;
+                    vManageTicketDetail_Response.RO_TS_Type = vResultObj.RO_TS_Type;
+                    vManageTicketDetail_Response.RO_TS_Heating = vResultObj.RO_TS_Heating;
+                    vManageTicketDetail_Response.RO_TS_DisplayPhotoFileName = vResultObj.RO_TS_DisplayPhotoFileName;
+                    vManageTicketDetail_Response.RO_TS_DisplayPhotoOriginalFileName = vResultObj.RO_TS_DisplayPhotoOriginalFileName;
+                    vManageTicketDetail_Response.RO_TS_DisplayPhotoURL = vResultObj.RO_TS_DisplayPhotoURL;
+                    vManageTicketDetail_Response.RO_TS_OutputVoltageAC_V = vResultObj.RO_TS_OutputVoltageAC_V;
+                    vManageTicketDetail_Response.RO_TS_OutputCurrentAC_A = vResultObj.RO_TS_OutputCurrentAC_A;
+                    vManageTicketDetail_Response.RO_TS_IPCurrentDC_A = vResultObj.RO_TS_IPCurrentDC_A;
+                    vManageTicketDetail_Response.RO_TS_SpecificGravityC2 = vResultObj.RO_TS_SpecificGravityC2;
+                    vManageTicketDetail_Response.RO_TS_SpecificGravityC3 = vResultObj.RO_TS_SpecificGravityC3;
+                    vManageTicketDetail_Response.RO_TS_SpecificGravityC4 = vResultObj.RO_TS_SpecificGravityC4;
+                    vManageTicketDetail_Response.RO_TS_SpecificGravityC5 = vResultObj.RO_TS_SpecificGravityC5;
+                    vManageTicketDetail_Response.RO_TS_SpecificGravityC6 = vResultObj.RO_TS_SpecificGravityC6;
 
                     vManageTicketDetail_Response.RO_CP_Visual = vResultObj.RO_CP_Visual;
                     vManageTicketDetail_Response.RO_CP_VisualImageFileName = vResultObj.RO_CP_VisualImageFileName;

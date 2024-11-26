@@ -197,7 +197,47 @@ namespace CLN.Application.Models
         public int? TSSP_RectificationActionId { get; set; }
         public string? TSSP_ResolutionSummary { get; set; }
 
+        public int? TS_AbnormalNoise { get; set; }
+        public int? TS_ConnectorDamage { get; set; }
+
+        [JsonIgnore]
+        public string? TS_ConnectorDamageFileName { get; set; }
+        public string? TS_ConnectorDamageOriginalFileName { get; set; }
+        public string? TS_ConnectorDamage_Base64 { get; set; }
+        public int? TS_AnyBrunt { get; set; }
+
+        [JsonIgnore]
+        public string? TS_AnyBruntFileName { get; set; }
+        public string? TS_AnyBruntOriginalFileName { get; set; }
+        public string? TS_AnyBrunt_Base64 { get; set; }
+        public int? TS_PhysicalDamage { get; set; }
+
+        [JsonIgnore]
+        public string? TS_PhysicalDamageFileName { get; set; }
+        public string? TS_PhysicalDamageOriginalFileName { get; set; }
+        public string? TS_PhysicalDamage_Base64 { get; set; }
+        public string? TS_ProblemRemark { get; set; }
+        public string? TS_IPCurrentAC_A { get; set; }
+        public string? TS_OutputCurrentDC_A { get; set; }
+        public string? TS_OutputVoltageDC_V { get; set; }
+        public int? TS_Type { get; set; }
+        public int? TS_Heating { get; set; }
+
+        [JsonIgnore]
+        public string? TS_DisplayPhotoFileName { get; set; }
+        public string? TS_DisplayPhotoOriginalFileName { get; set; }
+        public string? TS_DisplayPhoto_Base64 { get; set; }
+        public string? TS_OutputVoltageAC_V { get; set; }
+        public string? TS_OutputCurrentAC_A { get; set; }
+        public string? TS_IPCurrentDC_A { get; set; }
+        public string? TS_SpecificGravityC2 { get; set; }
+        public string? TS_SpecificGravityC3 { get; set; }
+        public string? TS_SpecificGravityC4 { get; set; }
+        public string? TS_SpecificGravityC5 { get; set; }
+        public string? TS_SpecificGravityC6 { get; set; }
+
         public int? CP_Visual { get; set; }
+
         public string? CP_VisualImageFileName { get; set; }
         public string? CP_VisualImageOriginalFileName { get; set; }
         public string? CP_VisualImage_Base64 { get; set; }
@@ -306,6 +346,45 @@ namespace CLN.Application.Models
         public int? RO_TSSP_BranchId { get; set; }
         public int? RO_TSSP_RectificationActionId { get; set; }
         public string? RO_TSSP_ResolutionSummary { get; set; }
+
+        public int? RO_TS_AbnormalNoise { get; set; }
+        public int? RO_TS_ConnectorDamage { get; set; }
+
+        [JsonIgnore]
+        public string? RO_TS_ConnectorDamageFileName { get; set; }
+        public string? RO_TS_ConnectorDamageOriginalFileName { get; set; }
+        public string? RO_TS_ConnectorDamage_Base64 { get; set; }
+        public int? RO_TS_AnyBrunt { get; set; }
+
+        [JsonIgnore]
+        public string? RO_TS_AnyBruntFileName { get; set; }
+        public string? RO_TS_AnyBruntOriginalFileName { get; set; }
+        public string? RO_TS_AnyBrunt_Base64 { get; set; }
+        public int? RO_TS_PhysicalDamage { get; set; }
+
+        [JsonIgnore]
+        public string? RO_TS_PhysicalDamageFileName { get; set; }
+        public string? RO_TS_PhysicalDamageOriginalFileName { get; set; }
+        public string? RO_TS_PhysicalDamage_Base64 { get; set; }
+        public string? RO_TS_ProblemRemark { get; set; }
+        public string? RO_TS_IPCurrentAC_A { get; set; }
+        public string? RO_TS_OutputCurrentDC_A { get; set; }
+        public string? RO_TS_OutputVoltageDC_V { get; set; }
+        public int? RO_TS_Type { get; set; }
+        public int? RO_TS_Heating { get; set; }
+
+        [JsonIgnore]
+        public string? RO_TS_DisplayPhotoFileName { get; set; }
+        public string? RO_TS_DisplayPhotoOriginalFileName { get; set; }
+        public string? RO_TS_DisplayPhoto_Base64 { get; set; }
+        public string? RO_TS_OutputVoltageAC_V { get; set; }
+        public string? RO_TS_OutputCurrentAC_A { get; set; }
+        public string? RO_TS_IPCurrentDC_A { get; set; }
+        public string? RO_TS_SpecificGravityC2 { get; set; }
+        public string? RO_TS_SpecificGravityC3 { get; set; }
+        public string? RO_TS_SpecificGravityC4 { get; set; }
+        public string? RO_TS_SpecificGravityC5 { get; set; }
+        public string? RO_TS_SpecificGravityC6 { get; set; }
 
         public int? RO_CP_Visual { get; set; }
         public string? RO_CP_VisualImageFileName { get; set; }
@@ -666,6 +745,37 @@ namespace CLN.Application.Models
         public string? TSSP_RectificationAction { get; set; }
         public string? TSSP_ResolutionSummary { get; set; }
 
+        public int? TS_AbnormalNoise { get; set; }
+        public int? TS_ConnectorDamage { get; set; }
+        public string? TS_ConnectorDamageFileName { get; set; }
+        public string? TS_ConnectorDamageOriginalFileName { get; set; }
+        public string? TS_ConnectorDamageURL { get; set; }
+        public int? TS_AnyBrunt { get; set; }
+        public string? TS_AnyBruntFileName { get; set; }
+        public string? TS_AnyBruntOriginalFileName { get; set; }
+        public string? TS_AnyBruntURL { get; set; }
+        public int? TS_PhysicalDamage { get; set; }
+        public string? TS_PhysicalDamageFileName { get; set; }
+        public string? TS_PhysicalDamageOriginalFileName { get; set; }
+        public string? TS_PhysicalDamageURL { get; set; }
+        public string? TS_ProblemRemark { get; set; }
+        public string? TS_IPCurrentAC_A { get; set; }
+        public string? TS_OutputCurrentDC_A { get; set; }
+        public string? TS_OutputVoltageDC_V { get; set; }
+        public int? TS_Type { get; set; }
+        public int? TS_Heating { get; set; }
+        public string? TS_DisplayPhotoFileName { get; set; }
+        public string? TS_DisplayPhotoOriginalFileName { get; set; }
+        public string? TS_DisplayPhotoURL { get; set; }
+        public string? TS_OutputVoltageAC_V { get; set; }
+        public string? TS_OutputCurrentAC_A { get; set; }
+        public string? TS_IPCurrentDC_A { get; set; }
+        public string? TS_SpecificGravityC2 { get; set; }
+        public string? TS_SpecificGravityC3 { get; set; }
+        public string? TS_SpecificGravityC4 { get; set; }
+        public string? TS_SpecificGravityC5 { get; set; }
+        public string? TS_SpecificGravityC6 { get; set; }
+
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
         public string CP_VisualImageOriginalFileName { get; set; }
@@ -770,6 +880,37 @@ namespace CLN.Application.Models
         public int? RO_TSSP_RectificationActionId { get; set; }
         public string? RO_TSSP_RectificationAction { get; set; }
         public string? RO_TSSP_ResolutionSummary { get; set; }
+
+        public int? RO_TS_AbnormalNoise { get; set; }
+        public int? RO_TS_ConnectorDamage { get; set; }
+        public string? RO_TS_ConnectorDamageFileName { get; set; }
+        public string? RO_TS_ConnectorDamageOriginalFileName { get; set; }
+        public string? RO_TS_ConnectorDamageURL { get; set; }
+        public int? RO_TS_AnyBrunt { get; set; }
+        public string? RO_TS_AnyBruntFileName { get; set; }
+        public string? RO_TS_AnyBruntOriginalFileName { get; set; }
+        public string? RO_TS_AnyBruntURL { get; set; }
+        public int? RO_TS_PhysicalDamage { get; set; }
+        public string? RO_TS_PhysicalDamageFileName { get; set; }
+        public string? RO_TS_PhysicalDamageOriginalFileName { get; set; }
+        public string? RO_TS_PhysicalDamageURL { get; set; }
+        public string? RO_TS_ProblemRemark { get; set; }
+        public string? RO_TS_IPCurrentAC_A { get; set; }
+        public string? RO_TS_OutputCurrentDC_A { get; set; }
+        public string? RO_TS_OutputVoltageDC_V { get; set; }
+        public int? RO_TS_Type { get; set; }
+        public int? RO_TS_Heating { get; set; }
+        public string? RO_TS_DisplayPhotoFileName { get; set; }
+        public string? RO_TS_DisplayPhotoOriginalFileName { get; set; }
+        public string? RO_TS_DisplayPhotoURL { get; set; }
+        public string? RO_TS_OutputVoltageAC_V { get; set; }
+        public string? RO_TS_OutputCurrentAC_A { get; set; }
+        public string? RO_TS_IPCurrentDC_A { get; set; }
+        public string? RO_TS_SpecificGravityC2 { get; set; }
+        public string? RO_TS_SpecificGravityC3 { get; set; }
+        public string? RO_TS_SpecificGravityC4 { get; set; }
+        public string? RO_TS_SpecificGravityC5 { get; set; }
+        public string? RO_TS_SpecificGravityC6 { get; set; }
 
         public int? RO_CP_Visual { get; set; }
         public string RO_CP_VisualImageFileName { get; set; }
@@ -1097,6 +1238,37 @@ namespace CLN.Application.Models
         public string? TSSP_RectificationAction { get; set; }
         public string? TSSP_ResolutionSummary { get; set; }
 
+        public int? TS_AbnormalNoise { get; set; }
+        public int? TS_ConnectorDamage { get; set; }
+        public string? TS_ConnectorDamageFileName { get; set; }
+        public string? TS_ConnectorDamageOriginalFileName { get; set; }
+        public string? TS_ConnectorDamageURL { get; set; }
+        public int? TS_AnyBrunt { get; set; }
+        public string? TS_AnyBruntFileName { get; set; }
+        public string? TS_AnyBruntOriginalFileName { get; set; }
+        public string? TS_AnyBruntURL { get; set; }
+        public int? TS_PhysicalDamage { get; set; }
+        public string? TS_PhysicalDamageFileName { get; set; }
+        public string? TS_PhysicalDamageOriginalFileName { get; set; }
+        public string? TS_PhysicalDamageURL { get; set; }
+        public string? TS_ProblemRemark { get; set; }
+        public string? TS_IPCurrentAC_A { get; set; }
+        public string? TS_OutputCurrentDC_A { get; set; }
+        public string? TS_OutputVoltageDC_V { get; set; }
+        public int? TS_Type { get; set; }
+        public int? TS_Heating { get; set; }
+        public string? TS_DisplayPhotoFileName { get; set; }
+        public string? TS_DisplayPhotoOriginalFileName { get; set; }
+        public string? TS_DisplayPhotoURL { get; set; }
+        public string? TS_OutputVoltageAC_V { get; set; }
+        public string? TS_OutputCurrentAC_A { get; set; }
+        public string? TS_IPCurrentDC_A { get; set; }
+        public string? TS_SpecificGravityC2 { get; set; }
+        public string? TS_SpecificGravityC3 { get; set; }
+        public string? TS_SpecificGravityC4 { get; set; }
+        public string? TS_SpecificGravityC5 { get; set; }
+        public string? TS_SpecificGravityC6 { get; set; }
+
         public int? CP_Visual { get; set; }
         public string CP_VisualImageFileName { get; set; }
         public string CP_VisualImageOriginalFileName { get; set; }
@@ -1202,6 +1374,37 @@ namespace CLN.Application.Models
         public int? RO_TSSP_RectificationActionId { get; set; }
         public string? RO_TSSP_RectificationAction { get; set; }
         public string? RO_TSSP_ResolutionSummary { get; set; }
+
+        public int? RO_TS_AbnormalNoise { get; set; }
+        public int? RO_TS_ConnectorDamage { get; set; }
+        public string? RO_TS_ConnectorDamageFileName { get; set; }
+        public string? RO_TS_ConnectorDamageOriginalFileName { get; set; }
+        public string? RO_TS_ConnectorDamageURL { get; set; }
+        public int? RO_TS_AnyBrunt { get; set; }
+        public string? RO_TS_AnyBruntFileName { get; set; }
+        public string? RO_TS_AnyBruntOriginalFileName { get; set; }
+        public string? RO_TS_AnyBruntURL { get; set; }
+        public int? RO_TS_PhysicalDamage { get; set; }
+        public string? RO_TS_PhysicalDamageFileName { get; set; }
+        public string? RO_TS_PhysicalDamageOriginalFileName { get; set; }
+        public string? RO_TS_PhysicalDamageURL { get; set; }
+        public string? RO_TS_ProblemRemark { get; set; }
+        public string? RO_TS_IPCurrentAC_A { get; set; }
+        public string? RO_TS_OutputCurrentDC_A { get; set; }
+        public string? RO_TS_OutputVoltageDC_V { get; set; }
+        public int? RO_TS_Type { get; set; }
+        public int? RO_TS_Heating { get; set; }
+        public string? RO_TS_DisplayPhotoFileName { get; set; }
+        public string? RO_TS_DisplayPhotoOriginalFileName { get; set; }
+        public string? RO_TS_DisplayPhotoURL { get; set; }
+        public string? RO_TS_OutputVoltageAC_V { get; set; }
+        public string? RO_TS_OutputCurrentAC_A { get; set; }
+        public string? RO_TS_IPCurrentDC_A { get; set; }
+        public string? RO_TS_SpecificGravityC2 { get; set; }
+        public string? RO_TS_SpecificGravityC3 { get; set; }
+        public string? RO_TS_SpecificGravityC4 { get; set; }
+        public string? RO_TS_SpecificGravityC5 { get; set; }
+        public string? RO_TS_SpecificGravityC6 { get; set; }
 
         public int? RO_CP_Visual { get; set; }
         public string RO_CP_VisualImageFileName { get; set; }

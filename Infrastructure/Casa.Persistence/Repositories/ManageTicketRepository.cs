@@ -120,6 +120,33 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TSSP_RectificationActionId", parameters.TSSP_RectificationActionId);
             queryParameters.Add("@TSSP_ResolutionSummary", parameters.TSSP_ResolutionSummary);
 
+            queryParameters.Add("@TS_AbnormalNoise", parameters.TS_AbnormalNoise);
+            queryParameters.Add("@TS_ConnectorDamage", parameters.TS_ConnectorDamage);
+            queryParameters.Add("@TS_ConnectorDamageFileName", parameters.TS_ConnectorDamageFileName);
+            queryParameters.Add("@TS_ConnectorDamageOriginalFileName", parameters.TS_ConnectorDamageOriginalFileName);
+            queryParameters.Add("@TS_AnyBrunt", parameters.TS_AnyBrunt);
+            queryParameters.Add("@TS_AnyBruntFileName", parameters.TS_AnyBruntFileName);
+            queryParameters.Add("@TS_AnyBruntOriginalFileName", parameters.TS_AnyBruntOriginalFileName);
+            queryParameters.Add("@TS_PhysicalDamage", parameters.TS_PhysicalDamage);
+            queryParameters.Add("@TS_PhysicalDamageFileName", parameters.TS_PhysicalDamageFileName);
+            queryParameters.Add("@TS_PhysicalDamageOriginalFileName", parameters.TS_PhysicalDamageOriginalFileName);
+            queryParameters.Add("@TS_ProblemRemark", parameters.TS_ProblemRemark);
+            queryParameters.Add("@TS_IPCurrentAC_A", parameters.TS_IPCurrentAC_A);
+            queryParameters.Add("@TS_OutputCurrentDC_A", parameters.TS_OutputCurrentDC_A);
+            queryParameters.Add("@TS_OutputVoltageDC_V", parameters.TS_OutputVoltageDC_V);
+            queryParameters.Add("@TS_Type", parameters.TS_Type);
+            queryParameters.Add("@TS_Heating", parameters.TS_Heating);
+            queryParameters.Add("@TS_DisplayPhotoFileName", parameters.TS_DisplayPhotoFileName);
+            queryParameters.Add("@TS_DisplayPhotoOriginalFileName", parameters.TS_DisplayPhotoOriginalFileName);
+            queryParameters.Add("@TS_OutputVoltageAC_V", parameters.TS_OutputVoltageAC_V);
+            queryParameters.Add("@TS_OutputCurrentAC_A", parameters.TS_OutputCurrentAC_A);
+            queryParameters.Add("@TS_IPCurrentDC_A", parameters.TS_IPCurrentDC_A);
+            queryParameters.Add("@TS_SpecificGravityC2", parameters.TS_SpecificGravityC2);
+            queryParameters.Add("@TS_SpecificGravityC3", parameters.TS_SpecificGravityC3);
+            queryParameters.Add("@TS_SpecificGravityC4", parameters.TS_SpecificGravityC4);
+            queryParameters.Add("@TS_SpecificGravityC5", parameters.TS_SpecificGravityC5);
+            queryParameters.Add("@TS_SpecificGravityC6", parameters.TS_SpecificGravityC6);
+
             queryParameters.Add("@CP_Visual", parameters.CP_Visual);
             queryParameters.Add("@CP_VisualImageFileName", parameters.CP_VisualImageFileName);
             queryParameters.Add("@CP_VisualImageOriginalFileName", parameters.CP_VisualImageOriginalFileName);
@@ -205,6 +232,34 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RO_TSSP_BranchId", parameters.RO_TSSP_BranchId);
             queryParameters.Add("@RO_TSSP_RectificationActionId", parameters.RO_TSSP_RectificationActionId);
             queryParameters.Add("@RO_TSSP_ResolutionSummary", parameters.RO_TSSP_ResolutionSummary);
+
+            queryParameters.Add("@RO_TS_AbnormalNoise", parameters.RO_TS_AbnormalNoise);
+            queryParameters.Add("@RO_TS_ConnectorDamage", parameters.RO_TS_ConnectorDamage);
+            queryParameters.Add("@RO_TS_ConnectorDamageFileName", parameters.RO_TS_ConnectorDamageFileName);
+            queryParameters.Add("@RO_TS_ConnectorDamageOriginalFileName", parameters.RO_TS_ConnectorDamageOriginalFileName);
+            queryParameters.Add("@RO_TS_AnyBrunt", parameters.RO_TS_AnyBrunt);
+            queryParameters.Add("@RO_TS_AnyBruntFileName", parameters.RO_TS_AnyBruntFileName);
+            queryParameters.Add("@RO_TS_AnyBruntOriginalFileName", parameters.RO_TS_AnyBruntOriginalFileName);
+            queryParameters.Add("@RO_TS_PhysicalDamage", parameters.RO_TS_PhysicalDamage);
+            queryParameters.Add("@RO_TS_PhysicalDamageFileName", parameters.RO_TS_PhysicalDamageFileName);
+            queryParameters.Add("@RO_TS_PhysicalDamageOriginalFileName", parameters.RO_TS_PhysicalDamageOriginalFileName);
+            queryParameters.Add("@RO_TS_ProblemRemark", parameters.RO_TS_ProblemRemark);
+            queryParameters.Add("@RO_TS_IPCurrentAC_A", parameters.RO_TS_IPCurrentAC_A);
+            queryParameters.Add("@RO_TS_OutputCurrentDC_A", parameters.RO_TS_OutputCurrentDC_A);
+            queryParameters.Add("@RO_TS_OutputVoltageDC_V", parameters.RO_TS_OutputVoltageDC_V);
+            queryParameters.Add("@RO_TS_Type", parameters.RO_TS_Type);
+            queryParameters.Add("@RO_TS_Heating", parameters.RO_TS_Heating);
+            queryParameters.Add("@RO_TS_DisplayPhotoFileName", parameters.RO_TS_DisplayPhotoFileName);
+            queryParameters.Add("@RO_TS_DisplayPhotoOriginalFileName", parameters.RO_TS_DisplayPhotoOriginalFileName);
+            queryParameters.Add("@RO_TS_OutputVoltageAC_V", parameters.RO_TS_OutputVoltageAC_V);
+            queryParameters.Add("@RO_TS_OutputCurrentAC_A", parameters.RO_TS_OutputCurrentAC_A);
+            queryParameters.Add("@RO_TS_IPCurrentDC_A", parameters.RO_TS_IPCurrentDC_A);
+            queryParameters.Add("@RO_TS_SpecificGravityC2", parameters.RO_TS_SpecificGravityC2);
+            queryParameters.Add("@RO_TS_SpecificGravityC3", parameters.RO_TS_SpecificGravityC3);
+            queryParameters.Add("@RO_TS_SpecificGravityC4", parameters.RO_TS_SpecificGravityC4);
+            queryParameters.Add("@RO_TS_SpecificGravityC5", parameters.RO_TS_SpecificGravityC5);
+            queryParameters.Add("@RO_TS_SpecificGravityC6", parameters.RO_TS_SpecificGravityC6);
+
             queryParameters.Add("@RO_CP_Visual", parameters.RO_CP_Visual);
             queryParameters.Add("@RO_CP_VisualImageFileName", parameters.RO_CP_VisualImageFileName);
             queryParameters.Add("@RO_CP_VisualImageOriginalFileName", parameters.RO_CP_VisualImageOriginalFileName);
