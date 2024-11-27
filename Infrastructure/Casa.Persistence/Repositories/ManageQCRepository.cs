@@ -256,7 +256,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@BatteryId", parameters.BatteryId);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
-            //queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("AssignBatteryToCustomer", queryParameters);
         }
