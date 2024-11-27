@@ -562,6 +562,12 @@ namespace CLN.Application.Models
         public int? TSSP_AllocateToServiceEnggId { get; set; }
         public string TSSP_AllocateToServiceEngg { get; set; }
 
+        public int? RO_BD_TechnicalSupportEnggId { get; set; }
+        public string RO_BD_TechnicalSupportEngg { get; set; }
+
+        public int? RO_TSSP_AllocateToServiceEnggId { get; set; }
+        public string RO_TSSP_AllocateToServiceEngg { get; set; }
+
         public int? EnquiryId { get; set; }
         public int? TicketStatusId { get; set; }
         public string TicketStatus { get; set; }
