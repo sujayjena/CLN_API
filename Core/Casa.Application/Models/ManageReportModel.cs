@@ -110,6 +110,7 @@ namespace CLN.Application.Models
         public string? ProductSerialNumber { get; set; }
         public DateTime? DispatchedDate { get; set; }
         public string? DispatchStatus { get; set; }
+        public string? DispatchMode { get; set; }
         public string? DispatchAddress { get; set; }
         public string? DispatchChallanNo { get; set; }
         public string? DispatchedDocketNo { get; set; }
