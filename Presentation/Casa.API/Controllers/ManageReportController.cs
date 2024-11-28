@@ -496,5 +496,79 @@ namespace CLN.API.Controllers
             _response.Total = parameters.Total;
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportExpenseReport(ManageReport_Search parameters)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            IEnumerable<ExpenseReport_Response> lstSizeObj = await _manageReportRepository.GetExpenseReport(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("ExpenseReport");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Complaint Number";
+                    WorkSheet1.Cells[1, 2].Value = "Field/TRC";
+                    WorkSheet1.Cells[1, 3].Value = "TRC location";
+                    WorkSheet1.Cells[1, 4].Value = "Product Category";
+                    WorkSheet1.Cells[1, 5].Value = "Segment";
+                    WorkSheet1.Cells[1, 6].Value = "Sub Segment";
+                    WorkSheet1.Cells[1, 7].Value = "Model";
+                    WorkSheet1.Cells[1, 8].Value = "Product Serial No.";
+                    WorkSheet1.Cells[1, 9].Value = "Total Part Price";
+                    WorkSheet1.Cells[1, 10].Value = "Tour & Travel Expense";
+                    WorkSheet1.Cells[1, 11].Value = "Total Cost";
+                   
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketType;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.TRCLocation;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.ProductModel;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.TotalPartPrice;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.TotalExpense;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.TotalCost;
+                      
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
     }
 }
