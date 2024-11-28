@@ -25,10 +25,12 @@ namespace CLN.Application.Models
         public int? SpareCategoryId { get; set; }
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
+
         [DefaultValue(0)]
-        public int? MinQty { get; set; }
+        public decimal? MinQty { get; set; }
+
         [DefaultValue(0)]
-        public int AvailableQty { get; set; }
+        public decimal? AvailableQty { get; set; }
 
         [DefaultValue(0)]
         public decimal? TentativeCost { get; set; }
@@ -49,10 +51,12 @@ namespace CLN.Application.Models
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
+
         [DefaultValue(0)]
-        public int? MinQty { get; set; }
+        public decimal? MinQty { get; set; }
+
         [DefaultValue(0)]
-        public int AvailableQty { get; set; }
+        public decimal AvailableQty { get; set; }
 
         public decimal? TentativeCost { get; set; }
 

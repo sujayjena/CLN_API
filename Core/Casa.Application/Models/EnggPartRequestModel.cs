@@ -56,9 +56,9 @@ namespace CLN.Application.Models
 
         public int? TypeOfBMSId { get; set; }
 
-        public int? AvailableQty { get; set; }
+        public decimal? AvailableQty { get; set; }
 
-        public int? RequiredQty { get; set; }
+        public decimal? RequiredQty { get; set; }
 
         [DefaultValue("")]
         public string? Remarks { get; set; }
@@ -84,7 +84,7 @@ namespace CLN.Application.Models
 
         public string? EngineerName { get; set; }
 
-        public int? TotalRequestedQty { get; set; }
+        public decimal? TotalRequestedQty { get; set; }
 
         public string? Remarks { get; set; }
 
@@ -119,8 +119,8 @@ namespace CLN.Application.Models
         public string? UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
         public string? TypeOfBMS { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
         public string? Remarks { get; set; }
         [DefaultValue(false)]
         public bool? RGP { get; set; }

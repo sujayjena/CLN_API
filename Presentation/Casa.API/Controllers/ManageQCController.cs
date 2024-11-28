@@ -1023,7 +1023,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportCustomerBattery(int CustomerId = 0)
+        public async Task<ResponseModel> ExportCustomerBattery(CustomerBattery_Search parameters)
         {
             _response.IsSuccess = false;
             byte[] result;
@@ -1031,14 +1031,7 @@ namespace CLN.API.Controllers
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var request = new CustomerBattery_Search()
-            {
-                CustomerId = CustomerId,
-                ProductCategoryId = 0,
-                SearchText = "",
-            };
-
-            IEnumerable<CustomerBattery_Response> lstSizeObj = await _ManageQCRepository.GetCustomerBatteryList(request);
+            IEnumerable<CustomerBattery_Response> lstSizeObj = await _ManageQCRepository.GetCustomerBatteryList(parameters);
 
             using (MemoryStream msExportDataFile = new MemoryStream())
             {

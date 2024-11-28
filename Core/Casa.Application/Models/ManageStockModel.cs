@@ -23,9 +23,9 @@ namespace CLN.Application.Models
         public int? SpareDetailsId { get; set; }
         public int? UOMId { get; set; }
         public int? TypeOfBMSId { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? RequestedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? RequestedQty { get; set; }
 
         [DefaultValue("")]
         public string? Remarks { get; set; }
@@ -56,9 +56,9 @@ namespace CLN.Application.Models
         public int? TypeOfBMSId { get; set; }
         public string? TypeOfBMS { get; set; }
         public int? MinQty { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? RequestedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? RequestedQty { get; set; }
         public string? Remarks { get; set; }
         //public int? CompanyId { get; set; }
         //public string? CompanyName { get; set; }
@@ -127,9 +127,9 @@ namespace CLN.Application.Models
         public int? SpareDetailsId { get; set; }
         public int? UOMId { get; set; }
         public int? TypeOfBMSId { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? RequestedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? RequestedQty { get; set; }
     }
 
     public class GenerateChallanPartDetails_Response : BaseResponseEntity
@@ -147,9 +147,9 @@ namespace CLN.Application.Models
         public string? UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
         public string? TypeOfBMS { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? RequestedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? RequestedQty { get; set; }
     }
     #endregion
 
@@ -160,10 +160,10 @@ namespace CLN.Application.Models
         public int? GenerateChallanId { get; set; }
         public int? SpareDetailsId { get; set; }
         public int? UOMId { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? RequestedQty { get; set; }
-        public int? ReceivedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? RequestedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
         public int? StatusId { get; set; }
     }
     public class StockInListSearch_Request : BaseSearchEntity
@@ -183,11 +183,11 @@ namespace CLN.Application.Models
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
 
-        public int? MinQty { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? RequestedQty { get; set; }
-        public int? ReceivedQty { get; set; }
+        public decimal? MinQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? RequestedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
     }
@@ -205,10 +205,10 @@ namespace CLN.Application.Models
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
-        public int? MinQty { get; set; }
-        public int? BalanceQty { get; set; }
-        public int? ReceivedQty { get; set; }
-        public int? AvailableQty { get; set; }
+        public decimal? MinQty { get; set; }
+        public decimal? BalanceQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
         public bool? RGP { get; set; }
 
     }
@@ -257,13 +257,13 @@ namespace CLN.Application.Models
         public string? AllocatedType { get; set; }
 
         [DefaultValue(0)]
-        public int? RequiredQty { get; set; }
+        public decimal? RequiredQty { get; set; }
 
         [DefaultValue(0)]
-        public int? AllocatedQty { get; set; }
+        public decimal? AllocatedQty { get; set; }
 
         [DefaultValue(0)]
-        public int? ReceivedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
 
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
@@ -284,13 +284,13 @@ namespace CLN.Application.Models
         public string? AllocatedType { get; set; }
 
         [DefaultValue(0)]
-        public int? RequiredQty { get; set; }
+        public decimal? RequiredQty { get; set; }
 
         [DefaultValue(0)]
-        public int? AllocatedQty { get; set; }
+        public decimal? AllocatedQty { get; set; }
 
         [DefaultValue(0)]
-        public int? ReceivedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
 
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
@@ -313,10 +313,11 @@ namespace CLN.Application.Models
         public int? ProductMakeId { get; set; }
         public int? BMSMakeId { get; set; }
         public int? SpareId { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? AllocatedQty { get; set; }
-        public int? ReceivedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? AllocatedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
+
         [DefaultValue(false)]
         public bool? RGP { get; set; }
     }
@@ -333,10 +334,11 @@ namespace CLN.Application.Models
         public int? SpareId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? RequiredQty { get; set; }
-        public int? AllocatedQty { get; set; }
-        public int? ReceivedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? AllocatedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
+
         [DefaultValue(false)]
         public bool? RGP { get; set; }
     }
@@ -351,7 +353,7 @@ namespace CLN.Application.Models
     {
         public int? EngineerId { get; set; }
         public int? SpareDetailsId { get; set; }
-        public int? Quantity { get; set; }
+        public decimal? Quantity { get; set; }
     }
 
     public class StockMaster_Response : BaseResponseEntity
@@ -361,8 +363,8 @@ namespace CLN.Application.Models
         public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
         public string? UOMName { get; set; }
-        public int? MinQty { get; set; }
-        public int? AvailableQty { get; set; }
+        public decimal? MinQty { get; set; }
+        public decimal? AvailableQty { get; set; }
     }
 
     #endregion
@@ -388,14 +390,14 @@ namespace CLN.Application.Models
         public string? SpareDesc { get; set; }
         public int? UOMId { get; set; }
         public string? UOMName { get; set; }
-        public int? MinQty { get; set; }
-        public int? AvailableQty { get; set; }
+        public decimal? MinQty { get; set; }
+        public decimal? AvailableQty { get; set; }
         public bool? RGP { get; set; }
     }
 
     public class EnggStockMaster_Request : BaseEntity
     {
-        public int? MinQty { get; set; }
+        public decimal? MinQty { get; set; }
     }
 
     #endregion

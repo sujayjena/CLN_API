@@ -362,9 +362,9 @@ namespace CLN.Application.Models
 
         public int? SpareDetailsId { get; set; }
 
-        public int? Quantity { get; set; }
+        public decimal? Quantity { get; set; }
 
-        public int? AvailableQty { get; set; }
+        public decimal? AvailableQty { get; set; }
 
         //public string? SparePartNo { get; set; }
 
@@ -564,9 +564,9 @@ namespace CLN.Application.Models
 
         public string? SpareDesc { get; set; }
 
-        public int? Quantity { get; set; }
+        public decimal? Quantity { get; set; }
 
-        public int? AvailableQty { get; set; }
+        public decimal? AvailableQty { get; set; }
 
         //public int? PartStatusId { get; set; }
 

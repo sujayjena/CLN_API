@@ -26,7 +26,7 @@ namespace CLN.Application.Models
         public int? EngineerId { get; set; }
         public string? RequestNumber { get; set; }
         public int? SpareDetailsId { get; set; }
-        public int? ReturnQuantity { get; set; }
+        public decimal? ReturnQuantity { get; set; }
         public int? StatusId { get; set; }
     }
 
@@ -39,8 +39,8 @@ namespace CLN.Application.Models
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
 
-        public int? AvailableQty { get; set; }
-        public int? ReturnQuantity { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? ReturnQuantity { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
     }
@@ -62,7 +62,7 @@ namespace CLN.Application.Models
     public class EnggSpareDetailsList_RequestMobile : BaseEntity
     {
         public int? SpareDetailsId { get; set; }
-        public int? ReturnQuantity { get; set; }
+        public decimal? ReturnQuantity { get; set; }
         public int? StatusId { get; set; }
     }
 
@@ -75,11 +75,11 @@ namespace CLN.Application.Models
         public string RequestType { get; set; }
         public int? Engineerid { get; set; }
         public string RequestNumber { get; set; }
-        public int Total_RequiredQty { get; set; }
-        public int Total_AllocatedQty { get; set; }
-        public int Total_ReceivedQty { get; set; }
-        public int? Total_AvailableQty { get; set; }
-        public int? Total_ReturnQuantity { get; set; }
+        public decimal Total_RequiredQty { get; set; }
+        public decimal Total_AllocatedQty { get; set; }
+        public decimal Total_ReceivedQty { get; set; }
+        public decimal? Total_AvailableQty { get; set; }
+        public decimal? Total_ReturnQuantity { get; set; }
         public int? StatusId { get; set; }
         public string StatusName { get; set; }
     }
@@ -97,11 +97,11 @@ namespace CLN.Application.Models
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
 
-        public int? Total_RequiredQty { get; set; }
-        public int? Total_AllocatedQty { get; set; }
-        public int? Total_ReceivedQty { get; set; }
-        public int? Total_AvailableQty { get; set; }
-        public int? Total_ReturnQuantity { get; set; }
+        public decimal? Total_RequiredQty { get; set; }
+        public decimal? Total_AllocatedQty { get; set; }
+        public decimal? Total_ReceivedQty { get; set; }
+        public decimal? Total_AvailableQty { get; set; }
+        public decimal? Total_ReturnQuantity { get; set; }
     }
 
     public class EnggPartsReturnByRequestNumber_For_Mobile
@@ -115,11 +115,11 @@ namespace CLN.Application.Models
         public int? Engineerid { get; set; }
         public string? RequestNumber { get; set; }
 
-        public int? Total_RequiredQty { get; set; }
-        public int? Total_AllocatedQty { get; set; }
-        public int? Total_ReceivedQty { get; set; }
-        public int? Total_AvailableQty { get; set; }
-        public int? Total_ReturnQuantity { get; set; }
+        public decimal? Total_RequiredQty { get; set; }
+        public decimal? Total_AllocatedQty { get; set; }
+        public decimal? Total_ReceivedQty { get; set; }
+        public decimal? Total_AvailableQty { get; set; }
+        public decimal? Total_ReturnQuantity { get; set; }
 
         public List<EnggSpareDetailsList_ResponseMobile> SpareDetailsList { get; set; }
     }
@@ -130,11 +130,11 @@ namespace CLN.Application.Models
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
 
-        public int? RequiredQty { get; set; }
-        public int? AllocatedQty { get; set; }
-        public int? ReceivedQty { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? ReturnQuantity { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? AllocatedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? ReturnQuantity { get; set; }
     }
 
 
@@ -159,11 +159,11 @@ namespace CLN.Application.Models
         public int? TypeOfBMSId { get; set; }
         public string TypeOfBMS { get; set; }
 
-        public int? RequiredQty { get; set; }
-        public int? AllocatedQty { get; set; }
-        public int? ReceivedQty { get; set; }
-        public int? AvailableQty { get; set; }
-        public int? ReturnQuantity { get; set; }
+        public decimal? RequiredQty { get; set; }
+        public decimal? AllocatedQty { get; set; }
+        public decimal? ReceivedQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public decimal? ReturnQuantity { get; set; }
     }
 
 
