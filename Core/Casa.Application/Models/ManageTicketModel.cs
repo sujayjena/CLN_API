@@ -578,6 +578,7 @@ namespace CLN.Application.Models
         public bool? IsResolvedWithoutOTP { get; set; }
         public bool? IsClosedWithoutOTP { get; set; }
         public bool? IsReopen { get; set; }
+        public bool? IsFeedback { get; set; }
 
         public bool? IsActive { get; set; }
 
