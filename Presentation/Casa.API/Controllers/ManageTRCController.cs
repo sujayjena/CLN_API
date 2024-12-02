@@ -798,8 +798,8 @@ namespace CLN.API.Controllers
                         vManageTRCDetail_Response.TicketDetail.RO_CP_ProblemObserved = vResultTicketDetailObj.RO_CP_ProblemObserved;
                         vManageTRCDetail_Response.TicketDetail.RO_CP_ProblemObservedByEngId = vResultTicketDetailObj.RO_CP_ProblemObservedByEngId;
                         vManageTRCDetail_Response.TicketDetail.RO_CP_ProblemObservedByEng = vResultTicketDetailObj.RO_CP_ProblemObservedByEng;
-                        vManageTRCDetail_Response.TicketDetail.CP_IsWarrantyVoid = vResultTicketDetailObj.RO_CP_IsWarrantyVoid;
-                        vManageTRCDetail_Response.TicketDetail.CP_ReasonForVoid = vResultTicketDetailObj.RO_CP_ReasonForVoid;
+                        vManageTRCDetail_Response.TicketDetail.RO_CP_IsWarrantyVoid = vResultTicketDetailObj.RO_CP_IsWarrantyVoid;
+                        vManageTRCDetail_Response.TicketDetail.RO_CP_ReasonForVoid = vResultTicketDetailObj.RO_CP_ReasonForVoid;
 
                         vManageTRCDetail_Response.TicketDetail.RO_CC_BatteryRepairedOnSite = vResultTicketDetailObj.RO_CC_BatteryRepairedOnSite;
                         vManageTRCDetail_Response.TicketDetail.RO_CC_BatteryRepairedToPlant = vResultTicketDetailObj.RO_CC_BatteryRepairedToPlant;
