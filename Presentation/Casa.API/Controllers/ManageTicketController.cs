@@ -1480,6 +1480,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CP_BatteryVoltageDropOnLoad = vResultObj.CP_BatteryVoltageDropOnLoad;
                     vManageTicketDetail_Response.CP_KmReading = vResultObj.CP_KmReading;
                     vManageTicketDetail_Response.CP_TotalRun = vResultObj.CP_TotalRun;
+                    vManageTicketDetail_Response.CP_BatterySerialNo = vResultObj.CP_BatterySerialNo;
 
                     vManageTicketDetail_Response.CC_BatteryRepairedOnSite = vResultObj.CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.CC_BatteryRepairedToPlant = vResultObj.CC_BatteryRepairedToPlant;
@@ -1636,6 +1637,7 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.RO_CP_BatteryVoltageDropOnLoad = vResultObj.RO_CP_BatteryVoltageDropOnLoad;
                     vManageTicketDetail_Response.RO_CP_KmReading = vResultObj.RO_CP_KmReading;
                     vManageTicketDetail_Response.RO_CP_TotalRun = vResultObj.RO_CP_TotalRun;
+                    vManageTicketDetail_Response.RO_CP_BatterySerialNo = vResultObj.RO_CP_BatterySerialNo;
 
                     vManageTicketDetail_Response.RO_CC_BatteryRepairedOnSite = vResultObj.RO_CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.RO_CC_BatteryRepairedToPlant = vResultObj.RO_CC_BatteryRepairedToPlant;

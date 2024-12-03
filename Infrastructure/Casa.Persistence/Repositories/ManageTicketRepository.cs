@@ -187,6 +187,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_BatteryVoltageDropOnLoad", parameters.CP_BatteryVoltageDropOnLoad);
             queryParameters.Add("@CP_KmReading", parameters.CP_KmReading);
             queryParameters.Add("@CP_TotalRun", parameters.CP_TotalRun);
+            queryParameters.Add("@CP_BatterySerialNo", parameters.CP_BatterySerialNo);
 
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);
             queryParameters.Add("@CC_BatteryRepairedToPlant", parameters.CC_BatteryRepairedToPlant);
@@ -316,6 +317,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RO_CP_BatteryVoltageDropOnLoad", parameters.RO_CP_BatteryVoltageDropOnLoad);
             queryParameters.Add("@RO_CP_KmReading", parameters.RO_CP_KmReading);
             queryParameters.Add("@RO_CP_TotalRun", parameters.RO_CP_TotalRun);
+            queryParameters.Add("@RO_CP_BatterySerialNo", parameters.RO_CP_BatterySerialNo);
 
             queryParameters.Add("@RO_CC_BatteryRepairedOnSite", parameters.RO_CC_BatteryRepairedOnSite);
             queryParameters.Add("@RO_CC_BatteryRepairedToPlant", parameters.RO_CC_BatteryRepairedToPlant);

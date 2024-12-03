@@ -288,6 +288,7 @@ namespace CLN.Application.Models
         public string? CP_BatteryVoltageDropOnLoad { get; set; }
         public string? CP_KmReading { get; set; }
         public string? CP_TotalRun { get; set; }
+        public string? CP_BatterySerialNo { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
@@ -450,6 +451,7 @@ namespace CLN.Application.Models
         public string? RO_CP_BatteryVoltageDropOnLoad { get; set; }
         public string? RO_CP_KmReading { get; set; }
         public string? RO_CP_TotalRun { get; set; }
+        public string? RO_CP_BatterySerialNo { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }
@@ -863,6 +865,7 @@ namespace CLN.Application.Models
         public string? CP_BatteryVoltageDropOnLoad { get; set; }
         public string? CP_KmReading { get; set; }
         public string? CP_TotalRun { get; set; }
+        public string? CP_BatterySerialNo { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
@@ -1016,6 +1019,7 @@ namespace CLN.Application.Models
         public string? RO_CP_BatteryVoltageDropOnLoad { get; set; }
         public string? RO_CP_KmReading { get; set; }
         public string? RO_CP_TotalRun { get; set; }
+        public string? RO_CP_BatterySerialNo { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }
@@ -1390,6 +1394,7 @@ namespace CLN.Application.Models
         public string? CP_BatteryVoltageDropOnLoad { get; set; }
         public string? CP_KmReading { get; set; }
         public string? CP_TotalRun { get; set; }
+        public string? CP_BatterySerialNo { get; set; }
 
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
@@ -1544,6 +1549,7 @@ namespace CLN.Application.Models
         public string? RO_CP_BatteryVoltageDropOnLoad { get; set; }
         public string? RO_CP_KmReading { get; set; }
         public string? RO_CP_TotalRun { get; set; }
+        public string? RO_CP_BatterySerialNo { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }

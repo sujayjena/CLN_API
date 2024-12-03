@@ -413,59 +413,66 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
-                    WorkSheet1.Cells[1, 1].Value = "Complaint Number";
-                    WorkSheet1.Cells[1, 2].Value = "Receive Date";
-                    WorkSheet1.Cells[1, 3].Value = "Receive Mode";
-                    WorkSheet1.Cells[1, 4].Value = "Document No [Inward]";
-                    WorkSheet1.Cells[1, 5].Value = "Region";
-                    WorkSheet1.Cells[1, 6].Value = "State";
-                    WorkSheet1.Cells[1, 7].Value = "District";
-                    WorkSheet1.Cells[1, 8].Value = "City";
-                    WorkSheet1.Cells[1, 9].Value = "Customer";
-                    WorkSheet1.Cells[1, 10].Value = "Product Category";
-                    WorkSheet1.Cells[1, 11].Value = "Segment";
-                    WorkSheet1.Cells[1, 12].Value = "Sub Segment";
-                    WorkSheet1.Cells[1, 13].Value = "Model";
-                    WorkSheet1.Cells[1, 14].Value = "Product Sr No";
-                    WorkSheet1.Cells[1, 15].Value = "Dispatched Date";
-                    WorkSheet1.Cells[1, 16].Value = "Dispatch Status";
-                    WorkSheet1.Cells[1, 17].Value = "Dispatch Mode";
-                    WorkSheet1.Cells[1, 18].Value = "Dispatch Address";
-                    WorkSheet1.Cells[1, 19].Value = "Dispatched Challan No.";
-                    WorkSheet1.Cells[1, 20].Value = "Dispatched Docket No.";
-                    WorkSheet1.Cells[1, 21].Value = "Courier Name";
-                    WorkSheet1.Cells[1, 22].Value = "Customer Receiving Date";
+                    WorkSheet1.Cells[1, 1].Value = "Ticket Number";
+                    WorkSheet1.Cells[1, 2].Value = "Ticket Date";
+                    WorkSheet1.Cells[1, 3].Value = "TRC Number";
+                    WorkSheet1.Cells[1, 4].Value = "TRC Date";
+                    WorkSheet1.Cells[1, 5].Value = "Receive Date";
+                    WorkSheet1.Cells[1, 6].Value = "Reverse Pickup Mode";
+                    WorkSheet1.Cells[1, 7].Value = "Docket Details";
+                    WorkSheet1.Cells[1, 8].Value = "Region";
+                    WorkSheet1.Cells[1, 9].Value = "State";
+                    WorkSheet1.Cells[1, 10].Value = "District";
+                    WorkSheet1.Cells[1, 11].Value = "City";
+                    WorkSheet1.Cells[1, 12].Value = "Customer";
+                    WorkSheet1.Cells[1, 13].Value = "Product Category";
+                    WorkSheet1.Cells[1, 14].Value = "Segment";
+                    WorkSheet1.Cells[1, 15].Value = "Sub Segment";
+                    WorkSheet1.Cells[1, 16].Value = "Model";
+                    WorkSheet1.Cells[1, 17].Value = "Product Sr No";
+                    WorkSheet1.Cells[1, 18].Value = "Dispatched Date";
+                    WorkSheet1.Cells[1, 19].Value = "Dispatch Status";
+                    WorkSheet1.Cells[1, 20].Value = "Dispatch Mode";
+                    WorkSheet1.Cells[1, 21].Value = "Dispatch Address";
+                    WorkSheet1.Cells[1, 22].Value = "Dispatched Challan No.";
+                    WorkSheet1.Cells[1, 23].Value = "Dispatched Docket No.";
+                    WorkSheet1.Cells[1, 24].Value = "Courier Name";
+                    WorkSheet1.Cells[1, 25].Value = "Customer Receiving Date";
                   
-
                     recordIndex = 2;
 
                     foreach (var items in lstSizeObj)
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
                         WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.ReceivedDate;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.ReceiveMode;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.DocumentNo;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.RegionName;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.StateName;
-                        WorkSheet1.Cells[recordIndex, 7].Value = items.DistrictName;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.CityName;
-                        WorkSheet1.Cells[recordIndex, 9].Value = items.CustomerName;
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.ProductCategory;
-                        WorkSheet1.Cells[recordIndex, 11].Value = items.Segment;
-                        WorkSheet1.Cells[recordIndex, 12].Value = items.SubSegment;
-                        WorkSheet1.Cells[recordIndex, 13].Value = items.ProductModel;
-                        WorkSheet1.Cells[recordIndex, 14].Value = items.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 15].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 15].Value = items.DispatchedDate;
-                        WorkSheet1.Cells[recordIndex, 16].Value = items.DispatchStatus;
-                        WorkSheet1.Cells[recordIndex, 17].Value = items.DispatchMode;
-                        WorkSheet1.Cells[recordIndex, 18].Value = items.DispatchAddress;
-                        WorkSheet1.Cells[recordIndex, 19].Value = items.DispatchChallanNo;
-                        WorkSheet1.Cells[recordIndex, 20].Value = items.DispatchedDocketNo;
-                        WorkSheet1.Cells[recordIndex, 21].Value = items.CourierName;
-                        WorkSheet1.Cells[recordIndex, 22].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 22].Value = items.CustomerReceivingDate;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketDate;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.TRCNumber;
+                        WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.TRCDate;
+                        WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.ReceivedDate;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.ReceiveMode;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.DocumentNo;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.RegionName;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.StateName;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.DistrictName;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.CityName;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.CustomerName;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.ProductModel;
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 18].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.DispatchedDate;
+                        WorkSheet1.Cells[recordIndex, 19].Value = items.DispatchStatus;
+                        WorkSheet1.Cells[recordIndex, 20].Value = items.DispatchMode;
+                        WorkSheet1.Cells[recordIndex, 21].Value = items.DispatchAddress;
+                        WorkSheet1.Cells[recordIndex, 22].Value = items.DispatchChallanNo;
+                        WorkSheet1.Cells[recordIndex, 23].Value = items.DispatchedDocketNo;
+                        WorkSheet1.Cells[recordIndex, 24].Value = items.CourierName;
+                        WorkSheet1.Cells[recordIndex, 25].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 25].Value = items.CustomerReceivingDate;
 
                         recordIndex += 1;
                     }
@@ -523,33 +530,35 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
-                    WorkSheet1.Cells[1, 1].Value = "Complaint Number";
-                    WorkSheet1.Cells[1, 2].Value = "Field/TRC";
-                    WorkSheet1.Cells[1, 3].Value = "TRC location";
-                    WorkSheet1.Cells[1, 4].Value = "Product Category";
-                    WorkSheet1.Cells[1, 5].Value = "Segment";
-                    WorkSheet1.Cells[1, 6].Value = "Sub Segment";
-                    WorkSheet1.Cells[1, 7].Value = "Model";
-                    WorkSheet1.Cells[1, 8].Value = "Product Serial No.";
-                    WorkSheet1.Cells[1, 9].Value = "Total Part Price";
-                    WorkSheet1.Cells[1, 10].Value = "Tour & Travel Expense";
-                    WorkSheet1.Cells[1, 11].Value = "Total Cost";
+                    WorkSheet1.Cells[1, 1].Value = "Ticket Number";
+                    WorkSheet1.Cells[1, 2].Value = "TRC Number";
+                    WorkSheet1.Cells[1, 3].Value = "Ticket/TRC";
+                    WorkSheet1.Cells[1, 4].Value = "TRC location";
+                    WorkSheet1.Cells[1, 5].Value = "Product Category";
+                    WorkSheet1.Cells[1, 6].Value = "Segment";
+                    WorkSheet1.Cells[1, 7].Value = "Sub Segment";
+                    WorkSheet1.Cells[1, 8].Value = "Model";
+                    WorkSheet1.Cells[1, 9].Value = "Product Serial No.";
+                    WorkSheet1.Cells[1, 10].Value = "Total Part Price";
+                    WorkSheet1.Cells[1, 11].Value = "Expense Amount";
+                    WorkSheet1.Cells[1, 12].Value = "Total Cost";
                    
                     recordIndex = 2;
 
                     foreach (var items in lstSizeObj)
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketType;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.TRCLocation;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.ProductCategory;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.Segment;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.SubSegment;
-                        WorkSheet1.Cells[recordIndex, 7].Value = items.ProductModel;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 9].Value = items.TotalPartPrice;
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.TotalExpense;
-                        WorkSheet1.Cells[recordIndex, 11].Value = items.TotalCost;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TRCNumber;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.TicketType;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.TRCLocation;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.ProductModel;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.TotalPartPrice;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.TotalExpense;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.TotalCost;
                       
                         recordIndex += 1;
                     }

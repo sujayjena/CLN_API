@@ -119,22 +119,22 @@ namespace CLN.API.Controllers
             //}
             //else
             //{
-                int result = await _loginRepository.VerifyOTP(parameters);
+            int result = await _loginRepository.VerifyOTP(parameters);
 
-                if (result == (int)SaveOperationEnums.NoResult)
-                {
-                    _response.Id = -1;
-                    _response.Message = "Invalid OTP!";
-                }
-                else if (result == (int)SaveOperationEnums.ReocrdExists)
-                {
-                    _response.Id = -1;
-                    _response.Message = "OTP timeout!";
-                }
-                else
-                {
-                    _response.Message = "OTP verified sucessfully.";
-                }
+            if (result == (int)SaveOperationEnums.NoResult)
+            {
+                _response.Message = "Invalid OTP!";
+                _response.IsSuccess = false;
+            }
+            else if (result == (int)SaveOperationEnums.ReocrdExists)
+            {
+                _response.Message = "OTP timeout!";
+                _response.IsSuccess = false;
+            }
+            else
+            {
+                _response.Message = "OTP verified sucessfully.";
+            }
             //}
 
             return _response;
