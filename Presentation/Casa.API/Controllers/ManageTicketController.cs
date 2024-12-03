@@ -1464,6 +1464,22 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.CP_ProblemObservedByEng = vResultObj.CP_ProblemObservedByEng;
                     vManageTicketDetail_Response.CP_IsWarrantyVoid = vResultObj.CP_IsWarrantyVoid;
                     vManageTicketDetail_Response.CP_ReasonForVoid = vResultObj.CP_ReasonForVoid;
+                    vManageTicketDetail_Response.CP_CommunicationWithMotorAndController = vResultObj.CP_CommunicationWithMotorAndController;
+                    vManageTicketDetail_Response.CP_UnderWarranty = vResultObj.CP_UnderWarranty;
+                    vManageTicketDetail_Response.CP_RPhaseVoltage = vResultObj.CP_RPhaseVoltage;
+                    vManageTicketDetail_Response.CP_YPhaseVoltage = vResultObj.CP_YPhaseVoltage;
+                    vManageTicketDetail_Response.CP_BPhaseVoltage = vResultObj.CP_BPhaseVoltage;
+                    vManageTicketDetail_Response.CP_BatteryOCV = vResultObj.CP_BatteryOCV;
+                    vManageTicketDetail_Response.CP_SystemVoltage = vResultObj.CP_SystemVoltage;
+                    vManageTicketDetail_Response.CP_SpecificGravityC1 =  vResultObj.CP_SpecificGravityC1;
+                    vManageTicketDetail_Response.CP_SpecificGravityC2 =  vResultObj.CP_SpecificGravityC2;
+                    vManageTicketDetail_Response.CP_SpecificGravityC3 =  vResultObj.CP_SpecificGravityC3;
+                    vManageTicketDetail_Response.CP_SpecificGravityC4 =  vResultObj.CP_SpecificGravityC4;
+                    vManageTicketDetail_Response.CP_SpecificGravityC5 =  vResultObj.CP_SpecificGravityC5;
+                    vManageTicketDetail_Response.CP_SpecificGravityC6 = vResultObj.CP_SpecificGravityC6;
+                    vManageTicketDetail_Response.CP_BatteryVoltageDropOnLoad = vResultObj.CP_BatteryVoltageDropOnLoad;
+                    vManageTicketDetail_Response.CP_KmReading = vResultObj.CP_KmReading;
+                    vManageTicketDetail_Response.CP_TotalRun = vResultObj.CP_TotalRun;
 
                     vManageTicketDetail_Response.CC_BatteryRepairedOnSite = vResultObj.CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.CC_BatteryRepairedToPlant = vResultObj.CC_BatteryRepairedToPlant;
@@ -1604,6 +1620,22 @@ namespace CLN.API.Controllers
                     vManageTicketDetail_Response.RO_CP_ProblemObservedByEng = vResultObj.RO_CP_ProblemObservedByEng;
                     vManageTicketDetail_Response.RO_CP_IsWarrantyVoid = vResultObj.RO_CP_IsWarrantyVoid;
                     vManageTicketDetail_Response.RO_CP_ReasonForVoid = vResultObj.RO_CP_ReasonForVoid;
+                    vManageTicketDetail_Response.RO_CP_CommunicationWithMotorAndController = vResultObj.RO_CP_CommunicationWithMotorAndController;
+                    vManageTicketDetail_Response.RO_CP_UnderWarranty = vResultObj.RO_CP_UnderWarranty;
+                    vManageTicketDetail_Response.RO_CP_RPhaseVoltage = vResultObj.RO_CP_RPhaseVoltage;
+                    vManageTicketDetail_Response.RO_CP_YPhaseVoltage = vResultObj.RO_CP_YPhaseVoltage;
+                    vManageTicketDetail_Response.RO_CP_BPhaseVoltage = vResultObj.RO_CP_BPhaseVoltage;
+                    vManageTicketDetail_Response.RO_CP_BatteryOCV = vResultObj.RO_CP_BatteryOCV;
+                    vManageTicketDetail_Response.RO_CP_SystemVoltage = vResultObj.RO_CP_SystemVoltage;
+                    vManageTicketDetail_Response.RO_CP_SpecificGravityC1 = vResultObj.RO_CP_SpecificGravityC1;
+                    vManageTicketDetail_Response.RO_CP_SpecificGravityC2 = vResultObj.RO_CP_SpecificGravityC2;
+                    vManageTicketDetail_Response.RO_CP_SpecificGravityC3 = vResultObj.RO_CP_SpecificGravityC3;
+                    vManageTicketDetail_Response.RO_CP_SpecificGravityC4 = vResultObj.RO_CP_SpecificGravityC4;
+                    vManageTicketDetail_Response.RO_CP_SpecificGravityC5 = vResultObj.RO_CP_SpecificGravityC5;
+                    vManageTicketDetail_Response.RO_CP_SpecificGravityC6 = vResultObj.RO_CP_SpecificGravityC6;
+                    vManageTicketDetail_Response.RO_CP_BatteryVoltageDropOnLoad = vResultObj.RO_CP_BatteryVoltageDropOnLoad;
+                    vManageTicketDetail_Response.RO_CP_KmReading = vResultObj.RO_CP_KmReading;
+                    vManageTicketDetail_Response.RO_CP_TotalRun = vResultObj.RO_CP_TotalRun;
 
                     vManageTicketDetail_Response.RO_CC_BatteryRepairedOnSite = vResultObj.RO_CC_BatteryRepairedOnSite;
                     vManageTicketDetail_Response.RO_CC_BatteryRepairedToPlant = vResultObj.RO_CC_BatteryRepairedToPlant;

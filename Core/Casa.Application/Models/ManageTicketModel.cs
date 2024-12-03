@@ -272,6 +272,23 @@ namespace CLN.Application.Models
         public bool? CP_IsWarrantyVoid { get; set; }
         public string? CP_ReasonForVoid { get; set; }
 
+        public int? CP_CommunicationWithMotorAndController { get; set; }
+        public int? CP_UnderWarranty { get; set; }
+        public string? CP_RPhaseVoltage { get; set; }
+        public string? CP_YPhaseVoltage { get; set; }
+        public string? CP_BPhaseVoltage { get; set; }
+        public string? CP_BatteryOCV { get; set; }
+        public string? CP_SystemVoltage { get; set; }
+        public string? CP_SpecificGravityC1 { get; set; }
+        public string? CP_SpecificGravityC2 { get; set; }
+        public string? CP_SpecificGravityC3 { get; set; }
+        public string? CP_SpecificGravityC4 { get; set; }
+        public string? CP_SpecificGravityC5 { get; set; }
+        public string? CP_SpecificGravityC6 { get; set; }
+        public string? CP_BatteryVoltageDropOnLoad { get; set; }
+        public string? CP_KmReading { get; set; }
+        public string? CP_TotalRun { get; set; }
+
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
 
@@ -416,6 +433,23 @@ namespace CLN.Application.Models
         [DefaultValue(false)]
         public bool? RO_CP_IsWarrantyVoid { get; set; }
         public string? RO_CP_ReasonForVoid { get; set; }
+
+        public int? RO_CP_CommunicationWithMotorAndController { get; set; }
+        public int? RO_CP_UnderWarranty { get; set; }
+        public string? RO_CP_RPhaseVoltage { get; set; }
+        public string? RO_CP_YPhaseVoltage { get; set; }
+        public string? RO_CP_BPhaseVoltage { get; set; }
+        public string? RO_CP_BatteryOCV { get; set; }
+        public string? RO_CP_SystemVoltage { get; set; }
+        public string? RO_CP_SpecificGravityC1 { get; set; }
+        public string? RO_CP_SpecificGravityC2 { get; set; }
+        public string? RO_CP_SpecificGravityC3 { get; set; }
+        public string? RO_CP_SpecificGravityC4 { get; set; }
+        public string? RO_CP_SpecificGravityC5 { get; set; }
+        public string? RO_CP_SpecificGravityC6 { get; set; }
+        public string? RO_CP_BatteryVoltageDropOnLoad { get; set; }
+        public string? RO_CP_KmReading { get; set; }
+        public string? RO_CP_TotalRun { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }
@@ -813,6 +847,23 @@ namespace CLN.Application.Models
         public bool? CP_IsWarrantyVoid { get; set; }
         public string? CP_ReasonForVoid { get; set; }
 
+        public int? CP_CommunicationWithMotorAndController { get; set; }
+        public int? CP_UnderWarranty { get; set; }
+        public string? CP_RPhaseVoltage { get; set; }
+        public string? CP_YPhaseVoltage { get; set; }
+        public string? CP_BPhaseVoltage { get; set; }
+        public string? CP_BatteryOCV { get; set; }
+        public string? CP_SystemVoltage { get; set; }
+        public string? CP_SpecificGravityC1 { get; set; }
+        public string? CP_SpecificGravityC2 { get; set; }
+        public string? CP_SpecificGravityC3 { get; set; }
+        public string? CP_SpecificGravityC4 { get; set; }
+        public string? CP_SpecificGravityC5 { get; set; }
+        public string? CP_SpecificGravityC6 { get; set; }
+        public string? CP_BatteryVoltageDropOnLoad { get; set; }
+        public string? CP_KmReading { get; set; }
+        public string? CP_TotalRun { get; set; }
+
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
 
@@ -948,6 +999,23 @@ namespace CLN.Application.Models
         public string? RO_CP_ProblemObservedByEng { get; set; }
         public bool? RO_CP_IsWarrantyVoid { get; set; }
         public string? RO_CP_ReasonForVoid { get; set; }
+
+        public int? RO_CP_CommunicationWithMotorAndController { get; set; }
+        public int? RO_CP_UnderWarranty { get; set; }
+        public string? RO_CP_RPhaseVoltage { get; set; }
+        public string? RO_CP_YPhaseVoltage { get; set; }
+        public string? RO_CP_BPhaseVoltage { get; set; }
+        public string? RO_CP_BatteryOCV { get; set; }
+        public string? RO_CP_SystemVoltage { get; set; }
+        public string? RO_CP_SpecificGravityC1 { get; set; }
+        public string? RO_CP_SpecificGravityC2 { get; set; }
+        public string? RO_CP_SpecificGravityC3 { get; set; }
+        public string? RO_CP_SpecificGravityC4 { get; set; }
+        public string? RO_CP_SpecificGravityC5 { get; set; }
+        public string? RO_CP_SpecificGravityC6 { get; set; }
+        public string? RO_CP_BatteryVoltageDropOnLoad { get; set; }
+        public string? RO_CP_KmReading { get; set; }
+        public string? RO_CP_TotalRun { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }
@@ -1306,6 +1374,23 @@ namespace CLN.Application.Models
         public bool? CP_IsWarrantyVoid { get; set; }
         public string? CP_ReasonForVoid { get; set; }
 
+        public int? CP_CommunicationWithMotorAndController { get; set; }
+        public int? CP_UnderWarranty { get; set; }
+        public string? CP_RPhaseVoltage { get; set; }
+        public string? CP_YPhaseVoltage { get; set; }
+        public string? CP_BPhaseVoltage { get; set; }
+        public string? CP_BatteryOCV { get; set; }
+        public string? CP_SystemVoltage { get; set; }
+        public string? CP_SpecificGravityC1 { get; set; }
+        public string? CP_SpecificGravityC2 { get; set; }
+        public string? CP_SpecificGravityC3 { get; set; }
+        public string? CP_SpecificGravityC4 { get; set; }
+        public string? CP_SpecificGravityC5 { get; set; }
+        public string? CP_SpecificGravityC6 { get; set; }
+        public string? CP_BatteryVoltageDropOnLoad { get; set; }
+        public string? CP_KmReading { get; set; }
+        public string? CP_TotalRun { get; set; }
+
         public int? CC_BatteryRepairedOnSite { get; set; }
         public int? CC_BatteryRepairedToPlant { get; set; }
 
@@ -1442,6 +1527,23 @@ namespace CLN.Application.Models
         public string? RO_CP_ProblemObservedByEng { get; set; }
         public bool? RO_CP_IsWarrantyVoid { get; set; }
         public string? RO_CP_ReasonForVoid { get; set; }
+
+        public int? RO_CP_CommunicationWithMotorAndController { get; set; }
+        public int? RO_CP_UnderWarranty { get; set; }
+        public string? RO_CP_RPhaseVoltage { get; set; }
+        public string? RO_CP_YPhaseVoltage { get; set; }
+        public string? RO_CP_BPhaseVoltage { get; set; }
+        public string? RO_CP_BatteryOCV { get; set; }
+        public string? RO_CP_SystemVoltage { get; set; }
+        public string? RO_CP_SpecificGravityC1 { get; set; }
+        public string? RO_CP_SpecificGravityC2 { get; set; }
+        public string? RO_CP_SpecificGravityC3 { get; set; }
+        public string? RO_CP_SpecificGravityC4 { get; set; }
+        public string? RO_CP_SpecificGravityC5 { get; set; }
+        public string? RO_CP_SpecificGravityC6 { get; set; }
+        public string? RO_CP_BatteryVoltageDropOnLoad { get; set; }
+        public string? RO_CP_KmReading { get; set; }
+        public string? RO_CP_TotalRun { get; set; }
 
         public int? RO_CC_BatteryRepairedOnSite { get; set; }
         public int? RO_CC_BatteryRepairedToPlant { get; set; }

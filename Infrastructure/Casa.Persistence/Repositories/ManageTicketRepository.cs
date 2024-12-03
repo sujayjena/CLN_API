@@ -171,6 +171,22 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@CP_ProblemObservedByEngId", parameters.CP_ProblemObservedByEngId);
             queryParameters.Add("@CP_IsWarrantyVoid", parameters.CP_IsWarrantyVoid);
             queryParameters.Add("@CP_ReasonForVoid", parameters.CP_ReasonForVoid);
+            queryParameters.Add("@CP_CommunicationWithMotorAndController", parameters.CP_CommunicationWithMotorAndController);
+            queryParameters.Add("@CP_UnderWarranty", parameters.CP_UnderWarranty);
+            queryParameters.Add("@CP_RPhaseVoltage", parameters.CP_RPhaseVoltage);
+            queryParameters.Add("@CP_YPhaseVoltage", parameters.CP_YPhaseVoltage);
+            queryParameters.Add("@CP_BPhaseVoltage", parameters.CP_BPhaseVoltage);
+            queryParameters.Add("@CP_BatteryOCV", parameters.CP_BatteryOCV);
+            queryParameters.Add("@CP_SystemVoltage", parameters.CP_SystemVoltage);
+            queryParameters.Add("@CP_SpecificGravityC1", parameters.CP_SpecificGravityC1);
+            queryParameters.Add("@CP_SpecificGravityC2", parameters.CP_SpecificGravityC2);
+            queryParameters.Add("@CP_SpecificGravityC3", parameters.CP_SpecificGravityC3);
+            queryParameters.Add("@CP_SpecificGravityC4", parameters.CP_SpecificGravityC4);
+            queryParameters.Add("@CP_SpecificGravityC5", parameters.CP_SpecificGravityC5);
+            queryParameters.Add("@CP_SpecificGravityC6", parameters.CP_SpecificGravityC6);
+            queryParameters.Add("@CP_BatteryVoltageDropOnLoad", parameters.CP_BatteryVoltageDropOnLoad);
+            queryParameters.Add("@CP_KmReading", parameters.CP_KmReading);
+            queryParameters.Add("@CP_TotalRun", parameters.CP_TotalRun);
 
             queryParameters.Add("@CC_BatteryRepairedOnSite", parameters.CC_BatteryRepairedOnSite);
             queryParameters.Add("@CC_BatteryRepairedToPlant", parameters.CC_BatteryRepairedToPlant);
@@ -284,6 +300,23 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RO_CP_ProblemObservedByEngId", parameters.RO_CP_ProblemObservedByEngId);
             queryParameters.Add("@RO_CP_IsWarrantyVoid", parameters.RO_CP_IsWarrantyVoid);
             queryParameters.Add("@RO_CP_ReasonForVoid", parameters.RO_CP_ReasonForVoid);
+            queryParameters.Add("@RO_CP_CommunicationWithMotorAndController", parameters.RO_CP_CommunicationWithMotorAndController);
+            queryParameters.Add("@RO_CP_UnderWarranty", parameters.RO_CP_UnderWarranty);
+            queryParameters.Add("@RO_CP_RPhaseVoltage", parameters.RO_CP_RPhaseVoltage);
+            queryParameters.Add("@RO_CP_YPhaseVoltage", parameters.RO_CP_YPhaseVoltage);
+            queryParameters.Add("@RO_CP_BPhaseVoltage", parameters.RO_CP_BPhaseVoltage);
+            queryParameters.Add("@RO_CP_BatteryOCV", parameters.RO_CP_BatteryOCV);
+            queryParameters.Add("@RO_CP_SystemVoltage", parameters.RO_CP_SystemVoltage);
+            queryParameters.Add("@RO_CP_SpecificGravityC1", parameters.RO_CP_SpecificGravityC1);
+            queryParameters.Add("@RO_CP_SpecificGravityC2", parameters.RO_CP_SpecificGravityC2);
+            queryParameters.Add("@RO_CP_SpecificGravityC3", parameters.RO_CP_SpecificGravityC3);
+            queryParameters.Add("@RO_CP_SpecificGravityC4", parameters.RO_CP_SpecificGravityC4);
+            queryParameters.Add("@RO_CP_SpecificGravityC5", parameters.RO_CP_SpecificGravityC5);
+            queryParameters.Add("@RO_CP_SpecificGravityC6", parameters.RO_CP_SpecificGravityC6);
+            queryParameters.Add("@RO_CP_BatteryVoltageDropOnLoad", parameters.RO_CP_BatteryVoltageDropOnLoad);
+            queryParameters.Add("@RO_CP_KmReading", parameters.RO_CP_KmReading);
+            queryParameters.Add("@RO_CP_TotalRun", parameters.RO_CP_TotalRun);
+
             queryParameters.Add("@RO_CC_BatteryRepairedOnSite", parameters.RO_CC_BatteryRepairedOnSite);
             queryParameters.Add("@RO_CC_BatteryRepairedToPlant", parameters.RO_CC_BatteryRepairedToPlant);
             queryParameters.Add("@RO_OV_IsCustomerAvailable", parameters.RO_OV_IsCustomerAvailable);
