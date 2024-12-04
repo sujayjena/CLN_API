@@ -358,13 +358,18 @@ namespace CLN.Application.Models
 
     public class StockMaster_Response : BaseResponseEntity
     {
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
-        public string? SpareCategory { get; set; }
         public string? SpareDesc { get; set; }
+        public int? UOMId { get; set; }
         public string? UOMName { get; set; }
         public decimal? MinQty { get; set; }
         public decimal? AvailableQty { get; set; }
+        public bool? RGP { get; set; }
     }
 
     #endregion

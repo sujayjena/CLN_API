@@ -210,6 +210,7 @@ namespace CLN.Application.Models
         public string? II_CellBrand { get; set; }
         public string? II_BMSSerialNumber { get; set; }
         public int? II_CellChemistryId { get; set; }
+        public int? II_BatteryParameterSetting { get; set; }
 
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }
@@ -490,6 +491,7 @@ namespace CLN.Application.Models
         public string? II_BMSSerialNumber { get; set; }
         public int? II_CellChemistryId { get; set; }
         public string? II_CellChemistry { get; set; }
+        public int? II_BatteryParameterSetting { get; set; }
 
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }

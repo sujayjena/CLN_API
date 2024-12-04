@@ -81,6 +81,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@II_CellBrand", parameters.II_CellBrand);
             queryParameters.Add("@II_BMSSerialNumber", parameters.II_BMSSerialNumber);
             queryParameters.Add("@II_CellChemistryId", parameters.II_CellChemistryId);
+            queryParameters.Add("@II_BatteryParameterSetting", parameters.II_BatteryParameterSetting);
 
             queryParameters.Add("@WS_IsWarrantyStatus", parameters.WS_IsWarrantyStatus);
             queryParameters.Add("@WS_IsInformedToCustomerByEmail", parameters.WS_IsInformedToCustomerByEmail);
