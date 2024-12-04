@@ -1047,8 +1047,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
                     WorkSheet1.Cells[1, 1].Value = "Customer Name";
-                    WorkSheet1.Cells[1, 2].Value = "BOM #";
-                    WorkSheet1.Cells[1, 3].Value = "Customer Code";
+                    WorkSheet1.Cells[1, 2].Value = "Customer Code";
+                    WorkSheet1.Cells[1, 3].Value = "BOM #";
                     WorkSheet1.Cells[1, 4].Value = "Product Serial Number";
                     WorkSheet1.Cells[1, 5].Value = "Tracking Device Required";
                     WorkSheet1.Cells[1, 6].Value = "Tracking Device";
@@ -1076,8 +1076,8 @@ namespace CLN.API.Controllers
                     foreach (var items in lstSizeObj)
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.CustomerName;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.PartCode;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.CustomerCode;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.CustomerCode;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.PartCode;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.ProductSerialNumber;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.IsTrackingDeviceRequired;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.TrackingDeviceName;
