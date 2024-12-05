@@ -226,6 +226,7 @@ namespace CLN.Application.Models
         public string? DA_ProblemObservedDesc { get; set; }
         public int? DA_RectificationActionId { get; set; }
         public string? DA_ResolutionSummary { get; set; }
+        public string? DA_CapacityAchieved { get; set; }
 
         public int? ATEFP_AssignedToEngineerId { get; set; }
 
@@ -243,6 +244,8 @@ namespace CLN.Application.Models
         public string? PI_FinalVoltageOriginalFileName { get; set; }
         public string? PI_FinalVoltageFileName { get; set; }
         public string? PI_FinalVoltage_Base64 { get; set; }
+
+        public string? PI_AmpereHour { get; set; }
 
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }
@@ -510,6 +513,7 @@ namespace CLN.Application.Models
         public int? DA_RectificationActionId { get; set; }
         public string? DA_RectificationAction { get; set; }
         public string? DA_ResolutionSummary { get; set; }
+        public string? DA_CapacityAchieved { get; set; }
 
         public int? ATEFP_AssignedToEngineerId { get; set; }
         public string? ATEFP_AssignedToEngineer { get; set; }
@@ -529,6 +533,8 @@ namespace CLN.Application.Models
         public string? PI_FinalVoltageOriginalFileName { get; set; }
         public string? PI_FinalVoltageFileName { get; set; }
         public string? PI_FinalVoltageURL { get; set; }
+
+        public string? PI_AmpereHour { get; set; }
 
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }

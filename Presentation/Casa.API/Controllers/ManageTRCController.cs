@@ -371,6 +371,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.DA_RectificationActionId = vResultObj.DA_RectificationActionId;
                     vManageTRCDetail_Response.DA_RectificationAction = vResultObj.DA_RectificationAction;
                     vManageTRCDetail_Response.DA_ResolutionSummary = vResultObj.DA_ResolutionSummary;
+                    vManageTRCDetail_Response.DA_CapacityAchieved = vResultObj.DA_CapacityAchieved;
 
                     vManageTRCDetail_Response.ATEFP_AssignedToEngineerId = vResultObj.ATEFP_AssignedToEngineerId;
                     vManageTRCDetail_Response.ATEFP_AssignedToEngineer = vResultObj.ATEFP_AssignedToEngineer;
@@ -388,6 +389,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.PI_FinalVoltageOriginalFileName = vResultObj.PI_FinalVoltageOriginalFileName;
                     vManageTRCDetail_Response.PI_FinalVoltageFileName = vResultObj.PI_FinalVoltageFileName;
                     vManageTRCDetail_Response.PI_FinalVoltageURL = vResultObj.PI_FinalVoltageURL;
+                    vManageTRCDetail_Response.PI_AmpereHour = vResultObj.PI_AmpereHour;
 
                     vManageTRCDetail_Response.PIDD_DispatchedDeliveryChallan = vResultObj.PIDD_DispatchedDeliveryChallan;
                     vManageTRCDetail_Response.PIDD_DispatchedDate = vResultObj.PIDD_DispatchedDate;

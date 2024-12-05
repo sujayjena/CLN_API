@@ -96,6 +96,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DA_ProblemObservedDesc", parameters.DA_ProblemObservedDesc);
             queryParameters.Add("@DA_RectificationActionId", parameters.DA_RectificationActionId);
             queryParameters.Add("@DA_ResolutionSummary", parameters.DA_ResolutionSummary);
+            queryParameters.Add("@DA_CapacityAchieved", parameters.DA_CapacityAchieved);
 
             queryParameters.Add("@ATEFP_AssignedToEngineerId", parameters.ATEFP_AssignedToEngineerId);
 
@@ -109,6 +110,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@PI_VoltageDifference", parameters.PI_VoltageDifference);
             queryParameters.Add("@PI_FinalVoltageOriginalFileName", parameters.PI_FinalVoltageOriginalFileName);
             queryParameters.Add("@PI_FinalVoltageFileName", parameters.PI_FinalVoltageFileName);
+            queryParameters.Add("@PI_AmpereHour", parameters.PI_AmpereHour);
           
             queryParameters.Add("@PIDD_DispatchedDeliveryChallan", parameters.PIDD_DispatchedDeliveryChallan);
             queryParameters.Add("@PIDD_DispatchedDate", parameters.PIDD_DispatchedDate);
