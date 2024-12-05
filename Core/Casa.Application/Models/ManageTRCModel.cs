@@ -404,6 +404,10 @@ namespace CLN.Application.Models
         public string? DistrictName { get; set; }
         public string? CityName { get; set; }
 
+        public string? CD_SiteCustomerName { get; set; }
+        public string? CD_SiteContactName { get; set; }
+        public string? CD_SitContactMobile { get; set; }
+
         public int? TRCStatusId { get; set; }
         public string? TRCStatus { get; set; }
         public bool? IsActive { get; set; }
