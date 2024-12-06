@@ -46,6 +46,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@RP_IsReservePickupMailToLogistic", parameters.RP_IsReservePickupMailToLogistic);
             queryParameters.Add("@RP_DocketDetails", parameters.RP_DocketDetails);
             queryParameters.Add("@RP_IsBatteryInTransit", parameters.RP_IsBatteryInTransit);
+           
             queryParameters.Add("@DNV_IsDeliveryChallanOrDebitNote", parameters.DNV_IsDeliveryChallanOrDebitNote);
             queryParameters.Add("@DNV_DeliveryChallanPhotoOriginalFileName", parameters.DNV_DeliveryChallanPhotoOriginalFileName);
             queryParameters.Add("@DNV_DeliveryChallanPhotoFileName", parameters.DNV_DeliveryChallanPhotoFileName);
@@ -183,5 +184,93 @@ namespace CLN.Persistence.Repositories
 
             return result;
         }
+
+        #region Quotation
+        public async Task<int> SaveQuotation(Quotation parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@QuotationDate", parameters.QuotationDate);
+            queryParameters.Add("@QuotationNumber", parameters.QuotationNumber);
+            queryParameters.Add("@TRCId", parameters.TRCId);
+            queryParameters.Add("@SubTotal", parameters.SubTotal);
+            queryParameters.Add("@TaxPerct", parameters.TaxPerct);
+            queryParameters.Add("@TaxValue", parameters.TaxValue);
+            queryParameters.Add("@TotalAmount", parameters.TotalAmount);
+            queryParameters.Add("@StatusId", parameters.StatusId);
+
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveQuotation", queryParameters);
+        }
+
+        public async Task<IEnumerable<QuotationList_Response>> GetQuotationList(Quotation_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<QuotationList_Response>("GetQuotationList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<Quotation?> GetQuotationById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<Quotation>("GetQuotationById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<int> SaveQuotationPartDetails(QuotationPartDetails parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@QuotationId", parameters.QuotationId);
+            queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@Quantity", parameters.Quantity);
+            queryParameters.Add("@UnitPrice", parameters.UnitPrice);
+            queryParameters.Add("@TotalPrice", parameters.TotalPrice);
+
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveQuotationPartDetails", queryParameters);
+        }
+
+        public async Task<IEnumerable<QuotationPartDetails>> GetQuotationPartDetailsById(int QuotationId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@QuotationId", QuotationId);
+
+            var result = await ListByStoredProcedure<QuotationPartDetails>("GetQuotationPartDetailsById", queryParameters);
+
+            return result;
+        }
+
+        public async Task<int> QuotationApproveNReject(Quotation_ApproveNReject parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("QuotationApproveNReject", queryParameters);
+        }
+
+        #endregion
     }
 }

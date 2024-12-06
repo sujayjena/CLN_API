@@ -41,7 +41,7 @@ namespace CLN.Application.Models
 
         public int? TicketPriorityId { get; set; }
 
- 
+
         public string? TicketSLADays { get; set; }
 
         public int? CD_LoggingSourceId { get; set; }
@@ -585,6 +585,11 @@ namespace CLN.Application.Models
         //public string? PartStatus { get; set; }
 
         public bool? RGP { get; set; }
+
+        [JsonIgnore]
+        public decimal? TentativeCost { get; set; }
+
+
         //public string? SparePartNo { get; set; }
 
         //public string? PartDescription { get; set; }
@@ -595,4 +600,84 @@ namespace CLN.Application.Models
 
         //public int? PartStatusId { get; set; }
     }
+
+    #region Quotation
+
+    public class Quotation : BaseEntity
+    {
+        public Quotation()
+        {
+            partDetails = new List<QuotationPartDetails>();
+        }
+
+        public DateTime? QuotationDate { get; set; }
+        public string? QuotationNumber { get; set; }
+        public int? TRCId { get; set; }
+        public string? TRCNumber { get; set; }
+        public int? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerMobileNo { get; set; }
+        public string? CustomerEmailId { get; set; }
+        public int? CustomerAddressId { get; set; }
+        public string? CustomerAddress { get; set; }
+        public int? CustomerRegionId { get; set; }
+        public string? CustomerRegionName { get; set; }
+        public int? CustomerStateId { get; set; }
+        public string? CustomerStateName { get; set; }
+        public int? CustomerDistrictId { get; set; }
+        public string? CustomerDistrictName { get; set; }
+        public int? CustomerCityId { get; set; }
+        public string? CustomerCityName { get; set; }
+        public string? CustomerPinCode { get; set; }
+        public int? ProductModelId { get; set; }
+        public string? ProductModel { get; set; }
+        public int? ProductSerialNumberId { get; set; }
+        public string? ProductSerialNumber { get; set; }
+        public decimal? SubTotal { get; set; }
+        public int? TaxPerct { get; set; }
+        public decimal? TaxValue { get; set; }
+        public decimal? TotalAmount { get; set; }
+        public int? StatusId { get; set; }
+        public List<QuotationPartDetails> partDetails { get; set; }
+    }
+
+    public class QuotationPartDetails : BaseEntity
+    {
+        [JsonIgnore]
+        public int? QuotationId { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public string? SpareDesc { get; set; }
+        public decimal? Quantity { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
+    }
+
+    public class Quotation_Search : BaseSearchEntity
+    {
+        public int StatusId { get; set; }
+    }
+
+    public class QuotationList_Response : BaseResponseEntity
+    {
+        public int? TicketId { get; set; }
+        public string? TicketNumber { get; set; }
+        public int? TRCId { get; set; }
+        public string? TRCNumber { get; set; }
+        public DateTime? QuotationDate { get; set; }
+        public string? QuotationNumber { get; set; }
+        public int? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
+        public decimal? TotalAmount { get; set; }
+        public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
+    }
+
+    public class Quotation_ApproveNReject
+    {
+        public int? Id { get; set; }
+        public int? StatusId { get; set; }
+    }
+    #endregion
 }

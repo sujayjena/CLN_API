@@ -19,5 +19,18 @@ namespace CLN.Application.Interfaces
         Task<int> SaveManageTRCPartDetail(ManageTRCPartDetails_Request parameters);
 
         Task<IEnumerable<ManageTRCPartDetails_Response>> GetManageTRCPartDetailById(int Id);
+
+        #region Quotation
+
+        Task<int> SaveQuotation(Quotation parameters);
+        Task<IEnumerable<QuotationList_Response>> GetQuotationList(Quotation_Search parameters);
+        Task<Quotation?> GetQuotationById(int Id);
+
+
+        Task<int> SaveQuotationPartDetails(QuotationPartDetails parameters);
+        Task<IEnumerable<QuotationPartDetails>> GetQuotationPartDetailsById(int QuotationId);
+
+        Task<int> QuotationApproveNReject(Quotation_ApproveNReject parameters);
+        #endregion
     }
 }
