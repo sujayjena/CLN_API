@@ -31,6 +31,18 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<QuotationPartDetails>> GetQuotationPartDetailsById(int QuotationId);
 
         Task<int> QuotationApproveNReject(Quotation_ApproveNReject parameters);
+
+        #endregion
+
+        #region Invoice
+
+        Task<int> SaveInvoice(Invoice_Request parameters);
+        Task<IEnumerable<InvoiceList_Response>> GetInvoiceList(Invoice_Search parameters);
+        Task<Invoice_Response?> GetInvoiceById(int Id);
+
+        Task<int> SaveInvoicePartDetails(InvoicePartDetails_Request parameters);
+        Task<IEnumerable<InvoicePartDetails_Response>> GetInvoicePartDetailsById(int InvoiceId);
+
         #endregion
     }
 }

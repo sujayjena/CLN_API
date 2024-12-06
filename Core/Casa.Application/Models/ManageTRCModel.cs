@@ -221,6 +221,7 @@ namespace CLN.Application.Models
         public string? WS_Invoice_Base64 { get; set; }
         public bool? WS_IsReplacement { get; set; }
         public int? WS_NewProductSerialNumberId { get; set; }
+        public string? WS_SerialNumberDesc { get; set; }
 
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedDesc { get; set; }
@@ -510,6 +511,7 @@ namespace CLN.Application.Models
         public bool? WS_IsReplacement { get; set; }
         public int? WS_NewProductSerialNumberId { get; set; }
         public string? WS_NewProductSerialNumber { get; set; }
+        public string? WS_SerialNumberDesc { get; set; }
 
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedByEng { get; set; }
@@ -657,6 +659,7 @@ namespace CLN.Application.Models
     public class Quotation_Search : BaseSearchEntity
     {
         public int StatusId { get; set; }
+        public int TRCId { get; set; }
     }
 
     public class QuotationList_Response : BaseResponseEntity
@@ -669,6 +672,9 @@ namespace CLN.Application.Models
         public string? QuotationNumber { get; set; }
         public int? CustomerId { get; set; }
         public string? CustomerName { get; set; }
+        public decimal? SubTotal { get; set; }
+        public int? TaxPerct { get; set; }
+        public decimal? TaxValue { get; set; }
         public decimal? TotalAmount { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
@@ -678,6 +684,113 @@ namespace CLN.Application.Models
     {
         public int? Id { get; set; }
         public int? StatusId { get; set; }
+    }
+    #endregion
+
+    #region Invoice
+
+    public class Invoice_Request : BaseEntity
+    {
+        public Invoice_Request()
+        {
+            partDetails = new List<InvoicePartDetails_Request>();
+        }
+
+        public DateTime? InvoiceDate { get; set; }
+        public string? InvoiceNumber { get; set; }
+        public int? TRCId { get; set; }
+        public decimal? SubTotal { get; set; }
+        public int? TaxPerct { get; set; }
+        public decimal? TaxValue { get; set; }
+        public decimal? TotalAmount { get; set; }
+        public List<InvoicePartDetails_Request> partDetails { get; set; }
+    }
+
+    public class InvoicePartDetails_Request : BaseEntity
+    {
+        [JsonIgnore]
+        public int? InvoiceId { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public decimal? Quantity { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
+    }
+
+    public class Invoice_Search : BaseSearchEntity
+    {
+        public int TRCId { get; set; }
+    }
+
+    public class Invoice_Response : BaseEntity
+    {
+        public Invoice_Response()
+        {
+            partDetails = new List<InvoicePartDetails_Response>();
+        }
+
+        public DateTime? InvoiceDate { get; set; }
+        public string? InvoiceNumber { get; set; }
+        public int? TRCId { get; set; }
+        public string? TRCNumber { get; set; }
+        public int? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerMobileNo { get; set; }
+        public string? CustomerEmailId { get; set; }
+        public int? CustomerAddressId { get; set; }
+        public string? CustomerAddress { get; set; }
+        public int? CustomerRegionId { get; set; }
+        public string? CustomerRegionName { get; set; }
+        public int? CustomerStateId { get; set; }
+        public string? CustomerStateName { get; set; }
+        public int? CustomerDistrictId { get; set; }
+        public string? CustomerDistrictName { get; set; }
+        public int? CustomerCityId { get; set; }
+        public string? CustomerCityName { get; set; }
+        public string? CustomerPinCode { get; set; }
+        public int? ProductModelId { get; set; }
+        public string? ProductModel { get; set; }
+        public int? ProductSerialNumberId { get; set; }
+        public string? ProductSerialNumber { get; set; }
+        public decimal? SubTotal { get; set; }
+        public int? TaxPerct { get; set; }
+        public decimal? TaxValue { get; set; }
+        public decimal? TotalAmount { get; set; }
+        public int? StatusId { get; set; }
+        public List<InvoicePartDetails_Response> partDetails { get; set; }
+    }
+
+    public class InvoicePartDetails_Response : BaseEntity
+    {
+        [JsonIgnore]
+        public int? InvoiceId { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
+        public int? SpareDetailsId { get; set; }
+        public string? SpareDesc { get; set; }
+        public decimal? Quantity { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
+    }
+
+    public class InvoiceList_Response : BaseResponseEntity
+    {
+        public int? TicketId { get; set; }
+        public string? TicketNumber { get; set; }
+        public int? TRCId { get; set; }
+        public string? TRCNumber { get; set; }
+        public DateTime? InvoiceDate { get; set; }
+        public string? InvoiceNumber { get; set; }
+        public int? QuotationId { get; set; }
+        public string? QuotationNumber { get; set; }
+        public int? CustomerId { get; set; }
+        public string? CustomerName { get; set; }
+        public int? BranchId { get; set; }
+        public string? BranchName { get; set; }
+        public decimal? SubTotal { get; set; }
+        public int? TaxPerct { get; set; }
+        public decimal? TaxValue { get; set; }
+        public decimal? TotalAmount { get; set; }
     }
     #endregion
 }

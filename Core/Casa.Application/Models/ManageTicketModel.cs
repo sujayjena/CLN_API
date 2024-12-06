@@ -1100,6 +1100,7 @@ namespace CLN.Application.Models
         public string? II_BMSSerialNumber { get; set; }
         public int? II_CellChemistryId { get; set; }
         public string? II_CellChemistry { get; set; }
+        public string? II_BatteryParameterSetting { get; set; }
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }
         public bool? WS_IsCustomerAcceptance { get; set; }
@@ -1110,12 +1111,14 @@ namespace CLN.Application.Models
         public bool? WS_IsReplacement { get; set; }
         public int? WS_NewProductSerialNumberId { get; set; }
         public string? WS_NewProductSerialNumber { get; set; }
+        public string? WS_SerialNumberDesc { get; set; }
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedByEng { get; set; }
         public string? DA_ProblemObservedDesc { get; set; }
         public int? DA_RectificationActionId { get; set; }
         public string? DA_RectificationAction { get; set; }
         public string? DA_ResolutionSummary { get; set; }
+        public string? DA_CapacityAchieved { get; set; }
         public int? ATEFP_AssignedToEngineerId { get; set; }
         public string? ATEFP_AssignedToEngineer { get; set; }
         public DateTime? PI_BatteryReceivedDate { get; set; }
@@ -1131,6 +1134,7 @@ namespace CLN.Application.Models
         public string? PI_FinalVoltageOriginalFileName { get; set; }
         public string? PI_FinalVoltageFileName { get; set; }
         public string? PI_FinalVoltageURL { get; set; }
+        public string? PI_AmpereHour { get; set; }
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }
         public int? PIDD_DispatchedCityId { get; set; }

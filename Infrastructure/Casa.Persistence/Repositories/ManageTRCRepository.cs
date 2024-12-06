@@ -92,6 +92,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@WS_InvoiceFileName", parameters.WS_InvoiceFileName);
             queryParameters.Add("@WS_IsReplacement", parameters.WS_IsReplacement);
             queryParameters.Add("@WS_NewProductSerialNumberId", parameters.WS_NewProductSerialNumberId);
+            queryParameters.Add("@WS_SerialNumberDesc", parameters.WS_SerialNumberDesc);
 
             queryParameters.Add("@DA_ProblemObservedByEngId", parameters.DA_ProblemObservedByEngId);
             queryParameters.Add("@DA_ProblemObservedDesc", parameters.DA_ProblemObservedDesc);
@@ -210,6 +211,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@TRCId", parameters.TRCId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -269,6 +271,83 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("QuotationApproveNReject", queryParameters);
+        }
+
+        #endregion
+
+        #region Invoice
+
+        public async Task<int> SaveInvoice(Invoice_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@InvoiceDate", parameters.InvoiceDate);
+            queryParameters.Add("@InvoiceNumber", parameters.InvoiceNumber);
+            queryParameters.Add("@TRCId", parameters.TRCId);
+            queryParameters.Add("@SubTotal", parameters.SubTotal);
+            queryParameters.Add("@TaxPerct", parameters.TaxPerct);
+            queryParameters.Add("@TaxValue", parameters.TaxValue);
+            queryParameters.Add("@TotalAmount", parameters.TotalAmount);
+
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveInvoice", queryParameters);
+        }
+
+        public async Task<IEnumerable<InvoiceList_Response>> GetInvoiceList(Invoice_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@TRCId", parameters.TRCId);
+            queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@PageNo", parameters.PageNo);
+            queryParameters.Add("@PageSize", parameters.PageSize);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<InvoiceList_Response>("GetInvoiceList", queryParameters);
+            parameters.Total = queryParameters.Get<int>("Total");
+
+            return result;
+        }
+
+        public async Task<Invoice_Response?> GetInvoiceById(int Id)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", Id);
+
+            return (await ListByStoredProcedure<Invoice_Response>("GetInvoiceById", queryParameters)).FirstOrDefault();
+        }
+
+        public async Task<int> SaveInvoicePartDetails(InvoicePartDetails_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@Id", parameters.Id);
+            queryParameters.Add("@InvoiceId", parameters.InvoiceId);
+            queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@Quantity", parameters.Quantity);
+            queryParameters.Add("@UnitPrice", parameters.UnitPrice);
+            queryParameters.Add("@TotalPrice", parameters.TotalPrice);
+
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("SaveInvoicePartDetails", queryParameters);
+        }
+
+        public async Task<IEnumerable<InvoicePartDetails_Response>> GetInvoicePartDetailsById(int InvoiceId)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@InvoiceId", InvoiceId);
+
+            var result = await ListByStoredProcedure<InvoicePartDetails_Response>("GetInvoicePartDetailsById", queryParameters);
+
+            return result;
         }
 
         #endregion
