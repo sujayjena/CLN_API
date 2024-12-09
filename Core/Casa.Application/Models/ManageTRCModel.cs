@@ -557,6 +557,12 @@ namespace CLN.Application.Models
         public int? TRCStatusId { get; set; }
         public string? TRCSStatus { get; set; }
 
+        public int? QuotationId { get; set; }
+        public string? QuotationNumber { get; set; }
+
+        public int? InvoiceId { get; set; }
+        public string? InvoiceNumber { get; set; }
+
         public bool? IsActive { get; set; }
 
         public List<ManageTRCPartDetails_Response> PartDetails { get; set; }
@@ -639,7 +645,10 @@ namespace CLN.Application.Models
         public int? TaxPerct { get; set; }
         public decimal? TaxValue { get; set; }
         public decimal? TotalAmount { get; set; }
+        public int? BranchId { get; set; }
+        public string? BranchName { get; set; }
         public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
         public List<QuotationPartDetails> partDetails { get; set; }
     }
 

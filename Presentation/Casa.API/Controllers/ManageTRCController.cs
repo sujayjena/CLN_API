@@ -416,12 +416,18 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.TRCStatusId = vResultObj.TRCStatusId;
                     vManageTRCDetail_Response.TRCSStatus = vResultObj.TRCSStatus;
 
+                    vManageTRCDetail_Response.QuotationId = vResultObj.QuotationId;
+                    vManageTRCDetail_Response.QuotationNumber = vResultObj.QuotationNumber;
+
+                    vManageTRCDetail_Response.InvoiceId = vResultObj.InvoiceId;
+                    vManageTRCDetail_Response.InvoiceNumber = vResultObj.InvoiceNumber;
+
                     vManageTRCDetail_Response.IsActive = vResultObj.IsActive;
 
                     vManageTRCDetail_Response.CreatorName = vResultObj.CreatorName;
                     vManageTRCDetail_Response.CreatedBy = vResultObj.CreatedBy;
                     vManageTRCDetail_Response.CreatedDate = vResultObj.CreatedDate;
-                    ;
+                    
                     vManageTRCDetail_Response.ModifierName = vResultObj.ModifierName;
                     vManageTRCDetail_Response.ModifiedBy = vResultObj.ModifiedBy;
                     vManageTRCDetail_Response.ModifiedDate = vResultObj.ModifiedDate;
