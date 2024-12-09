@@ -155,6 +155,12 @@ namespace CLN.Application.Models
         public int? CustomerId { get; set; }
     }
 
+    public class AssignBatteryHoldOrInactive_Request
+    {
+        public string? BatteryId { get; set; }
+        public int? IsHoldOrInactive { get; set; }
+    }
+
     #region Import and Download
 
     public class CustomerBattery_ImportRequest

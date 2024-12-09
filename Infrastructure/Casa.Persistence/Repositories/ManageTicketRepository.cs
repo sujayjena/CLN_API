@@ -362,6 +362,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@IsEngineerType", parameters.IsEngineerType);
             queryParameters.Add("@IsReopen", parameters.IsReopen);
             queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@IsTRC_Ticket", parameters.IsTRC_Ticket);
             //queryParameters.Add("@BranchRegionId", parameters.BranchRegionId);
             //queryParameters.Add("@BranchStateId", parameters.BranchStateId);
             queryParameters.Add("@FilterType", parameters.FilterType);

@@ -56,6 +56,8 @@ namespace CLN.Application.Interfaces
 
         Task<int> AssignBatteryToCustomer(AssignBattery_Request parameters);
 
+        Task<int> AssignBatteryHoldOrInactive(AssignBatteryHoldOrInactive_Request parameters);
+
         #endregion
 
         #region Customer Charger

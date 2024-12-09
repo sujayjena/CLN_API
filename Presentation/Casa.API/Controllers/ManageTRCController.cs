@@ -1387,6 +1387,44 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetInvoiceById(int Id)
+        {
+            if (Id <= 0)
+            {
+                _response.Message = "Id is required";
+            }
+            else
+            {
+                var vResultObj = await _manageTRCRepository.GetInvoiceById(Id);
+                if (vResultObj != null)
+                {
+                    var vResultPartListObj = await _manageTRCRepository.GetInvoicePartDetailsById(Id);
+                    foreach (var item in vResultPartListObj)
+                    {
+                        var vInvoicePartDetails = new InvoicePartDetails_Response()
+                        {
+                            Id = item.Id,
+                            InvoiceId = item.InvoiceId,
+                            SpareCategoryId = item.SpareCategoryId,
+                            SpareCategory = item.SpareCategory,
+                            SpareDetailsId = item.SpareDetailsId,
+                            SpareDesc = item.SpareDesc,
+                            Quantity = item.Quantity,
+                            UnitPrice = item.UnitPrice,
+                            TotalPrice = item.TotalPrice,
+                        };
+
+                        vResultObj.partDetails.Add(vInvoicePartDetails);
+                    }
+                }
+
+                _response.Data = vResultObj;
+            }
+            return _response;
+        }
+
         #endregion
     }
 }

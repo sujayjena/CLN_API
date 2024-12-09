@@ -765,7 +765,8 @@ namespace CLN.Application.Models
         public int? TaxPerct { get; set; }
         public decimal? TaxValue { get; set; }
         public decimal? TotalAmount { get; set; }
-        public int? StatusId { get; set; }
+        public int? BranchId { get; set; }
+        public string? BranchName { get; set; }
         public List<InvoicePartDetails_Response> partDetails { get; set; }
     }
 

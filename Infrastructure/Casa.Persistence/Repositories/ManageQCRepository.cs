@@ -261,6 +261,17 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("AssignBatteryToCustomer", queryParameters);
         }
 
+        public async Task<int> AssignBatteryHoldOrInactive(AssignBatteryHoldOrInactive_Request parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@BatteryId", parameters.BatteryId);
+            queryParameters.Add("@IsHoldOrInactive", parameters.IsHoldOrInactive);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            return await SaveByStoredProcedure<int>("AssignBatteryHoldOrInactive", queryParameters);
+        }
+
         #endregion
 
         #region Customer Charger
