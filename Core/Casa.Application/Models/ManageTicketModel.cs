@@ -38,7 +38,7 @@ namespace CLN.Application.Models
         [DefaultValue("")]
         public string? BranchId { get; set; }
 
-        [DefaultValue(0)]
+        [DefaultValue(false)]
         public bool? IsTRC_Ticket { get; set; }
 
         //[DefaultValue("")]
