@@ -837,7 +837,7 @@ namespace CLN.API.Controllers
             {
                 using (ExcelPackage excelExportData = new ExcelPackage())
                 {
-                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("QCProductSerialNumber");
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("TRCPartRequest");
                     WorkSheet1.TabColor = System.Drawing.Color.Black;
                     WorkSheet1.DefaultRowHeight = 12;
 
