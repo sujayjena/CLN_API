@@ -1069,6 +1069,9 @@ namespace CLN.Application.Models
         public bool? DNV_IsHandoverToMainStore { get; set; }
         public string DNV_DeliveryChallanNumber { get; set; }
         public bool? DNV_IsBatteryReceivedInTRC { get; set; }
+        public string? DNV_DebitNotePhotoOriginalFileName { get; set; }
+        public string? DNV_DebitNotePhotoFileName { get; set; }
+        public string? DNV_DebitNotePhotoURL { get; set; }
         public int? ATE_AssignedToEngineerId { get; set; }
         public string? ATE_AssignedToEngineer { get; set; }
         public int? II_Visual { get; set; }

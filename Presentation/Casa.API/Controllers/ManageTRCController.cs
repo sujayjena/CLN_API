@@ -107,6 +107,16 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.DNV_DebitNotePhoto_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.DNV_DebitNotePhoto_Base64, "\\Uploads\\Ticket\\", parameters.DNV_DebitNotePhotoOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.DNV_DebitNotePhotoFileName = vUploadFile;
+                }
+            }
+
             //Initial Inspection
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Tempered1_Base64))
             {
@@ -323,6 +333,9 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.DNV_IsHandoverToMainStore= vResultObj.DNV_IsHandoverToMainStore;
                     vManageTRCDetail_Response.DNV_DeliveryChallanNumber= vResultObj.DNV_DeliveryChallanNumber;
                     vManageTRCDetail_Response.DNV_IsBatteryReceivedInTRC= vResultObj.DNV_IsBatteryReceivedInTRC;
+                    vManageTRCDetail_Response.DNV_DebitNotePhotoOriginalFileName = vResultObj.DNV_DebitNotePhotoOriginalFileName;
+                    vManageTRCDetail_Response.DNV_DebitNotePhotoFileName = vResultObj.DNV_DebitNotePhotoFileName;
+                    vManageTRCDetail_Response.DNV_DebitNotePhotoURL = vResultObj.DNV_DebitNotePhotoURL;
 
                     vManageTRCDetail_Response.ATE_AssignedToEngineerId = vResultObj.ATE_AssignedToEngineerId;
                     vManageTRCDetail_Response.ATE_AssignedToEngineer = vResultObj.ATE_AssignedToEngineer;

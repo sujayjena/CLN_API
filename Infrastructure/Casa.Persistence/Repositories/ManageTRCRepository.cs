@@ -54,6 +54,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DNV_IsHandoverToMainStore", parameters.DNV_IsHandoverToMainStore);
             queryParameters.Add("@DNV_DeliveryChallanNumber", parameters.DNV_DeliveryChallanNumber);
             queryParameters.Add("@DNV_IsBatteryReceivedInTRC", parameters.DNV_IsBatteryReceivedInTRC);
+            queryParameters.Add("@DNV_DebitNotePhotoOriginalFileName", parameters.DNV_DebitNotePhotoOriginalFileName);
+            queryParameters.Add("@DNV_DebitNotePhotoFileName", parameters.DNV_DebitNotePhotoFileName);
 
             queryParameters.Add("@ATE_AssignedToEngineerId", parameters.ATE_AssignedToEngineerId);
 
