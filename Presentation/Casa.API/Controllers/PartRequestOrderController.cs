@@ -503,6 +503,9 @@ namespace CLN.API.Controllers
                     var vTRCPartRequestDetails_Response = new TRCPartRequestDetails_Request()
                     {
                         RequestId = result,
+                        SpareCategoryId = item.SpareCategoryId,
+                        ProductMakeId = item.ProductMakeId,
+                        BMSMakeId = item.BMSMakeId,
                         SpareDetailsId = item.SpareDetailsId,
                         UOMId = item.UOMId,
                         TypeOfBMSId = item.TypeOfBMSId,
@@ -826,12 +829,14 @@ namespace CLN.API.Controllers
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var parameters = new TRCPartRequestDetails_Search()
+            var parameters = new TRCPartRequest_Search()
             {
-                RequestId = 0
+                EngineerId = 0,
+                SearchText = string.Empty,
+                StatusId = 0,
             };
 
-            var objList = await _partRequestOrderRepository.GetTRCPartRequestDetailList(parameters);
+            var objList = await _partRequestOrderRepository.GetTRCPartRequestList(parameters);
 
             using (MemoryStream msExportDataFile = new MemoryStream())
             {
@@ -846,33 +851,61 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
-                    WorkSheet1.Cells[1, 1].Value = "Engineer Name";
-                    WorkSheet1.Cells[1, 2].Value = "Request Number";
-                    WorkSheet1.Cells[1, 3].Value = "Part Code";
-                    WorkSheet1.Cells[1, 4].Value = "Part Description";
-                    WorkSheet1.Cells[1, 5].Value = "UOM";
-                    WorkSheet1.Cells[1, 6].Value = "TypeOfBMS";
-                    WorkSheet1.Cells[1, 7].Value = "Quantity";
-                    WorkSheet1.Cells[1, 8].Value = "RGP";
-                    WorkSheet1.Cells[1, 9].Value = "Remarks";
+                    WorkSheet1.Cells[1, 1].Value = "TRC Req #";
+                    WorkSheet1.Cells[1, 2].Value = "Order Date";
+                    WorkSheet1.Cells[1, 3].Value = "Service Engg. Name";
+                    WorkSheet1.Cells[1, 4].Value = "Spare Category";
+                    WorkSheet1.Cells[1, 5].Value = "Product Make";
+                    WorkSheet1.Cells[1, 6].Value = "BMS Make";
+                    WorkSheet1.Cells[1, 7].Value = "Spare Part Code";
+                    WorkSheet1.Cells[1, 8].Value = "Part Description";
+                    WorkSheet1.Cells[1, 9].Value = "UOM";
+                    WorkSheet1.Cells[1, 10].Value = "Type of BMS";
+                    WorkSheet1.Cells[1, 11].Value = "Available Qty";
+                    WorkSheet1.Cells[1, 12].Value = "Order Qty";
+                    WorkSheet1.Cells[1, 13].Value = "RGP";
+                    WorkSheet1.Cells[1, 14].Value = "Remark";
 
                     recordIndex = 2;
-
-                    foreach (var items in objList.OrderBy(x => x.EngineerName).ToList())
+                    foreach (var itemsReqList in objList)
                     {
+                        // Accessory
+                        var vSearchObj = new TRCPartRequestDetails_Search()
+                        {
+                            RequestId = itemsReqList.Id,
+                        };
 
+                        var objReqDetailsList = await _partRequestOrderRepository.GetTRCPartRequestDetailList(vSearchObj);
+                        if (objReqDetailsList.Count() > 0)
+                        {
+                            foreach (var itemReqDetails in objReqDetailsList)
+                            {
+                                WorkSheet1.Cells[recordIndex, 1].Value = itemsReqList.RequestNumber;
 
-                        WorkSheet1.Cells[recordIndex, 1].Value = items.EngineerName;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.RequestNumber;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.UniqueCode;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.SpareDesc;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.UOMName;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.TypeOfBMS;
-                        WorkSheet1.Cells[recordIndex, 7].Value = items.RequiredQty;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.RGP;
-                        WorkSheet1.Cells[recordIndex, 9].Value = items.Remarks;
+                                WorkSheet1.Cells[recordIndex, 2].Value = itemsReqList.RequestDate;
+                                WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
 
-                        recordIndex += 1;
+                                WorkSheet1.Cells[recordIndex, 3].Value = itemsReqList.EngineerName;
+                                WorkSheet1.Cells[recordIndex, 4].Value = itemReqDetails.SpareCategory;
+                                WorkSheet1.Cells[recordIndex, 5].Value = itemReqDetails.ProductMake;
+                                WorkSheet1.Cells[recordIndex, 6].Value = itemReqDetails.BMSMake;
+                                WorkSheet1.Cells[recordIndex, 7].Value = itemReqDetails.UniqueCode;
+                                WorkSheet1.Cells[recordIndex, 8].Value = itemReqDetails.SpareDesc;
+                                WorkSheet1.Cells[recordIndex, 9].Value = itemReqDetails.UOMName;
+                                WorkSheet1.Cells[recordIndex, 10].Value = itemReqDetails.TypeOfBMS;
+                                WorkSheet1.Cells[recordIndex, 11].Value = itemReqDetails.AvailableQty;
+                                WorkSheet1.Cells[recordIndex, 12].Value = itemReqDetails.RequiredQty;
+                                WorkSheet1.Cells[recordIndex, 13].Value = itemReqDetails.RGP == true ? "OK" : "NOT OK";
+                                WorkSheet1.Cells[recordIndex, 14].Value = itemReqDetails.Remarks;
+
+                                recordIndex += 1;
+                            }
+                        }
+                        else
+                        {
+                            recordIndex += 1;
+                        }
+
                     }
 
                     WorkSheet1.Columns.AutoFit();

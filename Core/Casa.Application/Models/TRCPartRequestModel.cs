@@ -50,7 +50,9 @@ namespace CLN.Application.Models
     public class TRCPartRequestDetails_Request : BaseEntity
     {
         public int? RequestId { get; set; }
-
+        public int? SpareCategoryId { get; set; }
+        public int? ProductMakeId { get; set; }
+        public int? BMSMakeId { get; set; }
         public int? SpareDetailsId { get; set; }
 
         public int? UOMId { get; set; }
@@ -85,6 +87,8 @@ namespace CLN.Application.Models
 
         public string? EngineerName { get; set; }
 
+        public decimal? TotalRequestedQty { get; set; }
+
         public string? Remarks { get; set; }
 
         public int? StatusId { get; set; }
@@ -99,21 +103,29 @@ namespace CLN.Application.Models
     public class TRCPartRequestDetails_Response 
     {
         public int Id { get; set; }
-        public int? EngineerId { get; set; }
-        public string EngineerName { get; set; }
+        //public int? EngineerId { get; set; }
+        //public string EngineerName { get; set; }
         public int? RequestId { get; set; }
-        public string RequestNumber { get; set; }
+        public string? RequestNumber { get; set; }
+        public int? SpareCategoryId { get; set; }
+        public string? SpareCategory { get; set; }
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
+        public int? BMSMakeId { get; set; }
+        public string? BMSMake { get; set; }
         public int? SpareDetailsId { get; set; }
-        public string SpareDesc { get; set; }
-        public string UniqueCode { get; set; }
+        public string? SpareDesc { get; set; }
+        public string? UniqueCode { get; set; }
         public int? UOMId { get; set; }
-        public string UOMName { get; set; }
+        public string? UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
-        public string TypeOfBMS { get; set; }
+        public string? TypeOfBMS { get; set; }
         public decimal? AvailableQty { get; set; }
         public decimal? RequiredQty { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
         public bool? RGP { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
     }
 
     #region TRC Import/Export
