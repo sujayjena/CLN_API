@@ -14,7 +14,19 @@ namespace CLN.Application.Models
 {
     public class ManageTRC_Search : BaseSearchEntity
     {
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
+        public int? EmployeeId { get; set; }
         public int? TRCStatusId { get; set; }
+
+        [DefaultValue(false)]
+        public bool? IsReplacement { get; set; }
+
+        [DefaultValue("All")]
+        public string? FilterType { get; set; }
     }
 
     public class ManageTRC_Request : BaseEntity
@@ -411,6 +423,17 @@ namespace CLN.Application.Models
         public string? CD_SiteCustomerName { get; set; }
         public string? CD_SiteContactName { get; set; }
         public string? CD_SitContactMobile { get; set; }
+
+        public int? ATE_AssignedToEngineerId { get; set; }
+        public string? ATE_AssignedToEngineer { get; set; }
+
+        public int? WS_IsWarrantyStatus { get; set; }
+        public bool? WS_IsReplacement { get; set; }
+        public int? CD_ProductSerialNumberId { get; set; }
+        public string? CD_ProductSerialNumber { get; set; }
+        public int? WS_NewProductSerialNumberId { get; set; }
+        public string? WS_NewProductSerialNumber { get; set; }
+        public string? WS_SerialNumberDesc { get; set; }
 
         public int? TRCStatusId { get; set; }
         public string? TRCStatus { get; set; }
