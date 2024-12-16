@@ -68,6 +68,7 @@ namespace CLN.API.Controllers
                 {
                     var vEnggPartRequestDetails_Response = new EnggPartRequestDetails_Request()
                     {
+                        Id=item.Id,
                         RequestId = result,
                         SpareCategoryId = item.SpareCategoryId,
                         ProductMakeId = item.ProductMakeId,
@@ -502,6 +503,7 @@ namespace CLN.API.Controllers
                 {
                     var vTRCPartRequestDetails_Response = new TRCPartRequestDetails_Request()
                     {
+                        Id = item.Id,
                         RequestId = result,
                         SpareCategoryId = item.SpareCategoryId,
                         ProductMakeId = item.ProductMakeId,
@@ -582,6 +584,12 @@ namespace CLN.API.Controllers
                             Id = item.Id,
                             RequestId = item.RequestId,
                             RequestNumber = item.RequestNumber,
+                            SpareCategoryId = item.SpareCategoryId,
+                            SpareCategory = item.SpareCategory,
+                            ProductMakeId = item.ProductMakeId,
+                            ProductMake = item.ProductMake,
+                            BMSMakeId = item.BMSMakeId,
+                            BMSMake = item.BMSMake,
                             SpareDetailsId = item.SpareDetailsId,
                             SpareDesc = item.SpareDesc,
                             UniqueCode = item.UniqueCode,
