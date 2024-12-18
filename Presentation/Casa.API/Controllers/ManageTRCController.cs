@@ -411,6 +411,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.PI_FinalVoltageFileName = vResultObj.PI_FinalVoltageFileName;
                     vManageTRCDetail_Response.PI_FinalVoltageURL = vResultObj.PI_FinalVoltageURL;
                     vManageTRCDetail_Response.PI_AmpereHour = vResultObj.PI_AmpereHour;
+                    vManageTRCDetail_Response.PI_IsPDIDone = vResultObj.PI_IsPDIDone;
 
                     vManageTRCDetail_Response.PIDD_DispatchedDeliveryChallan = vResultObj.PIDD_DispatchedDeliveryChallan;
                     vManageTRCDetail_Response.PIDD_DispatchedDate = vResultObj.PIDD_DispatchedDate;

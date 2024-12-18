@@ -22,8 +22,11 @@ namespace CLN.Application.Models
         public int? EmployeeId { get; set; }
         public int? TRCStatusId { get; set; }
 
-        [DefaultValue(false)]
+        [DefaultValue(null)]
         public bool? IsReplacement { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsPDIDone { get; set; }
 
         [DefaultValue("All")]
         public string? FilterType { get; set; }
@@ -263,6 +266,9 @@ namespace CLN.Application.Models
 
         public string? PI_AmpereHour { get; set; }
 
+        [DefaultValue(false)]
+        public bool? PI_IsPDIDone { get; set; }
+
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }
         public int? PIDD_DispatchedCityId { get; set; }
@@ -435,6 +441,8 @@ namespace CLN.Application.Models
         public string? WS_NewProductSerialNumber { get; set; }
         public string? WS_SerialNumberDesc { get; set; }
 
+        public bool? PI_IsPDIDone { get; set; }
+
         public int? TRCStatusId { get; set; }
         public string? TRCStatus { get; set; }
         public bool? IsActive { get; set; }
@@ -570,6 +578,7 @@ namespace CLN.Application.Models
         public string? PI_FinalVoltageURL { get; set; }
 
         public string? PI_AmpereHour { get; set; }
+        public bool? PI_IsPDIDone { get; set; }
 
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }

@@ -115,6 +115,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@PI_FinalVoltageOriginalFileName", parameters.PI_FinalVoltageOriginalFileName);
             queryParameters.Add("@PI_FinalVoltageFileName", parameters.PI_FinalVoltageFileName);
             queryParameters.Add("@PI_AmpereHour", parameters.PI_AmpereHour);
+            queryParameters.Add("@PI_IsPDIDone", parameters.PI_IsPDIDone);
           
             queryParameters.Add("@PIDD_DispatchedDeliveryChallan", parameters.PIDD_DispatchedDeliveryChallan);
             queryParameters.Add("@PIDD_DispatchedDate", parameters.PIDD_DispatchedDate);
@@ -159,6 +160,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
             queryParameters.Add("@TRCStatusId", parameters.TRCStatusId);
             queryParameters.Add("@IsReplacement", parameters.IsReplacement);
+            queryParameters.Add("@IsPDIDone", parameters.IsPDIDone);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
