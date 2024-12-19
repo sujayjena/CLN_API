@@ -78,6 +78,9 @@ namespace CLN.Application.Models
     {
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
+
+        [JsonIgnore]
+        public int Total { get; set; }
     }
 
     public class Dashboard_SurveyNPSSummary_Response

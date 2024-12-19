@@ -393,6 +393,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@ReturnQuantity", parameters.ReturnQuantity);
             queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@RequestType", parameters.RequestType);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveEngineerPartsReturn", queryParameters);
@@ -411,6 +412,7 @@ namespace CLN.Persistence.Repositories
                 queryParameters.Add("@SpareDetailsId", item.SpareDetailsId);
                 queryParameters.Add("@ReturnQuantity", item.ReturnQuantity);
                 queryParameters.Add("@StatusId", item.StatusId);
+                queryParameters.Add("@RequestType", parameters.RequestType);
                 queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
                 await SaveByStoredProcedure<int>("SaveEngineerPartsReturn", queryParameters);
@@ -424,6 +426,7 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@RequestType", parameters.RequestType);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());

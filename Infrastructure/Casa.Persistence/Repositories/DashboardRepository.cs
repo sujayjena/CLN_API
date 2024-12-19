@@ -77,10 +77,12 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@FromDate", parameters.FromDate);
             queryParameters.Add("@ToDate", parameters.ToDate);
+            queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             var result = await ListByStoredProcedure<Dashboard_SurveyNPSSummary_Response>("GetDashboard_SurveyNPSSummary", queryParameters);
-
+            parameters.Total = queryParameters.Get<int>("Total");
+           
             return result;
         }
 

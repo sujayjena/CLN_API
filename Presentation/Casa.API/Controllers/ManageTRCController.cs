@@ -428,7 +428,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.TRCBranchName = vResultObj.TRCBranchName;
 
                     vManageTRCDetail_Response.TRCStatusId = vResultObj.TRCStatusId;
-                    vManageTRCDetail_Response.TRCSStatus = vResultObj.TRCSStatus;
+                    vManageTRCDetail_Response.TRCStatus = vResultObj.TRCStatus;
 
                     vManageTRCDetail_Response.QuotationId = vResultObj.QuotationId;
                     vManageTRCDetail_Response.QuotationNumber = vResultObj.QuotationNumber;

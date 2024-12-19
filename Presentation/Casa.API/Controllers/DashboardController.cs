@@ -68,6 +68,7 @@ namespace CLN.API.Controllers
 
             _response.Data = objList.ToList();
             _response.Id = Convert.ToInt32(vAverageCount);
+            _response.Total = parameters.Total;
 
             return _response;
         }

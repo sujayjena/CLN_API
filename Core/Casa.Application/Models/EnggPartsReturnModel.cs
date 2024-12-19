@@ -28,6 +28,9 @@ namespace CLN.Application.Models
         public int? SpareDetailsId { get; set; }
         public decimal? ReturnQuantity { get; set; }
         public int? StatusId { get; set; }
+
+        [DefaultValue("Engg/TRC")]
+        public string? RequestType { get; set; }
     }
 
     public class EnggPartsReturn_ResponseWeb : BaseResponseEntity
@@ -43,6 +46,7 @@ namespace CLN.Application.Models
         public decimal? ReturnQuantity { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
+        public string? RequestType { get; set; }
     }
 
 
@@ -55,6 +59,9 @@ namespace CLN.Application.Models
 
         public int? EngineerId { get; set; }
         public string? RequestNumber { get; set; }
+
+        [DefaultValue("Engg/TRC")]
+        public string? RequestType { get; set; }
 
         public List<EnggSpareDetailsList_RequestMobile> SpareDetailsList { get; set; }
     }

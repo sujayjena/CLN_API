@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System.Globalization;
 
 namespace CLN.API.Controllers.Admin
 {
@@ -291,6 +292,8 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 7].Value = "Warranty";
                     WorkSheet1.Cells[1, 8].Value = "Remarks";
                     WorkSheet1.Cells[1, 9].Value = "Status";
+                    WorkSheet1.Cells[1, 10].Value = "Created By";
+                    WorkSheet1.Cells[1, 11].Value = "Created Date";
 
                     recordIndex = 2;
 
@@ -305,6 +308,9 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 7].Value = items.Warranty;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.Remarks;
                         WorkSheet1.Cells[recordIndex, 9].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.CreatedDate;
 
                         recordIndex += 1;
                     }

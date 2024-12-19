@@ -593,7 +593,7 @@ namespace CLN.Application.Models
         public string? TRCBranchName { get; set; }
 
         public int? TRCStatusId { get; set; }
-        public string? TRCSStatus { get; set; }
+        public string? TRCStatus { get; set; }
 
         public int? QuotationId { get; set; }
         public string? QuotationNumber { get; set; }
