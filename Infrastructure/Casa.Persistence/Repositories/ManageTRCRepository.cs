@@ -143,6 +143,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@TRCId", parameters.TRCId);
             queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
+            queryParameters.Add("@ProductMakeId", parameters.ProductMakeId);
+            queryParameters.Add("@BMSMakeId", parameters.BMSMakeId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@Quantity", parameters.Quantity);
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
@@ -251,6 +253,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@QuotationId", parameters.QuotationId);
             queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
+            queryParameters.Add("@ProductMakeId", parameters.ProductMakeId);
+            queryParameters.Add("@BMSMakeId", parameters.BMSMakeId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@Quantity", parameters.Quantity);
             queryParameters.Add("@UnitPrice", parameters.UnitPrice);
@@ -339,6 +343,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@Id", parameters.Id);
             queryParameters.Add("@InvoiceId", parameters.InvoiceId);
             queryParameters.Add("@SpareCategoryId", parameters.SpareCategoryId);
+            queryParameters.Add("@ProductMakeId", parameters.ProductMakeId);
+            queryParameters.Add("@BMSMakeId", parameters.BMSMakeId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@Quantity", parameters.Quantity);
             queryParameters.Add("@UnitPrice", parameters.UnitPrice);

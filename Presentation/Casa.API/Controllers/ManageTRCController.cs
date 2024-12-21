@@ -1129,6 +1129,10 @@ namespace CLN.API.Controllers
                         vQuotationPartDetails.QuotationId = 0;
                         vQuotationPartDetails.SpareCategoryId = item.SpareCategoryId;
                         vQuotationPartDetails.SpareCategory = item.SpareCategory;
+                        vQuotationPartDetails.ProductMakeId = item.ProductMakeId;
+                        vQuotationPartDetails.ProductMake = item.ProductMake;
+                        vQuotationPartDetails.BMSMakeId = item.BMSMakeId;
+                        vQuotationPartDetails.BMSMake = item.BMSMake;
                         vQuotationPartDetails.SpareDetailsId = item.SpareDetailsId;
                         vQuotationPartDetails.SpareDesc = item.SpareDesc;
                         vQuotationPartDetails.Quantity = item.Quantity;
@@ -1178,6 +1182,8 @@ namespace CLN.API.Controllers
                         Id = Convert.ToInt32(item.Id),
                         QuotationId = result,
                         SpareCategoryId = item.SpareCategoryId,
+                        ProductMakeId = item.ProductMakeId,
+                        BMSMakeId = item.BMSMakeId,
                         SpareDetailsId = item.SpareDetailsId,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
@@ -1223,6 +1229,10 @@ namespace CLN.API.Controllers
                             QuotationId = item.QuotationId,
                             SpareCategoryId = item.SpareCategoryId,
                             SpareCategory = item.SpareCategory,
+                            ProductMakeId = item.ProductMakeId,
+                            ProductMake = item.ProductMake,
+                            BMSMakeId = item.BMSMakeId,
+                            BMSMake = item.BMSMake,
                             SpareDetailsId = item.SpareDetailsId,
                             SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
@@ -1343,6 +1353,8 @@ namespace CLN.API.Controllers
                             Id = 0,
                             InvoiceId = 0,
                             SpareCategoryId = pItems.SpareCategoryId,
+                            ProductMakeId = pItems.ProductMakeId,
+                            BMSMakeId = pItems.BMSMakeId,
                             SpareDetailsId = pItems.SpareDetailsId,
                             Quantity = pItems.Quantity,
                             UnitPrice = pItems.UnitPrice,
@@ -1385,6 +1397,8 @@ namespace CLN.API.Controllers
                             Id = Convert.ToInt32(item.Id),
                             InvoiceId = result,
                             SpareCategoryId = item.SpareCategoryId,
+                            ProductMakeId = item.ProductMakeId,
+                            BMSMakeId = item.BMSMakeId,
                             SpareDetailsId = item.SpareDetailsId,
                             Quantity = item.Quantity,
                             UnitPrice = item.UnitPrice,
@@ -1433,6 +1447,10 @@ namespace CLN.API.Controllers
                             InvoiceId = item.InvoiceId,
                             SpareCategoryId = item.SpareCategoryId,
                             SpareCategory = item.SpareCategory,
+                            ProductMakeId = item.ProductMakeId,
+                            ProductMake = item.ProductMake,
+                            BMSMakeId = item.BMSMakeId,
+                            BMSMake = item.BMSMake,
                             SpareDetailsId = item.SpareDetailsId,
                             SpareDesc = item.SpareDesc,
                             Quantity = item.Quantity,
