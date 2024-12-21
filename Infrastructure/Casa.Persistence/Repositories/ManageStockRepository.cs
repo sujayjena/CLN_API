@@ -318,6 +318,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@StockType", parameters.StockType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -501,6 +502,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@Quantity", parameters.Quantity);
+            queryParameters.Add("@StockType", parameters.StockType);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveStockMaster", queryParameters);

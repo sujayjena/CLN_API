@@ -480,13 +480,11 @@ namespace CLN.Application.Models
     {
         [JsonIgnore]
         public int? TicketId { get; set; }
-
         public int? SpareCategoryId { get; set; }
-
+        public int? ProductMakeId { get; set; }
+        public int? BMSMakeId { get; set; }
         public int? SpareDetailsId { get; set; }
-
         public decimal? Quantity { get; set; }
-
         public decimal? AvailableQty { get; set; }
 
         //public int? PartStatusId { get; set; }
@@ -1588,19 +1586,16 @@ namespace CLN.Application.Models
     {
         [JsonIgnore]
         public int? TicketId { get; set; }
-
         public int? SpareCategoryId { get; set; }
-
         public string? SpareCategory { get; set; }
-
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
+        public int? BMSMakeId { get; set; }
+        public string? BMSMake { get; set; }
         public int? SpareDetailsId { get; set; }
-
         public string? UniqueCode { get; set; }
-
         public string? SpareDesc { get; set; }
-
         public decimal? Quantity { get; set; }
-
         public decimal? AvailableQty { get; set; }
 
         //public int? PartStatusId { get; set; }

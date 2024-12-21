@@ -354,6 +354,10 @@ namespace CLN.Application.Models
         public int? EngineerId { get; set; }
         public int? SpareDetailsId { get; set; }
         public decimal? Quantity { get; set; }
+
+        [JsonIgnore]
+        [DefaultValue("")]
+        public string? StockType { get; set; }
     }
 
     public class StockMaster_Response : BaseResponseEntity
@@ -380,6 +384,9 @@ namespace CLN.Application.Models
     {
         public int? EngineerId { get; set; }
         public int? SpareDetailsId { get; set; }
+
+        [DefaultValue("")]
+        public string? StockType { get; set; }
     }
 
     public class EnggStockMaster_Response : BaseResponseEntity

@@ -463,6 +463,8 @@ namespace CLN.API.Controllers
                         Id = Convert.ToInt32(item.Id),
                         TicketId = result,
                         SpareCategoryId = item.SpareCategoryId,
+                        ProductMakeId = item.ProductMakeId,
+                        BMSMakeId = item.BMSMakeId,
                         SpareDetailsId = item.SpareDetailsId,
                         Quantity = item.Quantity,
                         AvailableQty = item.AvailableQty,
@@ -477,7 +479,8 @@ namespace CLN.API.Controllers
                         {
                             EngineerId = parameters.TSSP_AllocateToServiceEnggId,
                             SpareDetailsId = item.SpareDetailsId,
-                            Quantity = item.Quantity * -1
+                            Quantity = item.Quantity * -1,
+                            StockType = "Engg"
                         };
 
                         int resultInventory = await _manageStockRepository.SaveStockMaster(vStockParameters);
@@ -1671,6 +1674,10 @@ namespace CLN.API.Controllers
                             TicketId = item.TicketId,
                             SpareCategoryId = item.SpareCategoryId,
                             SpareCategory = item.SpareCategory,
+                            ProductMakeId = item.ProductMakeId,
+                            ProductMake = item.ProductMake,
+                            BMSMakeId = item.BMSMakeId,
+                            BMSMake = item.BMSMake,
                             SpareDetailsId = item.SpareDetailsId,
                             UniqueCode = item.UniqueCode,
                             SpareDesc = item.SpareDesc,
@@ -1816,6 +1823,10 @@ namespace CLN.API.Controllers
                         TicketId = itemPart.TicketId,
                         SpareCategoryId = itemPart.SpareCategoryId,
                         SpareCategory = itemPart.SpareCategory,
+                        ProductMakeId = itemPart.ProductMakeId,
+                        ProductMake = itemPart.ProductMake,
+                        BMSMakeId = itemPart.BMSMakeId,
+                        BMSMake = itemPart.BMSMake,
                         SpareDetailsId = itemPart.SpareDetailsId,
                         UniqueCode = itemPart.UniqueCode,
                         SpareDesc = itemPart.SpareDesc,

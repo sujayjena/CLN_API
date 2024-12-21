@@ -30,6 +30,9 @@ namespace CLN.Application.Models
 
         [DefaultValue("All")]
         public string? FilterType { get; set; }
+
+        [DefaultValue(false)]
+        public bool? IsFeedback { get; set; }
     }
 
     public class ManageTRC_Request : BaseEntity
@@ -385,7 +388,8 @@ namespace CLN.Application.Models
         public int? TRCId { get; set; }
 
         public int? SpareCategoryId { get; set; }
-
+        public int? ProductMakeId { get; set; }
+        public int? BMSMakeId { get; set; }
         public int? SpareDetailsId { get; set; }
 
         public decimal? Quantity { get; set; }
@@ -613,17 +617,15 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public int? TRCId { get; set; }
         public int? SpareCategoryId { get; set; }
-
         public string? SpareCategory { get; set; }
-
+        public int? ProductMakeId { get; set; }
+        public string? ProductMake { get; set; }
+        public int? BMSMakeId { get; set; }
+        public string? BMSMake { get; set; }
         public int? SpareDetailsId { get; set; }
-
         public string? UniqueCode { get; set; }
-
         public string? SpareDesc { get; set; }
-
         public decimal? Quantity { get; set; }
-
         public decimal? AvailableQty { get; set; }
 
         //public int? PartStatusId { get; set; }

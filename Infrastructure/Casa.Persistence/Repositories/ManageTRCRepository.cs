@@ -162,6 +162,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@IsReplacement", parameters.IsReplacement);
             queryParameters.Add("@IsPDIDone", parameters.IsPDIDone);
             queryParameters.Add("@FilterType", parameters.FilterType);
+            queryParameters.Add("@IsFeedback", parameters.IsFeedback);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
