@@ -1039,6 +1039,103 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportManageReplacementData(ManageTRC_Search request)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var lstObj = await _manageTRCRepository.GetManageTRCList(request);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("ManageReplacement");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Ticket#";
+                    WorkSheet1.Cells[1, 2].Value = "Ticket Date";
+                    WorkSheet1.Cells[1, 3].Value = "Contact No";
+                    WorkSheet1.Cells[1, 4].Value = "TRC#";
+                    WorkSheet1.Cells[1, 5].Value = "TRC Date";
+                    WorkSheet1.Cells[1, 6].Value = "Warranty Status";
+                    WorkSheet1.Cells[1, 7].Value = "Replacement";
+                    WorkSheet1.Cells[1, 8].Value = "Old Product Serial Number";
+                    WorkSheet1.Cells[1, 9].Value = "New Product Serial Number";
+                    WorkSheet1.Cells[1, 10].Value = "Serial Number Description";
+                    WorkSheet1.Cells[1, 11].Value = "Site Customer Name";
+                    WorkSheet1.Cells[1, 12].Value = "Site Contact Name";
+                    WorkSheet1.Cells[1, 13].Value = "Site Contact Mobile#";
+                    WorkSheet1.Cells[1, 14].Value = "State";
+                    WorkSheet1.Cells[1, 15].Value = "City"; ;
+                    WorkSheet1.Cells[1, 16].Value = "Status";
+                    WorkSheet1.Cells[1, 17].Value = "Created By";
+                    WorkSheet1.Cells[1, 18].Value = "Created Date";
+                    WorkSheet1.Cells[1, 19].Value = "Modified By";
+                    WorkSheet1.Cells[1, 20].Value = "Modified Date";
+                    
+                    recordIndex = 2;
+
+                    foreach (var items in lstObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
+                        WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketDate;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.CD_CallerMobile;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.TRCNumber;
+                        WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.TRCDate;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.WS_IsWarrantyStatus == 1 ? "In Warranty" : items.WS_IsWarrantyStatus == 2 ? "Out Of Warranty" : items.WS_IsWarrantyStatus == 3 ? "Warranty Void" : "";
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.WS_IsReplacement == true ? "Yes" : "No";
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.CD_ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.WS_NewProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.WS_SerialNumberDesc;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.CD_SiteCustomerName;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.CD_SiteContactName;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.CD_SitContactMobile;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.StateName;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.CityName;
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 18].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 19].Value = items.ModifierName;
+                        WorkSheet1.Cells[recordIndex, 20].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 20].Value = items.ModifiedDate;
+                       
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
+
         #endregion
 
         #region Quotation

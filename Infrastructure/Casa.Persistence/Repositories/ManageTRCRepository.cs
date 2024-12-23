@@ -225,6 +225,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@TRCId", parameters.TRCId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -315,6 +316,7 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@TRCId", parameters.TRCId);
+            queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);

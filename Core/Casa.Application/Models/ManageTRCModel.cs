@@ -716,6 +716,9 @@ namespace CLN.Application.Models
     {
         public int StatusId { get; set; }
         public int TRCId { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchId { get; set; }
     }
 
     public class QuotationList_Response : BaseResponseEntity
@@ -778,6 +781,9 @@ namespace CLN.Application.Models
     public class Invoice_Search : BaseSearchEntity
     {
         public int TRCId { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchId { get; set; }
     }
 
     public class Invoice_Response : BaseEntity
