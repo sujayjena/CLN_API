@@ -33,6 +33,9 @@ namespace CLN.Application.Models
 
         [DefaultValue(false)]
         public bool? IsFeedback { get; set; }
+
+        [DefaultValue("")]
+        public string? BranchId { get; set; }
     }
 
     public class ManageTRC_Request : BaseEntity

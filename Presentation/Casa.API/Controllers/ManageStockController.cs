@@ -447,7 +447,7 @@ namespace CLN.API.Controllers
                         {
                             Id = item.Id,
 
-                            StockAllocatedId = item.Id,
+                            StockAllocatedId = item.StockAllocatedId,
                             SpareCategoryId = item.SpareCategoryId,
                             SpareCategory = item.SpareCategory,
                             ProductMakeId = item.ProductMakeId,
