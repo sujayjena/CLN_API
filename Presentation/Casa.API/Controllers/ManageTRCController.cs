@@ -387,6 +387,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.WS_NewProductSerialNumberId = vResultObj.WS_NewProductSerialNumberId;
                     vManageTRCDetail_Response.WS_NewProductSerialNumber = vResultObj.WS_NewProductSerialNumber;
                     vManageTRCDetail_Response.WS_SerialNumberDesc = vResultObj.WS_SerialNumberDesc;
+                    vManageTRCDetail_Response.WS_IsGeneratedQuotation = vResultObj.WS_IsGeneratedQuotation;
 
                     vManageTRCDetail_Response.DA_ProblemObservedByEngId = vResultObj.DA_ProblemObservedByEngId;
                     vManageTRCDetail_Response.DA_ProblemObservedByEng = vResultObj.DA_ProblemObservedByEng;

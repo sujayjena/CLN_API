@@ -441,6 +441,9 @@ namespace CLN.Application.Models
     public class EngineerOrderListByEngineerId_Search : BaseSearchEntity
     {
         public int? EngineerId { get; set; }
+
+        [DefaultValue("")]
+        public string? RequestType { get; set; }
     }
 
     public class EngineerOrderListByEngineerId_Response : BaseResponseEntity

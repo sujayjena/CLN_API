@@ -247,6 +247,9 @@ namespace CLN.Application.Models
         public int? WS_NewProductSerialNumberId { get; set; }
         public string? WS_SerialNumberDesc { get; set; }
 
+        [DefaultValue(false)]
+        public bool? WS_IsGeneratedQuotation { get; set; }
+
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedDesc { get; set; }
         public int? DA_RectificationActionId { get; set; }
@@ -447,6 +450,7 @@ namespace CLN.Application.Models
         public int? WS_NewProductSerialNumberId { get; set; }
         public string? WS_NewProductSerialNumber { get; set; }
         public string? WS_SerialNumberDesc { get; set; }
+        public bool? WS_IsGeneratedQuotation { get; set; }
 
         public bool? PI_IsPDIDone { get; set; }
 
@@ -556,6 +560,7 @@ namespace CLN.Application.Models
         public int? WS_NewProductSerialNumberId { get; set; }
         public string? WS_NewProductSerialNumber { get; set; }
         public string? WS_SerialNumberDesc { get; set; }
+        public bool? WS_IsGeneratedQuotation { get; set; }
 
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedByEng { get; set; }

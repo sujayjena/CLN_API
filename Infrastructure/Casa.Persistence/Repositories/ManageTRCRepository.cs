@@ -95,6 +95,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@WS_IsReplacement", parameters.WS_IsReplacement);
             queryParameters.Add("@WS_NewProductSerialNumberId", parameters.WS_NewProductSerialNumberId);
             queryParameters.Add("@WS_SerialNumberDesc", parameters.WS_SerialNumberDesc);
+            queryParameters.Add("@WS_IsGeneratedQuotation", parameters.WS_IsGeneratedQuotation);
 
             queryParameters.Add("@DA_ProblemObservedByEngId", parameters.DA_ProblemObservedByEngId);
             queryParameters.Add("@DA_ProblemObservedDesc", parameters.DA_ProblemObservedDesc);
