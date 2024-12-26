@@ -1161,6 +1161,7 @@ namespace CLN.API.Controllers
             {
                 var vSerach = new Quotation_Search();
                 vSerach.TRCId = Id;
+                vSerach.BranchId = "";
 
                 var tbl = await _manageTRCRepository.GetQuotationList(vSerach);
                 if (tbl.Count() > 0)
@@ -1404,6 +1405,7 @@ namespace CLN.API.Controllers
             {
                 var vInvoiceSerach = new Invoice_Search();
                 vInvoiceSerach.TRCId = Id;
+                vInvoiceSerach.BranchId = "";
 
                 var tblInvoice = await _manageTRCRepository.GetInvoiceList(vInvoiceSerach);
                 if (tblInvoice.Count() > 0)
@@ -1417,6 +1419,7 @@ namespace CLN.API.Controllers
                 var vQuotationSerach = new Quotation_Search();
                 vQuotationSerach.TRCId = Id;
                 vQuotationSerach.StatusId = 2;
+                vQuotationSerach.BranchId = "";
 
                 var tblQuotation = await _manageTRCRepository.GetQuotationList(vQuotationSerach);
                 if (tblQuotation.Count() == 0)
