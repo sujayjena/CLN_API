@@ -453,6 +453,7 @@ namespace CLN.Application.Models
         public bool? WS_IsGeneratedQuotation { get; set; }
 
         public bool? PI_IsPDIDone { get; set; }
+        public bool? IsFeedback { get; set; }
 
         public int? TRCStatusId { get; set; }
         public string? TRCStatus { get; set; }
