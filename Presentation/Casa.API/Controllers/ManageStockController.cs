@@ -642,15 +642,21 @@ namespace CLN.API.Controllers
                         var vEnggSpareDetailsListByRequestNumber_RequestMobileobj = new EnggSpareDetailsList_ResponseMobile()
                         {
                             Id = Convert.ToInt32(item.Id),
+                            SpareCategoryId = Convert.ToInt32(item.SpareCategoryId),
+                            SpareCategory = Convert.ToString(item.SpareCategory),
+                            ProductMakeId = Convert.ToInt32(item.ProductMakeId),
+                            ProductMake = Convert.ToString(item.ProductMake),
+                            BMSMakeId = Convert.ToInt32(item.BMSMakeId),
+                            BMSMake = Convert.ToString(item.BMSMake),
                             SpareDetailsId = Convert.ToInt32(item.SpareDetailsId),
                             UniqueCode = Convert.ToString(item.UniqueCode),
                             SpareDesc = Convert.ToString(item.SpareDesc),
 
-                            RequiredQty = Convert.ToInt32(item.Total_RequiredQty),
-                            AllocatedQty = Convert.ToInt32(item.Total_AllocatedQty),
-                            ReceivedQty = Convert.ToInt32(item.Total_ReceivedQty),
-                            AvailableQty = Convert.ToInt32(item.Total_AvailableQty),
-                            ReturnQuantity = Convert.ToInt32(item.Total_ReturnQuantity),
+                            RequiredQty = Convert.ToDecimal(item.Total_RequiredQty),
+                            AllocatedQty = Convert.ToDecimal(item.Total_AllocatedQty),
+                            ReceivedQty = Convert.ToDecimal(item.Total_ReceivedQty),
+                            AvailableQty = Convert.ToDecimal(item.Total_AvailableQty),
+                            ReturnQuantity = Convert.ToDecimal(item.Total_ReturnQuantity),
                         };
 
                         vEnggPartsReturnByRequestNumber_For_MobileObj.SpareDetailsList.Add(vEnggSpareDetailsListByRequestNumber_RequestMobileobj);
