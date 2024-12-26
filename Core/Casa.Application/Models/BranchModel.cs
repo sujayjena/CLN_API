@@ -25,6 +25,7 @@ namespace CLN.Application.Models
         public string? EmailId { get; set; }
         public string? MobileNo { get; set; }
         public string? DepartmentHead { get; set; }
+        public string? GSTNumber { get; set; }
         public string? AddressLine1 { get; set; }
         public string? AddressLine2 { get; set; }
         public int? RegionId { get; set; }
@@ -47,6 +48,7 @@ namespace CLN.Application.Models
         public string? EmailId { get; set; }
         public string? MobileNo { get; set; }
         public string? DepartmentHead { get; set; }
+        public string? GSTNumber { get; set; }
         public string? AddressLine1 { get; set; }
         public string? AddressLine2 { get; set; }
         public int? RegionId { get; set; }

@@ -29,6 +29,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EmailId", parameters.EmailId);
             queryParameters.Add("@MobileNo", parameters.MobileNo);
             queryParameters.Add("@DepartmentHead", parameters.DepartmentHead);
+            queryParameters.Add("@GSTNumber", parameters.GSTNumber);
             queryParameters.Add("@AddressLine1", parameters.AddressLine1);
             queryParameters.Add("@AddressLine2", parameters.AddressLine2);
             queryParameters.Add("@RegionId", parameters.RegionId);
