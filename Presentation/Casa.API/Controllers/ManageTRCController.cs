@@ -325,6 +325,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.RP_IsReservePickupMailToLogistic= vResultObj.RP_IsReservePickupMailToLogistic;
                     vManageTRCDetail_Response.RP_DocketDetails= vResultObj.RP_DocketDetails;
                     vManageTRCDetail_Response.RP_IsBatteryInTransit= vResultObj.RP_IsBatteryInTransit;
+                    vManageTRCDetail_Response.RP_BatteryInTransitDate = vResultObj.RP_BatteryInTransitDate;
 
                     vManageTRCDetail_Response.DNV_IsDeliveryChallanOrDebitNote = vResultObj.DNV_IsDeliveryChallanOrDebitNote;
                     vManageTRCDetail_Response.DNV_DeliveryChallanPhotoOriginalFileName= vResultObj.DNV_DeliveryChallanPhotoOriginalFileName;
@@ -333,6 +334,7 @@ namespace CLN.API.Controllers
 
                     vManageTRCDetail_Response.DNV_DebitNote= vResultObj.DNV_DebitNote;
                     vManageTRCDetail_Response.DNV_IsHandoverToMainStore= vResultObj.DNV_IsHandoverToMainStore;
+                    vManageTRCDetail_Response.DNV_HandoverToMainStoreDate = vResultObj.DNV_HandoverToMainStoreDate;
                     vManageTRCDetail_Response.DNV_DeliveryChallanNumber= vResultObj.DNV_DeliveryChallanNumber;
                     vManageTRCDetail_Response.DNV_IsBatteryReceivedInTRC= vResultObj.DNV_IsBatteryReceivedInTRC;
                     vManageTRCDetail_Response.DNV_DebitNotePhotoOriginalFileName = vResultObj.DNV_DebitNotePhotoOriginalFileName;
@@ -378,8 +380,11 @@ namespace CLN.API.Controllers
 
                     vManageTRCDetail_Response.WS_IsWarrantyStatus = vResultObj.WS_IsWarrantyStatus;
                     vManageTRCDetail_Response.WS_IsInformedToCustomerByEmail = vResultObj.WS_IsInformedToCustomerByEmail;
+                    vManageTRCDetail_Response.WS_InformedToCustomerByEmailDate = vResultObj.WS_InformedToCustomerByEmailDate;
                     vManageTRCDetail_Response.WS_IsCustomerAcceptance = vResultObj.WS_IsCustomerAcceptance;
+                    vManageTRCDetail_Response.WS_CustomerAcceptanceDate = vResultObj.WS_CustomerAcceptanceDate;
                     vManageTRCDetail_Response.WS_IsPaymentClearance = vResultObj.WS_IsPaymentClearance;
+                    vManageTRCDetail_Response.WS_PaymentClearanceDate = vResultObj.WS_PaymentClearanceDate;
                     vManageTRCDetail_Response.WS_InvoiceOriginalFileName = vResultObj.WS_InvoiceOriginalFileName;
                     vManageTRCDetail_Response.WS_InvoiceFileName = vResultObj.WS_InvoiceFileName;
                     vManageTRCDetail_Response.WS_InvoiceURL = vResultObj.WS_InvoiceURL;
@@ -388,6 +393,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.WS_NewProductSerialNumber = vResultObj.WS_NewProductSerialNumber;
                     vManageTRCDetail_Response.WS_SerialNumberDesc = vResultObj.WS_SerialNumberDesc;
                     vManageTRCDetail_Response.WS_IsGeneratedQuotation = vResultObj.WS_IsGeneratedQuotation;
+                    vManageTRCDetail_Response.WS_GeneratedQuotationDate = vResultObj.WS_GeneratedQuotationDate;
 
                     vManageTRCDetail_Response.DA_ProblemObservedByEngId = vResultObj.DA_ProblemObservedByEngId;
                     vManageTRCDetail_Response.DA_ProblemObservedByEng = vResultObj.DA_ProblemObservedByEng;

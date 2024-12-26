@@ -1059,12 +1059,14 @@ namespace CLN.Application.Models
         public bool? RP_IsReservePickupMailToLogistic { get; set; }
         public string? RP_DocketDetails { get; set; }
         public bool? RP_IsBatteryInTransit { get; set; }
+        public DateTime? RP_BatteryInTransitDate { get; set; }
         public int? DNV_IsDeliveryChallanOrDebitNote { get; set; }
         public string? DNV_DeliveryChallanPhotoOriginalFileName { get; set; }
         public string? DNV_DeliveryChallanPhotoFileName { get; set; }
         public string? DNV_DeliveryChallanPhotoURL { get; set; }
         public string? DNV_DebitNote { get; set; }
         public bool? DNV_IsHandoverToMainStore { get; set; }
+        public DateTime? DNV_HandoverToMainStoreDate { get; set; }
         public string DNV_DeliveryChallanNumber { get; set; }
         public bool? DNV_IsBatteryReceivedInTRC { get; set; }
         public string? DNV_DebitNotePhotoOriginalFileName { get; set; }
@@ -1107,8 +1109,11 @@ namespace CLN.Application.Models
         public string? II_BatteryParameterSetting { get; set; }
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }
+        public DateTime? WS_InformedToCustomerByEmailDate { get; set; }
         public bool? WS_IsCustomerAcceptance { get; set; }
+        public DateTime? WS_CustomerAcceptanceDate { get; set; }
         public bool? WS_IsPaymentClearance { get; set; }
+        public DateTime? WS_PaymentClearanceDate { get; set; }
         public string? WS_InvoiceOriginalFileName { get; set; }
         public string? WS_InvoiceFileName { get; set; }
         public string? WS_InvoiceURL { get; set; }
@@ -1117,6 +1122,7 @@ namespace CLN.Application.Models
         public string? WS_NewProductSerialNumber { get; set; }
         public string? WS_SerialNumberDesc { get; set; }
         public bool? WS_IsGeneratedQuotation { get; set; }
+        public DateTime? WS_GeneratedQuotationDate { get; set; }
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedByEng { get; set; }
         public string? DA_ProblemObservedDesc { get; set; }
