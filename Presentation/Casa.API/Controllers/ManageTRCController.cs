@@ -403,6 +403,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.DA_ResolutionSummary = vResultObj.DA_ResolutionSummary;
                     vManageTRCDetail_Response.DA_CapacityAchieved = vResultObj.DA_CapacityAchieved;
 
+                    vManageTRCDetail_Response.ATEFP_IsAssignedToEnggForPDI = vResultObj.ATEFP_IsAssignedToEnggForPDI;
                     vManageTRCDetail_Response.ATEFP_AssignedToEngineerId = vResultObj.ATEFP_AssignedToEngineerId;
                     vManageTRCDetail_Response.ATEFP_AssignedToEngineer = vResultObj.ATEFP_AssignedToEngineer;
 

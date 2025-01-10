@@ -28,6 +28,9 @@ namespace CLN.Application.Models
         [DefaultValue(null)]
         public bool? IsPDIDone { get; set; }
 
+        [DefaultValue(null)]
+        public bool? IsAssignedToEnggForPDI { get; set; }
+
         [DefaultValue("All")]
         public string? FilterType { get; set; }
 
@@ -256,6 +259,7 @@ namespace CLN.Application.Models
         public string? DA_ResolutionSummary { get; set; }
         public string? DA_CapacityAchieved { get; set; }
 
+        public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public int? ATEFP_AssignedToEngineerId { get; set; }
 
         public DateTime? PI_BatteryReceivedDate { get; set; }
@@ -452,6 +456,7 @@ namespace CLN.Application.Models
         public string? WS_SerialNumberDesc { get; set; }
         public bool? WS_IsGeneratedQuotation { get; set; }
 
+        public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public bool? PI_IsPDIDone { get; set; }
         public bool? IsFeedback { get; set; }
 
@@ -577,6 +582,7 @@ namespace CLN.Application.Models
         public string? DA_ResolutionSummary { get; set; }
         public string? DA_CapacityAchieved { get; set; }
 
+        public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public int? ATEFP_AssignedToEngineerId { get; set; }
         public string? ATEFP_AssignedToEngineer { get; set; }
 

@@ -164,6 +164,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TRCStatusId", parameters.TRCStatusId);
             queryParameters.Add("@IsReplacement", parameters.IsReplacement);
             queryParameters.Add("@IsPDIDone", parameters.IsPDIDone);
+            queryParameters.Add("@IsAssignedToEnggForPDI", parameters.IsAssignedToEnggForPDI);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@IsFeedback", parameters.IsFeedback);
             queryParameters.Add("@BranchId", parameters.BranchId);
