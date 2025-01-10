@@ -103,6 +103,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DA_ResolutionSummary", parameters.DA_ResolutionSummary);
             queryParameters.Add("@DA_CapacityAchieved", parameters.DA_CapacityAchieved);
 
+            queryParameters.Add("@ATEFP_IsAssignedToEnggForPDI", parameters.ATEFP_IsAssignedToEnggForPDI);
             queryParameters.Add("@ATEFP_AssignedToEngineerId", parameters.ATEFP_AssignedToEngineerId);
 
             queryParameters.Add("@PI_BatteryReceivedDate", parameters.PI_BatteryReceivedDate);
