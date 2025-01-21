@@ -55,7 +55,7 @@ namespace CLN.Application.Models
         public string? UOMName { get; set; }
         public int? TypeOfBMSId { get; set; }
         public string? TypeOfBMS { get; set; }
-        public int? MinQty { get; set; }
+        public decimal? MinQty { get; set; }
         public decimal? AvailableQty { get; set; }
         public decimal? RequiredQty { get; set; }
         public decimal? RequestedQty { get; set; }

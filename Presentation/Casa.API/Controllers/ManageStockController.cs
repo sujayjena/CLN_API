@@ -350,6 +350,7 @@ namespace CLN.API.Controllers
                         RequiredQty = item.RequiredQty,
                         AllocatedQty = item.AllocatedQty,
                         ReceivedQty = item.ReceivedQty,
+                        RGP = item.RGP
                     };
 
                     int result_StockAllocatedPartDetails = await _manageStockRepository.SaveStockAllocatedPartDetails(vStockAllocatedPartDetails_Request);
