@@ -17,6 +17,8 @@ namespace CLN.Application.Models
     public class SpareDetails_Search : BaseSearchEntity
     {
         public int? SpareCategoryId { get; set; }
+        public int? BMSMakeId { get; set; }
+        public int? ProductMakeId { get; set; }
 
         [DefaultValue(null)]
         public bool? IsRGP { get; set; }

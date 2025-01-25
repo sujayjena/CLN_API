@@ -128,8 +128,8 @@ namespace CLN.API.Controllers
                     foreach (var items in lstSizeObj)
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.EmployeeName;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.PunchInOut;
-                        WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 2].Value = Convert.ToDateTime(items.PunchInOut).ToString("dd/MM/yyyy hh:mm:ss tt");
+                        //WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.LongDatePattern;
                         WorkSheet1.Cells[recordIndex, 3].Value = items.PunchType;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.Latitude;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.Longitude;

@@ -39,6 +39,8 @@ namespace CLN.Application.Models
 
         [DefaultValue("")]
         public string? BranchId { get; set; }
+
+        public int? Filter_TRCStatusId { get; set; }
     }
 
     public class ManageTRC_Request : BaseEntity
@@ -753,6 +755,8 @@ namespace CLN.Application.Models
         public int? TaxPerct { get; set; }
         public decimal? TaxValue { get; set; }
         public decimal? TotalAmount { get; set; }
+        public int? TRCBranchId { get; set; }
+        public string? BranchName { get; set; }
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
     }
