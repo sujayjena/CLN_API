@@ -683,6 +683,8 @@ namespace CLN.Application.Models
 
         public DateTime? QuotationDate { get; set; }
         public string? QuotationNumber { get; set; }
+        public int? TicketId { get; set; }
+        public string? TicketNumber { get; set; }
         public int? TRCId { get; set; }
         public string? TRCNumber { get; set; }
         public int? CustomerId { get; set; }
