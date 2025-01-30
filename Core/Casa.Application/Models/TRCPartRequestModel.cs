@@ -18,6 +18,7 @@ namespace CLN.Application.Models
         //public string? BranchId { get; set; }
         public int? EngineerId { get; set; }
         public int? StatusId { get; set; }
+        public int? SpareDetailsId { get; set; }
     }
 
     public class TRCPartRequestDetails_Search : BaseSearchEntity

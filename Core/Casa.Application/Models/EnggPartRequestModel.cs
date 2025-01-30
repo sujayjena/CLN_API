@@ -14,6 +14,7 @@ namespace CLN.Application.Models
     {
         public int? EngineerId { get; set; }
         public int? StatusId { get; set; }
+        public int? SpareDetailsId { get; set; }
     }
 
     public class EnggPartRequestDetails_Search : BaseSearchEntity

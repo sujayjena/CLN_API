@@ -44,6 +44,7 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
@@ -143,6 +144,7 @@ namespace CLN.Persistence.Repositories
             //queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StatusId", parameters.StatusId);
+            queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);
