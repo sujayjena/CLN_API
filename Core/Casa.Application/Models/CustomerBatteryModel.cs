@@ -153,6 +153,9 @@ namespace CLN.Application.Models
     {
         public string? BatteryId { get; set; }
         public int? CustomerId { get; set; }
+
+        [DefaultValue(false)]
+        public bool? IsReplacedCustomer { get; set; }
     }
 
     public class AssignBatteryHoldOrInactive_Request

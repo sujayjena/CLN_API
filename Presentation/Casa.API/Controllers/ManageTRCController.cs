@@ -1224,6 +1224,8 @@ namespace CLN.API.Controllers
                     vQuotation.TaxPerct = 0;
                     vQuotation.TaxValue = 0;
                     vQuotation.TotalAmount = 0;
+                    vQuotation.BranchId = vResultObj.TRCBranchId;
+                    vQuotation.BranchName = vResultObj.TRCBranchName;
                     vQuotation.StatusId = 0;
 
                     //Part Details
