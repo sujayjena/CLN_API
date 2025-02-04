@@ -182,6 +182,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
@@ -209,6 +211,8 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
@@ -321,6 +325,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@StockType", parameters.StockType);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
@@ -432,6 +438,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
@@ -521,6 +529,8 @@ namespace CLN.Persistence.Repositories
             DynamicParameters queryParameters = new DynamicParameters();
 
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
@@ -548,6 +558,8 @@ namespace CLN.Persistence.Repositories
 
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);

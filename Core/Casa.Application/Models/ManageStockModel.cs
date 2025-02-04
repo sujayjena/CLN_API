@@ -366,6 +366,8 @@ namespace CLN.Application.Models
         public string? SpareCategory { get; set; }
         public int? ProductMakeId { get; set; }
         public string? ProductMake { get; set; }
+        public int? BMSMakeId { get; set; }
+        public string? BMSMake { get; set; }
         public int? SpareDetailsId { get; set; }
         public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }

@@ -50,11 +50,11 @@ namespace CLN.Application.Models
         [DefaultValue("All")]
         public string? FilterType { get; set; }
 
-        [DefaultValue("")]
-        public string? SortBy { get; set; }
+        //[DefaultValue("")]
+        //public string? SortBy { get; set; }
 
-        [DefaultValue("")]
-        public string? OrderBy { get; set; }
+        //[DefaultValue("")]
+        //public string? OrderBy { get; set; }
     }
 
     public class ManageTicketLogHistory_Search : BaseSearchEntity

@@ -15,5 +15,12 @@ namespace CLN.Persistence.Repositories
 
         [DefaultValue(null)]
         public bool? IsActive { get; set; }
+
+        [DefaultValue("")]
+        public string? SortBy { get; set; }
+
+        [DefaultValue("")]
+        public string? OrderBy { get; set; }
+
     }
 }

@@ -48,6 +48,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@FilterType", parameters.FilterType);
 
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
+            queryParameters.Add("@SortBy", parameters.SortBy);
+            queryParameters.Add("@OrderBy", parameters.OrderBy);
             queryParameters.Add("@PageNo", parameters.PageNo);
             queryParameters.Add("@PageSize", parameters.PageSize);
             queryParameters.Add("@Total", parameters.Total, null, System.Data.ParameterDirection.Output);
