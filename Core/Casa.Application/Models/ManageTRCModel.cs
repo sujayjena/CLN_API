@@ -561,11 +561,11 @@ namespace CLN.Application.Models
 
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }
-        public bool? WS_InformedToCustomerByEmailDate { get; set; }
+        public DateTime? WS_InformedToCustomerByEmailDate { get; set; }
         public bool? WS_IsCustomerAcceptance { get; set; }
-        public bool? WS_CustomerAcceptanceDate { get; set; }
+        public DateTime? WS_CustomerAcceptanceDate { get; set; }
         public bool? WS_IsPaymentClearance { get; set; }
-        public bool? WS_PaymentClearanceDate { get; set; }
+        public DateTime? WS_PaymentClearanceDate { get; set; }
         public string? WS_InvoiceOriginalFileName { get; set; }
         public string? WS_InvoiceFileName { get; set; }
         public string? WS_InvoiceURL { get; set; }
@@ -574,7 +574,7 @@ namespace CLN.Application.Models
         public string? WS_NewProductSerialNumber { get; set; }
         public string? WS_SerialNumberDesc { get; set; }
         public bool? WS_IsGeneratedQuotation { get; set; }
-        public bool? WS_GeneratedQuotationDate { get; set; }
+        public DateTime? WS_GeneratedQuotationDate { get; set; }
 
         public int? DA_ProblemObservedByEngId { get; set; }
         public string? DA_ProblemObservedByEng { get; set; }
