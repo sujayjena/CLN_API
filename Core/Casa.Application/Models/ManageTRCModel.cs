@@ -461,6 +461,8 @@ namespace CLN.Application.Models
         public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public bool? PI_IsPDIDone { get; set; }
         public bool? IsFeedback { get; set; }
+        public DateTime? PIDD_DispatchedDate { get; set; }
+        public string? DDB_DocketDetails { get; set; }
 
         public int? TRCStatusId { get; set; }
         public string? TRCStatus { get; set; }
