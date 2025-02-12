@@ -118,7 +118,12 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@PI_FinalVoltageFileName", parameters.PI_FinalVoltageFileName);
             queryParameters.Add("@PI_AmpereHour", parameters.PI_AmpereHour);
             queryParameters.Add("@PI_IsPDIDone", parameters.PI_IsPDIDone);
-          
+            queryParameters.Add("@PI_Temperature", parameters.PI_Temperature);
+            queryParameters.Add("@PI_OverDischargeCurrent", parameters.PI_OverDischargeCurrent);
+            queryParameters.Add("@PI_OverVoltage", parameters.PI_OverVoltage);
+            queryParameters.Add("@PI_UnderVoltage", parameters.PI_UnderVoltage);
+            queryParameters.Add("@PI_OverChargeCurrent", parameters.PI_OverChargeCurrent);
+
             queryParameters.Add("@PIDD_DispatchedDeliveryChallan", parameters.PIDD_DispatchedDeliveryChallan);
             queryParameters.Add("@PIDD_DispatchedDate", parameters.PIDD_DispatchedDate);
             queryParameters.Add("@PIDD_DispatchedCityId", parameters.PIDD_DispatchedCityId);

@@ -422,6 +422,11 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.PI_FinalVoltageURL = vResultObj.PI_FinalVoltageURL;
                     vManageTRCDetail_Response.PI_AmpereHour = vResultObj.PI_AmpereHour;
                     vManageTRCDetail_Response.PI_IsPDIDone = vResultObj.PI_IsPDIDone;
+                    vManageTRCDetail_Response.PI_Temperature = vResultObj.PI_Temperature;
+                    vManageTRCDetail_Response.PI_OverDischargeCurrent = vResultObj.PI_OverDischargeCurrent;
+                    vManageTRCDetail_Response.PI_OverVoltage = vResultObj.PI_OverVoltage;
+                    vManageTRCDetail_Response.PI_UnderVoltage = vResultObj.PI_UnderVoltage;
+                    vManageTRCDetail_Response.PI_OverChargeCurrent = vResultObj.PI_OverChargeCurrent;
 
                     vManageTRCDetail_Response.PIDD_DispatchedDeliveryChallan = vResultObj.PIDD_DispatchedDeliveryChallan;
                     vManageTRCDetail_Response.PIDD_DispatchedDate = vResultObj.PIDD_DispatchedDate;

@@ -1147,6 +1147,11 @@ namespace CLN.Application.Models
         public string? PI_FinalVoltageURL { get; set; }
         public string? PI_AmpereHour { get; set; }
         public bool? PI_IsPDIDone { get; set; }
+        public string? PI_Temperature { get; set; }
+        public string? PI_OverDischargeCurrent { get; set; }
+        public string? PI_OverVoltage { get; set; }
+        public string? PI_UnderVoltage { get; set; }
+        public string? PI_OverChargeCurrent { get; set; }
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }
         public int? PIDD_DispatchedCityId { get; set; }
