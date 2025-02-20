@@ -119,7 +119,8 @@ namespace CLN.API.Controllers
                         SpareDetailsId = item.SpareDetailsId,
                         AvailableQty = item.AvailableQty,
                         RequiredQty = item.RequiredQty,
-                        RequestedQty = item.RequestedQty
+                        RequestedQty = item.RequestedQty,
+                        Remarks = item.Remarks
                     };
 
                     int result_GenerateChallanPartDetails = await _manageStockRepository.SaveGenerateChallanPartDetails(vGenerateChallanPartDetails_Request);

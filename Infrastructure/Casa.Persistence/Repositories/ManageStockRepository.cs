@@ -126,6 +126,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@AvailableQty", parameters.AvailableQty);
             queryParameters.Add("@RequiredQty", parameters.RequiredQty);
             queryParameters.Add("@RequestedQty", parameters.RequestedQty);
+            queryParameters.Add("@Remarks", parameters.Remarks);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
             return await SaveByStoredProcedure<int>("SaveGenerateChallanPartDetails", queryParameters);

@@ -130,6 +130,7 @@ namespace CLN.Application.Models
         public decimal? AvailableQty { get; set; }
         public decimal? RequiredQty { get; set; }
         public decimal? RequestedQty { get; set; }
+        public string? Remarks { get; set; }
     }
 
     public class GenerateChallanPartDetails_Response : BaseResponseEntity
@@ -150,6 +151,7 @@ namespace CLN.Application.Models
         public decimal? AvailableQty { get; set; }
         public decimal? RequiredQty { get; set; }
         public decimal? RequestedQty { get; set; }
+        public string? Remarks { get; set; }
     }
     #endregion
 
