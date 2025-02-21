@@ -1,4 +1,5 @@
-﻿using CLN.Application.Enums;
+﻿using CLN.API.CustomAttributes;
+using CLN.Application.Enums;
 using CLN.Application.Helpers;
 using CLN.Application.Interfaces;
 using CLN.Application.Models;
@@ -1175,6 +1176,37 @@ namespace CLN.API.Controllers
             }
 
             _response.Id = result;
+            return _response;
+        }
+
+        [AllowAnonymous]
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ValidateProductSerialNumber(ValidateProductSerialNumber_Request request)
+        {
+            if (string.IsNullOrEmpty(request.ProductSerialNumber))
+            {
+                _response.Id = -1;
+                _response.IsSuccess = false;
+                _response.Message = "Product Serial Number is required";
+
+                return _response;
+            }
+
+            var objList = await _ManageQCRepository.ValidateProductSerialNumber(request);
+            if (objList.ToList().Count > 0)
+            {
+                _response.Id = 1;
+                _response.IsSuccess = true;
+                _response.Message = "The Product Serial Number is Valid";
+            }
+            else
+            {
+                _response.Id = -1;
+                _response.IsSuccess = false;
+                _response.Message = "The Product Serial Number is Invalid";
+            }
+
             return _response;
         }
 

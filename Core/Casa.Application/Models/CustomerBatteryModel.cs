@@ -164,6 +164,16 @@ namespace CLN.Application.Models
         public int? IsHoldOrInactive { get; set; }
     }
 
+    public class ValidateProductSerialNumber_Request
+    {
+        public string? ProductSerialNumber { get; set; }
+    }
+
+    public class ValidateProductSerialNumber_Response
+    {
+        public string? ProductSerialNumber { get; set; }
+    }
+
     #region Import and Download
 
     public class CustomerBattery_ImportRequest

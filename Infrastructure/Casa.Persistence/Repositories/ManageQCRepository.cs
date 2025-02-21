@@ -281,6 +281,16 @@ namespace CLN.Persistence.Repositories
             return await SaveByStoredProcedure<int>("AssignBatteryHoldOrInactive", queryParameters);
         }
 
+        public async Task<IEnumerable<ValidateProductSerialNumber_Response>> ValidateProductSerialNumber(ValidateProductSerialNumber_Request request)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@ProductSerialNumber", request.ProductSerialNumber);
+
+            var result = await ListByStoredProcedure<ValidateProductSerialNumber_Response>("ValidateProductSerialNumber", queryParameters);
+            return result;
+        }
+
         #endregion
 
         #region Customer Charger
