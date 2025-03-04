@@ -322,6 +322,8 @@ namespace CLN.Application.Models
 
         [DefaultValue(false)]
         public bool? RGP { get; set; }
+
+        public decimal? StockAvailableQty { get; set; }
     }
 
     public class StockAllocatedPartDetails_Response : BaseEntity
@@ -343,6 +345,8 @@ namespace CLN.Application.Models
 
         [DefaultValue(false)]
         public bool? RGP { get; set; }
+
+        public decimal? StockAvailableQty { get; set; }
     }
 
     #endregion

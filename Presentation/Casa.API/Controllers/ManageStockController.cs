@@ -523,7 +523,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                var vResultObj = await _manageStockRepository.GetStockAllocatedById(Id);
+                var vResultObj = await _manageStockRepository.GetStockAllocatedPartDetailsById(Id);
 
                 _response.Data = vResultObj;
             }
