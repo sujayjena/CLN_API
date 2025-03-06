@@ -171,7 +171,8 @@ namespace CLN.API.Controllers
                             AvailableQty = item.AvailableQty,
                             RequiredQty = item.RequiredQty,
                             Remarks = item.Remarks,
-                            RGP = item.RGP
+                            RGP = item.RGP,
+                            StockAvailableQty = item.StockAvailableQty,
                         };
 
                         vEnggPartRequest_Response.PartDetail.Add(vEnggPartRequestDetails_Response);
@@ -600,7 +601,8 @@ namespace CLN.API.Controllers
                             AvailableQty = item.AvailableQty,
                             RequiredQty = item.RequiredQty,
                             Remarks = item.Remarks,
-                            RGP = item.RGP
+                            RGP = item.RGP,
+                            StockAvailableQty = item.StockAvailableQty,
                         };
 
                         vTRCPartRequest_Response.PartDetail.Add(vTRCPartRequestDetails_Response);

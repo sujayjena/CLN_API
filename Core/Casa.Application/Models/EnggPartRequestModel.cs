@@ -125,6 +125,7 @@ namespace CLN.Application.Models
         public string? Remarks { get; set; }
         [DefaultValue(false)]
         public bool? RGP { get; set; }
+        public decimal? StockAvailableQty { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
