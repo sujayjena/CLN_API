@@ -253,6 +253,7 @@ namespace CLN.API.Controllers
                 EngineerId = 0,
                 SearchText = string.Empty,
                 StatusId = 0,
+                SpareDetailsId=0
             };
 
             var objList = await _partRequestOrderRepository.GetEnggPartRequestList(parameters);
@@ -844,6 +845,7 @@ namespace CLN.API.Controllers
                 EngineerId = 0,
                 SearchText = string.Empty,
                 StatusId = 0,
+                SpareDetailsId = 0,
             };
 
             var objList = await _partRequestOrderRepository.GetTRCPartRequestList(parameters);

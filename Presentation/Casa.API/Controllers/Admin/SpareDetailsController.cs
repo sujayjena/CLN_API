@@ -263,6 +263,10 @@ namespace CLN.API.Controllers.Admin
 
             var request = new SpareDetails_Search();
             request.SpareCategoryId = 0;
+            request.BMSMakeId = 0;
+            request.ProductMakeId = 0;
+            request.IsRGP = null;
+
             IEnumerable<SpareDetails_Response> lstObj = await _spareDetailsRepository.GetSpareDetailsList(request);
 
             using (MemoryStream msExportDataFile = new MemoryStream())
