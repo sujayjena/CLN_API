@@ -997,13 +997,17 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 7].Value = "Contact Name";
                     WorkSheet1.Cells[1, 8].Value = "Mobile #";
                     WorkSheet1.Cells[1, 9].Value = "State";
-                    WorkSheet1.Cells[1, 10].Value = "City";;
+                    WorkSheet1.Cells[1, 10].Value = "City";
+                    WorkSheet1.Cells[1, 11].Value = "Dispatched Date";
+                    WorkSheet1.Cells[1, 12].Value = "Docket #";
+                    WorkSheet1.Cells[1, 13].Value = "TRC Status";
+                    WorkSheet1.Cells[1, 14].Value = "TRC Engg. Name";
 
-                    WorkSheet1.Cells[1, 11].Value = "Created By";
-                    WorkSheet1.Cells[1, 12].Value = "Created Date";
-                    WorkSheet1.Cells[1, 13].Value = "Modified By";
-                    WorkSheet1.Cells[1, 14].Value = "Modified Date";
-                    WorkSheet1.Cells[1, 15].Value = "Status";
+                    WorkSheet1.Cells[1, 15].Value = "Created By";
+                    WorkSheet1.Cells[1, 16].Value = "Created Date";
+                    WorkSheet1.Cells[1, 17].Value = "Modified By";
+                    WorkSheet1.Cells[1, 18].Value = "Modified Date";
+                    WorkSheet1.Cells[1, 19].Value = "Status";
 
                     recordIndex = 2;
 
@@ -1021,15 +1025,20 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 8].Value = items.CD_SitContactMobile;
                         WorkSheet1.Cells[recordIndex, 9].Value = items.StateName;
                         WorkSheet1.Cells[recordIndex, 10].Value = items.CityName;
+                        WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.PIDD_DispatchedDate;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.DDB_DocketDetails;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.TRCStatus;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.ATE_AssignedToEngineer;
                        
-                        WorkSheet1.Cells[recordIndex, 11].Value = items.CreatorName;
-                        WorkSheet1.Cells[recordIndex, 12].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 12].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 16].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.CreatedDate;
 
-                        WorkSheet1.Cells[recordIndex, 13].Value = items.ModifierName;
-                        WorkSheet1.Cells[recordIndex, 14].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 14].Value = items.ModifiedDate;
-                        WorkSheet1.Cells[recordIndex, 15].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.ModifierName;
+                        WorkSheet1.Cells[recordIndex, 18].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.ModifiedDate;
+                        WorkSheet1.Cells[recordIndex, 19].Value = items.IsActive == true ? "Active" : "Inactive";
 
                         recordIndex += 1;
                     }

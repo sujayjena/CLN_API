@@ -40,6 +40,7 @@ namespace CLN.Application.Models
     {
         public int? CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public string? CustomerCode { get; set; }
         public int? PartCodeId { get; set; }
         public string PartCode { get; set; }
         public string AccessoryBOMNumber { get; set; }

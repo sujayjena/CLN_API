@@ -240,7 +240,7 @@ namespace CLN.API.Controllers.Admin
             {
                 using (ExcelPackage excelExportData = new ExcelPackage())
                 {
-                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("QCProductSerialNumber");
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("HolidayList");
                     WorkSheet1.TabColor = System.Drawing.Color.Black;
                     WorkSheet1.DefaultRowHeight = 12;
 
