@@ -1080,8 +1080,11 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 22].Value = "Warranty Type";
                     WorkSheet1.Cells[1, 23].Value = "Warranty Status";
                     WorkSheet1.Cells[1, 24].Value = "Status";
-                    WorkSheet1.Cells[1, 25].Value = "Created By";
-                    WorkSheet1.Cells[1, 26].Value = "Created Date";
+                    WorkSheet1.Cells[1, 25].Value = "Customer Replaced Date";
+                    WorkSheet1.Cells[1, 26].Value = "Modified By";
+                    WorkSheet1.Cells[1, 27].Value = "Modified Date";
+                    WorkSheet1.Cells[1, 28].Value = "Created By";
+                    WorkSheet1.Cells[1, 29].Value = "Created Date";
 
                     recordIndex = 2;
 
@@ -1114,9 +1117,14 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 22].Value = items.WarrantyType;
                         WorkSheet1.Cells[recordIndex, 23].Value = items.WarrantyStatus;
                         WorkSheet1.Cells[recordIndex, 24].Value = items.IsActive == true ? "Active" : "Inactive";
-                        WorkSheet1.Cells[recordIndex, 25].Value = items.CreatorName;
-                        WorkSheet1.Cells[recordIndex, 26].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 26].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 25].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 25].Value = items.ModifiedDate;
+                        WorkSheet1.Cells[recordIndex, 26].Value = items.ModifierName;
+                        WorkSheet1.Cells[recordIndex, 27].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 27].Value = items.ModifiedDate;
+                        WorkSheet1.Cells[recordIndex, 28].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 29].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 29].Value = items.CreatedDate;
 
                         recordIndex += 1;
                     }

@@ -9,6 +9,7 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System.Data;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace CLN.API.Controllers
 {
@@ -617,6 +618,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 9].Value = "Customer Remark";
                     WorkSheet1.Cells[1, 10].Value = "Ref Party";
                     WorkSheet1.Cells[1, 11].Value = "IsActive";
+                    WorkSheet1.Cells[1, 12].Value = "Created By";
+                    WorkSheet1.Cells[1, 13].Value = "Created Date";
 
                     recordIndex = 2;
                     foreach (var items in lstCustomerListObj)
@@ -632,6 +635,9 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 9].Value = items.CustomerRemark;
                         WorkSheet1.Cells[recordIndex, 10].Value = items.RefParty;
                         WorkSheet1.Cells[recordIndex, 11].Value = items.IsActive == true ? "Active" : "Inactive";
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.CreatedDate;
 
                         recordIndex += 1;
                     }
@@ -654,6 +660,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 3].Value = "Mobile Number";
                     WorkSheet1.Cells[1, 4].Value = "Email";
                     WorkSheet1.Cells[1, 5].Value = "IsActive";
+                    WorkSheet1.Cells[1, 6].Value = "Created By";
+                    WorkSheet1.Cells[1, 7].Value = "Created Date";
 
                     recordIndex = 2;
                     foreach (var items in lstCustomerListObj.ToList().Distinct())
@@ -676,7 +684,10 @@ namespace CLN.API.Controllers
                             WorkSheet1.Cells[recordIndex, 2].Value = itemContact.ContactName;
                             WorkSheet1.Cells[recordIndex, 3].Value = itemContact.MobileNumber;
                             WorkSheet1.Cells[recordIndex, 4].Value = itemContact.EmailId;
-                            WorkSheet1.Cells[recordIndex, 11].Value = itemContact.IsActive == true ? "Active" : "Inactive";
+                            WorkSheet1.Cells[recordIndex, 5].Value = itemContact.IsActive == true ? "Active" : "Inactive";
+                            WorkSheet1.Cells[recordIndex, 6].Value = items.CreatorName;
+                            WorkSheet1.Cells[recordIndex, 7].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                            WorkSheet1.Cells[recordIndex, 7].Value = items.CreatedDate;
 
                             recordIndex += 1;
                         }
@@ -702,6 +713,8 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 6].Value = "CityName";
                     WorkSheet1.Cells[1, 7].Value = "PinCode";
                     WorkSheet1.Cells[1, 8].Value = "IsActive";
+                    WorkSheet1.Cells[1, 9].Value = "Created By";
+                    WorkSheet1.Cells[1, 10].Value = "Created Date";
 
                     recordIndex = 2;
                     foreach (var items in lstCustomerListObj)
@@ -723,12 +736,14 @@ namespace CLN.API.Controllers
                             WorkSheet1.Cells[recordIndex, 6].Value = itemAddress.CityName;
                             WorkSheet1.Cells[recordIndex, 7].Value = itemAddress.PinCode;
                             WorkSheet1.Cells[recordIndex, 8].Value = items.IsActive == true ? "Active" : "Inactive";
+                            WorkSheet1.Cells[recordIndex, 9].Value = items.CreatorName;
+                            WorkSheet1.Cells[recordIndex, 10].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                            WorkSheet1.Cells[recordIndex, 10].Value = items.CreatedDate;
 
                             recordIndex += 1;
                         }
                     }
                     WorkSheet1.Columns.AutoFit();
-
 
                     excelExportData.SaveAs(msExportDataFile);
                     msExportDataFile.Position = 0;
