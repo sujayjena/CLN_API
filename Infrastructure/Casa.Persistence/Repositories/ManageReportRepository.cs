@@ -28,6 +28,11 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@TicketType", parameters.TicketType);
             queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@CustomerId", parameters.CustomerId);
+            queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
+            queryParameters.Add("@SegmentId", parameters.SegmentId);
+            queryParameters.Add("@SubSegmentId", parameters.SubSegmentId);
+            queryParameters.Add("@ProductModelId", parameters.ProductModelId);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);

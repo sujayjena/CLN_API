@@ -49,7 +49,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;

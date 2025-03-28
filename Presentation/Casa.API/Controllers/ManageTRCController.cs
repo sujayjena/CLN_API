@@ -227,7 +227,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             // Add/Update Ticket Part Details
@@ -1295,7 +1295,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             // Add/Update Part Details
@@ -1401,7 +1401,7 @@ namespace CLN.API.Controllers
                 }
                 else
                 {
-                    _response.Message = "Record details saved sucessfully";
+                    _response.Message = "Record details saved successfully";
                 }
             }
 
@@ -1512,7 +1512,7 @@ namespace CLN.API.Controllers
                 }
                 else
                 {
-                    _response.Message = "Record details saved sucessfully";
+                    _response.Message = "Record details saved successfully";
                 }
 
                 // Add/Update Part Details

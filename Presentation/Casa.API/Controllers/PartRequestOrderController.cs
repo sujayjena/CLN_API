@@ -58,7 +58,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record saved sucessfully";
+                _response.Message = "Record saved successfully";
             }
 
             if (result > 0)
@@ -205,7 +205,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record saved sucessfully";
+                _response.Message = "Record saved successfully";
             }
 
             _response.Id = result;
@@ -495,7 +495,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record saved sucessfully";
+                _response.Message = "Record saved successfully";
             }
 
             if (result > 0)
@@ -636,7 +636,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record saved sucessfully";
+                _response.Message = "Record saved successfully";
             }
 
             _response.Id = result;

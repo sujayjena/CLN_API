@@ -22,6 +22,11 @@ namespace CLN.Application.Models
 
         [DefaultValue("")]
         public string? BranchId { get; set; }
+        public int? CustomerId { get; set; }
+        public int? ProductCategoryId { get; set; }
+        public int? SegmentId { get; set; }
+        public int? SubSegmentId { get; set; }
+        public int? ProductModelId { get; set; }
     }
 
     public class Ticket_TRC_Report_Response : BaseEntity
@@ -43,6 +48,7 @@ namespace CLN.Application.Models
         public string? SubSegment { get; set; }
         public string? ProductModel { get; set; }
         public string? TypeOfBMS { get; set; }
+        public bool? IsOldProduct { get; set; }
         public string? ProductSerialNumber { get; set; }
         public DateTime? DateofManufacturing { get; set; }
         public string? WarrantyStatus { get; set; }

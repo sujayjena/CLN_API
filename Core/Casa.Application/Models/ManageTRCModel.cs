@@ -472,6 +472,8 @@ namespace CLN.Application.Models
 
         public int? TRCStatusId { get; set; }
         public string? TRCStatus { get; set; }
+        public DateTime? TRC_AssignedDate { get; set; }
+
         public bool? IsActive { get; set; }
     }
 

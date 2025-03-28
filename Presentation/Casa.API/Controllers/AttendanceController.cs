@@ -48,7 +48,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -121,7 +121,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 5].Value = "Longitude";
                     WorkSheet1.Cells[1, 6].Value = "Battery Status";
                     WorkSheet1.Cells[1, 7].Value = "Address";
-                    WorkSheet1.Cells[1, 8].Value = "Remark";
+                    //WorkSheet1.Cells[1, 8].Value = "Remark";
 
                     recordIndex = 2;
 
@@ -135,7 +135,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 5].Value = items.Longitude;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.BatteryStatus;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.Address;
-                        WorkSheet1.Cells[recordIndex, 8].Value = items.Remark;
+                        //WorkSheet1.Cells[recordIndex, 8].Value = items.Remark;
 
                         recordIndex += 1;
                     }

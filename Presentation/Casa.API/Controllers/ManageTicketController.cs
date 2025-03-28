@@ -361,7 +361,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             // Add/Update Ticket Details
@@ -1166,7 +1166,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record created sucessfully";
+                _response.Message = "Record created successfully";
             }
 
             // Add/Update Ticket Details
@@ -1761,7 +1761,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record deleted sucessfully";
+                _response.Message = "Record deleted successfully";
             }
 
             _response.Id = result;
@@ -1789,7 +1789,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -2164,7 +2164,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -2807,7 +2807,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             // Add/Update 
@@ -3095,7 +3095,7 @@ namespace CLN.API.Controllers
 
         //                int resultManageEnquiry = await _manageEnquiryRepository.SaveManageEnquiry(vManageEnquiry_Request);
 
-        //                _response.Message = "Record details saved sucessfully";
+        //                _response.Message = "Record details saved successfully";
         //            }
 
         //            _response.Id = result;

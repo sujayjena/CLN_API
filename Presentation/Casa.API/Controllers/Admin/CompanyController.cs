@@ -66,7 +66,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -143,7 +143,7 @@ namespace CLN.API.Controllers.Admin
                     var vEmailCustomer = await SendAMCEmailToCustomer(companyItem, vCompanyAMCRminderEmail_RequestObj);
                     var vEmailServiceProvider = await SendAMCEmailToServiceProvider(companyItem, vCompanyAMCRminderEmail_RequestObj);
 
-                    _response.Message = "AMC reminder sent sucessfully";
+                    _response.Message = "AMC reminder sent successfully";
                 }
                 else
                 {

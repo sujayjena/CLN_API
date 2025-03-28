@@ -50,7 +50,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -112,7 +112,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -241,7 +241,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -369,7 +369,7 @@ namespace CLN.API.Controllers.Admin
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;

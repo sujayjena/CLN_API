@@ -102,7 +102,7 @@ namespace CLN.API.Controllers
                     int resultAddressDetail = await _addressRepository.SaveAddress(parameters.AddressDetail);
                 }
 
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -730,7 +730,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -790,7 +790,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -869,7 +869,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -926,7 +926,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;

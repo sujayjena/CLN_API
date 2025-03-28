@@ -77,7 +77,7 @@ namespace CLN.API.Controllers
             else
             {
                 iCustomerId = result;
-                _response.Message = "Record saved sucessfully";
+                _response.Message = "Record saved successfully";
             }
 
             if (iCustomerId > 0)
@@ -442,7 +442,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -789,7 +789,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -1167,7 +1167,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -1194,7 +1194,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -1263,7 +1263,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -1343,7 +1343,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details saved sucessfully";
+                _response.Message = "Record details saved successfully";
             }
 
             _response.Id = result;
@@ -1392,7 +1392,7 @@ namespace CLN.API.Controllers
             }
             else
             {
-                _response.Message = "Record details deleted sucessfully";
+                _response.Message = "Record details deleted successfully";
             }
             return _response;
         }

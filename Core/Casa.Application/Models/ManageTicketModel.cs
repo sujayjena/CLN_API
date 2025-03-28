@@ -616,6 +616,7 @@ namespace CLN.Application.Models
         public bool? IsClosedWithoutOTP { get; set; }
         public bool? IsReopen { get; set; }
         public bool? IsFeedback { get; set; }
+        public DateTime? Ticket_AssignedDate { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -1164,6 +1165,8 @@ namespace CLN.Application.Models
         public string? TRCBranchName { get; set; }
         public int? TRCStatusId { get; set; }
         public string? TRCSStatus { get; set; }
+        public DateTime? Ticket_AssignedDate { get; set; }
+        public DateTime? TRC_AssignedDate { get; set; }
 
         public bool? IsActive { get; set; }
 
