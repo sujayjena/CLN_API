@@ -394,6 +394,7 @@ namespace CLN.Application.Models
 
         public int? TRCBranchId { get; set; }
         public int? TRCStatusId { get; set; }
+        public string? TRC_Remarks { get; set; }
 
         public bool? IsActive { get; set; }
 
@@ -643,6 +644,7 @@ namespace CLN.Application.Models
 
         public int? InvoiceId { get; set; }
         public string? InvoiceNumber { get; set; }
+        public string? TRC_Remarks { get; set; }
 
         public bool? IsActive { get; set; }
 

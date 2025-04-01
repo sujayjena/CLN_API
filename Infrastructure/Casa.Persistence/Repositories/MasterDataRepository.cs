@@ -48,5 +48,12 @@ namespace CLN.Persistence.Repositories
             return await ListByStoredProcedure<SelectListResponse>("GetTicketListForSelectList", queryParameters);
         }
 
+        public async Task<IEnumerable<SelectListResponse>> GetPartRequestEnggListForSelectList(PartRequestEnggListForSelect_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+            queryParameters.Add("@RequestType", parameters.RequestType);
+
+            return await ListByStoredProcedure<SelectListResponse>("GetPartRequestEnggListForSelectList", queryParameters);
+        }
     }
 }

@@ -82,7 +82,7 @@ namespace CLN.Application.Interfaces
 
         Task<int> SaveStockMaster(StockMaster_Request parameters);
         Task<StockMaster_Response?> GetStockMasterBySpareDetailsId(int SpareDetailsId);
-        Task<IEnumerable<StockMaster_Response>> GetStockMasterList(BaseSearchEntity parameters);
+        Task<IEnumerable<StockMaster_Response>> GetStockMasterList(StockMaster_Search parameters);
 
         #endregion
 

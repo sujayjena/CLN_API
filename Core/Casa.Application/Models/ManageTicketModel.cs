@@ -1167,6 +1167,7 @@ namespace CLN.Application.Models
         public string? TRCSStatus { get; set; }
         public DateTime? Ticket_AssignedDate { get; set; }
         public DateTime? TRC_AssignedDate { get; set; }
+        public string? TRC_Remarks { get; set; }
 
         public bool? IsActive { get; set; }
 

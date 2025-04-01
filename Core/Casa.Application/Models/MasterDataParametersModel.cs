@@ -44,4 +44,10 @@ namespace CLN.Application.Models
         [DefaultValue("All")]
         public string? FilterType { get; set; }
     }
+
+    public partial class PartRequestEnggListForSelect_Search
+    {
+        [DefaultValue("Engg")]
+        public string? RequestType { get; set; }
+    }
 }

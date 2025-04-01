@@ -34,11 +34,13 @@ namespace CLN.Application.Models
         public string? TicketType { get; set; }
         public string? TRCLocation { get; set; }
         public DateTime? TicketDate { get; set; }
+        public string? TicketCreatedBy { get; set; }
         public string? TicketNumber { get; set; }
         public DateTime? TRCDate { get; set; }
         public string? TRCNumber { get; set; }
         public string? CustomerName { get; set; }
         public string? CallerName { get; set; }
+        public string? CallerMobileNo { get; set; }
         public string? CallerRegionName { get; set; }
         public string? CallerStateName { get; set; }
         public string? CallerDistrictName { get; set; }
@@ -58,6 +60,7 @@ namespace CLN.Application.Models
         public string? TicketStatus { get; set; }
         public DateTime? ResolvedDate { get; set; }
         public DateTime? CSATDate { get; set; }
+        public string? CSATStatus { get; set; }
         public DateTime? ClosureDate { get; set; }
     }
 

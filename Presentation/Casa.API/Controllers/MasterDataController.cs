@@ -46,5 +46,14 @@ namespace CLN.API.Controllers
             _response.Data = lstResponse.ToList();
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetPartRequestEnggListForSelectList(PartRequestEnggListForSelect_Search parameters)
+        {
+            IEnumerable<SelectListResponse> lstResponse = await _masterDataRepository.GetPartRequestEnggListForSelectList(parameters);
+            _response.Data = lstResponse.ToList();
+            return _response;
+        }
     }
 }

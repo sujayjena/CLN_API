@@ -796,7 +796,7 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> GetStockMasterList(BaseSearchEntity parameters)
+        public async Task<ResponseModel> GetStockMasterList(StockMaster_Search parameters)
         {
             var objList = await _manageStockRepository.GetStockMasterList(parameters);
             _response.Data = objList.ToList();

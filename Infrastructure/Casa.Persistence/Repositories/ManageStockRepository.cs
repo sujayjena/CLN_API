@@ -528,10 +528,11 @@ namespace CLN.Persistence.Repositories
             return (await ListByStoredProcedure<StockMaster_Response>("GetStockMasterBySpareDetailsId", queryParameters)).FirstOrDefault();
         }
 
-        public async Task<IEnumerable<StockMaster_Response>> GetStockMasterList(BaseSearchEntity parameters)
+        public async Task<IEnumerable<StockMaster_Response>> GetStockMasterList(StockMaster_Search parameters)
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@IsRGP", parameters.IsRGP);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@SortBy", parameters.SortBy);
             queryParameters.Add("@OrderBy", parameters.OrderBy);

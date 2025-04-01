@@ -366,6 +366,12 @@ namespace CLN.Application.Models
         public string? StockType { get; set; }
     }
 
+    public class StockMaster_Search : BaseSearchEntity
+    {
+        [DefaultValue(null)]
+        public bool? IsRGP { get; set; }
+    }
+
     public class StockMaster_Response : BaseResponseEntity
     {
         public int? SpareCategoryId { get; set; }

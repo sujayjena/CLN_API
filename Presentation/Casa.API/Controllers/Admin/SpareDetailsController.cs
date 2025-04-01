@@ -311,7 +311,7 @@ namespace CLN.API.Controllers.Admin
                         WorkSheet1.Cells[recordIndex, 7].Value = items.AvailableQty;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.TentativeCost;
                         WorkSheet1.Cells[recordIndex, 9].Value = items.IsActive == true ? "Active" : "Inactive";
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.RGP == true ? "OK" : "NOT OK";
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.RGP == true ? "RGP" : "NRGP";
 
                         WorkSheet1.Cells[recordIndex, 11].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                         WorkSheet1.Cells[recordIndex, 11].Value = items.CreatedDate;

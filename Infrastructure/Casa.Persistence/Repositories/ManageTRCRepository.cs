@@ -137,6 +137,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@TRCBranchId", parameters.TRCBranchId);
 
             queryParameters.Add("@TRCStatusId", parameters.TRCStatusId);
+            queryParameters.Add("@TRC_Remarks", parameters.TRC_Remarks);
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 
