@@ -450,6 +450,7 @@ namespace CLN.API.Controllers
 
                     vManageTRCDetail_Response.InvoiceId = vResultObj.InvoiceId;
                     vManageTRCDetail_Response.InvoiceNumber = vResultObj.InvoiceNumber;
+                    vManageTRCDetail_Response.TRC_Remarks = vResultObj.TRC_Remarks;
 
                     vManageTRCDetail_Response.IsActive = vResultObj.IsActive;
 

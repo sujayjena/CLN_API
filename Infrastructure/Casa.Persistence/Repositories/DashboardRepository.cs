@@ -102,5 +102,21 @@ namespace CLN.Persistence.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TRCStatusSummary(Dashboard_TRCStatusSummary_Search parameters)
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            queryParameters.Add("@BranchId", parameters.BranchId);
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
+            queryParameters.Add("@EmployeeId", parameters.EmployeeId);
+            queryParameters.Add("@FilterType", parameters.FilterType);
+            queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
+
+            var result = await ListByStoredProcedure<Dashboard_TicetStatusSummary_Result>("GetDashboard_TRCStatusSummary", queryParameters);
+
+            return result;
+        }
     }
 }

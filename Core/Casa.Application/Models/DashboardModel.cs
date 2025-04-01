@@ -103,4 +103,19 @@ namespace CLN.Application.Models
         public int? OpenTRC { get; set; }
         public int? ClosedTRC { get; set; }
     }
+
+    public class Dashboard_TRCStatusSummary_Search
+    {
+        [DefaultValue("")]
+        public string BranchId { get; set; }
+
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+
+        [DefaultValue(0)]
+        public int EmployeeId { get; set; }
+
+        [DefaultValue("All")]
+        public string FilterType { get; set; }
+    }
 }

@@ -18,5 +18,7 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<Dashboard_SurveyNPSSummary_Response>> GetDashboard_SurveyNPSSummary(DashboardNPS_Search_Request parameters);
 
         Task<IEnumerable<Dashboard_TicketTRCSummary_Response>> GetDashboard_TicketTRCSummary(Dashboard_Search_Request parameters);
+
+        Task<IEnumerable<Dashboard_TicetStatusSummary_Result>> GetDashboard_TRCStatusSummary(Dashboard_TRCStatusSummary_Search parameters);
     }
 }

@@ -82,5 +82,14 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetDashboard_TRCStatusSummary(Dashboard_TRCStatusSummary_Search parameters)
+        {
+            var objList = await _dashboardRepository.GetDashboard_TRCStatusSummary(parameters);
+            _response.Data = objList.ToList();
+            return _response;
+        }
+
     }
 }
