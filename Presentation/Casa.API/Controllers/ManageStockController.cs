@@ -29,9 +29,28 @@ namespace CLN.API.Controllers
         #region Generate Part Request
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> SaveGeneratePartRequest(GeneratePartRequest_Request parameters)
+        public async Task<ResponseModel> SaveGeneratePartRequest(GeneratePartRequest parameters)
         {
-            int result = await _manageStockRepository.SaveGeneratePartRequest(parameters);
+            int result = 0;
+            foreach(var item in parameters.generatePartList)
+            {
+                var vGeneratePartRequest_Request = new GeneratePartRequest_Request()
+                {
+                    Id = item.Id,
+                    SpareCategoryId = item.SpareCategoryId,
+                    ProductMakeId = item.ProductMakeId,
+                    BMSMakeId = item.BMSMakeId,
+                    SpareDetailsId = item.SpareDetailsId,
+                    UOMId = item.UOMId,
+                    TypeOfBMSId = item.TypeOfBMSId,
+                    AvailableQty = item.AvailableQty,
+                    RequiredQty = item.RequiredQty,
+                    RequestedQty = item.RequestedQty,
+                    Remarks = item.Remarks,
+                };
+
+                result = await _manageStockRepository.SaveGeneratePartRequest(vGeneratePartRequest_Request);
+            }
 
             if (result == (int)SaveOperationEnums.NoRecordExists)
             {

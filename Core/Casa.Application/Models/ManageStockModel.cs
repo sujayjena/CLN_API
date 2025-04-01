@@ -15,6 +15,16 @@ namespace CLN.Application.Models
     }
 
     #region Generate Part Request
+    public class GeneratePartRequest
+    {
+        public GeneratePartRequest()
+        {
+            generatePartList = new List<GeneratePartRequest_Request>();
+        }
+
+        public List<GeneratePartRequest_Request> generatePartList { get; set; }
+    }
+
     public class GeneratePartRequest_Request : BaseEntity
     {
         public int? SpareCategoryId { get; set; }
@@ -29,8 +39,6 @@ namespace CLN.Application.Models
 
         [DefaultValue("")]
         public string? Remarks { get; set; }
-        //public int? CompanyId { get; set; }
-        //public int? BranchId { get; set; }
     }
     public class GeneratePartRequestSearch_Request : BaseSearchEntity
     {
