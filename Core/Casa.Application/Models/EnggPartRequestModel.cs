@@ -15,6 +15,12 @@ namespace CLN.Application.Models
         public int? EngineerId { get; set; }
         public int? StatusId { get; set; }
         public int? SpareDetailsId { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
     }
 
     public class EnggPartRequestDetails_Search : BaseSearchEntity

@@ -115,6 +115,9 @@ namespace CLN.Application.Models
         [DefaultValue(0)]
         public int EmployeeId { get; set; }
 
+        [DefaultValue(null)]
+        public bool? IsPDIDone { get; set; }
+
         [DefaultValue("All")]
         public string FilterType { get; set; }
     }

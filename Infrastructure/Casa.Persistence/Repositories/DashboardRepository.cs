@@ -111,6 +111,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@FromDate", parameters.FromDate);
             queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@EmployeeId", parameters.EmployeeId);
+            queryParameters.Add("@IsPDIDone", parameters.IsPDIDone);
             queryParameters.Add("@FilterType", parameters.FilterType);
             queryParameters.Add("@UserId", SessionManager.LoggedInUserId);
 

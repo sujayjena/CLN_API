@@ -292,7 +292,7 @@ namespace CLN.API.Controllers.Admin
                     WorkSheet1.Cells[1, 8].Value = "Tentative Cost";
                    
                     WorkSheet1.Cells[1, 9].Value = "Status";
-                    WorkSheet1.Cells[1, 10].Value = "RGP";
+                    WorkSheet1.Cells[1, 10].Value = "RGP/NRGP";
 
                     WorkSheet1.Cells[1, 11].Value = "CreatedDate";
                     WorkSheet1.Cells[1, 12].Value = "CreatedBy";

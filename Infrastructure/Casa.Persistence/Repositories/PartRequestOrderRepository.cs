@@ -45,6 +45,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@SortBy", parameters.SortBy);
@@ -149,6 +151,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@StatusId", parameters.StatusId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@SortBy", parameters.SortBy);
