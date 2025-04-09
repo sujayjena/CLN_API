@@ -377,6 +377,12 @@ namespace CLN.Application.Models
     public class StockMaster_Search : BaseSearchEntity
     {
         [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
+
+        [DefaultValue(null)]
         public bool? IsRGP { get; set; }
     }
 

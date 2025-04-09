@@ -532,6 +532,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@IsRGP", parameters.IsRGP);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@SortBy", parameters.SortBy);
