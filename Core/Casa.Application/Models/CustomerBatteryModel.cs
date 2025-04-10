@@ -166,6 +166,8 @@ namespace CLN.Application.Models
 
     public class ValidateProductSerialNumber_Request
     {
+        public string? UserName { get; set; }
+        public string? Passwords { get; set; }
         public string? ProductSerialNumber { get; set; }
     }
 

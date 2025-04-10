@@ -1206,27 +1206,51 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> ValidateProductSerialNumber(ValidateProductSerialNumber_Request request)
         {
+            if (string.IsNullOrEmpty(request.UserName))
+            {
+                _response.Id = 0;
+                _response.IsSuccess = false;
+                _response.Message = "UserName is required";
+
+                return _response;
+            }
+
+            if (string.IsNullOrEmpty(request.Passwords))
+            {
+                _response.Id = 0;
+                _response.IsSuccess = false;
+                _response.Message = "Password is required";
+
+                return _response;
+            }
+
             if (string.IsNullOrEmpty(request.ProductSerialNumber))
             {
-                _response.Id = -1;
+                _response.Id = 0;
                 _response.IsSuccess = false;
                 _response.Message = "Product Serial Number is required";
 
                 return _response;
             }
 
-            var objList = await _ManageQCRepository.ValidateProductSerialNumber(request);
-            if (objList.ToList().Count > 0)
+            var vResult = await _ManageQCRepository.ValidateProductSerialNumber(request);
+            if (vResult == -1)
+            {
+                _response.Id = -1;
+                _response.IsSuccess = false;
+                _response.Message = "UserName or Password is invalid";
+            }
+            else if (vResult == -2)
+            {
+                _response.Id = -2;
+                _response.IsSuccess = false;
+                _response.Message = "The Product Serial Number is Invalid";
+            }
+            else
             {
                 _response.Id = 1;
                 _response.IsSuccess = true;
                 _response.Message = "The Product Serial Number is Valid";
-            }
-            else
-            {
-                _response.Id = -1;
-                _response.IsSuccess = false;
-                _response.Message = "The Product Serial Number is Invalid";
             }
 
             return _response;

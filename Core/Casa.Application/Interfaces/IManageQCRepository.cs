@@ -58,7 +58,7 @@ namespace CLN.Application.Interfaces
 
         Task<int> AssignBatteryHoldOrInactive(AssignBatteryHoldOrInactive_Request parameters);
 
-        Task<IEnumerable<ValidateProductSerialNumber_Response>> ValidateProductSerialNumber(ValidateProductSerialNumber_Request parameters);
+        Task<int> ValidateProductSerialNumber(ValidateProductSerialNumber_Request parameters);
 
         #endregion
 
