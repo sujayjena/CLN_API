@@ -81,13 +81,17 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 21].Value = "Manufacturing Date";
                     WorkSheet1.Cells[1, 22].Value = "Warranty Status";
                     WorkSheet1.Cells[1, 23].Value = "Problem Reported By Customer";
-                    WorkSheet1.Cells[1, 24].Value = "Problem Observed By Service Engineer";
-                    WorkSheet1.Cells[1, 25].Value = "Rectification Action";
-                    WorkSheet1.Cells[1, 26].Value = "Status";
-                    WorkSheet1.Cells[1, 27].Value = "Resolved Date";
-                    WorkSheet1.Cells[1, 28].Value = "CSAT Date";
-                    WorkSheet1.Cells[1, 29].Value = "CSAT Status";
-                    WorkSheet1.Cells[1, 30].Value = "Closure Date";
+                    WorkSheet1.Cells[1, 24].Value = "Problem Observed By Engineer";
+                    WorkSheet1.Cells[1, 25].Value = "Problem Observed By Service Engineer";
+                    WorkSheet1.Cells[1, 26].Value = "Problem Observed By TRC Engineer";
+                    WorkSheet1.Cells[1, 27].Value = "Rectification Action";
+                    WorkSheet1.Cells[1, 28].Value = "Status";
+                    WorkSheet1.Cells[1, 29].Value = "Resolved Date";
+                    WorkSheet1.Cells[1, 30].Value = "CSAT Date";
+                    WorkSheet1.Cells[1, 31].Value = "CSAT Status";
+                    WorkSheet1.Cells[1, 32].Value = "CSAT Average";
+                    WorkSheet1.Cells[1, 33].Value = "Closure Date";
+                    WorkSheet1.Cells[1, 34].Value = "Ticket Aging";
 
                     recordIndex = 2;
 
@@ -120,15 +124,19 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 22].Value = items.WarrantyStatus;
                         WorkSheet1.Cells[recordIndex, 23].Value = items.ProbReportedByCust;
                         WorkSheet1.Cells[recordIndex, 24].Value = items.ProblemObservedByEng;
-                        WorkSheet1.Cells[recordIndex, 25].Value = items.RectificationAction;
-                        WorkSheet1.Cells[recordIndex, 26].Value = items.TicketStatus;
-                        WorkSheet1.Cells[recordIndex, 27].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 27].Value = items.ResolvedDate;
-                        WorkSheet1.Cells[recordIndex, 28].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 28].Value = items.CSATDate;
-                        WorkSheet1.Cells[recordIndex, 29].Value = items.CSATStatus;
+                        WorkSheet1.Cells[recordIndex, 25].Value = items.ProblemObservedByServiceEng;
+                        WorkSheet1.Cells[recordIndex, 26].Value = items.ProblemObservedByTRCEng;
+                        WorkSheet1.Cells[recordIndex, 27].Value = items.RectificationAction;
+                        WorkSheet1.Cells[recordIndex, 28].Value = items.TicketStatus;
+                        WorkSheet1.Cells[recordIndex, 29].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 29].Value = items.ResolvedDate;
                         WorkSheet1.Cells[recordIndex, 30].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 30].Value = items.ClosureDate;
+                        WorkSheet1.Cells[recordIndex, 30].Value = items.CSATDate;
+                        WorkSheet1.Cells[recordIndex, 31].Value = items.CSATStatus;
+                        WorkSheet1.Cells[recordIndex, 32].Value = items.CSATAverage;
+                        WorkSheet1.Cells[recordIndex, 33].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 33].Value = items.ClosureDate;
+                        WorkSheet1.Cells[recordIndex, 34].Value = items.TicketAging;
 
                         recordIndex += 1;
                     }

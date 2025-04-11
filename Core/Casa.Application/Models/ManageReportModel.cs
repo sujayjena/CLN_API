@@ -56,12 +56,16 @@ namespace CLN.Application.Models
         public string? WarrantyStatus { get; set; }
         public string? ProbReportedByCust { get; set; }
         public string? ProblemObservedByEng { get; set; }
+        public string? ProblemObservedByServiceEng { get; set; }
+        public string? ProblemObservedByTRCEng { get; set; }
         public string? RectificationAction { get; set; }
         public string? TicketStatus { get; set; }
         public DateTime? ResolvedDate { get; set; }
         public DateTime? CSATDate { get; set; }
         public string? CSATStatus { get; set; }
+        public decimal? CSATAverage { get; set; }
         public DateTime? ClosureDate { get; set; }
+        public string? TicketAging { get; set; }
     }
 
     public class CustomerWiseReport_Response : BaseEntity
