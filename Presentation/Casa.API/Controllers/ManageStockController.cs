@@ -4,6 +4,9 @@ using CLN.Application.Models;
 using CLN.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Globalization;
 
 namespace CLN.API.Controllers
 {
@@ -823,6 +826,95 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportStockMasterData(StockMaster_Search parameters)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var request = new SpareDetails_Search();
+            request.SpareCategoryId = 0;
+            request.BMSMakeId = 0;
+            request.ProductMakeId = 0;
+            request.IsRGP = null;
+
+            IEnumerable<StockMaster_Response> lstObj = await _manageStockRepository.GetStockMasterList(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("StockAvailable");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Spare Category";
+                    WorkSheet1.Cells[1, 2].Value = "Product Make";
+                    WorkSheet1.Cells[1, 3].Value = "BMS Make";
+                    WorkSheet1.Cells[1, 4].Value = "Spare Part Code";
+                    WorkSheet1.Cells[1, 5].Value = "Spare Part Description";
+                    WorkSheet1.Cells[1, 6].Value = "UOM";
+                    WorkSheet1.Cells[1, 7].Value = "Min Qty.";
+                    WorkSheet1.Cells[1, 8].Value = "Available Qty.";
+                    WorkSheet1.Cells[1, 9].Value = "RGP/NRGP";
+
+                    WorkSheet1.Cells[1, 10].Value = "CreatedDate";
+                    WorkSheet1.Cells[1, 11].Value = "CreatedBy";
+
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.SpareCategory;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.ProductMake;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.BMSMake;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.UniqueCode;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.SpareDesc;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.UOMName;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.MinQty;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.AvailableQty;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.RGP == true ? "RGP" : "NRGP";
+
+                        WorkSheet1.Cells[recordIndex, 10].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.CreatorName;
+
+                        if (items.MinQty > items.AvailableQty)
+                        {
+                            WorkSheet1.Row(recordIndex).Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            WorkSheet1.Row(recordIndex).Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Pink);
+                        }
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Record list Exported successfully";
+            }
+
+            return _response;
+        }
 
         //[Route("[action]")]
         //[HttpPost]

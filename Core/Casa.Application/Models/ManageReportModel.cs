@@ -444,4 +444,20 @@ namespace CLN.Application.Models
         public bool? IsClosedWithoutOTP { get; set; }
         public bool? IsActive { get; set; }
     }
+
+    public class InMaterialConsumptionReport_Response : BaseEntity
+    {
+        public int? SpareDetailsId { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareDesc { get; set; }
+        public int? UOMId { get; set; }
+        public string? UOMName { get; set; }
+        public decimal? MinQty { get; set; }
+        public decimal? AvailableQty { get; set; }
+        public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int? CreatedBy { get; set; }
+        public string? CreatorName { get; set; }
+    }
 }

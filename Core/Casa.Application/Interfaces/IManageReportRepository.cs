@@ -16,5 +16,6 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<LogisticSummaryReport_Response>> GetLogisticSummaryReport(ManageReport_Search parameters);
         Task<IEnumerable<ExpenseReport_Response>> GetExpenseReport(ManageReport_Search parameters);
         Task<IEnumerable<TicketActivityReport_Response>> GetTicketActivityReport(ManageReport_Search parameters);
+        Task<IEnumerable<InMaterialConsumptionReport_Response>> GetInMaterialConsumptionReport(ManageReport_Search parameters);
     }
 }
