@@ -1162,9 +1162,101 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 4].Value = items.MinQty;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.AvailableQty;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.StatusName;
+                        WorkSheet1.Cells[recordIndex, 7].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.CreatedDate;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.CreatorName;
                       
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetOutMaterialConsumptionReport(OutMaterialConsumptioneReport_Search parameters)
+        {
+            IEnumerable<OutMaterialConsumptionReport_Response> lstRoles = await _manageReportRepository.GetOutMaterialConsumptionReport(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportOutMaterialConsumptionReport(OutMaterialConsumptioneReport_Search parameters)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            IEnumerable<OutMaterialConsumptionReport_Response> lstSizeObj = await _manageReportRepository.GetOutMaterialConsumptionReport(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("OutMaterialConsumptionReport");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Spare Part Code";
+                    WorkSheet1.Cells[1, 2].Value = "Spare Part Description";
+                    WorkSheet1.Cells[1, 3].Value = "UOM";
+                    WorkSheet1.Cells[1, 4].Value = "Stock Min.Qty.";
+                    WorkSheet1.Cells[1, 5].Value = "Stock Available Qty";
+                    WorkSheet1.Cells[1, 6].Value = "Order Number";
+                    WorkSheet1.Cells[1, 7].Value = "Engineer Name";
+                    WorkSheet1.Cells[1, 8].Value = "Engg Stock Min Qty.";
+                    WorkSheet1.Cells[1, 9].Value = "Engg Available Qty.";
+                    WorkSheet1.Cells[1, 10].Value = "Engg Requestedd Qty.";
+                    WorkSheet1.Cells[1, 11].Value = "Engg Allocated Qty.";
+                    WorkSheet1.Cells[1, 12].Value = "Status";
+                    WorkSheet1.Cells[1, 13].Value = "Created Date";
+                    WorkSheet1.Cells[1, 14].Value = "Created By";
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.UniqueCode;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.SpareDesc;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.UOMName;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.StockMinQty;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.StockAvailableQty;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.OrderNumber;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.EngineerName;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.EnggStockMinQty;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.EnggAvailableQty;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.EnggRequesteddQty;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.EnggAvailableQty;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.StatusName;
+                        WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.CreatedDate;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.CreatorName;
+
                         recordIndex += 1;
                     }
 

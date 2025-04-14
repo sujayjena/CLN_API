@@ -460,4 +460,36 @@ namespace CLN.Application.Models
         public int? CreatedBy { get; set; }
         public string? CreatorName { get; set; }
     }
+
+    public class OutMaterialConsumptioneReport_Search : BaseSearchEntity
+    {
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
+        public int? EngineerId { get; set; }
+    }
+
+    public class OutMaterialConsumptionReport_Response : BaseEntity
+    {
+        public int? SpareDetailsId { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? SpareDesc { get; set; }
+        public int? UOMId { get; set; }
+        public string? UOMName { get; set; }
+        public decimal? StockMinQty { get; set; }
+        public decimal? StockAvailableQty { get; set; }
+        public string? OrderNumber { get; set; }
+        public string? EngineerName { get; set; }
+        public decimal? EnggStockMinQty { get; set; }
+        public decimal? EnggAvailableQty { get; set; }
+        public decimal? EnggRequesteddQty { get; set; }
+        public decimal? EnggAllocatedQty { get; set; }
+        public int? StatusId { get; set; }
+        public string? StatusName { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int? CreatedBy { get; set; }
+        public string? CreatorName { get; set; }
+    }
 }
