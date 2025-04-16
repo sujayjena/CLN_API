@@ -64,5 +64,14 @@ namespace CLN.API.Controllers
             _response.Data = lstResponse.ToList();
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetStoclAllocationEnggListForSelectList()
+        {
+            IEnumerable<SelectListResponse> lstResponse = await _masterDataRepository.GetStoclAllocationEnggListForSelectList();
+            _response.Data = lstResponse.ToList();
+            return _response;
+        }
     }
 }

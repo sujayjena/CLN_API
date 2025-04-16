@@ -62,5 +62,12 @@ namespace CLN.Persistence.Repositories
 
             return await ListByStoredProcedure<SelectListResponse>("GetPartReturnEnggListForSelectList", queryParameters);
         }
+
+        public async Task<IEnumerable<SelectListResponse>> GetStoclAllocationEnggListForSelectList()
+        {
+            DynamicParameters queryParameters = new DynamicParameters();
+
+            return await ListByStoredProcedure<SelectListResponse>("GetStoclAllocationEnggListForSelectList", queryParameters);
+        }
     }
 }

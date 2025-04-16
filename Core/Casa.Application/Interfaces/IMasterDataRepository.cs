@@ -15,5 +15,6 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<SelectListResponse>> GetTicketListForSelectList(TicketListForSelect_Search parameters);
         Task<IEnumerable<SelectListResponse>> GetPartRequestEnggListForSelectList(PartRequestEnggListForSelect_Search parameters);
         Task<IEnumerable<SelectListResponse>> GetPartReturnEnggListForSelectList();
+        Task<IEnumerable<SelectListResponse>> GetStoclAllocationEnggListForSelectList();
     }
 }

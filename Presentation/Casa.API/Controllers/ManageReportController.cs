@@ -1233,7 +1233,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 7].Value = "Engineer Name";
                     WorkSheet1.Cells[1, 8].Value = "Engg Stock Min Qty.";
                     WorkSheet1.Cells[1, 9].Value = "Engg Available Qty.";
-                    WorkSheet1.Cells[1, 10].Value = "Engg Requestedd Qty.";
+                    WorkSheet1.Cells[1, 10].Value = "Engg Requested Qty.";
                     WorkSheet1.Cells[1, 11].Value = "Engg Allocated Qty.";
                     WorkSheet1.Cells[1, 12].Value = "Status";
                     WorkSheet1.Cells[1, 13].Value = "Created Date";
