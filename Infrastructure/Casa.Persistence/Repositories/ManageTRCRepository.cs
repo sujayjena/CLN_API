@@ -102,6 +102,12 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DA_RectificationActionId", parameters.DA_RectificationActionId);
             queryParameters.Add("@DA_ResolutionSummary", parameters.DA_ResolutionSummary);
             queryParameters.Add("@DA_CapacityAchieved", parameters.DA_CapacityAchieved);
+            queryParameters.Add("@DA_IsSendToVendor", parameters.DA_IsSendToVendor);
+            queryParameters.Add("@DA_Purpose", parameters.DA_Purpose);
+            queryParameters.Add("@DA_IsReceivedFromVendor", parameters.DA_IsReceivedFromVendor);
+            queryParameters.Add("@DA_ReceivedDate", parameters.DA_ReceivedDate);
+            queryParameters.Add("@DA_ChallanOriginalFileName", parameters.DA_ChallanOriginalFileName);
+            queryParameters.Add("@DA_ChallanFileName", parameters.DA_ChallanFileName);
 
             queryParameters.Add("@ATEFP_IsAssignedToEnggForPDI", parameters.ATEFP_IsAssignedToEnggForPDI);
             queryParameters.Add("@ATEFP_AssignedToEngineerId", parameters.ATEFP_AssignedToEngineerId);
@@ -127,6 +133,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@PIDD_DispatchedDeliveryChallan", parameters.PIDD_DispatchedDeliveryChallan);
             queryParameters.Add("@PIDD_DispatchedDate", parameters.PIDD_DispatchedDate);
             queryParameters.Add("@PIDD_DispatchedCityId", parameters.PIDD_DispatchedCityId);
+            queryParameters.Add("@PIDD_IsHandOverToLogistic", parameters.PIDD_IsHandOverToLogistic);
           
             queryParameters.Add("@DDB_DispatchedDoneBy", parameters.DDB_DispatchedDoneBy);
             queryParameters.Add("@DDB_DocketDetails", parameters.DDB_DocketDetails);

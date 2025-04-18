@@ -1131,6 +1131,15 @@ namespace CLN.Application.Models
         public string? DA_RectificationAction { get; set; }
         public string? DA_ResolutionSummary { get; set; }
         public string? DA_CapacityAchieved { get; set; }
+        public bool? DA_IsSendToVendor { get; set; }
+        public DateTime? DA_SendToVendorDate { get; set; }
+        public string? DA_Purpose { get; set; }
+        public bool? DA_IsReceivedFromVendor { get; set; }
+        public DateTime? DA_ReceivedDate { get; set; }
+        public string? DA_ChallanOriginalFileName { get; set; }
+        public string? DA_ChallanFileName { get; set; }
+        public string? DA_ChallanURL { get; set; }
+
         public int? ATEFP_AssignedToEngineerId { get; set; }
         public string? ATEFP_AssignedToEngineer { get; set; }
         public DateTime? PI_BatteryReceivedDate { get; set; }
@@ -1157,6 +1166,9 @@ namespace CLN.Application.Models
         public DateTime? PIDD_DispatchedDate { get; set; }
         public int? PIDD_DispatchedCityId { get; set; }
         public string? PIDD_DispatchedCity { get; set; }
+        public bool? PIDD_IsHandOverToLogistic { get; set; }
+        public DateTime? PIDD_HandOverToLogisticDate { get; set; }
+
         public string? DDB_DispatchedDoneBy { get; set; }
         public string? DDB_DocketDetails { get; set; }
         public string? DDB_CourierName { get; set; }

@@ -210,6 +210,16 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.DA_Challan_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.DA_Challan_Base64, "\\Uploads\\Ticket\\", parameters.DA_ChallanOriginalFileName);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.DA_ChallanFileName = vUploadFile;
+                }
+            }
+
             // Save/Update
             int result = await _manageTRCRepository.SaveManageTRC(parameters);
 
@@ -402,6 +412,14 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.DA_RectificationAction = vResultObj.DA_RectificationAction;
                     vManageTRCDetail_Response.DA_ResolutionSummary = vResultObj.DA_ResolutionSummary;
                     vManageTRCDetail_Response.DA_CapacityAchieved = vResultObj.DA_CapacityAchieved;
+                    vManageTRCDetail_Response.DA_IsSendToVendor = vResultObj.DA_IsSendToVendor;
+                    vManageTRCDetail_Response.DA_SendToVendorDate = vResultObj.DA_SendToVendorDate;
+                    vManageTRCDetail_Response.DA_Purpose = vResultObj.DA_Purpose;
+                    vManageTRCDetail_Response.DA_IsReceivedFromVendor = vResultObj.DA_IsReceivedFromVendor;
+                    vManageTRCDetail_Response.DA_ReceivedDate = vResultObj.DA_ReceivedDate;
+                    vManageTRCDetail_Response.DA_ChallanOriginalFileName = vResultObj.DA_ChallanOriginalFileName;
+                    vManageTRCDetail_Response.DA_ChallanFileName = vResultObj.DA_ChallanFileName;
+                    vManageTRCDetail_Response.DA_ChallanURL = vResultObj.DA_ChallanURL;
 
                     vManageTRCDetail_Response.ATEFP_IsAssignedToEnggForPDI = vResultObj.ATEFP_IsAssignedToEnggForPDI;
                     vManageTRCDetail_Response.ATEFP_AssignedToEngineerId = vResultObj.ATEFP_AssignedToEngineerId;
@@ -432,6 +450,8 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.PIDD_DispatchedDate = vResultObj.PIDD_DispatchedDate;
                     vManageTRCDetail_Response.PIDD_DispatchedCityId = vResultObj.PIDD_DispatchedCityId;
                     vManageTRCDetail_Response.PIDD_DispatchedCity = vResultObj.PIDD_DispatchedCity;
+                    vManageTRCDetail_Response.PIDD_IsHandOverToLogistic = vResultObj.PIDD_IsHandOverToLogistic;
+                    vManageTRCDetail_Response.PIDD_HandOverToLogisticDate = vResultObj.PIDD_HandOverToLogisticDate;
                    
                     vManageTRCDetail_Response.DDB_DispatchedDoneBy = vResultObj.DDB_DispatchedDoneBy;
                     vManageTRCDetail_Response.DDB_DocketDetails = vResultObj.DDB_DocketDetails;

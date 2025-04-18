@@ -260,6 +260,16 @@ namespace CLN.Application.Models
         public int? DA_RectificationActionId { get; set; }
         public string? DA_ResolutionSummary { get; set; }
         public string? DA_CapacityAchieved { get; set; }
+        public bool? DA_IsSendToVendor { get; set; }
+        public string? DA_Purpose { get; set; }
+        public bool? DA_IsReceivedFromVendor { get; set; }
+        public DateTime? DA_ReceivedDate { get; set; }
+        public string? DA_ChallanOriginalFileName { get; set; }
+
+        [JsonIgnore]
+        public string? DA_ChallanFileName { get; set; }
+        public string? DA_Challan_Base64 { get; set; }
+
 
         public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public int? ATEFP_AssignedToEngineerId { get; set; }
@@ -293,6 +303,8 @@ namespace CLN.Application.Models
         public string? PIDD_DispatchedDeliveryChallan { get; set; }
         public DateTime? PIDD_DispatchedDate { get; set; }
         public int? PIDD_DispatchedCityId { get; set; }
+        public bool? PIDD_IsHandOverToLogistic { get; set; }
+
         public string? DDB_DispatchedDoneBy { get; set; }
         public string? DDB_DocketDetails { get; set; }
         public string? DDB_CourierName { get; set; }
@@ -594,6 +606,14 @@ namespace CLN.Application.Models
         public string? DA_RectificationAction { get; set; }
         public string? DA_ResolutionSummary { get; set; }
         public string? DA_CapacityAchieved { get; set; }
+        public bool? DA_IsSendToVendor { get; set; }
+        public DateTime? DA_SendToVendorDate { get; set; }
+        public string? DA_Purpose { get; set; }
+        public bool? DA_IsReceivedFromVendor { get; set; }
+        public DateTime? DA_ReceivedDate { get; set; }
+        public string? DA_ChallanOriginalFileName { get; set; }
+        public string? DA_ChallanFileName { get; set; }
+        public string? DA_ChallanURL { get; set; }
 
         public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public int? ATEFP_AssignedToEngineerId { get; set; }
@@ -628,6 +648,9 @@ namespace CLN.Application.Models
         public DateTime? PIDD_DispatchedDate { get; set; }
         public int? PIDD_DispatchedCityId { get; set; }
         public string? PIDD_DispatchedCity { get; set; }
+        public bool? PIDD_IsHandOverToLogistic { get; set; }
+        public DateTime? PIDD_HandOverToLogisticDate { get; set; }
+
         public string? DDB_DispatchedDoneBy { get; set; }
         public string? DDB_DocketDetails { get; set; }
         public string? DDB_CourierName { get; set; }

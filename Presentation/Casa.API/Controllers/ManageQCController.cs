@@ -1236,19 +1236,19 @@ namespace CLN.API.Controllers
             var vResult = await _ManageQCRepository.ValidateProductSerialNumber(request);
             if (vResult == -1)
             {
-                _response.Id = -1;
+                _response.Id = vResult;
                 _response.IsSuccess = false;
                 _response.Message = "UserName or Password is invalid";
             }
             else if (vResult == -2)
             {
-                _response.Id = -2;
+                _response.Id = vResult;
                 _response.IsSuccess = false;
                 _response.Message = "The Product Serial Number is Invalid";
             }
             else
             {
-                _response.Id = 1;
+                _response.Id = vResult;
                 _response.IsSuccess = true;
                 _response.Message = "The Product Serial Number is Valid";
             }

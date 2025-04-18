@@ -241,20 +241,10 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportEnggPartRequest()
+        public async Task<ResponseModel> ExportEnggPartRequest(EnggPartRequest_Search parameters)
         {
             _response.IsSuccess = false;
             byte[] result;
-
-            var request = new BaseSearchEntity();
-
-            var parameters = new EnggPartRequest_Search()
-            {
-                EngineerId = 0,
-                SearchText = string.Empty,
-                StatusId = 0,
-                SpareDetailsId=0
-            };
 
             var objList = await _partRequestOrderRepository.GetEnggPartRequestList(parameters);
 
@@ -832,21 +822,13 @@ namespace CLN.API.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportTrcPartRequest()
+        public async Task<ResponseModel> ExportTrcPartRequest(TRCPartRequest_Search parameters)
         {
             _response.IsSuccess = false;
             byte[] result;
             int recordIndex;
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-            var parameters = new TRCPartRequest_Search()
-            {
-                EngineerId = 0,
-                SearchText = string.Empty,
-                StatusId = 0,
-                SpareDetailsId = 0,
-            };
 
             var objList = await _partRequestOrderRepository.GetTRCPartRequestList(parameters);
 
@@ -913,10 +895,10 @@ namespace CLN.API.Controllers
                                 recordIndex += 1;
                             }
                         }
-                        else
-                        {
-                            recordIndex += 1;
-                        }
+                        //else
+                        //{
+                        //    recordIndex += 1;
+                        //}
 
                     }
 
