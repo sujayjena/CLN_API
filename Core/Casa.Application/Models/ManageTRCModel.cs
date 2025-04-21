@@ -247,6 +247,76 @@ namespace CLN.Application.Models
         public int? II_CellChemistryId { get; set; }
         public int? II_BatteryParameterSetting { get; set; }
 
+        public int? II_IsPhysically_Visual { get; set; }
+        public bool? II_IsWireHarness { get; set; }
+        public int? II_WireHarnessId { get; set; }
+
+        public string? II_WireHarnessOriginalFileName1 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName1 { get; set; }
+        public string? II_WireHarness1_Base64 { get; set; }
+
+        public string? II_WireHarnessOriginalFileName2 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName2 { get; set; }
+        public string? II_WireHarness2_Base64 { get; set; }
+
+        public string? II_WireHarnessOriginalFileName3 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName3 { get; set; }
+        public string? II_WireHarness3_Base64 { get; set; }
+
+        public string? II_WireHarnessOriginalFileName4 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName4 { get; set; }
+        public string? II_WireHarness4_Base64 { get; set; }
+
+        public bool? II_IsConnector { get; set; }
+        public int? II_ConnectorId { get; set; }
+        public string? II_ConnectorOriginalFileName1 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName1 { get; set; }
+        public string? II_Connector1_Base64 { get; set; }
+
+        public string? II_ConnectorOriginalFileName2 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName2 { get; set; }
+        public string? II_Connector2_Base64 { get; set; }
+
+        public string? II_ConnectorOriginalFileName3 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName3 { get; set; }
+        public string? II_Connector3_Base64 { get; set; }
+
+        public string? II_ConnectorOriginalFileName4 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName4 { get; set; }
+        public string? II_Connector4_Base64 { get; set; }
+
+        public bool? II_IsOtherDamage { get; set; }
+        public int? II_OtherDamageId { get; set; }
+
+        public string? II_OtherDamageOriginalFileName1 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName1 { get; set; }
+        public string? II_OtherDamage1_Base64 { get; set; }
+
+        public string? II_OtherDamageOriginalFileName2 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName2 { get; set; }
+        public string? II_OtherDamage2_Base64 { get; set; }
+
+        public string? II_OtherDamageOriginalFileName3 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName3 { get; set; }
+        public string? II_OtherDamage3_Base64 { get; set; }
+
+        public string? II_OtherDamageOriginalFileName4 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName4 { get; set; }
+        public string? II_OtherDamage4_Base64 { get; set; }
+        public string? II_Voltage_AC_Or_DC { get; set; }
+
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }
         public bool? WS_IsCustomerAcceptance { get; set; }
@@ -587,6 +657,79 @@ namespace CLN.Application.Models
         public int? II_CellChemistryId { get; set; }
         public string? II_CellChemistry { get; set; }
         public int? II_BatteryParameterSetting { get; set; }
+
+        public int? II_IsPhysically_Visual { get; set; }
+        public bool? II_IsWireHarness { get; set; }
+        public int? II_WireHarnessId { get; set; }
+        public string? II_WireHarnessName { get; set; }
+
+        public string? II_WireHarnessOriginalFileName1 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName1 { get; set; }
+        public string? II_WireHarnessURL1 { get; set; }
+
+        public string? II_WireHarnessOriginalFileName2 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName2 { get; set; }
+        public string? II_WireHarnessURL2 { get; set; }
+
+        public string? II_WireHarnessOriginalFileName3 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName3 { get; set; }
+        public string? II_WireHarnessURL3 { get; set; }
+
+        public string? II_WireHarnessOriginalFileName4 { get; set; }
+        [JsonIgnore]
+        public string? II_WireHarnessFileName4 { get; set; }
+        public string? II_WireHarnessURL4 { get; set; }
+
+        public bool? II_IsConnector { get; set; }
+        public int? II_ConnectorId { get; set; }
+        public string? II_ConnectorName { get; set; }
+        public string? II_ConnectorOriginalFileName1 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName1 { get; set; }
+        public string? II_ConnectorURL1 { get; set; }
+
+        public string? II_ConnectorOriginalFileName2 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName2 { get; set; }
+        public string? II_ConnectorURL2 { get; set; }
+
+        public string? II_ConnectorOriginalFileName3 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName3 { get; set; }
+        public string? II_ConnectorURL3 { get; set; }
+
+        public string? II_ConnectorOriginalFileName4 { get; set; }
+        [JsonIgnore]
+        public string? II_ConnectorFileName4 { get; set; }
+        public string? II_ConnectorURL4 { get; set; }
+
+        public bool? II_IsOtherDamage { get; set; }
+        public int? II_OtherDamageId { get; set; }
+        public string? II_OtherDamageName { get; set; }
+
+        public string? II_OtherDamageOriginalFileName1 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName1 { get; set; }
+        public string? II_OtherDamageURL1 { get; set; }
+
+        public string? II_OtherDamageOriginalFileName2 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName2 { get; set; }
+        public string? II_OtherDamageURL2 { get; set; }
+
+        public string? II_OtherDamageOriginalFileName3 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName3 { get; set; }
+        public string? II_OtherDamageURL3 { get; set; }
+
+        public string? II_OtherDamageOriginalFileName4 { get; set; }
+        [JsonIgnore]
+        public string? II_OtherDamageFileName4 { get; set; }
+        public string? II_OtherDamageURL4 { get; set; }
+        public string? II_Voltage_AC_Or_DC { get; set; }
 
         public int? WS_IsWarrantyStatus { get; set; }
         public bool? WS_IsInformedToCustomerByEmail { get; set; }

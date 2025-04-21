@@ -178,6 +178,126 @@ namespace CLN.API.Controllers
                 }
             }
 
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_WireHarness1_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_WireHarness1_Base64, "\\Uploads\\Ticket\\", parameters.II_WireHarnessOriginalFileName1);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_WireHarnessFileName1 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_WireHarness2_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_WireHarness2_Base64, "\\Uploads\\Ticket\\", parameters.II_WireHarnessOriginalFileName2);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_WireHarnessFileName2 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_WireHarness3_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_WireHarness3_Base64, "\\Uploads\\Ticket\\", parameters.II_WireHarnessOriginalFileName3);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_WireHarnessFileName3 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_WireHarness4_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_WireHarness4_Base64, "\\Uploads\\Ticket\\", parameters.II_WireHarnessOriginalFileName4);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_WireHarnessFileName4 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Connector1_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_Connector1_Base64, "\\Uploads\\Ticket\\", parameters.II_ConnectorOriginalFileName1);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_ConnectorFileName1 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Connector2_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_Connector2_Base64, "\\Uploads\\Ticket\\", parameters.II_ConnectorOriginalFileName2);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_ConnectorFileName2 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Connector3_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_Connector3_Base64, "\\Uploads\\Ticket\\", parameters.II_ConnectorOriginalFileName3);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_ConnectorFileName3 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_Connector4_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_Connector4_Base64, "\\Uploads\\Ticket\\", parameters.II_ConnectorOriginalFileName4);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_ConnectorFileName4 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_OtherDamage1_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_OtherDamage1_Base64, "\\Uploads\\Ticket\\", parameters.II_OtherDamageOriginalFileName1);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_OtherDamageFileName1 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_OtherDamage2_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_OtherDamage2_Base64, "\\Uploads\\Ticket\\", parameters.II_OtherDamageOriginalFileName2);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_OtherDamageFileName2 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_OtherDamage3_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_OtherDamage3_Base64, "\\Uploads\\Ticket\\", parameters.II_OtherDamageOriginalFileName3);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_OtherDamageFileName3 = vUploadFile;
+                }
+            }
+
+            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.II_OtherDamage4_Base64))
+            {
+                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.II_OtherDamage4_Base64, "\\Uploads\\Ticket\\", parameters.II_OtherDamageOriginalFileName4);
+
+                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                {
+                    parameters.II_OtherDamageFileName4 = vUploadFile;
+                }
+            }
+
             //Warranty Status
             if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.WS_Invoice_Base64))
             {
@@ -387,6 +507,54 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.II_CellChemistryId = vResultObj.II_CellChemistryId;
                     vManageTRCDetail_Response.II_CellChemistry = vResultObj.II_CellChemistry;
                     vManageTRCDetail_Response.II_BatteryParameterSetting = vResultObj.II_BatteryParameterSetting;
+
+                    vManageTRCDetail_Response.II_IsPhysically_Visual = vResultObj.II_IsPhysically_Visual;
+                    vManageTRCDetail_Response.II_IsWireHarness = vResultObj.II_IsWireHarness;
+                    vManageTRCDetail_Response.II_WireHarnessId = vResultObj.II_WireHarnessId;
+                    vManageTRCDetail_Response.II_WireHarnessName = vResultObj.II_WireHarnessName;
+                    vManageTRCDetail_Response.II_WireHarnessOriginalFileName1 = vResultObj.II_WireHarnessOriginalFileName1;
+                    vManageTRCDetail_Response.II_WireHarnessFileName1=vResultObj.II_WireHarnessFileName1;
+                    vManageTRCDetail_Response.II_WireHarnessURL1 = vResultObj.II_WireHarnessURL1;
+                    vManageTRCDetail_Response.II_WireHarnessOriginalFileName2 = vResultObj.II_WireHarnessOriginalFileName2;
+                    vManageTRCDetail_Response.II_WireHarnessFileName2 = vResultObj.II_WireHarnessFileName2;
+                    vManageTRCDetail_Response.II_WireHarnessURL2 = vResultObj.II_WireHarnessURL2;
+                    vManageTRCDetail_Response.II_WireHarnessFileName1=vResultObj.II_WireHarnessOriginalFileName3;
+                    vManageTRCDetail_Response.II_WireHarnessOriginalFileName3 = vResultObj.II_WireHarnessFileName3;
+                    vManageTRCDetail_Response.II_WireHarnessURL3 = vResultObj.II_WireHarnessURL3;
+                    vManageTRCDetail_Response.II_WireHarnessOriginalFileName4 = vResultObj.II_WireHarnessOriginalFileName4;
+                    vManageTRCDetail_Response.II_WireHarnessFileName4 = vResultObj.II_WireHarnessFileName4;
+                    vManageTRCDetail_Response.II_WireHarnessURL4 = vResultObj.II_WireHarnessURL4;
+                    vManageTRCDetail_Response.II_IsConnector = vResultObj.II_IsConnector;
+                    vManageTRCDetail_Response.II_ConnectorId = vResultObj.II_ConnectorId;
+                    vManageTRCDetail_Response.II_ConnectorName = vResultObj.II_ConnectorName;
+                    vManageTRCDetail_Response.II_ConnectorOriginalFileName1 = vResultObj.II_ConnectorOriginalFileName1;
+                    vManageTRCDetail_Response.II_ConnectorFileName1 = vResultObj.II_ConnectorFileName1;
+                    vManageTRCDetail_Response.II_ConnectorURL1 = vResultObj.II_ConnectorURL1;
+                    vManageTRCDetail_Response.II_ConnectorOriginalFileName2 = vResultObj.II_ConnectorOriginalFileName2;
+                    vManageTRCDetail_Response.II_ConnectorFileName2 = vResultObj.II_ConnectorFileName2;
+                    vManageTRCDetail_Response.II_ConnectorURL2 = vResultObj.II_ConnectorURL2;
+                    vManageTRCDetail_Response.II_ConnectorOriginalFileName3 = vResultObj.II_ConnectorOriginalFileName3;
+                    vManageTRCDetail_Response.II_ConnectorFileName3 = vResultObj.II_ConnectorFileName3;
+                    vManageTRCDetail_Response.II_ConnectorURL3 = vResultObj.II_ConnectorURL3;
+                    vManageTRCDetail_Response.II_ConnectorOriginalFileName4 = vResultObj.II_ConnectorOriginalFileName4;
+                    vManageTRCDetail_Response.II_ConnectorFileName4 = vResultObj.II_ConnectorFileName4;
+                    vManageTRCDetail_Response.II_ConnectorURL4 = vResultObj.II_ConnectorURL4;
+                    vManageTRCDetail_Response.II_IsOtherDamage = vResultObj.II_IsOtherDamage;
+                    vManageTRCDetail_Response.II_OtherDamageId = vResultObj.II_OtherDamageId;
+                    vManageTRCDetail_Response.II_OtherDamageName = vResultObj.II_OtherDamageName;
+                    vManageTRCDetail_Response.II_OtherDamageOriginalFileName1 = vResultObj.II_OtherDamageOriginalFileName1;
+                    vManageTRCDetail_Response.II_OtherDamageFileName1 = vResultObj.II_OtherDamageFileName1;
+                    vManageTRCDetail_Response.II_OtherDamageURL1 = vResultObj.II_OtherDamageURL1;
+                    vManageTRCDetail_Response.II_OtherDamageOriginalFileName2 = vResultObj.II_OtherDamageOriginalFileName2;
+                    vManageTRCDetail_Response.II_OtherDamageFileName2 = vResultObj.II_OtherDamageFileName2;
+                    vManageTRCDetail_Response.II_OtherDamageURL2 = vResultObj.II_OtherDamageURL2;
+                    vManageTRCDetail_Response.II_OtherDamageOriginalFileName3 = vResultObj.II_OtherDamageOriginalFileName3;
+                    vManageTRCDetail_Response.II_OtherDamageFileName3 = vResultObj.II_OtherDamageFileName3;
+                    vManageTRCDetail_Response.II_OtherDamageURL3 = vResultObj.II_OtherDamageURL3;
+                    vManageTRCDetail_Response.II_OtherDamageOriginalFileName4 = vResultObj.II_OtherDamageOriginalFileName4;
+                    vManageTRCDetail_Response.II_OtherDamageFileName4 = vResultObj.II_OtherDamageFileName4;
+                    vManageTRCDetail_Response.II_OtherDamageURL4 = vResultObj.II_OtherDamageURL4;
+                    vManageTRCDetail_Response.II_Voltage_AC_Or_DC = vResultObj.II_Voltage_AC_Or_DC;
 
                     vManageTRCDetail_Response.WS_IsWarrantyStatus = vResultObj.WS_IsWarrantyStatus;
                     vManageTRCDetail_Response.WS_IsInformedToCustomerByEmail = vResultObj.WS_IsInformedToCustomerByEmail;
