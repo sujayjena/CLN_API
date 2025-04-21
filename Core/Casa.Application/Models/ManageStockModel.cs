@@ -415,6 +415,9 @@ namespace CLN.Application.Models
 
         [DefaultValue("")]
         public string? StockType { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsRGP { get; set; }
     }
 
     public class EnggStockMaster_Response : BaseResponseEntity

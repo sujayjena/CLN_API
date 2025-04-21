@@ -327,6 +327,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@EngineerId", parameters.EngineerId);
             queryParameters.Add("@SpareDetailsId", parameters.SpareDetailsId);
             queryParameters.Add("@StockType", parameters.StockType);
+            queryParameters.Add("@IsRGP", parameters.IsRGP);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@SortBy", parameters.SortBy);
