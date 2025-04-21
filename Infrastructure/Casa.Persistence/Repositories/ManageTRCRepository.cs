@@ -183,6 +183,8 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@IsFeedback", parameters.IsFeedback);
             queryParameters.Add("@BranchId", parameters.BranchId);
             queryParameters.Add("@Filter_TRCStatusId", parameters.Filter_TRCStatusId);
+            queryParameters.Add("@IsSendToVendor", parameters.IsSendToVendor);
+            queryParameters.Add("@IsReceivedFromVendor", parameters.IsReceivedFromVendor);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@SortBy", parameters.SortBy);

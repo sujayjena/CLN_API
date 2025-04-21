@@ -41,6 +41,12 @@ namespace CLN.Application.Models
         public string? BranchId { get; set; }
 
         public int? Filter_TRCStatusId { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsSendToVendor { get; set; }
+
+        [DefaultValue(null)]
+        public bool? IsReceivedFromVendor { get; set; }
     }
 
     public class ManageTRC_Request : BaseEntity
