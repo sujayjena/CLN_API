@@ -253,7 +253,7 @@ namespace CLN.API.Controllers.Admin
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ResponseModel> ExportSpareDetailsData()
+        public async Task<ResponseModel> ExportSpareDetailsData(SpareDetails_Search parameters)
         {
             _response.IsSuccess = false;
             byte[] result;
@@ -261,13 +261,7 @@ namespace CLN.API.Controllers.Admin
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var request = new SpareDetails_Search();
-            request.SpareCategoryId = 0;
-            request.BMSMakeId = 0;
-            request.ProductMakeId = 0;
-            request.IsRGP = null;
-
-            IEnumerable<SpareDetails_Response> lstObj = await _spareDetailsRepository.GetSpareDetailsList(request);
+            IEnumerable<SpareDetails_Response> lstObj = await _spareDetailsRepository.GetSpareDetailsList(parameters);
 
             using (MemoryStream msExportDataFile = new MemoryStream())
             {
