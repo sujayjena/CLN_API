@@ -35,7 +35,7 @@ namespace CLN.API.Controllers
         public async Task<ResponseModel> SaveGeneratePartRequest(GeneratePartRequest parameters)
         {
             int result = 0;
-            foreach(var item in parameters.generatePartList)
+            foreach (var item in parameters.generatePartList)
             {
                 var vGeneratePartRequest_Request = new GeneratePartRequest_Request()
                 {
@@ -104,6 +104,7 @@ namespace CLN.API.Controllers
         #endregion
 
         #region Generate Challan
+
         [Route("[action]")]
         [HttpPost]
         public async Task<ResponseModel> SaveGenerateChallan(GenerateChallan_Request parameters)
@@ -205,6 +206,95 @@ namespace CLN.API.Controllers
             return _response;
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportGenerateChallan(GenerateChallanSearch_Request parameters)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+
+            var objList = await _manageStockRepository.GetGenerateChallanList(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    int recordIndex;
+                    ExcelWorksheet WorkSheet1 = excelExportData.Workbook.Worksheets.Add("GenerateChallan");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Sr.No.";
+                    WorkSheet1.Cells[1, 2].Value = "Challan Id";
+                    WorkSheet1.Cells[1, 3].Value = "Spare Category";
+                    WorkSheet1.Cells[1, 4].Value = "Product Make";
+                    WorkSheet1.Cells[1, 5].Value = "Pare Part Code";
+                    WorkSheet1.Cells[1, 6].Value = "Spare Part Description";
+                    WorkSheet1.Cells[1, 7].Value = "UOM";
+                    WorkSheet1.Cells[1, 8].Value = "Order Qty";
+
+                    recordIndex = 2;
+
+                    int i = 1;
+                    foreach (var itemsReqList in objList)
+                    {
+                        //Generate challan part
+                        var vSearchObj = new GenerateChallanPartDetailsSearch_Request()
+                        {
+                            GenerateChallanId = itemsReqList.Id,
+                        };
+
+                        var objReqDetailsList = await _manageStockRepository.GetGenerateChallanPartDetailsList(vSearchObj);
+                        if (objReqDetailsList.Count() > 0)
+                        {
+                            foreach (var itemReqDetails in objReqDetailsList)
+                            {
+                                WorkSheet1.Cells[recordIndex, 1].Value = i.ToString();
+                                WorkSheet1.Cells[recordIndex, 2].Value = itemsReqList.RequestId;
+                                WorkSheet1.Cells[recordIndex, 3].Value = itemReqDetails.SpareCategory;
+                                WorkSheet1.Cells[recordIndex, 4].Value = itemReqDetails.ProductMake;
+                                WorkSheet1.Cells[recordIndex, 5].Value = itemReqDetails.UniqueCode;
+                                WorkSheet1.Cells[recordIndex, 6].Value = itemReqDetails.SpareDesc;
+                                WorkSheet1.Cells[recordIndex, 7].Value = itemReqDetails.UOMName;
+                                WorkSheet1.Cells[recordIndex, 8].Value = itemReqDetails.RequiredQty;
+
+                                recordIndex += 1;
+
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            recordIndex += 1;
+                        }
+
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
+
         #endregion
 
         #region Stock In
@@ -294,7 +384,7 @@ namespace CLN.API.Controllers
         public async Task<ResponseModel> SaveStockAllocated_Engineer_N_TRC(StockAllocated_Request parameters)
         {
             //check if requestId = 0 then create new order for this engineer
-            if(parameters.RequestId == 0)
+            if (parameters.RequestId == 0)
             {
                 var vEnggPartRequest = new EnggPartRequest_Request()
                 {
@@ -312,7 +402,7 @@ namespace CLN.API.Controllers
 
                 if (vresult > 0)
                 {
-                    foreach(var items in parameters.PartList)
+                    foreach (var items in parameters.PartList)
                     {
                         var vEnggPartRequestDetails = new EnggPartRequestDetails_Request()
                         {
@@ -332,7 +422,7 @@ namespace CLN.API.Controllers
 
                         int result_EnggPartRequestOrderDetails = await _partRequestOrderRepository.SaveEnggPartRequestDetail(vEnggPartRequestDetails);
                     }
-                    
+
                 }
             }
 
@@ -587,7 +677,7 @@ namespace CLN.API.Controllers
             else
             {
                 var vResultObj = await _manageStockRepository.GetEnggStockMasterById(Id);
-                
+
                 _response.Data = vResultObj;
             }
             return _response;
@@ -617,6 +707,85 @@ namespace CLN.API.Controllers
             }
 
             _response.Id = result;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportEnggStockMaster(EnggStockMasterListSearch_Request parameters)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+
+            var objList = await _manageStockRepository.GetEnggStockMasterList(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    int recordIndex;
+                    ExcelWorksheet WorkSheet1 = excelExportData.Workbook.Worksheets.Add("EnggStockMaster");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Sr.No.";
+                    WorkSheet1.Cells[1, 2].Value = "Engineer Name";
+                    WorkSheet1.Cells[1, 3].Value = "Spare Category";
+                    WorkSheet1.Cells[1, 4].Value = "Product Make";
+                    WorkSheet1.Cells[1, 5].Value = "Pare Part Code";
+                    WorkSheet1.Cells[1, 6].Value = "Spare Description";
+                    WorkSheet1.Cells[1, 7].Value = "UOM";
+                    WorkSheet1.Cells[1, 8].Value = "Min Qty";
+                    WorkSheet1.Cells[1, 9].Value = "Engg.Available Stock";
+                    WorkSheet1.Cells[1, 10].Value = "RGP/NRGP";
+                    WorkSheet1.Cells[1, 11].Value = "Created By";
+                    WorkSheet1.Cells[1, 12].Value = "Created Date";
+
+                    recordIndex = 2;
+
+                    int i = 1;
+                    foreach (var itemsReqList in objList)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = i.ToString();
+                        WorkSheet1.Cells[recordIndex, 2].Value = itemsReqList.EngineerName;
+                        WorkSheet1.Cells[recordIndex, 3].Value = itemsReqList.SpareCategory;
+                        WorkSheet1.Cells[recordIndex, 4].Value = itemsReqList.ProductMake;
+                        WorkSheet1.Cells[recordIndex, 5].Value = itemsReqList.UniqueCode;
+                        WorkSheet1.Cells[recordIndex, 6].Value = itemsReqList.SpareDesc;
+                        WorkSheet1.Cells[recordIndex, 7].Value = itemsReqList.UOMName;
+                        WorkSheet1.Cells[recordIndex, 8].Value = itemsReqList.MinQty;
+                        WorkSheet1.Cells[recordIndex, 9].Value = itemsReqList.AvailableQty;
+                        WorkSheet1.Cells[recordIndex, 10].Value = itemsReqList.RGP == true ? "RGP" : "NRGP";
+                        WorkSheet1.Cells[recordIndex, 11].Value = itemsReqList.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 12].Value = itemsReqList.CreatedDate.HasValue ? itemsReqList.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
+
+                        recordIndex += 1;
+
+                        i++;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
             return _response;
         }
 

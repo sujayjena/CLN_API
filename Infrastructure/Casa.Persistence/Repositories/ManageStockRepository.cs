@@ -93,6 +93,9 @@ namespace CLN.Persistence.Repositories
 
             //queryParameters.Add("@CompanyId", parameters.CompanyId);
             //queryParameters.Add("@BranchId", parameters.BranchId);
+
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@SearchText", parameters.SearchText.SanitizeValue());
             queryParameters.Add("@IsActive", parameters.IsActive);
             queryParameters.Add("@PageNo", parameters.PageNo);

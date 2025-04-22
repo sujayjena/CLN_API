@@ -96,6 +96,12 @@ namespace CLN.Application.Models
 
         //[DefaultValue("")]
         //public string? BranchId { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
     }
 
     public class GenerateChallanPartDetailsSearch_Request : BaseSearchEntity
