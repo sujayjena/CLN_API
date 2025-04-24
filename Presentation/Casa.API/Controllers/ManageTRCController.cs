@@ -467,6 +467,7 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.DNV_HandoverToMainStoreDate = vResultObj.DNV_HandoverToMainStoreDate;
                     vManageTRCDetail_Response.DNV_DeliveryChallanNumber= vResultObj.DNV_DeliveryChallanNumber;
                     vManageTRCDetail_Response.DNV_IsBatteryReceivedInTRC= vResultObj.DNV_IsBatteryReceivedInTRC;
+                    vManageTRCDetail_Response.DNV_BatteryReceivedInTRCDate = vResultObj.DNV_BatteryReceivedInTRCDate;
                     vManageTRCDetail_Response.DNV_DebitNotePhotoOriginalFileName = vResultObj.DNV_DebitNotePhotoOriginalFileName;
                     vManageTRCDetail_Response.DNV_DebitNotePhotoFileName = vResultObj.DNV_DebitNotePhotoFileName;
                     vManageTRCDetail_Response.DNV_DebitNotePhotoURL = vResultObj.DNV_DebitNotePhotoURL;

@@ -617,6 +617,7 @@ namespace CLN.Application.Models
         public DateTime? DNV_HandoverToMainStoreDate { get; set; }
         public string DNV_DeliveryChallanNumber { get; set; }
         public bool? DNV_IsBatteryReceivedInTRC { get; set; }
+        public DateTime? DNV_BatteryReceivedInTRCDate { get; set; }
         public string? DNV_DebitNotePhotoOriginalFileName { get; set; }
         public string? DNV_DebitNotePhotoFileName { get; set; }
         public string? DNV_DebitNotePhotoURL { get; set; }
