@@ -274,7 +274,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 9].Value = "UOM";
                     WorkSheet1.Cells[1, 10].Value = "Available Qty";
                     WorkSheet1.Cells[1, 11].Value = "Order Qty";
-                    WorkSheet1.Cells[1, 12].Value = "RGP";
+                    WorkSheet1.Cells[1, 12].Value = "RGP/NRGP";
                     WorkSheet1.Cells[1, 13].Value = "Remark";
 
                     recordIndex = 2;
@@ -305,7 +305,7 @@ namespace CLN.API.Controllers
                                 WorkSheet1.Cells[recordIndex, 9].Value = itemReqDetails.UOMName;
                                 WorkSheet1.Cells[recordIndex, 10].Value = itemReqDetails.AvailableQty;
                                 WorkSheet1.Cells[recordIndex, 11].Value = itemReqDetails.RequiredQty;
-                                WorkSheet1.Cells[recordIndex, 12].Value = itemReqDetails.RGP == true ? "OK" : "NOT OK";
+                                WorkSheet1.Cells[recordIndex, 12].Value = itemReqDetails.RGP == true ? "RGP" : "NRGP";
                                 WorkSheet1.Cells[recordIndex, 13].Value = itemReqDetails.Remarks;
 
                                 recordIndex += 1;
@@ -857,7 +857,7 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 10].Value = "Type of BMS";
                     WorkSheet1.Cells[1, 11].Value = "Available Qty";
                     WorkSheet1.Cells[1, 12].Value = "Order Qty";
-                    WorkSheet1.Cells[1, 13].Value = "RGP";
+                    WorkSheet1.Cells[1, 13].Value = "RGP/NRGP";
                     WorkSheet1.Cells[1, 14].Value = "Remark";
 
                     recordIndex = 2;
@@ -889,7 +889,7 @@ namespace CLN.API.Controllers
                                 WorkSheet1.Cells[recordIndex, 10].Value = itemReqDetails.TypeOfBMS;
                                 WorkSheet1.Cells[recordIndex, 11].Value = itemReqDetails.AvailableQty;
                                 WorkSheet1.Cells[recordIndex, 12].Value = itemReqDetails.RequiredQty;
-                                WorkSheet1.Cells[recordIndex, 13].Value = itemReqDetails.RGP == true ? "OK" : "NOT OK";
+                                WorkSheet1.Cells[recordIndex, 13].Value = itemReqDetails.RGP == true ? "RGP" : "NRGP";
                                 WorkSheet1.Cells[recordIndex, 14].Value = itemReqDetails.Remarks;
 
                                 recordIndex += 1;
