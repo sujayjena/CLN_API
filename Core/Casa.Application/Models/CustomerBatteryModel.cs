@@ -12,6 +12,8 @@ namespace CLN.Application.Models
 {
     public class CustomerBattery_Search : BaseSearchEntity
     {
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
         public long? CustomerId { get; set; }
 
         public long? ProductCategoryId { get; set; }

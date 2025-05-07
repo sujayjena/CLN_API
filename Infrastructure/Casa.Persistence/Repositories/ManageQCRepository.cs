@@ -222,6 +222,8 @@ namespace CLN.Persistence.Repositories
         {
             DynamicParameters queryParameters = new DynamicParameters();
 
+            queryParameters.Add("@FromDate", parameters.FromDate);
+            queryParameters.Add("@ToDate", parameters.ToDate);
             queryParameters.Add("@CustomerId", parameters.CustomerId);
             queryParameters.Add("@ProductCategoryId", parameters.ProductCategoryId);
             queryParameters.Add("@IsAssign", parameters.IsAssign);
