@@ -12,6 +12,7 @@ using System.ComponentModel;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.Globalization;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace CLN.API.Controllers
 {
@@ -37,8 +38,9 @@ namespace CLN.API.Controllers
         private readonly IWebHostEnvironment _environment;
         private readonly IBranchRepository _branchRepository;
         private readonly INotificationRepository _notificationRepository;
+        private readonly IErrorLogHistoryRepository _errorLogHistoryRepository;
 
-        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository, IManageStockRepository manageStockRepository, ISMSHelper smsHelper, IConfigRefRepository configRefRepository, ISMSConfigRepository smsConfigRepository, IUserRepository userRepository, ILoginRepository loginRepository, IEmailHelper emailHelper, IWebHostEnvironment environment, IBranchRepository branchRepository, INotificationRepository notificationRepository)
+        public ManageTicketController(IManageTicketRepository manageTicketRepository, IManageTRCRepository manageTRCRepository, IFileManager fileManager, IAddressRepository addressRepository, IManageEnquiryRepository manageEnquiryRepository, ICustomerRepository customerRepository, IManageStockRepository manageStockRepository, ISMSHelper smsHelper, IConfigRefRepository configRefRepository, ISMSConfigRepository smsConfigRepository, IUserRepository userRepository, ILoginRepository loginRepository, IEmailHelper emailHelper, IWebHostEnvironment environment, IBranchRepository branchRepository, INotificationRepository notificationRepository, IErrorLogHistoryRepository errorLogHistoryRepository)
         {
             _fileManager = fileManager;
 
@@ -57,6 +59,7 @@ namespace CLN.API.Controllers
             _environment = environment;
             _branchRepository = branchRepository;
             _notificationRepository = notificationRepository;
+            _errorLogHistoryRepository = errorLogHistoryRepository;
 
             _response = new ResponseModel();
             _response.IsSuccess = true;
@@ -68,735 +71,475 @@ namespace CLN.API.Controllers
         [HttpPost]
         public async Task<ResponseModel> SaveManageTicket(ManageTicket_Request parameters)
         {
-            int tktParametersId = parameters.Id;
+            int result = 0;
 
-            // Image Upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_VisualImage_Base64))
+            try
             {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_VisualImageOriginalFileName);
+                int tktParametersId = parameters.Id;
 
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
+                #region Image Upload
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_VisualImage_Base64))
                 {
-                    parameters.CP_VisualImageFileName = vUploadFile;
-                }
-            }
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_VisualImageOriginalFileName);
 
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_VisualImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_VisualImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TSAD_VisualImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_AttachPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_AttachPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_AttachPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TSAD_AttachPhotoFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_PhysicalPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_PhysicalPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_PhysicalPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TSAD_PhysicalPhotoFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_IssueImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_IssueImage_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_IssueImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TSAD_IssueImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSPD_PhysicaImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.TSPD_PhysicaImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TSPD_PhysicaImageFileName = vUploadFile;
-                }
-            }
-
-          
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_TerminalWireImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_TerminalWireImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_TerminalWireImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.CP_TerminalWireImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_BatteryParametersSettingImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_BatteryParametersSettingImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_BatteryParametersSettingImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.CP_BatteryParametersSettingImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_BMSSoftwareImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_BMSSoftwareImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_BMSSoftwareImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.CP_BMSSoftwareImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_ConnectorDamage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_ConnectorDamage_Base64, "\\Uploads\\Ticket\\", parameters.TS_ConnectorDamageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TS_ConnectorDamageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_AnyBrunt_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_AnyBrunt_Base64, "\\Uploads\\Ticket\\", parameters.TS_AnyBruntOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TS_AnyBruntFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_PhysicalDamage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_PhysicalDamage_Base64, "\\Uploads\\Ticket\\", parameters.TS_PhysicalDamageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TS_PhysicalDamageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_DisplayPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_DisplayPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TS_DisplayPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.TS_DisplayPhotoFileName = vUploadFile;
-                }
-            }
-
-            //Reopen image upload
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_VisualImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_VisualImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_VisualImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_AttachPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_AttachPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_AttachPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_AttachPhotoFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_PhysicalPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_PhysicalPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_PhysicalPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_PhysicalPhotoFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_IssueImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_IssueImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_IssueImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSAD_IssueImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSPD_PhysicaImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSPD_PhysicaImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TSPD_PhysicaImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_VisualImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_VisualImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_CP_VisualImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_TerminalWireImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_TerminalWireImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_TerminalWireImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_CP_TerminalWireImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_BatteryParametersSettingImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_BatteryParametersSettingImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_BatteryParametersSettingImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_CP_BatteryParametersSettingImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_BMSSoftwareImage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_BMSSoftwareImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_BMSSoftwareImageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_CP_BMSSoftwareImageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_ConnectorDamage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_ConnectorDamage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_ConnectorDamageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TS_ConnectorDamageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_AnyBrunt_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_AnyBrunt_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_AnyBruntOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TS_AnyBruntFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_PhysicalDamage_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_PhysicalDamage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_PhysicalDamageOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TS_PhysicalDamageFileName = vUploadFile;
-                }
-            }
-
-            if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_DisplayPhoto_Base64))
-            {
-                var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_DisplayPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_DisplayPhotoOriginalFileName);
-
-                if (!string.IsNullOrWhiteSpace(vUploadFile))
-                {
-                    parameters.RO_TS_DisplayPhotoFileName = vUploadFile;
-                }
-            }
-
-            //reopen end
-
-
-            // Save/Update
-            int result = await _manageTicketRepository.SaveManageTicket(parameters);
-
-            if (result == (int)SaveOperationEnums.NoRecordExists)
-            {
-                _response.Message = "No record exists";
-            }
-            else if (result == (int)SaveOperationEnums.ReocrdExists)
-            {
-                _response.Message = "Record already exists";
-            }
-            else if (result == (int)SaveOperationEnums.TicketAlreadyStarted)
-            {
-                _response.Message = "Ticket already started by Engg. Please stop and allocate to other Engg.";
-            }
-            else if (result == -4)
-            {
-                _response.Message = "Ticket is Started by Engg. Please stop and change ticket status.";
-            }
-            else if (result == (int)SaveOperationEnums.NoResult)
-            {
-                _response.Message = "Something went wrong, please try again";
-            }
-            else
-            {
-                _response.Message = "Record details saved successfully";
-            }
-
-            // Add/Update Ticket Details
-            if (result > 0)
-            {
-                // Caller Address Detail
-                var CallerAddressDetail = new Address_Request()
-                {
-                    Id = Convert.ToInt32(parameters.CD_CallerAddressId),
-                    RefId = result,
-                    RefType = "Ticket",
-                    Address1 = parameters.CD_CallerAddress1,
-                    RegionId = parameters.CD_CallerRegionId,
-                    StateId = parameters.CD_CallerStateId,
-                    DistrictId = parameters.CD_CallerDistrictId,
-                    CityId = parameters.CD_CallerCityId,
-                    PinCode = parameters.CD_CallerPinCode,
-                    IsDeleted = false,
-                    IsDefault = false,
-                    IsActive = true,
-                };
-
-                int resultAddressDetail = await _addressRepository.SaveAddress(CallerAddressDetail);
-
-                if (resultAddressDetail > 0)
-                {
-                    parameters.CD_CallerAddressId = resultAddressDetail;
-
-                    if (parameters.CD_IsSiteAddressSameAsCaller == true)
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
                     {
-                        parameters.CD_SiteAddressId = resultAddressDetail;
+                        parameters.CP_VisualImageFileName = vUploadFile;
                     }
                 }
 
-                // Battery Customer Address Detail
-                var BatteryCustomerAddressDetail = new Address_Request()
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_VisualImage_Base64))
                 {
-                    Id = Convert.ToInt32(parameters.CD_CustomerAddressId),
-                    RefId = result,
-                    RefType = "Ticket",
-                    Address1 = parameters.CD_CustomerAddress1,
-                    RegionId = parameters.CD_CustomerRegionId,
-                    StateId = parameters.CD_CustomerStateId,
-                    DistrictId = parameters.CD_CustomerDistrictId,
-                    CityId = parameters.CD_CustomerCityId,
-                    PinCode = parameters.CD_CustomerPinCode,
-                    IsDeleted = false,
-                    IsDefault = false,
-                    IsActive = true,
-                };
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_VisualImageOriginalFileName);
 
-                int resultBatteryCustomerAddressDetail = await _addressRepository.SaveAddress(BatteryCustomerAddressDetail);
-
-                if (resultBatteryCustomerAddressDetail > 0)
-                {
-                    parameters.CD_CustomerAddressId = resultBatteryCustomerAddressDetail;
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TSAD_VisualImageFileName = vUploadFile;
+                    }
                 }
 
-                // Site Customer Address Detail
-                if (parameters.CD_IsSiteAddressSameAsCaller == false)
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_AttachPhoto_Base64))
                 {
-                    var SiteCustomerAddressDetail = new Address_Request()
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_AttachPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_AttachPhotoOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
                     {
-                        Id = Convert.ToInt32(parameters.CD_SiteAddressId),
+                        parameters.TSAD_AttachPhotoFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_PhysicalPhoto_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_PhysicalPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_PhysicalPhotoOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TSAD_PhysicalPhotoFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSAD_IssueImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSAD_IssueImage_Base64, "\\Uploads\\Ticket\\", parameters.TSAD_IssueImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TSAD_IssueImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TSPD_PhysicaImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.TSPD_PhysicaImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TSPD_PhysicaImageFileName = vUploadFile;
+                    }
+                }
+
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_TerminalWireImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_TerminalWireImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_TerminalWireImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.CP_TerminalWireImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_BatteryParametersSettingImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_BatteryParametersSettingImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_BatteryParametersSettingImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.CP_BatteryParametersSettingImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.CP_BMSSoftwareImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.CP_BMSSoftwareImage_Base64, "\\Uploads\\Ticket\\", parameters.CP_BMSSoftwareImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.CP_BMSSoftwareImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_ConnectorDamage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_ConnectorDamage_Base64, "\\Uploads\\Ticket\\", parameters.TS_ConnectorDamageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TS_ConnectorDamageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_AnyBrunt_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_AnyBrunt_Base64, "\\Uploads\\Ticket\\", parameters.TS_AnyBruntOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TS_AnyBruntFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_PhysicalDamage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_PhysicalDamage_Base64, "\\Uploads\\Ticket\\", parameters.TS_PhysicalDamageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TS_PhysicalDamageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.TS_DisplayPhoto_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.TS_DisplayPhoto_Base64, "\\Uploads\\Ticket\\", parameters.TS_DisplayPhotoOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.TS_DisplayPhotoFileName = vUploadFile;
+                    }
+                }
+
+                //Reopen image upload
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_VisualImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_VisualImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TSAD_VisualImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_AttachPhoto_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_AttachPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_AttachPhotoOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TSAD_AttachPhotoFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_PhysicalPhoto_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_PhysicalPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_PhysicalPhotoOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TSAD_PhysicalPhotoFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSAD_IssueImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSAD_IssueImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSAD_IssueImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TSAD_IssueImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TSPD_PhysicaImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TSPD_PhysicaImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TSPD_PhysicaImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TSPD_PhysicaImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_VisualImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_VisualImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_VisualImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_CP_VisualImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_TerminalWireImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_TerminalWireImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_TerminalWireImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_CP_TerminalWireImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_BatteryParametersSettingImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_BatteryParametersSettingImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_BatteryParametersSettingImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_CP_BatteryParametersSettingImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_CP_BMSSoftwareImage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_CP_BMSSoftwareImage_Base64, "\\Uploads\\Ticket\\", parameters.RO_CP_BMSSoftwareImageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_CP_BMSSoftwareImageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_ConnectorDamage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_ConnectorDamage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_ConnectorDamageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TS_ConnectorDamageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_AnyBrunt_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_AnyBrunt_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_AnyBruntOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TS_AnyBruntFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_PhysicalDamage_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_PhysicalDamage_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_PhysicalDamageOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TS_PhysicalDamageFileName = vUploadFile;
+                    }
+                }
+
+                if (parameters! != null && !string.IsNullOrWhiteSpace(parameters.RO_TS_DisplayPhoto_Base64))
+                {
+                    var vUploadFile = _fileManager.UploadDocumentsBase64ToFile(parameters.RO_TS_DisplayPhoto_Base64, "\\Uploads\\Ticket\\", parameters.RO_TS_DisplayPhotoOriginalFileName);
+
+                    if (!string.IsNullOrWhiteSpace(vUploadFile))
+                    {
+                        parameters.RO_TS_DisplayPhotoFileName = vUploadFile;
+                    }
+                }
+
+                //reopen end
+
+                #endregion
+
+                #region Save/Update
+
+                result = await _manageTicketRepository.SaveManageTicket(parameters);
+
+                if (result == (int)SaveOperationEnums.NoRecordExists)
+                {
+                    _response.Message = "No record exists";
+                }
+                else if (result == (int)SaveOperationEnums.ReocrdExists)
+                {
+                    _response.Message = "Record already exists";
+                }
+                else if (result == (int)SaveOperationEnums.TicketAlreadyStarted)
+                {
+                    _response.Message = "Ticket already started by Engg. Please stop and allocate to other Engg.";
+                }
+                else if (result == -4)
+                {
+                    _response.Message = "Ticket is Started by Engg. Please stop and change ticket status.";
+                }
+                else if (result == (int)SaveOperationEnums.NoResult)
+                {
+                    _response.Message = "Something went wrong, please try again";
+                }
+                else
+                {
+                    _response.Message = "Record details saved successfully";
+                }
+
+                // Add/Update Ticket Details
+                if (result > 0)
+                {
+                    // Caller Address Detail
+                    var CallerAddressDetail = new Address_Request()
+                    {
+                        Id = Convert.ToInt32(parameters.CD_CallerAddressId),
                         RefId = result,
                         RefType = "Ticket",
-                        Address1 = parameters.CD_SiteCustomerAddress1,
-                        RegionId = parameters.CD_SiteCustomerRegionId,
-                        StateId = parameters.CD_SiteCustomerStateId,
-                        DistrictId = parameters.CD_SiteCustomerDistrictId,
-                        CityId = parameters.CD_SiteCustomerCityId,
-                        PinCode = parameters.CD_SiteCustomerPinCode,
+                        Address1 = parameters.CD_CallerAddress1,
+                        RegionId = parameters.CD_CallerRegionId,
+                        StateId = parameters.CD_CallerStateId,
+                        DistrictId = parameters.CD_CallerDistrictId,
+                        CityId = parameters.CD_CallerCityId,
+                        PinCode = parameters.CD_CallerPinCode,
                         IsDeleted = false,
                         IsDefault = false,
                         IsActive = true,
                     };
 
-                    int resultSiteCustomerAddressDetail = await _addressRepository.SaveAddress(SiteCustomerAddressDetail);
+                    int resultAddressDetail = await _addressRepository.SaveAddress(CallerAddressDetail);
 
-                    if (resultSiteCustomerAddressDetail > 0)
+                    if (resultAddressDetail > 0)
                     {
-                        parameters.CD_SiteAddressId = resultSiteCustomerAddressDetail;
+                        parameters.CD_CallerAddressId = resultAddressDetail;
+
+                        if (parameters.CD_IsSiteAddressSameAsCaller == true)
+                        {
+                            parameters.CD_SiteAddressId = resultAddressDetail;
+                        }
                     }
+
+                    // Battery Customer Address Detail
+                    var BatteryCustomerAddressDetail = new Address_Request()
+                    {
+                        Id = Convert.ToInt32(parameters.CD_CustomerAddressId),
+                        RefId = result,
+                        RefType = "Ticket",
+                        Address1 = parameters.CD_CustomerAddress1,
+                        RegionId = parameters.CD_CustomerRegionId,
+                        StateId = parameters.CD_CustomerStateId,
+                        DistrictId = parameters.CD_CustomerDistrictId,
+                        CityId = parameters.CD_CustomerCityId,
+                        PinCode = parameters.CD_CustomerPinCode,
+                        IsDeleted = false,
+                        IsDefault = false,
+                        IsActive = true,
+                    };
+
+                    int resultBatteryCustomerAddressDetail = await _addressRepository.SaveAddress(BatteryCustomerAddressDetail);
+
+                    if (resultBatteryCustomerAddressDetail > 0)
+                    {
+                        parameters.CD_CustomerAddressId = resultBatteryCustomerAddressDetail;
+                    }
+
+                    // Site Customer Address Detail
+                    if (parameters.CD_IsSiteAddressSameAsCaller == false)
+                    {
+                        var SiteCustomerAddressDetail = new Address_Request()
+                        {
+                            Id = Convert.ToInt32(parameters.CD_SiteAddressId),
+                            RefId = result,
+                            RefType = "Ticket",
+                            Address1 = parameters.CD_SiteCustomerAddress1,
+                            RegionId = parameters.CD_SiteCustomerRegionId,
+                            StateId = parameters.CD_SiteCustomerStateId,
+                            DistrictId = parameters.CD_SiteCustomerDistrictId,
+                            CityId = parameters.CD_SiteCustomerCityId,
+                            PinCode = parameters.CD_SiteCustomerPinCode,
+                            IsDeleted = false,
+                            IsDefault = false,
+                            IsActive = true,
+                        };
+
+                        int resultSiteCustomerAddressDetail = await _addressRepository.SaveAddress(SiteCustomerAddressDetail);
+
+                        if (resultSiteCustomerAddressDetail > 0)
+                        {
+                            parameters.CD_SiteAddressId = resultSiteCustomerAddressDetail;
+                        }
+                    }
+
+                    // Add/Update Ticket Details
+                    parameters.Id = result;
+
+                    int resultTicketDetail = await _manageTicketRepository.SaveManageTicket(parameters);
                 }
 
-                // Add/Update Ticket Details
-                parameters.Id = result;
-
-                int resultTicketDetail = await _manageTicketRepository.SaveManageTicket(parameters);
-            }
-
-            // Add/Update Ticket Part Details
-            if (result > 0)
-            {
-                foreach (var item in parameters.PartDetail)
+                // Add/Update Ticket Part Details
+                if (result > 0)
                 {
-                    var vManageTicketPartDetails_Request = new ManageTicketPartDetails_Request()
+                    foreach (var item in parameters.PartDetail)
                     {
-                        Id = Convert.ToInt32(item.Id),
-                        TicketId = result,
-                        SpareCategoryId = item.SpareCategoryId,
-                        ProductMakeId = item.ProductMakeId,
-                        BMSMakeId = item.BMSMakeId,
-                        SpareDetailsId = item.SpareDetailsId,
-                        Quantity = item.Quantity,
-                        AvailableQty = item.AvailableQty,
-                    };
-                    int resultPartDetails = await _manageTicketRepository.SaveManageTicketPartDetail(vManageTicketPartDetails_Request);
-
-                    #region Engineer Inventory Master Update
-
-                    if (resultPartDetails > 0 && parameters.TSSP_AllocateToServiceEnggId > 0)
-                    {
-                        var vStockParameters = new StockMaster_Request()
+                        var vManageTicketPartDetails_Request = new ManageTicketPartDetails_Request()
                         {
-                            EngineerId = parameters.TSSP_AllocateToServiceEnggId,
+                            Id = Convert.ToInt32(item.Id),
+                            TicketId = result,
+                            SpareCategoryId = item.SpareCategoryId,
+                            ProductMakeId = item.ProductMakeId,
+                            BMSMakeId = item.BMSMakeId,
                             SpareDetailsId = item.SpareDetailsId,
-                            Quantity = item.Quantity * -1,
-                            StockType = "Engg"
+                            Quantity = item.Quantity,
+                            AvailableQty = item.AvailableQty,
                         };
+                        int resultPartDetails = await _manageTicketRepository.SaveManageTicketPartDetail(vManageTicketPartDetails_Request);
 
-                        int resultInventory = await _manageStockRepository.SaveStockMaster(vStockParameters);
-                    }
+                        #region Engineer Inventory Master Update
 
-                    #endregion
-                }
-            }
-
-            // Add Move Ticket To TRC
-            if (result > 0 && (parameters.TSSP_SolutionProvider == (int)TicketStatusEnums.ReferToTRC || parameters.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)) // Refer To TRC
-            {
-                var vManageTRC_Request = new ManageTRC_Request()
-                {
-                    TicketId = result,
-
-                    TRCDate = DateTime.Now,
-                    TRCTime = DateTime.Now.ToString("hh:mm tt"),
-
-                    TRCStatusId = (int)TicketStatusEnums.ReferToTRC,
-                    IsActive = true,
-                };
-
-                int resultManageTRC = await _manageTRCRepository.SaveManageTRC(vManageTRC_Request);
-            }
-
-            // Save Ticket Log History
-            if (result > 0)
-            {
-                int resultManageTicketLog = await _manageTicketRepository.SaveManageTicketLogHistory(result);
-            }
-
-            // SMS send  
-            if (result > 0)
-            {
-                var resultTicketSMSObj = _manageTicketRepository.GetManageTicketById(result).Result;
-                var resultCustomerObj = _customerRepository.GetCustomerById(Convert.ToInt32(resultTicketSMSObj.CD_CustomerNameId)).Result;
-
-                #region SMS Send
-
-                // New Ticket Generation : SMS send to Caller mobile
-                if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.New)
-                {
-                    #region SMS Config
-
-                    var vConfigRef_Search = new ConfigRef_Search()
-                    {
-                        Ref_Type = "SMS",
-                        Ref_Param = "TicketGeneration"
-                    };
-
-                    string sSMSTemplateName = string.Empty;
-                    string sSMSTemplateContent = string.Empty;
-                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                    if (vConfigRefObj != null)
-                    {
-                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                        if (resultPartDetails > 0 && parameters.TSSP_AllocateToServiceEnggId > 0)
                         {
-                            //Replace parameter 
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
-                        }
-                    }
-
-                    #endregion
-
-                    #region SMS History Check
-
-                    var vSMSHistorySearch = new SMSHistory_Search()
-                    {
-                        Ref2_Other = resultTicketSMSObj.TicketNumber,
-                        TemplateName = sSMSTemplateContent,
-                    };
-
-                    var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
-                    if (resultSMSHistoryObj == null)
-                    {
-                        // Send SMS
-                        var vsmsRequest = new SMS_Request()
-                        {
-                            Ref1_OTPId = 0,
-                            Ref2_Other = resultTicketSMSObj.TicketNumber,
-                            TemplateName = sSMSTemplateName,
-                            TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CallerMobile,
-                        };
-
-                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-                    }
-
-                    #endregion
-                }
-
-                // New Ticket Allocate To Technical Support Engineer : SMS Send to Technical Engineer
-                if (resultTicketSMSObj.BD_TechnicalSupportEnggId > 0 && resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
-                {
-                    #region SMS Config
-
-                    var vConfigRef_Search = new ConfigRef_Search()
-                    {
-                        Ref_Type = "SMS",
-                        Ref_Param = "TicketAllocateToEngineer"
-                    };
-
-                    var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.BD_TechnicalSupportEnggId)).Result;
-
-                    string sSMSTemplateName = string.Empty;
-                    string sSMSTemplateContent = string.Empty;
-                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                    if (vConfigRefObj != null)
-                    {
-                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
-                        {
-                            StringBuilder sb = new StringBuilder();
-                            sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.CD_SiteCustomerName, resultTicketSMSObj.CD_SitContactMobile, resultTicketSMSObj.CD_SiteCustomerAddress1, resultTicketSMSObj.BD_ProbReportedByCust);
-
-                            sSMSTemplateContent = sb.ToString();
-                        }
-                    }
-
-                    #endregion
-
-                    #region SMS History Check
-
-                    // Send SMS
-                    var vsmsRequest = new SMS_Request()
-                    {
-                        Ref1_OTPId = 0,
-                        Ref2_Other = resultTicketSMSObj.TicketNumber,
-                        TemplateName = sSMSTemplateName,
-                        TemplateContent = sSMSTemplateContent,
-                        Mobile = vEnggObj.MobileNumber,
-                    };
-
-                    bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-
-                    #endregion
-                }
-
-                // New Ticket Allocate To Technical Support Engineer : SMS send to Caller
-                if (resultTicketSMSObj.BD_TechnicalSupportEnggId > 0 && resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
-                {
-                    if (!string.IsNullOrEmpty(resultTicketSMSObj.CD_CallerMobile))
-                    {
-                        #region SMS Config
-
-                        var vConfigRef_Search = new ConfigRef_Search()
-                        {
-                            Ref_Type = "SMS",
-                            Ref_Param = "TicketAllocateToCaller"
-                        };
-
-                        string sSMSTemplateName = string.Empty;
-                        string sSMSTemplateContent = string.Empty;
-                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                        if (vConfigRefObj != null)
-                        {
-                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                            var vStockParameters = new StockMaster_Request()
                             {
-                                var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.BD_TechnicalSupportEnggId)).Result;
+                                EngineerId = parameters.TSSP_AllocateToServiceEnggId,
+                                SpareDetailsId = item.SpareDetailsId,
+                                Quantity = item.Quantity * -1,
+                                StockType = "Engg"
+                            };
 
-                                StringBuilder sb = new StringBuilder();
-                                sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.BD_TechnicalSupportEngg, vEnggObj.MobileNumber);
-
-                                sSMSTemplateContent = sb.ToString();
-                            }
+                            int resultInventory = await _manageStockRepository.SaveStockMaster(vStockParameters);
                         }
-
-                        #endregion
-
-                        #region SMS History Check
-
-                        // Send SMS
-                        var vsmsRequest = new SMS_Request()
-                        {
-                            Ref1_OTPId = 0,
-                            Ref2_Other = resultTicketSMSObj.TicketNumber,
-                            TemplateName = sSMSTemplateName,
-                            TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CallerMobile,
-                        };
-
-                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
 
                         #endregion
                     }
                 }
 
-                // New Ticket Allocate To Service Engineer : SMS send to Service Engineer
-                if (resultTicketSMSObj.TSSP_AllocateToServiceEnggId > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                // Add Move Ticket To TRC
+                if (result > 0 && (parameters.TSSP_SolutionProvider == (int)TicketStatusEnums.ReferToTRC || parameters.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)) // Refer To TRC
                 {
-                    #region SMS Config
-
-                    var vConfigRef_Search = new ConfigRef_Search()
+                    var vManageTRC_Request = new ManageTRC_Request()
                     {
-                        Ref_Type = "SMS",
-                        Ref_Param = "TicketAllocateToEngineer"
+                        TicketId = result,
+
+                        TRCDate = DateTime.Now,
+                        TRCTime = DateTime.Now.ToString("hh:mm tt"),
+
+                        TRCStatusId = (int)TicketStatusEnums.ReferToTRC,
+                        IsActive = true,
                     };
 
-                    var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
-
-                    string sSMSTemplateName = string.Empty;
-                    string sSMSTemplateContent = string.Empty;
-                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                    if (vConfigRefObj != null)
-                    {
-                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
-                        {
-                            StringBuilder sb = new StringBuilder();
-                            sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.CD_SiteCustomerName, resultTicketSMSObj.CD_SitContactMobile, resultTicketSMSObj.CD_SiteCustomerAddress1, resultTicketSMSObj.BD_ProbReportedByCust);
-
-                            sSMSTemplateContent = sb.ToString();
-                        }
-                    }
-
-                    #endregion
-
-                    #region SMS History Check
-
-                    // Send SMS
-                    var vsmsRequest = new SMS_Request()
-                    {
-                        Ref1_OTPId = 0,
-                        Ref2_Other = resultTicketSMSObj.TicketNumber,
-                        TemplateName = sSMSTemplateName,
-                        TemplateContent = sSMSTemplateContent,
-                        Mobile = vEnggObj.MobileNumber,
-                    };
-
-                    bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-
-                    #endregion
+                    int resultManageTRC = await _manageTRCRepository.SaveManageTRC(vManageTRC_Request);
                 }
 
-                // New Ticket Allocate To Service Engineer : SMS send to Caller
-                if (resultTicketSMSObj.TSSP_AllocateToServiceEnggId > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                // Save Ticket Log History
+                if (result > 0)
                 {
-                    if (!string.IsNullOrEmpty(resultTicketSMSObj.CD_CallerMobile))
+                    int resultManageTicketLog = await _manageTicketRepository.SaveManageTicketLogHistory(result);
+                }
+
+                // SMS send  
+                if (result > 0)
+                {
+                    var resultTicketSMSObj = _manageTicketRepository.GetManageTicketById(result).Result;
+                    var resultCustomerObj = _customerRepository.GetCustomerById(Convert.ToInt32(resultTicketSMSObj.CD_CustomerNameId)).Result;
+
+                    #region SMS Send
+
+                    // New Ticket Generation : SMS send to Caller mobile
+                    if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.New)
                     {
                         #region SMS Config
 
                         var vConfigRef_Search = new ConfigRef_Search()
                         {
                             Ref_Type = "SMS",
-                            Ref_Param = "TicketAllocateToCaller"
-                        };
-
-                        string sSMSTemplateName = string.Empty;
-                        string sSMSTemplateContent = string.Empty;
-                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                        if (vConfigRefObj != null)
-                        {
-                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
-                            {
-                                var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
-
-                                StringBuilder sb = new StringBuilder();
-                                sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.TSSP_AllocateToServiceEngg, vEnggObj.MobileNumber);
-
-                                sSMSTemplateContent = sb.ToString();
-                            }
-                        }
-
-                        #endregion
-
-                        #region SMS History Check
-
-                        // Send SMS
-                        var vsmsRequest = new SMS_Request()
-                        {
-                            Ref1_OTPId = 0,
-                            Ref2_Other = resultTicketSMSObj.TicketNumber,
-                            TemplateName = sSMSTemplateName,
-                            TemplateContent = sSMSTemplateContent,
-                            Mobile = resultTicketSMSObj.CD_CallerMobile,
-                        };
-
-                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-
-                        #endregion
-                    }
-                }
-
-                // Resolved Ticket : SMS send to Caller mobile
-                if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
-                {
-                    var vSMSHistory_Search = new SMSHistory_Search()
-                    {
-                        Ref1_OTPId = 0,
-                        Ref2_Other = resultTicketSMSObj.TicketNumber,
-                        TemplateName = "Ticket Resolve"
-                    };
-
-                    var resultSmsHistory = await _smsConfigRepository.GetSMSHistoryById(vSMSHistory_Search);
-                    if (resultSmsHistory == null || (resultSmsHistory != null && resultSmsHistory.Status == "failure"))
-                    {
-                        #region SMS Config
-
-                        var vConfigRef_Search = new ConfigRef_Search()
-                        {
-                            Ref_Type = "SMS",
-                            Ref_Param = "TicketResolve"
+                            Ref_Param = "TicketGeneration"
                         };
 
                         string sSMSTemplateName = string.Empty;
@@ -842,19 +585,348 @@ namespace CLN.API.Controllers
 
                         #endregion
                     }
-                }
 
-                //Out of Warranty : SMS send to Customer and reporting to employee mobile
-                if (tktParametersId == 0)
-                {
-                    if (parameters.BD_WarrantyStatusId == 2)
+                    // New Ticket Allocate To Technical Support Engineer : SMS Send to Technical Engineer
+                    if (resultTicketSMSObj.BD_TechnicalSupportEnggId > 0 && resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
                     {
                         #region SMS Config
 
                         var vConfigRef_Search = new ConfigRef_Search()
                         {
                             Ref_Type = "SMS",
-                            Ref_Param = "OutOfWarranty"
+                            Ref_Param = "TicketAllocateToEngineer"
+                        };
+
+                        var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.BD_TechnicalSupportEnggId)).Result;
+
+                        string sSMSTemplateName = string.Empty;
+                        string sSMSTemplateContent = string.Empty;
+                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                        if (vConfigRefObj != null)
+                        {
+                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                            {
+                                StringBuilder sb = new StringBuilder();
+                                sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.CD_SiteCustomerName, resultTicketSMSObj.CD_SitContactMobile, resultTicketSMSObj.CD_SiteCustomerAddress1, resultTicketSMSObj.BD_ProbReportedByCust);
+
+                                sSMSTemplateContent = sb.ToString();
+                            }
+                        }
+
+                        #endregion
+
+                        #region SMS History Check
+
+                        // Send SMS
+                        var vsmsRequest = new SMS_Request()
+                        {
+                            Ref1_OTPId = 0,
+                            Ref2_Other = resultTicketSMSObj.TicketNumber,
+                            TemplateName = sSMSTemplateName,
+                            TemplateContent = sSMSTemplateContent,
+                            Mobile = vEnggObj.MobileNumber,
+                        };
+
+                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                        #endregion
+                    }
+
+                    // New Ticket Allocate To Technical Support Engineer : SMS send to Caller
+                    if (resultTicketSMSObj.BD_TechnicalSupportEnggId > 0 && resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
+                    {
+                        if (!string.IsNullOrEmpty(resultTicketSMSObj.CD_CallerMobile))
+                        {
+                            #region SMS Config
+
+                            var vConfigRef_Search = new ConfigRef_Search()
+                            {
+                                Ref_Type = "SMS",
+                                Ref_Param = "TicketAllocateToCaller"
+                            };
+
+                            string sSMSTemplateName = string.Empty;
+                            string sSMSTemplateContent = string.Empty;
+                            var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                            if (vConfigRefObj != null)
+                            {
+                                sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                                sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                                if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                                {
+                                    var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.BD_TechnicalSupportEnggId)).Result;
+
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.BD_TechnicalSupportEngg, vEnggObj.MobileNumber);
+
+                                    sSMSTemplateContent = sb.ToString();
+                                }
+                            }
+
+                            #endregion
+
+                            #region SMS History Check
+
+                            // Send SMS
+                            var vsmsRequest = new SMS_Request()
+                            {
+                                Ref1_OTPId = 0,
+                                Ref2_Other = resultTicketSMSObj.TicketNumber,
+                                TemplateName = sSMSTemplateName,
+                                TemplateContent = sSMSTemplateContent,
+                                Mobile = resultTicketSMSObj.CD_CallerMobile,
+                            };
+
+                            bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                            #endregion
+                        }
+                    }
+
+                    // New Ticket Allocate To Service Engineer : SMS send to Service Engineer
+                    if (resultTicketSMSObj.TSSP_AllocateToServiceEnggId > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                    {
+                        #region SMS Config
+
+                        var vConfigRef_Search = new ConfigRef_Search()
+                        {
+                            Ref_Type = "SMS",
+                            Ref_Param = "TicketAllocateToEngineer"
+                        };
+
+                        var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
+
+                        string sSMSTemplateName = string.Empty;
+                        string sSMSTemplateContent = string.Empty;
+                        var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                        if (vConfigRefObj != null)
+                        {
+                            sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                            sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                            if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                            {
+                                StringBuilder sb = new StringBuilder();
+                                sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.CD_SiteCustomerName, resultTicketSMSObj.CD_SitContactMobile, resultTicketSMSObj.CD_SiteCustomerAddress1, resultTicketSMSObj.BD_ProbReportedByCust);
+
+                                sSMSTemplateContent = sb.ToString();
+                            }
+                        }
+
+                        #endregion
+
+                        #region SMS History Check
+
+                        // Send SMS
+                        var vsmsRequest = new SMS_Request()
+                        {
+                            Ref1_OTPId = 0,
+                            Ref2_Other = resultTicketSMSObj.TicketNumber,
+                            TemplateName = sSMSTemplateName,
+                            TemplateContent = sSMSTemplateContent,
+                            Mobile = vEnggObj.MobileNumber,
+                        };
+
+                        bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                        #endregion
+                    }
+
+                    // New Ticket Allocate To Service Engineer : SMS send to Caller
+                    if (resultTicketSMSObj.TSSP_AllocateToServiceEnggId > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                    {
+                        if (!string.IsNullOrEmpty(resultTicketSMSObj.CD_CallerMobile))
+                        {
+                            #region SMS Config
+
+                            var vConfigRef_Search = new ConfigRef_Search()
+                            {
+                                Ref_Type = "SMS",
+                                Ref_Param = "TicketAllocateToCaller"
+                            };
+
+                            string sSMSTemplateName = string.Empty;
+                            string sSMSTemplateContent = string.Empty;
+                            var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                            if (vConfigRefObj != null)
+                            {
+                                sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                                sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                                if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                                {
+                                    var vEnggObj = _userRepository.GetUserById(Convert.ToInt32(resultTicketSMSObj.TSSP_AllocateToServiceEnggId)).Result;
+
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.AppendFormat(sSMSTemplateContent, resultTicketSMSObj.TicketNumber, resultTicketSMSObj.TSSP_AllocateToServiceEngg, vEnggObj.MobileNumber);
+
+                                    sSMSTemplateContent = sb.ToString();
+                                }
+                            }
+
+                            #endregion
+
+                            #region SMS History Check
+
+                            // Send SMS
+                            var vsmsRequest = new SMS_Request()
+                            {
+                                Ref1_OTPId = 0,
+                                Ref2_Other = resultTicketSMSObj.TicketNumber,
+                                TemplateName = sSMSTemplateName,
+                                TemplateContent = sSMSTemplateContent,
+                                Mobile = resultTicketSMSObj.CD_CallerMobile,
+                            };
+
+                            bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                            #endregion
+                        }
+                    }
+
+                    // Resolved Ticket : SMS send to Caller mobile
+                    if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
+                    {
+                        var vSMSHistory_Search = new SMSHistory_Search()
+                        {
+                            Ref1_OTPId = 0,
+                            Ref2_Other = resultTicketSMSObj.TicketNumber,
+                            TemplateName = "Ticket Resolve"
+                        };
+
+                        var resultSmsHistory = await _smsConfigRepository.GetSMSHistoryById(vSMSHistory_Search);
+                        if (resultSmsHistory == null || (resultSmsHistory != null && resultSmsHistory.Status == "failure"))
+                        {
+                            #region SMS Config
+
+                            var vConfigRef_Search = new ConfigRef_Search()
+                            {
+                                Ref_Type = "SMS",
+                                Ref_Param = "TicketResolve"
+                            };
+
+                            string sSMSTemplateName = string.Empty;
+                            string sSMSTemplateContent = string.Empty;
+                            var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                            if (vConfigRefObj != null)
+                            {
+                                sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                                sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                                if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                                {
+                                    //Replace parameter 
+                                    sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
+                                }
+                            }
+
+                            #endregion
+
+                            #region SMS History Check
+
+                            var vSMSHistorySearch = new SMSHistory_Search()
+                            {
+                                Ref2_Other = resultTicketSMSObj.TicketNumber,
+                                TemplateName = sSMSTemplateContent,
+                            };
+
+                            var resultSMSHistoryObj = _smsConfigRepository.GetSMSHistoryById(vSMSHistorySearch).Result;
+                            if (resultSMSHistoryObj == null)
+                            {
+                                // Send SMS
+                                var vsmsRequest = new SMS_Request()
+                                {
+                                    Ref1_OTPId = 0,
+                                    Ref2_Other = resultTicketSMSObj.TicketNumber,
+                                    TemplateName = sSMSTemplateName,
+                                    TemplateContent = sSMSTemplateContent,
+                                    Mobile = resultTicketSMSObj.CD_CallerMobile,
+                                };
+
+                                bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+                            }
+
+                            #endregion
+                        }
+                    }
+
+                    //Out of Warranty : SMS send to Customer and reporting to employee mobile
+                    if (tktParametersId == 0)
+                    {
+                        if (parameters.BD_WarrantyStatusId == 2)
+                        {
+                            #region SMS Config
+
+                            var vConfigRef_Search = new ConfigRef_Search()
+                            {
+                                Ref_Type = "SMS",
+                                Ref_Param = "OutOfWarranty"
+                            };
+
+                            string sSMSTemplateName = string.Empty;
+                            string sSMSTemplateContent = string.Empty;
+                            var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
+                            if (vConfigRefObj != null)
+                            {
+                                sSMSTemplateName = vConfigRefObj.Ref_Value1;
+                                sSMSTemplateContent = vConfigRefObj.Ref_Value2;
+
+                                if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                                {
+                                    //Replace parameter 
+                                    sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
+                                }
+                            }
+
+                            #endregion
+
+                            #region getting caller mobile and reporting to user mobile no
+
+                            string mobileNo = resultTicketSMSObj.CD_CallerMobile;
+
+                            var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
+                            if (vUserDetail != null)
+                            {
+                                var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                                if (vReportedToUserDetail != null)
+                                {
+                                    mobileNo += "," + vReportedToUserDetail.MobileNumber;
+                                }
+                            }
+
+                            #endregion
+
+                            #region SMS History Check
+
+                            // Send SMS
+                            var vsmsRequest = new SMS_Request()
+                            {
+                                Ref1_OTPId = 0,
+                                Ref2_Other = resultTicketSMSObj.TicketNumber,
+                                TemplateName = sSMSTemplateName,
+                                TemplateContent = sSMSTemplateContent,
+                                Mobile = mobileNo,
+                            };
+
+                            bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
+
+                            #endregion
+                        }
+                    }
+
+                    //Warranty Void : SMS send to Customer and reporting to employee mobile
+                    if (parameters.TSPD_IsWarrantyVoid == true)
+                    {
+                        #region SMS Config
+
+                        var vConfigRef_Search = new ConfigRef_Search()
+                        {
+                            Ref_Type = "SMS",
+                            Ref_Param = "WarrantyVoid"
                         };
 
                         string sSMSTemplateName = string.Empty;
@@ -906,232 +978,171 @@ namespace CLN.API.Controllers
 
                         #endregion
                     }
+
+                    #endregion
                 }
 
-                //Warranty Void : SMS send to Customer and reporting to employee mobile
-                if (parameters.TSPD_IsWarrantyVoid == true)
+                //Send Email
+                if (result > 0)
                 {
-                    #region SMS Config
-
-                    var vConfigRef_Search = new ConfigRef_Search()
+                    if (tktParametersId == 0)
                     {
-                        Ref_Type = "SMS",
-                        Ref_Param = "WarrantyVoid"
-                    };
+                        //Ticket Generate
+                        var vEmailCustomer = await SendTicketGenerate_EmailToCustomer(result);
 
-                    string sSMSTemplateName = string.Empty;
-                    string sSMSTemplateContent = string.Empty;
-                    var vConfigRefObj = _configRefRepository.GetConfigRefList(vConfigRef_Search).Result.ToList().FirstOrDefault();
-                    if (vConfigRefObj != null)
-                    {
-                        sSMSTemplateName = vConfigRefObj.Ref_Value1;
-                        sSMSTemplateContent = vConfigRefObj.Ref_Value2;
-
-                        if (!string.IsNullOrWhiteSpace(sSMSTemplateContent))
+                        // Out Of Warranty
+                        if (parameters.BD_WarrantyStatusId == 2)
                         {
-                            //Replace parameter 
-                            sSMSTemplateContent = sSMSTemplateContent.Replace("{#var#}", resultTicketSMSObj.TicketNumber);
+                            var vEmailCustomer_OW = await SendOutOfWarranty_EmailToCustomer(result);
                         }
                     }
 
-                    #endregion
+                    var resultTicketSMSObj = _manageTicketRepository.GetManageTicketById(result).Result;
 
-                    #region getting caller mobile and reporting to user mobile no
-
-                    string mobileNo = resultTicketSMSObj.CD_CallerMobile;
-
-                    var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
-                    if (vUserDetail != null)
+                    if (parameters.Id > 0)
                     {
-                        var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
-                        if (vReportedToUserDetail != null)
+                        //Refer to TRC
+                        if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
                         {
-                            mobileNo += "," + vReportedToUserDetail.MobileNumber;
+                            var vEmailCustomer = await SendReferToTRC_EmailToCustomer(result);
+                            var vEmailEmployee = await SendReferToTRC_EmailToEmployee(result);
+                        }
+
+                        //Warranty Void
+                        if (parameters.TSPD_IsWarrantyVoid == true)
+                        {
+                            var vEmailCustomer = await SendVoidedWarranty_EmailToCustomer(result);
+                        }
+
+                        //Resolved
+                        if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
+                        {
+                            var vEmailCustomer = await SendResolved_EmailToCustomer(result);
+                            var vEmailEmployee = await SendResolved_EmailToEmployee(result);
+                        }
+
+                        //Part Request For Ticket
+                        if (parameters.PartDetail.Count > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                        {
+                            var vEmailEmployee = await SendPartRequestForTicket_EmailToEmployee(result);
+                        }
+                    }
+                }
+
+                //Notification
+                if (result > 0)
+                {
+                    //Allocated to Technical Engg and Service Engg
+                    if (parameters.BD_TechnicalSupportEnggId > 0 && parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
+                    {
+                        var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
+                        if (vTicketDetails != null)
+                        {
+                            string notifyMessage = String.Format(@"Ticket No. {0} has been assigned to you.", vTicketDetails.TicketNumber);
+
+                            var vNotifyObj = new Notification_Request()
+                            {
+                                Subject = "Ticket Allocated",
+                                SendTo = "Ticket Allocated to Technical Support",
+                                //CustomerId = vWorkOrderObj.CustomerId,
+                                //CustomerMessage = NotifyMessage,
+                                EmployeeId = parameters.BD_TechnicalSupportEnggId,
+                                EmployeeMessage = notifyMessage,
+                                RefValue1 = vTicketDetails.TicketNumber,
+                                ReadUnread = false
+                            };
+
+                            int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                        }
+                    }
+                    else if (parameters.TSSP_AllocateToServiceEnggId > 0 && (parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
+                    {
+                        var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
+                        if (vTicketDetails != null)
+                        {
+                            string notifyMessage = String.Format(@"Ticket No. {0} has been assigned to you.", vTicketDetails.TicketNumber);
+
+                            var vNotifyObj = new Notification_Request()
+                            {
+                                Subject = "Ticket Allocated",
+                                SendTo = "Ticket Allocated to Service Engineer",
+                                //CustomerId = vWorkOrderObj.CustomerId,
+                                //CustomerMessage = NotifyMessage,
+                                EmployeeId = parameters.TSSP_AllocateToServiceEnggId,
+                                EmployeeMessage = notifyMessage,
+                                RefValue1 = vTicketDetails.TicketNumber,
+                                ReadUnread = false
+                            };
+
+                            int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
                         }
                     }
 
-                    #endregion
-
-                    #region SMS History Check
-
-                    // Send SMS
-                    var vsmsRequest = new SMS_Request()
-                    {
-                        Ref1_OTPId = 0,
-                        Ref2_Other = resultTicketSMSObj.TicketNumber,
-                        TemplateName = sSMSTemplateName,
-                        TemplateContent = sSMSTemplateContent,
-                        Mobile = mobileNo,
-                    };
-
-                    bool bSMSResult = await _smsHelper.SMSSend(vsmsRequest);
-
-                    #endregion
-                }
-
-                #endregion
-            }
-
-            //Send Email
-            if (result > 0)
-            {
-                if (tktParametersId == 0)
-                {
-                    //Ticket Generate
-                    var vEmailCustomer = await SendTicketGenerate_EmailToCustomer(result);
-
-                    // Out Of Warranty
-                    if (parameters.BD_WarrantyStatusId == 2)
-                    {
-                        var vEmailCustomer_OW = await SendOutOfWarranty_EmailToCustomer(result);
-                    }
-                }
-
-                var resultTicketSMSObj = _manageTicketRepository.GetManageTicketById(result).Result;
-
-                if (parameters.Id > 0)
-                {
                     //Refer to TRC
-                    if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
+                    if (parameters.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
                     {
-                        var vEmailCustomer = await SendReferToTRC_EmailToCustomer(result);
-                        var vEmailEmployee = await SendReferToTRC_EmailToEmployee(result);
-                    }
-
-                    //Warranty Void
-                    if (parameters.TSPD_IsWarrantyVoid == true)
-                    {
-                        var vEmailCustomer = await SendVoidedWarranty_EmailToCustomer(result);
-                    }
-
-                    //Resolved
-                    if (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.Resolved)
-                    {
-                        var vEmailCustomer = await SendResolved_EmailToCustomer(result);
-                        var vEmailEmployee = await SendResolved_EmailToEmployee(result);
-                    }
-
-                    //Part Request For Ticket
-                    if (parameters.PartDetail.Count > 0 && (resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || resultTicketSMSObj.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
-                    {
-                        var vEmailEmployee = await SendPartRequestForTicket_EmailToEmployee(result);
-                    }
-                }
-            }
-
-            //Notification
-            if (result > 0)
-            {
-                //Allocated to Technical Engg and Service Engg
-                if (parameters.BD_TechnicalSupportEnggId > 0 && parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToTechnicalSupport)
-                {
-                    var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
-                    if (vTicketDetails != null)
-                    {
-                        string notifyMessage = String.Format(@"Ticket No. {0} has been assigned to you.", vTicketDetails.TicketNumber);
-
-                        var vNotifyObj = new Notification_Request()
+                        var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
+                        if (vTicketDetails != null)
                         {
-                            Subject = "Ticket Allocated",
-                            SendTo = "Ticket Allocated to Technical Support",
-                            //CustomerId = vWorkOrderObj.CustomerId,
-                            //CustomerMessage = NotifyMessage,
-                            EmployeeId = parameters.BD_TechnicalSupportEnggId,
-                            EmployeeMessage = notifyMessage,
-                            RefValue1 = vTicketDetails.TicketNumber,
-                            ReadUnread = false
-                        };
+                            string notifyMessage = String.Format(@"Ticket Number - {0} has been reffered to TRC.", vTicketDetails.TicketNumber);
 
-                        int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
-                    }
-                }
-                else if (parameters.TSSP_AllocateToServiceEnggId > 0 && (parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer1 || parameters.TicketStatusId == (int)TicketStatusEnums.AllocatedToServiceEngineer2))
-                {
-                    var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
-                    if (vTicketDetails != null)
-                    {
-                        string notifyMessage = String.Format(@"Ticket No. {0} has been assigned to you.", vTicketDetails.TicketNumber);
-
-                        var vNotifyObj = new Notification_Request()
-                        {
-                            Subject = "Ticket Allocated",
-                            SendTo = "Ticket Allocated to Service Engineer",
-                            //CustomerId = vWorkOrderObj.CustomerId,
-                            //CustomerMessage = NotifyMessage,
-                            EmployeeId = parameters.TSSP_AllocateToServiceEnggId,
-                            EmployeeMessage = notifyMessage,
-                            RefValue1 = vTicketDetails.TicketNumber,
-                            ReadUnread = false
-                        };
-
-                        int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
-                    }
-                }
-
-                //Refer to TRC
-                if (parameters.TicketStatusId == (int)TicketStatusEnums.ReferToTRC)
-                {
-                    var vTicketDetails = await _manageTicketRepository.GetManageTicketById(result);
-                    if (vTicketDetails != null)
-                    {
-                        string notifyMessage = String.Format(@"Ticket Number - {0} has been reffered to TRC.", vTicketDetails.TicketNumber);
-
-                        var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
-                        if (vUserDetail != null)
-                        {
-                            //Notification to Reporting to
-                            var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
-                            if (vReportedToUserDetail != null)
+                            var vUserDetail = await _userRepository.GetUserById(Convert.ToInt32(SessionManager.LoggedInUserId));
+                            if (vUserDetail != null)
                             {
-                                if (vReportedToUserDetail.IsActive == true)
+                                //Notification to Reporting to
+                                var vReportedToUserDetail = await _userRepository.GetUserById(Convert.ToInt32(vUserDetail.ReportingTo));
+                                if (vReportedToUserDetail != null)
                                 {
-                                    var vNotifyObj = new Notification_Request()
+                                    if (vReportedToUserDetail.IsActive == true)
                                     {
-                                        Subject = "Refer to TRC",
-                                        SendTo = "Reporting To",
-                                        //CustomerId = vWorkOrderObj.CustomerId,
-                                        //CustomerMessage = NotifyMessage,
-                                        EmployeeId = vReportedToUserDetail.Id,
-                                        EmployeeMessage = notifyMessage,
-                                        RefValue1 = vTicketDetails.TicketNumber,
-                                        ReadUnread = false
-                                    };
-
-                                    int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
-                                }
-                            }
-
-                            //Notification to Senior Engineer
-                            var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
-                            if (vUserBranchList.ToList().Count > 0)
-                            {
-                                var vloginUserBrandId = vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault() != null ? Convert.ToInt32(vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault()) : 0;
-
-                                var vBranchUser = await _branchRepository.GetBranchMappingByEmployeeId(0, vloginUserBrandId);
-                                if (vBranchUser.ToList().Count > 0)
-                                {
-                                    var searchUser = new BaseSearchEntity();
-                                    searchUser.IsActive = true;
-
-                                    var vUserList = await _userRepository.GetUserList(searchUser);
-                                    if (vUserList.ToList().Count > 0)
-                                    {
-                                        var vSeniorExecEng = vUserList.Where(x => x.RoleName == "senior executive" && vBranchUser.Select(x => x.EmployeeId).Contains(x.Id));
-                                        foreach (var itemEmployee in vSeniorExecEng)
+                                        var vNotifyObj = new Notification_Request()
                                         {
-                                            var vNotifyObjSE = new Notification_Request()
-                                            {
-                                                Subject = "Refer to TRC",
-                                                SendTo = "Senior Executive",
-                                                //CustomerId = vWorkOrderObj.CustomerId,
-                                                //CustomerMessage = NotifyMessage,
-                                                EmployeeId = itemEmployee.Id,
-                                                EmployeeMessage = notifyMessage,
-                                                RefValue1 = vTicketDetails.TicketNumber,
-                                                ReadUnread = false
-                                            };
+                                            Subject = "Refer to TRC",
+                                            SendTo = "Reporting To",
+                                            //CustomerId = vWorkOrderObj.CustomerId,
+                                            //CustomerMessage = NotifyMessage,
+                                            EmployeeId = vReportedToUserDetail.Id,
+                                            EmployeeMessage = notifyMessage,
+                                            RefValue1 = vTicketDetails.TicketNumber,
+                                            ReadUnread = false
+                                        };
 
-                                            int resultNotificationSE = await _notificationRepository.SaveNotification(vNotifyObjSE);
+                                        int resultNotification = await _notificationRepository.SaveNotification(vNotifyObj);
+                                    }
+                                }
+
+                                //Notification to Senior Engineer
+                                var vUserBranchList = await _branchRepository.GetBranchMappingByEmployeeId(vUserDetail.Id, 0);
+                                if (vUserBranchList.ToList().Count > 0)
+                                {
+                                    var vloginUserBrandId = vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault() != null ? Convert.ToInt32(vUserBranchList.ToList().Select(x => x.BranchId).FirstOrDefault()) : 0;
+
+                                    var vBranchUser = await _branchRepository.GetBranchMappingByEmployeeId(0, vloginUserBrandId);
+                                    if (vBranchUser.ToList().Count > 0)
+                                    {
+                                        var searchUser = new BaseSearchEntity();
+                                        searchUser.IsActive = true;
+
+                                        var vUserList = await _userRepository.GetUserList(searchUser);
+                                        if (vUserList.ToList().Count > 0)
+                                        {
+                                            var vSeniorExecEng = vUserList.Where(x => x.RoleName == "senior executive" && vBranchUser.Select(x => x.EmployeeId).Contains(x.Id));
+                                            foreach (var itemEmployee in vSeniorExecEng)
+                                            {
+                                                var vNotifyObjSE = new Notification_Request()
+                                                {
+                                                    Subject = "Refer to TRC",
+                                                    SendTo = "Senior Executive",
+                                                    //CustomerId = vWorkOrderObj.CustomerId,
+                                                    //CustomerMessage = NotifyMessage,
+                                                    EmployeeId = itemEmployee.Id,
+                                                    EmployeeMessage = notifyMessage,
+                                                    RefValue1 = vTicketDetails.TicketNumber,
+                                                    ReadUnread = false
+                                                };
+
+                                                int resultNotificationSE = await _notificationRepository.SaveNotification(vNotifyObjSE);
+                                            }
                                         }
                                     }
                                 }
@@ -1139,10 +1150,28 @@ namespace CLN.API.Controllers
                         }
                     }
                 }
-            }
 
-            _response.Id = result;
-            return _response;
+                _response.Id = result;
+                return _response;
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                var json = JsonConvert.SerializeObject(parameters);
+                var vErrorLogHistory = new ErrorLogHistory_Request()
+                {
+                    Id = 0,
+                    ModuleName = "Ticket",
+                    JsonData = json,
+                    ErrorMessage = ex.Message
+                };
+
+                await _errorLogHistoryRepository.SaveErrorLogHistory(vErrorLogHistory);
+                _response.Id = result;
+                return _response;
+            }
+          
         }
 
         [Route("[action]")]
