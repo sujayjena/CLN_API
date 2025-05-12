@@ -19,6 +19,8 @@ namespace CLN.Application.Models
         public string? RequestType { get; set; }
         public int? EngineerId { get; set; }
         public int? StatusId { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
     }
 
     public class EnggPartsReturn_RequestWeb : BaseEntity

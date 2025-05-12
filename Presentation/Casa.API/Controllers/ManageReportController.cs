@@ -1253,7 +1253,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 8].Value = items.EnggStockMinQty;
                         WorkSheet1.Cells[recordIndex, 9].Value = items.EnggAvailableQty;
                         WorkSheet1.Cells[recordIndex, 10].Value = items.EnggRequesteddQty;
-                        WorkSheet1.Cells[recordIndex, 11].Value = items.EnggAvailableQty;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.EnggAllocatedQty;
                         WorkSheet1.Cells[recordIndex, 12].Value = items.StatusName;
                         WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                         WorkSheet1.Cells[recordIndex, 13].Value = items.CreatedDate;
