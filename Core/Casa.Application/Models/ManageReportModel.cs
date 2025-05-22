@@ -60,6 +60,7 @@ namespace CLN.Application.Models
         public string? ProblemObservedByTRCEng { get; set; }
         public string? RectificationAction { get; set; }
         public string? TicketStatus { get; set; }
+        public string? ResolvedByEngg { get; set; }
         public DateTime? ResolvedDate { get; set; }
         public DateTime? CSATDate { get; set; }
         public string? CSATStatus { get; set; }

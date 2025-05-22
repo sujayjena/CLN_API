@@ -87,12 +87,13 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 27].Value = "Problem Observed By TRC Engineer";
                     WorkSheet1.Cells[1, 28].Value = "Rectification Action";
                     WorkSheet1.Cells[1, 29].Value = "Status";
-                    WorkSheet1.Cells[1, 30].Value = "Resolved Date";
-                    WorkSheet1.Cells[1, 31].Value = "CSAT Date";
-                    WorkSheet1.Cells[1, 32].Value = "CSAT Status";
-                    WorkSheet1.Cells[1, 33].Value = "CSAT Average";
-                    WorkSheet1.Cells[1, 34].Value = "Closure Date";
-                    WorkSheet1.Cells[1, 35].Value = "Ticket Aging";
+                    WorkSheet1.Cells[1, 30].Value = "Resolved By Engg.";
+                    WorkSheet1.Cells[1, 31].Value = "Resolved Date";
+                    WorkSheet1.Cells[1, 32].Value = "CSAT Date";
+                    WorkSheet1.Cells[1, 33].Value = "CSAT Status";
+                    WorkSheet1.Cells[1, 34].Value = "CSAT Average";
+                    WorkSheet1.Cells[1, 35].Value = "Closure Date";
+                    WorkSheet1.Cells[1, 36].Value = "Ticket Aging";
 
                     recordIndex = 2;
 
@@ -100,12 +101,12 @@ namespace CLN.API.Controllers
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.TicketType;
                         WorkSheet1.Cells[recordIndex, 2].Value = items.TRCLocation;
-                        WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.TicketDate;
+                        //WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.TicketDate.HasValue ? items.TicketDate.Value.ToString("dd/MM/yyyy") : string.Empty;  
                         WorkSheet1.Cells[recordIndex, 4].Value = items.TicketCreatedBy;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.TicketNumber;
-                        WorkSheet1.Cells[recordIndex, 6].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.TRCDate;
+                        //WorkSheet1.Cells[recordIndex, 6].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.TRCDate.HasValue ? items.TRCDate.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.TRCNumber;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.CustomerName;
                         WorkSheet1.Cells[recordIndex, 9].Value = items.CallerName;
@@ -121,8 +122,8 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 19].Value = items.TypeOfBMS;
                         WorkSheet1.Cells[recordIndex, 20].Value = items.IsOldProduct == true ? "Yes" : "No";
                         WorkSheet1.Cells[recordIndex, 21].Value = items.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 22].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 22].Value = items.DateofManufacturing;
+                        //WorkSheet1.Cells[recordIndex, 22].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 22].Value = items.DateofManufacturing.HasValue ? items.DateofManufacturing.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 23].Value = items.WarrantyStatus;
                         WorkSheet1.Cells[recordIndex, 24].Value = items.ProbReportedByCust;
                         WorkSheet1.Cells[recordIndex, 25].Value = items.ProblemObservedByEng;
@@ -130,15 +131,16 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 27].Value = items.ProblemObservedByTRCEng;
                         WorkSheet1.Cells[recordIndex, 28].Value = items.RectificationAction;
                         WorkSheet1.Cells[recordIndex, 29].Value = items.TicketStatus;
-                        WorkSheet1.Cells[recordIndex, 30].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 30].Value = items.ResolvedDate;
-                        WorkSheet1.Cells[recordIndex, 31].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 31].Value = items.CSATDate;
-                        WorkSheet1.Cells[recordIndex, 32].Value = items.CSATStatus;
-                        WorkSheet1.Cells[recordIndex, 33].Value = items.CSATAverage;
-                        WorkSheet1.Cells[recordIndex, 34].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 34].Value = items.ClosureDate;
-                        WorkSheet1.Cells[recordIndex, 35].Value = items.TicketAging;
+                        WorkSheet1.Cells[recordIndex, 30].Value = items.ResolvedByEngg;
+                        //WorkSheet1.Cells[recordIndex, 31].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 31].Value = items.ResolvedDate.HasValue ? items.ResolvedDate.Value.ToString("dd/MM/yyyy") : string.Empty;  
+                        //WorkSheet1.Cells[recordIndex, 32].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 32].Value = items.CSATDate;
+                        WorkSheet1.Cells[recordIndex, 33].Value = items.CSATStatus;
+                        WorkSheet1.Cells[recordIndex, 34].Value = items.CSATAverage;
+                        //WorkSheet1.Cells[recordIndex, 35].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 35].Value = items.ClosureDate.HasValue ? items.ClosureDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
+                        WorkSheet1.Cells[recordIndex, 36].Value = items.TicketAging;
 
                         recordIndex += 1;
                     }
@@ -290,10 +292,10 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
                         WorkSheet1.Cells[recordIndex, 2].Value = items.TRCNumber;
                         WorkSheet1.Cells[recordIndex, 3].Value = items.ClosedBy;
-                        WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.ClosedDate;
-                        WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.CSATDate;
+                        //WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.ClosedDate.HasValue ? items.ClosedDate.Value.ToString("dd/MM/yyyy") : string.Empty;  
+                        //WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.CSATDate.HasValue ? items.CSATDate.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.OverallExperience;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.Satisfaction;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.CustomerService;
@@ -366,8 +368,8 @@ namespace CLN.API.Controllers
 
                     foreach (var items in lstSizeObj)
                     {
-                        WorkSheet1.Cells[recordIndex, 1].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 1].Value = items.TicketDate;
+                        //WorkSheet1.Cells[recordIndex, 1].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.TicketDate.HasValue ? items.TicketDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 2].Value = items.TotalRequest;
                         WorkSheet1.Cells[recordIndex, 3].Value = items.ResolvedTickets;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.FTFRatePerct;
@@ -460,13 +462,13 @@ namespace CLN.API.Controllers
                     foreach (var items in lstSizeObj)
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
-                        WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketDate;
+                        //WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketDate.HasValue ? items.TicketDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 3].Value = items.TRCNumber;
-                        WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.TRCDate;
-                        WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.ReceivedDate;
+                        //WorkSheet1.Cells[recordIndex, 4].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.TRCDate.HasValue ? items.TRCDate.Value.ToString("dd/MM/yyyy") : string.Empty;  
+                        //WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.ReceivedDate.HasValue ? items.ReceivedDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 6].Value = items.ReceiveMode;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.DocumentNo;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.RegionName;
@@ -479,16 +481,16 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 15].Value = items.SubSegment;
                         WorkSheet1.Cells[recordIndex, 16].Value = items.ProductModel;
                         WorkSheet1.Cells[recordIndex, 17].Value = items.ProductSerialNumber;
-                        WorkSheet1.Cells[recordIndex, 18].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 18].Value = items.DispatchedDate;
+                        //WorkSheet1.Cells[recordIndex, 18].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 18].Value = items.DispatchedDate.HasValue ? items.DispatchedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 19].Value = items.DispatchStatus;
                         WorkSheet1.Cells[recordIndex, 20].Value = items.DispatchMode;
                         WorkSheet1.Cells[recordIndex, 21].Value = items.DispatchAddress;
                         WorkSheet1.Cells[recordIndex, 22].Value = items.DispatchChallanNo;
                         WorkSheet1.Cells[recordIndex, 23].Value = items.DispatchedDocketNo;
                         WorkSheet1.Cells[recordIndex, 24].Value = items.CourierName;
-                        WorkSheet1.Cells[recordIndex, 25].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 25].Value = items.CustomerReceivingDate;
+                        //WorkSheet1.Cells[recordIndex, 25].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 25].Value = items.CustomerReceivingDate.HasValue ? items.CustomerReceivingDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
 
                         recordIndex += 1;
                     }
@@ -860,13 +862,13 @@ namespace CLN.API.Controllers
                     foreach (var items in lstSizeObj)
                     {
                         WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
-                        WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketDate;
+                        //WorkSheet1.Cells[recordIndex, 2].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.TicketDate.HasValue ? items.TicketDate.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 3].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortTimePattern;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.TicketTime; 
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.TicketTime;
                         WorkSheet1.Cells[recordIndex, 4].Value = items.TRCNumber;
-                        WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.TRCDate; 
+                        //WorkSheet1.Cells[recordIndex, 5].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.TRCDate.HasValue ? items.TRCDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 6].Value = items.TicketPriority; 
                         WorkSheet1.Cells[recordIndex, 7].Value = items.TicketSLADays; 
                         WorkSheet1.Cells[recordIndex, 8].Value = items.TicketSLAHours; 
@@ -914,14 +916,14 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 50].Value = items.BD_SubSegment; 
                         WorkSheet1.Cells[recordIndex, 51].Value = items.BD_ProductModel; 
                         WorkSheet1.Cells[recordIndex, 52].Value = items.BD_CellChemistry;
-                        WorkSheet1.Cells[recordIndex, 53].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 53].Value = items.BD_DateofManufacturing; 
+                        //WorkSheet1.Cells[recordIndex, 53].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 53].Value = items.BD_DateofManufacturing.HasValue ? items.BD_DateofManufacturing.Value.ToString("dd/MM/yyyy") : string.Empty;  
                         WorkSheet1.Cells[recordIndex, 54].Value = items.BD_ProbReportedByCust; 
                         WorkSheet1.Cells[recordIndex, 55].Value = items.BD_ProblemDescription;
-                        WorkSheet1.Cells[recordIndex, 56].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 56].Value = items.BD_WarrantyStartDate;
-                        WorkSheet1.Cells[recordIndex, 57].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 57].Value = items.BD_WarrantyEndDate; 
+                        //WorkSheet1.Cells[recordIndex, 56].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 56].Value = items.BD_WarrantyStartDate.HasValue ? items.BD_WarrantyStartDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
+                        //WorkSheet1.Cells[recordIndex, 57].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 57].Value = items.BD_WarrantyEndDate.HasValue ? items.BD_WarrantyEndDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 58].Value = items.BD_WarrantyStatus; 
                         WorkSheet1.Cells[recordIndex, 59].Value = items.BD_WarrantyType; 
                         WorkSheet1.Cells[recordIndex, 60].Value = items.BD_IsTrackingDeviceRequired; 
@@ -1084,7 +1086,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 216].Value = items.IsResolvedWithoutOTP; 
                         WorkSheet1.Cells[recordIndex, 217].Value = items.IsClosedWithoutOTP; 
                         WorkSheet1.Cells[recordIndex, 218].Value = items.IsActive;
-                        WorkSheet1.Cells[recordIndex, 219].Value = items.CreatedDate; 
+                        WorkSheet1.Cells[recordIndex, 219].Value = items.CreatedDate.HasValue ? items.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 220].Value = items.CreatorName;
                         WorkSheet1.Cells[recordIndex, 221].Value = items.ModifiedDate; 
                         WorkSheet1.Cells[recordIndex, 222].Value = items.ModifierName; 
@@ -1164,8 +1166,8 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 4].Value = items.MinQty;
                         WorkSheet1.Cells[recordIndex, 5].Value = items.AvailableQty;
                         WorkSheet1.Cells[recordIndex, 6].Value = items.StatusName;
-                        WorkSheet1.Cells[recordIndex, 7].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 7].Value = items.CreatedDate;
+                        //WorkSheet1.Cells[recordIndex, 7].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.CreatedDate.HasValue ? items.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty; 
                         WorkSheet1.Cells[recordIndex, 8].Value = items.CreatorName;
                       
                         recordIndex += 1;
@@ -1255,8 +1257,8 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 10].Value = items.EnggRequesteddQty;
                         WorkSheet1.Cells[recordIndex, 11].Value = items.EnggAllocatedQty;
                         WorkSheet1.Cells[recordIndex, 12].Value = items.StatusName;
-                        WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 13].Value = items.CreatedDate;
+                        //WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.CreatedDate.HasValue ? items.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 14].Value = items.CreatorName;
 
                         recordIndex += 1;

@@ -1018,7 +1018,7 @@ namespace CLN.API.Controllers
                         WorkSheet1.Cells[recordIndex, 7].Value = itemsReqList.SpareDesc;
                         WorkSheet1.Cells[recordIndex, 8].Value = itemsReqList.AvailableQty;
                         WorkSheet1.Cells[recordIndex, 9].Value = itemsReqList.ReturnQuantity;
-                        WorkSheet1.Cells[recordIndex, 10].Value = itemsReqList.ReturnQuantity;
+                        WorkSheet1.Cells[recordIndex, 10].Value = Convert.ToDecimal(itemsReqList.AvailableQty) - Convert.ToDecimal(itemsReqList.ReturnQuantity);
                         WorkSheet1.Cells[recordIndex, 11].Value = itemsReqList.CreatorName;
                         WorkSheet1.Cells[recordIndex, 12].Value = itemsReqList.CreatedDate.HasValue ? itemsReqList.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
 
