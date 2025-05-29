@@ -53,6 +53,7 @@ namespace CLN.Application.Models
         public int? StatusId { get; set; }
         public string? StatusName { get; set; }
         public string? RequestType { get; set; }
+        public DateTime? RGPClosedDate { get; set; }
     }
 
 

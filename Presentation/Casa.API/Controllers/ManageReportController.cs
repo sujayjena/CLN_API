@@ -135,7 +135,7 @@ namespace CLN.API.Controllers
                         //WorkSheet1.Cells[recordIndex, 31].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                         WorkSheet1.Cells[recordIndex, 31].Value = items.ResolvedDate.HasValue ? items.ResolvedDate.Value.ToString("dd/MM/yyyy") : string.Empty;  
                         //WorkSheet1.Cells[recordIndex, 32].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 32].Value = items.CSATDate;
+                        WorkSheet1.Cells[recordIndex, 32].Value = items.CSATDate.HasValue? items.CSATDate.Value.ToString("dd/MM/yyyy") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 33].Value = items.CSATStatus;
                         WorkSheet1.Cells[recordIndex, 34].Value = items.CSATAverage;
                         //WorkSheet1.Cells[recordIndex, 35].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;

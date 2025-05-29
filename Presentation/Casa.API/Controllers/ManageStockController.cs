@@ -1001,8 +1001,9 @@ namespace CLN.API.Controllers
                     WorkSheet1.Cells[1, 8].Value = "Total Qty";
                     WorkSheet1.Cells[1, 9].Value = "Return Qty";
                     WorkSheet1.Cells[1, 10].Value = "Pending Qty";
-                    WorkSheet1.Cells[1, 11].Value = "Created By";
-                    WorkSheet1.Cells[1, 12].Value = "Created Date";
+                    WorkSheet1.Cells[1, 11].Value = "RGP Closed Date";
+                    WorkSheet1.Cells[1, 12].Value = "Created By";
+                    WorkSheet1.Cells[1, 13].Value = "Created Date";
 
                     recordIndex = 2;
 
@@ -1022,8 +1023,9 @@ namespace CLN.API.Controllers
                         decimal vPending = Convert.ToDecimal(itemsReqList.AvailableQty) - Convert.ToDecimal(itemsReqList.ReturnQuantity);
 
                         WorkSheet1.Cells[recordIndex, 10].Value = vPending < 0 ? 0 : vPending;
-                        WorkSheet1.Cells[recordIndex, 11].Value = itemsReqList.CreatorName;
-                        WorkSheet1.Cells[recordIndex, 12].Value = itemsReqList.CreatedDate.HasValue ? itemsReqList.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
+                        WorkSheet1.Cells[recordIndex, 11].Value = itemsReqList.RGPClosedDate.HasValue ? itemsReqList.RGPClosedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
+                        WorkSheet1.Cells[recordIndex, 12].Value = itemsReqList.CreatorName;
+                        WorkSheet1.Cells[recordIndex, 13].Value = itemsReqList.CreatedDate.HasValue ? itemsReqList.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
 
                         recordIndex += 1;
 
