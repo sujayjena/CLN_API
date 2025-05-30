@@ -140,6 +140,7 @@ namespace CLN.Persistence.Repositories
             queryParameters.Add("@DA_ReceivedDate", parameters.DA_ReceivedDate);
             queryParameters.Add("@DA_ChallanOriginalFileName", parameters.DA_ChallanOriginalFileName);
             queryParameters.Add("@DA_ChallanFileName", parameters.DA_ChallanFileName);
+            queryParameters.Add("@DA_IsSendToCustomer", parameters.DA_IsSendToCustomer);
 
             queryParameters.Add("@ATEFP_IsAssignedToEnggForPDI", parameters.ATEFP_IsAssignedToEnggForPDI);
             queryParameters.Add("@ATEFP_AssignedToEngineerId", parameters.ATEFP_AssignedToEngineerId);

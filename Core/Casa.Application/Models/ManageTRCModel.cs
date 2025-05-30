@@ -345,7 +345,7 @@ namespace CLN.Application.Models
         [JsonIgnore]
         public string? DA_ChallanFileName { get; set; }
         public string? DA_Challan_Base64 { get; set; }
-
+        public bool? DA_IsSendToCustomer { get; set; }
 
         public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public int? ATEFP_AssignedToEngineerId { get; set; }
@@ -764,6 +764,8 @@ namespace CLN.Application.Models
         public string? DA_ChallanOriginalFileName { get; set; }
         public string? DA_ChallanFileName { get; set; }
         public string? DA_ChallanURL { get; set; }
+        public bool? DA_IsSendToCustomer { get; set; }
+        public DateTime? DA_SendToCustomerDate { get; set; }
 
         public bool? ATEFP_IsAssignedToEnggForPDI { get; set; }
         public int? ATEFP_AssignedToEngineerId { get; set; }

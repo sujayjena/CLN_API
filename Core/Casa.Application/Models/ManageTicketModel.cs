@@ -1139,6 +1139,8 @@ namespace CLN.Application.Models
         public string? DA_ChallanOriginalFileName { get; set; }
         public string? DA_ChallanFileName { get; set; }
         public string? DA_ChallanURL { get; set; }
+        public bool? DA_IsSendToCustomer { get; set; }
+        public DateTime? DA_SendToCustomerDate { get; set; }
 
         public int? ATEFP_AssignedToEngineerId { get; set; }
         public string? ATEFP_AssignedToEngineer { get; set; }

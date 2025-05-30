@@ -589,6 +589,8 @@ namespace CLN.API.Controllers
                     vManageTRCDetail_Response.DA_ChallanOriginalFileName = vResultObj.DA_ChallanOriginalFileName;
                     vManageTRCDetail_Response.DA_ChallanFileName = vResultObj.DA_ChallanFileName;
                     vManageTRCDetail_Response.DA_ChallanURL = vResultObj.DA_ChallanURL;
+                    vManageTRCDetail_Response.DA_IsSendToCustomer = vResultObj.DA_IsSendToCustomer;
+                    vManageTRCDetail_Response.DA_SendToCustomerDate = vResultObj.DA_SendToCustomerDate;
 
                     vManageTRCDetail_Response.ATEFP_IsAssignedToEnggForPDI = vResultObj.ATEFP_IsAssignedToEnggForPDI;
                     vManageTRCDetail_Response.ATEFP_AssignedToEngineerId = vResultObj.ATEFP_AssignedToEngineerId;
