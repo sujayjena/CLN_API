@@ -1023,7 +1023,7 @@ namespace CLN.API.Controllers
                         decimal vPending = Convert.ToDecimal(itemsReqList.AvailableQty) - Convert.ToDecimal(itemsReqList.ReturnQuantity);
 
                         WorkSheet1.Cells[recordIndex, 10].Value = vPending < 0 ? 0 : vPending;
-                        WorkSheet1.Cells[recordIndex, 11].Value = itemsReqList.RGPClosedDate.HasValue ? itemsReqList.RGPClosedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
+                        WorkSheet1.Cells[recordIndex, 11].Value = itemsReqList.RGPClosedDate.HasValue ? itemsReqList.RGPClosedDate.Value.ToString("dd/MM/yyyy hh:mm:ss:tt") : string.Empty;
                         WorkSheet1.Cells[recordIndex, 12].Value = itemsReqList.CreatorName;
                         WorkSheet1.Cells[recordIndex, 13].Value = itemsReqList.CreatedDate.HasValue ? itemsReqList.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty;
 
