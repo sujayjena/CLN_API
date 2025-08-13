@@ -18,5 +18,6 @@ namespace CLN.Application.Interfaces
         Task<IEnumerable<TicketActivityReport_Response>> GetTicketActivityReport(ManageReport_Search parameters);
         Task<IEnumerable<InMaterialConsumptionReport_Response>> GetInMaterialConsumptionReport(ManageReport_Search parameters);
         Task<IEnumerable<OutMaterialConsumptionReport_Response>> GetOutMaterialConsumptionReport(OutMaterialConsumptioneReport_Search parameters);
+        Task<IEnumerable<SparePartConsumption_Report_Response>> GetSparePartConsumption_Report(SparePartConsumption_Report_Search parameters);
     }
 }

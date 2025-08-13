@@ -1281,5 +1281,94 @@ namespace CLN.API.Controllers
 
             return _response;
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> GetSparePartConsumption_Report(SparePartConsumption_Report_Search parameters)
+        {
+            IEnumerable<SparePartConsumption_Report_Response> lstRoles = await _manageReportRepository.GetSparePartConsumption_Report(parameters);
+            _response.Data = lstRoles.ToList();
+            _response.Total = parameters.Total;
+            return _response;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ResponseModel> ExportSparePartConsumption_Report(SparePartConsumption_Report_Search parameters)
+        {
+            _response.IsSuccess = false;
+            byte[] result;
+            int recordIndex;
+            ExcelWorksheet WorkSheet1;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            IEnumerable<SparePartConsumption_Report_Response> lstSizeObj = await _manageReportRepository.GetSparePartConsumption_Report(parameters);
+
+            using (MemoryStream msExportDataFile = new MemoryStream())
+            {
+                using (ExcelPackage excelExportData = new ExcelPackage())
+                {
+                    WorkSheet1 = excelExportData.Workbook.Worksheets.Add("SparePartConsumption_Report");
+                    WorkSheet1.TabColor = System.Drawing.Color.Black;
+                    WorkSheet1.DefaultRowHeight = 12;
+
+                    //Header of table
+                    WorkSheet1.Row(1).Height = 20;
+                    WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    WorkSheet1.Row(1).Style.Font.Bold = true;
+
+                    WorkSheet1.Cells[1, 1].Value = "Spare Part Description";
+                    WorkSheet1.Cells[1, 2].Value = "Spare part category";
+                    WorkSheet1.Cells[1, 3].Value = "Product Make";
+                    WorkSheet1.Cells[1, 4].Value = "Spare Part Code";
+                    WorkSheet1.Cells[1, 5].Value = "Ticket/TRC  Number";
+                    WorkSheet1.Cells[1, 6].Value = "Product Serial number";
+                    WorkSheet1.Cells[1, 7].Value = "Customer Name";
+                    WorkSheet1.Cells[1, 8].Value = "Engineer Name";
+                    WorkSheet1.Cells[1, 9].Value = "Problem Reported By customer";
+                    WorkSheet1.Cells[1, 10].Value = "Engineer Problem Observed";
+                    WorkSheet1.Cells[1, 11].Value = "Closing Remark/Description";
+                    WorkSheet1.Cells[1, 12].Value = "Ticket Open date";
+                    WorkSheet1.Cells[1, 13].Value = "Ticket resolved";
+
+                    recordIndex = 2;
+
+                    foreach (var items in lstSizeObj)
+                    {
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.SpareDesc;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.SpareCategory;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.ProductMake;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.UniqueCode;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.TicketNumber;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 7].Value = items.CustomerName;
+                        WorkSheet1.Cells[recordIndex, 8].Value = items.EngineerName;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.ProbReportedByCust;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.ProblemObservedByEng;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.ClosingRemarks;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.TicketOpenDate.HasValue ? items.TicketOpenDate.Value.ToString("dd/MM/yyyy") : string.Empty;
+                        //WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.TicketResolved.HasValue ? items.TicketResolved.Value.ToString("dd/MM/yyyy") : string.Empty;
+
+                        recordIndex += 1;
+                    }
+
+                    WorkSheet1.Columns.AutoFit();
+
+                    excelExportData.SaveAs(msExportDataFile);
+                    msExportDataFile.Position = 0;
+                    result = msExportDataFile.ToArray();
+                }
+            }
+
+            if (result != null)
+            {
+                _response.Data = result;
+                _response.IsSuccess = true;
+                _response.Message = "Exported successfully";
+            }
+
+            return _response;
+        }
     }
 }

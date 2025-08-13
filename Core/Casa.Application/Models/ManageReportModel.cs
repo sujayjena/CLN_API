@@ -493,4 +493,28 @@ namespace CLN.Application.Models
         public int? CreatedBy { get; set; }
         public string? CreatorName { get; set; }
     }
+    public class SparePartConsumption_Report_Search : BaseSearchEntity
+    {
+        [DefaultValue(null)]
+        public DateTime? FromDate { get; set; }
+
+        [DefaultValue(null)]
+        public DateTime? ToDate { get; set; }
+    }
+    public class SparePartConsumption_Report_Response : BaseEntity
+    {
+        public string? SpareDesc { get; set; }
+        public string? SpareCategory { get; set; }
+        public string? ProductMake { get; set; }
+        public string? UniqueCode { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? ProductSerialNumber { get; set; }
+        public string? CustomerName { get; set; }
+        public string? EngineerName { get; set; }
+        public string? ProbReportedByCust { get; set; }
+        public string? ProblemObservedByEng { get; set; }
+        public string? ClosingRemarks { get; set; }
+        public DateTime? TicketOpenDate { get; set; }
+        public DateTime? TicketResolved { get; set; }
+    }
 }
