@@ -503,18 +503,22 @@ namespace CLN.Application.Models
     }
     public class SparePartConsumption_Report_Response : BaseEntity
     {
+        public string? TicketNumber { get; set; }
+        public string? ProductSerialNumber { get; set; }
+        public string? ProductCategory { get; set; }
+        public string? Segment { get; set; }
+        public string? SubSegment { get; set; }
+        public string? ProductModel { get; set; }
+        public string? CustomerName { get; set; }
+        public string? EngineerName { get; set; }
+        public string? UniqueCode { get; set; }
         public string? SpareDesc { get; set; }
         public string? SpareCategory { get; set; }
         public string? ProductMake { get; set; }
-        public string? UniqueCode { get; set; }
-        public string? TicketNumber { get; set; }
-        public string? ProductSerialNumber { get; set; }
-        public string? CustomerName { get; set; }
-        public string? EngineerName { get; set; }
         public string? ProbReportedByCust { get; set; }
         public string? ProblemObservedByEng { get; set; }
-        public string? ClosingRemarks { get; set; }
         public DateTime? TicketOpenDate { get; set; }
         public DateTime? TicketResolved { get; set; }
+        public string? ClosingRemarks { get; set; }
     }
 }

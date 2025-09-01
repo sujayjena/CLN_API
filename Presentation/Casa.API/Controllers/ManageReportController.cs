@@ -1317,38 +1317,46 @@ namespace CLN.API.Controllers
                     WorkSheet1.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     WorkSheet1.Row(1).Style.Font.Bold = true;
 
-                    WorkSheet1.Cells[1, 1].Value = "Spare Part Description";
-                    WorkSheet1.Cells[1, 2].Value = "Spare part category";
-                    WorkSheet1.Cells[1, 3].Value = "Product Make";
-                    WorkSheet1.Cells[1, 4].Value = "Spare Part Code";
-                    WorkSheet1.Cells[1, 5].Value = "Ticket/TRC  Number";
-                    WorkSheet1.Cells[1, 6].Value = "Product Serial number";
+                    WorkSheet1.Cells[1, 1].Value = "Ticket/TRC  Number";
+                    WorkSheet1.Cells[1, 2].Value = "Product Serial number";
+                    WorkSheet1.Cells[1, 3].Value = "Product Category";
+                    WorkSheet1.Cells[1, 4].Value = "Segment";
+                    WorkSheet1.Cells[1, 5].Value = "Sub Segment";
+                    WorkSheet1.Cells[1, 6].Value = "Product Model";
                     WorkSheet1.Cells[1, 7].Value = "Customer Name";
                     WorkSheet1.Cells[1, 8].Value = "Engineer Name";
-                    WorkSheet1.Cells[1, 9].Value = "Problem Reported By customer";
-                    WorkSheet1.Cells[1, 10].Value = "Engineer Problem Observed";
-                    WorkSheet1.Cells[1, 11].Value = "Closing Remark/Description";
-                    WorkSheet1.Cells[1, 12].Value = "Ticket Open date";
-                    WorkSheet1.Cells[1, 13].Value = "Ticket resolved";
+                    WorkSheet1.Cells[1, 9].Value = "Spare Part Code";
+                    WorkSheet1.Cells[1, 10].Value = "Spare Part Description";
+                    WorkSheet1.Cells[1, 11].Value = "Spare part category";
+                    WorkSheet1.Cells[1, 12].Value = "Product Make";
+                    WorkSheet1.Cells[1, 13].Value = "Problem Reported By customer";
+                    WorkSheet1.Cells[1, 14].Value = "Engineer Problem Observed";
+                    WorkSheet1.Cells[1, 15].Value = "Ticket Open date";
+                    WorkSheet1.Cells[1, 16].Value = "Ticket resolved";
+                    WorkSheet1.Cells[1, 17].Value = "Closing Remark/Description";
 
                     recordIndex = 2;
 
                     foreach (var items in lstSizeObj)
                     {
-                        WorkSheet1.Cells[recordIndex, 1].Value = items.SpareDesc;
-                        WorkSheet1.Cells[recordIndex, 2].Value = items.SpareCategory;
-                        WorkSheet1.Cells[recordIndex, 3].Value = items.ProductMake;
-                        WorkSheet1.Cells[recordIndex, 4].Value = items.UniqueCode;
-                        WorkSheet1.Cells[recordIndex, 5].Value = items.TicketNumber;
-                        WorkSheet1.Cells[recordIndex, 6].Value = items.ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 1].Value = items.TicketNumber;
+                        WorkSheet1.Cells[recordIndex, 2].Value = items.ProductSerialNumber;
+                        WorkSheet1.Cells[recordIndex, 3].Value = items.ProductCategory;
+                        WorkSheet1.Cells[recordIndex, 4].Value = items.Segment;
+                        WorkSheet1.Cells[recordIndex, 5].Value = items.SubSegment;
+                        WorkSheet1.Cells[recordIndex, 6].Value = items.ProductModel;
                         WorkSheet1.Cells[recordIndex, 7].Value = items.CustomerName;
                         WorkSheet1.Cells[recordIndex, 8].Value = items.EngineerName;
-                        WorkSheet1.Cells[recordIndex, 9].Value = items.ProbReportedByCust;
-                        WorkSheet1.Cells[recordIndex, 10].Value = items.ProblemObservedByEng;
-                        WorkSheet1.Cells[recordIndex, 11].Value = items.ClosingRemarks;
-                        WorkSheet1.Cells[recordIndex, 12].Value = items.TicketOpenDate.HasValue ? items.TicketOpenDate.Value.ToString("dd/MM/yyyy") : string.Empty;
+                        WorkSheet1.Cells[recordIndex, 9].Value = items.UniqueCode;
+                        WorkSheet1.Cells[recordIndex, 10].Value = items.SpareDesc;
+                        WorkSheet1.Cells[recordIndex, 11].Value = items.SpareCategory;
+                        WorkSheet1.Cells[recordIndex, 12].Value = items.ProductMake;
+                        WorkSheet1.Cells[recordIndex, 13].Value = items.ProbReportedByCust;
+                        WorkSheet1.Cells[recordIndex, 14].Value = items.ProblemObservedByEng;
+                        WorkSheet1.Cells[recordIndex, 15].Value = items.TicketOpenDate.HasValue ? items.TicketOpenDate.Value.ToString("dd/MM/yyyy") : string.Empty;
                         //WorkSheet1.Cells[recordIndex, 13].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-                        WorkSheet1.Cells[recordIndex, 13].Value = items.TicketResolved.HasValue ? items.TicketResolved.Value.ToString("dd/MM/yyyy") : string.Empty;
+                        WorkSheet1.Cells[recordIndex, 16].Value = items.TicketResolved.HasValue ? items.TicketResolved.Value.ToString("dd/MM/yyyy") : string.Empty;
+                        WorkSheet1.Cells[recordIndex, 17].Value = items.ClosingRemarks;
 
                         recordIndex += 1;
                     }
