@@ -1089,12 +1089,6 @@ namespace CLN.API.Controllers
             ExcelWorksheet WorkSheet1;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var request = new SpareDetails_Search();
-            request.SpareCategoryId = 0;
-            request.BMSMakeId = 0;
-            request.ProductMakeId = 0;
-            request.IsRGP = null;
-
             IEnumerable<StockMaster_Response> lstObj = await _manageStockRepository.GetStockMasterList(parameters);
 
             using (MemoryStream msExportDataFile = new MemoryStream())
